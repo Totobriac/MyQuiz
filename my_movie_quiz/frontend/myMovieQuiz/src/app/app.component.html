@@ -1,0 +1,7 @@
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Your very own Movie Quizz !!!</span>
+</nav>
+
+<app-movie-search (movie)="selectedMovie($event)" (questionType)="selectQuestion($event)" (trailer)="getMovieTrailer($event)"></app-movie-search>
+
+<app-quiz-editor [quizedMovie]="quizedMovie" [component]="selectedQuestion" [trailer]="selectedMovieTrailer"></app-quiz-editor>

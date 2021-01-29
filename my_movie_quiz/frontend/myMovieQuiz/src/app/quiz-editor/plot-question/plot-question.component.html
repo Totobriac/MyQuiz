@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-center mt-2 " style="height: 400px">
+
+  <div *ngIf="showQuestion === true" class="border row col-md-5 d-flex justify-content-center"
+    style="background-color: rgb(242, 248, 248);">
+    <h3 class="my-auto" contentEditable=true>{{ quizedMovie.plot }}
+    </h3>
+  </div>
+
+  <div *ngIf="showQuestion === false" class="border row col-md-5 d-flex justify-content-center"
+    style="background-color: rgba(179, 218, 218, 0.1);">
+    <h1 class="my-auto">{{ quizedMovie.title }}</h1>
+  </div>
+
+</div>
+
+<div class="container mt-3">
+  <div class="d-flex justify-content-around rounded" style="background-color: rgb(4, 113, 150)">
+    <span class="my-auto text-white">Click on the text to edit it</span>
+    <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
+  </div>
+</div>

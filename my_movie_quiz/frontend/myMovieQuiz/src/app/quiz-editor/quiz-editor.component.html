@@ -1,0 +1,12 @@
+<div *ngIf="quizedMovie != undefined">
+
+  <div>
+    <ng-container [ngSwitch]="component">
+      <app-plot-question [quizedMovie]="quizedMovie" *ngSwitchCase="1"></app-plot-question>
+      <app-actor-question [quizedMovie]="quizedMovie" *ngSwitchCase="2"></app-actor-question>
+      <app-poster-question [quizedMovie]="quizedMovie" *ngSwitchCase="3"></app-poster-question>
+      <app-trailer-question [quizedMovie]="quizedMovie" [videoSource]="trailer" *ngSwitchCase="4"></app-trailer-question>
+    </ng-container>
+  </div>
+
+</div>

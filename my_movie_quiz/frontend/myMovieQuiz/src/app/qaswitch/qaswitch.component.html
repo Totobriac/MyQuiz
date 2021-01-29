@@ -1,0 +1,6 @@
+<div class="d-flex justify-content-center mt-2">
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="model">
+      <mat-radio-button (change)="switchQA()" [checked]=true>Question</mat-radio-button>
+      <mat-radio-button (change)="switchQA()" class="ml-2">Answer</mat-radio-button>
+    </mat-radio-group>
+  </div>

@@ -1,0 +1,34 @@
+
+<div class="container searchBar mt-3 rounded">
+
+  <div style="height: 140px">
+    <div class="d-flex flex-row  overflow-auto pt-2">
+      <div *ngFor="let movie of movieList" class="mr-2 moviePoster" (click)="chooseMovie(movie.id)">
+        <img [src]="'https://image.tmdb.org/t/p/w92' + movie.poster">        
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row">
+
+    <form autocomplete="off" #searchMovie="ngForm" 
+      (ngSubmit)=submitForm(searchMovie.value.movieSearch) class="mt-2">
+      <mat-form-field class="movieSearch">
+        <mat-label>Search a movie</mat-label>
+        <input matInput type="text" [(ngModel)]="value" name="movieSearch">       
+      </mat-form-field>
+    </form>
+
+    <div class="justify-content-center ml-3 my-auto">
+      <div class="d-flex justify-content-start mx-auto mt-3">
+        <button class="btn btn-sm btn-info mr-2" (click)="questionEditor(1)">Plot</button>
+        <button class="btn btn-sm btn-info mr-2" (click)="questionEditor(2)">Actor</button>
+        <button class="btn btn-sm btn-info mr-2" (click)="questionEditor(3)">Poster</button>
+        <button class="btn btn-sm btn-info" (click)="questionEditor(4)">Trailer</button>
+      </div>
+    </div>
+
+  </div>
+
+</div> 
+
