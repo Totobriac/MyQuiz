@@ -55,7 +55,7 @@ export class TrailerQuestionComponent implements OnInit {
     console.log(this.gifPictures.length)
 
     if (this.gifPictures.length === 19) {
-      console.log('ok!!!!')
+      console.log('ok!')
       this.imageSource = this.gifPictures[5];
     }
     
