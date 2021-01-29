@@ -46,7 +46,8 @@ export class ActorQuestionComponent implements OnInit {
       this.actorName[i] = this.actors[i].actor}     
     var actorsString = this.actorName.join('-')
     this.searchActor.searchActor(actorsString)
-      .subscribe (r => {this.actorPicUrl = r})                              
+      .subscribe (r => {this.actorPicUrl = r
+                        console.log(r)})                              
   }
 
   selectActor(index) {

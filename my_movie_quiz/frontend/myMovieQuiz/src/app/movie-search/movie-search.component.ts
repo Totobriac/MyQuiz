@@ -43,13 +43,14 @@ export class MovieSearchComponent implements OnInit {
     this.questionType.emit(page)
   }
 
+ 
   getTrailer() {
     if (this.trailerId != undefined){
-      console.log(this.trailerId)
-      this.searchMovie.getTrailer(this.trailerId)
-        .subscribe(r=> { this.videoSource = r
-                        console.log(r)
-                        this.trailer.emit(r)})
+      const promise = this.searchMovie.getTrailer(this.trailerId).toPromise();
+      promise.then((data) => {
+        this.videoSource = data
+        this.trailer.emit(data)
+      })        
     }    
   }
 }

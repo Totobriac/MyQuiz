@@ -53,13 +53,6 @@ export class TrailerQuestionComponent implements OnInit {
                                               this.gifPictures.push(this.imgSrc)                                          
                                               counter ++ }}, 300)
     console.log(this.gifPictures.length)
-
-    if (this.gifPictures.length === 19) {
-      console.log('ok!')
-      this.imageSource = this.gifPictures[5];
-    }
-    
-
     // var currentFrame = 0;
     // function changePicture() {
     //   this.imageSource = this.gifPictures[currentFrame]; 
