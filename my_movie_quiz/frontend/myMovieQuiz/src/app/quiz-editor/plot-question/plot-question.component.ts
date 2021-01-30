@@ -26,4 +26,8 @@ export class PlotQuestionComponent implements OnInit {
     this.showQuestion = value
   }
 
+  shuffle() {
+    this.quizedMovie.plot = this.quizedMovie.plot.split(' ').sort(() => Math.floor(Math.random() * Math.floor(3)) - 1).join(' ').replace(".","") + "."
+  }
+
 }
