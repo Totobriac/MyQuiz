@@ -50,19 +50,24 @@ export class TrailerQuestionComponent implements OnInit {
   createGif() {
     var counter = 1
     setInterval(() => { while (counter < 20) {this.drawPicture()
-                                              this.gifPictures.push(this.imgSrc)                                          
+                                              this.gifPictures.push(this.imgSrc)
+                                              console.log("done")                                          
                                               counter ++ }}, 300)
-    console.log(this.gifPictures.length)
-    // var currentFrame = 0;
+    }
+
+  playGif() {
+    var currentFrame = 0;
     // function changePicture() {
-    //   this.imageSource = this.gifPictures[currentFrame]; 
+    //   this.imageSource = this.gifPictures[currentFrame];
+    //   console.log(this.gifPictures[5])
     //   currentFrame++; 
     //   if(currentFrame >= this.gifPictures.length){
     //     currentFrame = 0;}
     // }
-
-    // setInterval(changePicture,100);
-
-  }
-    
+  
+    setInterval(() => {while (currentFrame < 20) {
+                      this.imageSource = this.gifPictures[currentFrame]
+                      currentFrame ++ 
+                      console.log(this.imageSource)}},1000);
+  }    
 }

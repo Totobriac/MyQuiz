@@ -13,14 +13,13 @@ export class PlotQuestionComponent implements OnInit {
   }
 
   showQuestion = true
-
+  editable = "false"
   @Input() quizedMovie;
 
-  editPlot = "false"
-
-  enableEdition () {
-    console.log(this.editPlot)
-    this.editPlot = "true"
+  enableEdition() {
+    if (this.editable == "false") {
+      this.editable = "true"}
+    else {this.editable = "false"}    
   }
 
   onSelectedSection(value) {
