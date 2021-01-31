@@ -13,7 +13,6 @@ export class MovieSearchComponent implements OnInit {
   model: any
   value: string
   @Output() movie = new EventEmitter()
-  @Output() questionType = new EventEmitter()
   @Output() trailer = new EventEmitter()
 
   @Input() movieList: []
@@ -28,10 +27,6 @@ export class MovieSearchComponent implements OnInit {
                           this.trailerId = r.trailer.id
                           console.log(r)
                           this.getTrailer()})
-  }
-
-  questionEditor(page) {    
-    this.questionType.emit(page)
   }
 
   getTrailer() {

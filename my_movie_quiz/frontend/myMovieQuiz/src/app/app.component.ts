@@ -34,4 +34,5 @@ export class AppComponent {
     this.service.searchMovies(movie)       
     .subscribe((r:any) => { this.movieList = r})                             
   }
+
 }

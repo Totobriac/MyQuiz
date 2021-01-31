@@ -30,6 +30,8 @@ import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { VgStreamingModule } from '@videogular/ngx-videogular/streaming';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { QuizQuestionsComponent } from './quiz-questions/quiz-questions.component';
+import { QuestionTypeComponent } from './question-type/question-type.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     PosterQuestionComponent,
     QASwitchComponent,
     TrailerQuestionComponent,
-    SafePipe 
+    SafePipe,
+    QuizQuestionsComponent,
+    QuestionTypeComponent 
   ],
   imports: [
     BrowserModule,
