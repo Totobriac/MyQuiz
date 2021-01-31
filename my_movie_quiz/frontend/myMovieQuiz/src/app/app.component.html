@@ -1,7 +1,17 @@
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Your very own Movie Quizz !!!</span>
+<nav class="navbar justify-content-start">
+
+  <span class="navbar-brand" style="color:white"><b>Movie Quizz</b></span>
+
+  <div clas="ml-4">
+    <form autocomplete="off" #searchMovie="ngForm" (ngSubmit)=submitForm(searchMovie.value.movieSearch)>
+      <input type="text" [(ngModel)]="value" name="movieSearch" placeholder="Search a Movie">
+    </form> 
+  </div>   
+
 </nav>
 
-<app-movie-search (movie)="selectedMovie($event)" (questionType)="selectQuestion($event)" (trailer)="getMovieTrailer($event)"></app-movie-search>
+<app-movie-search (movie)="selectedMovie($event)" (questionType)="selectQuestion($event)"
+  (trailer)="getMovieTrailer($event)" [movieList]="movieList"></app-movie-search>
 
-<app-quiz-editor [quizedMovie]="quizedMovie" [component]="selectedQuestion" [trailer]="selectedMovieTrailer"></app-quiz-editor>
+<app-quiz-editor [quizedMovie]="quizedMovie" [component]="selectedQuestion" [trailer]="selectedMovieTrailer">
+</app-quiz-editor>

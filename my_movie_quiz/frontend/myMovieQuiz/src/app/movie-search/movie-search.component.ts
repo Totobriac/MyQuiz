@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { SearchMovie } from './movie-search.service';
 
@@ -16,19 +16,10 @@ export class MovieSearchComponent implements OnInit {
   @Output() questionType = new EventEmitter()
   @Output() trailer = new EventEmitter()
 
-  movieList: [] = []
+  @Input() movieList: []
   trailerId: string
   videoSource: any
   ngOnInit(): void {
-  }
-
-  submitForm(movie: string) {       
-    this.searchMovie.searchMovies(movie)       
-    .subscribe((r:any) => { if (r.length == 1) {
-                              this.movieList = r
-                              this.chooseMovie(r[0].id)}
-                            else {this.movieList = r}
-                            this.value= ""})    
   }
 
   chooseMovie(movieId:number) {
