@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ServiceService} from './service.service'
 
 @Component({
   selector: 'app-root',
@@ -9,17 +8,20 @@ import { ServiceService} from './service.service'
 export class AppComponent {
 
   title = 'myMovieQuiz';
-  value: string
   quizedMovie: any;
   selectedQuestion: any = 1;
   selectedMovieTrailer: string
   movieList: string[]
 
-  constructor(private service: ServiceService) {}
+  constructor() {}
+
+  selectedMovies(movieList) {
+    this.movieList = movieList
+  }
 
   selectedMovie(movie) {
     this.selectedQuestion = 1
-    this.quizedMovie = movie} 
+    this.quizedMovie = movie}    
 
   selectQuestion(questionType) {
     this.selectedQuestion = questionType
@@ -27,12 +29,6 @@ export class AppComponent {
 
   getMovieTrailer(trailer) {
     this.selectedMovieTrailer = trailer
-  }
-
-  submitForm(movie: string) {
-    console.log(movie)      
-    this.service.searchMovies(movie)       
-    .subscribe((r:any) => { this.movieList = r})                             
-  }
+  }  
 
 }

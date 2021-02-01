@@ -32,6 +32,7 @@ import { VgStreamingModule } from '@videogular/ngx-videogular/streaming';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { QuizQuestionsComponent } from './quiz-questions/quiz-questions.component';
 import { QuestionTypeComponent } from './question-type/question-type.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { QuestionTypeComponent } from './question-type/question-type.component';
     TrailerQuestionComponent,
     SafePipe,
     QuizQuestionsComponent,
-    QuestionTypeComponent 
+    QuestionTypeComponent,
+    NavbarComponent 
   ],
   imports: [
     BrowserModule,

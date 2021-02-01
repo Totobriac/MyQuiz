@@ -1,0 +1,8 @@
+<nav class="navbar justify-content-start">
+  <span class="navbar-brand" style="color:white"><b>Movie Quizz</b></span>
+  <div clas="ml-4">
+    <form autocomplete="off" #searchMovie="ngForm" (ngSubmit)=submitForm(searchMovie.value.movieSearch)>
+      <input type="text" [(ngModel)]="value" name="movieSearch" placeholder="Search a Movie">
+    </form>
+  </div>
+</nav>
