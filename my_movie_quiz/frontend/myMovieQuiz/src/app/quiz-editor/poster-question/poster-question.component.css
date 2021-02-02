@@ -1,0 +1,15 @@
+.qAWindow{
+    text-align: center;
+  }
+  
+@media only screen and (min-width: 1020px) {
+  .qAWindow  {
+      height: 454px;
+      width: 662px;    
+  }
+  .toolBox {
+      margin-top: 24px;
+      width: 662px;
+      height: 53px;
+  }
+}

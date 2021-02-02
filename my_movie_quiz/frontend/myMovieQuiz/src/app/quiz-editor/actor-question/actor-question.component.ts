@@ -66,7 +66,7 @@ export class ActorQuestionComponent implements OnInit {
 
   submitForm(form: any) {
     console.log(this.actorPicUrl[this.selectedActor])
-    this.searchActor.searchActor(this.actors[this.selectedActor].actor + form.actorSearch)       
+    this.searchActor.searchActor(this.actors[this.selectedActor].actor + " " + form.actorSearch + " actor")       
       .subscribe((r:any) => { this.actorPicUrl[this.selectedActor] = r[0]})    
   }
 

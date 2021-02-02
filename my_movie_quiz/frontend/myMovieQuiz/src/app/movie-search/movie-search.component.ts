@@ -14,6 +14,7 @@ export class MovieSearchComponent implements OnInit {
   value: string
   @Output() movie = new EventEmitter()
   @Output() trailer = new EventEmitter()
+  @Output() backdrop = new EventEmitter()
 
   @Input() movieList: []
   trailerId: string
@@ -21,7 +22,8 @@ export class MovieSearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  chooseMovie(movieId:number) {
+  chooseMovie(movieId:number, movieBackrop: string) {
+    this.backdrop.emit(movieBackrop)
     this.searchMovie.searchMovie(movieId)       
     .subscribe((r:any) => {this.movie.emit(r)                          
                           this.trailerId = r.trailer.id

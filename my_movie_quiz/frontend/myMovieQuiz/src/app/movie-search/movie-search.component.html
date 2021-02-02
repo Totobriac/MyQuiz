@@ -2,7 +2,7 @@
 
   <div>
     <div class="movieTile">
-      <div *ngFor="let movie of movieList" class="moviePoster" (click)="chooseMovie(movie.id)">
+      <div *ngFor="let movie of movieList" class="moviePoster" (click)="chooseMovie(movie.id, movie.backdrop)">
         <img [src]="'https://image.tmdb.org/t/p/w92' + movie.poster">        
       </div>
     </div>

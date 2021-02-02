@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-top-display',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopDisplayComponent implements OnInit {
 
+  @Input() backdrop: string
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  // backdropUrl= "https://image.tmdb.org/t/p/w300" + this.backdrop
 
 }

@@ -7,6 +7,7 @@
   <app-movie-search class="search"
                     (movie)="selectedMovie($event)" 
                     (trailer)="getMovieTrailer($event)"
+                    (backdrop)="getMovieBackdrop($event)"
                     [movieList]="movieList">
   </app-movie-search>
 
@@ -25,7 +26,8 @@
 
   <div class="info" style="background-color: red"></div >
 
-  <app-top-display class="top"></app-top-display>
+  <app-top-display class="top"
+                   [backdrop]="selectedMovieBackdrop"></app-top-display>
 
   
 

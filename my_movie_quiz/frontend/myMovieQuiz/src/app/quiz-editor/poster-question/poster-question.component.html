@@ -1,19 +1,19 @@
-<div class="d-flex justify-content-center mt-2 " style="height: 400px">
+<div class="d-flex qAWindow">
 
-  <div *ngIf="showQuestion === true" class="border row col-md-5 d-flex justify-content-center"
+  <div *ngIf="showQuestion === true" class="d-flex justify-content-center w-100"
     style="background-color: rgba(179, 218, 218, 0.1);">
     <img src="{{ quizedMovie.poster}}" alt="movie poster" class="img-thumbnail" style="height: 100%;"
       [ngStyle]="{'filter': blurring + ' ' + color }" [style.transform]="rotation">
   </div>
 
-  <div *ngIf="showQuestion === false" class="border row col-md-5 d-flex justify-content-center"
+  <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100"
     style="background-color: rgba(179, 218, 218, 0.1);">
     <h1 class="my-auto">{{ quizedMovie.title }}</h1>
   </div>
 
 </div>
 
-<div class="container mt-3">
+<div class="toolBox">
   <div class="d-flex justify-content-around my-auto" style="background-color:  rgb(4, 113, 150);">
 
     <div class="d-flex flex-row">
@@ -31,7 +31,7 @@
       <mat-slide-toggle (input)="onRotationChange()" class="my-auto"></mat-slide-toggle>
     </div>
 
-
     <app-qaswitch (setSection)="onSelectedSection($event)" class="my-auto"></app-qaswitch>
+    
   </div>
 </div>

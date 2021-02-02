@@ -11,6 +11,7 @@ export class AppComponent {
   quizedMovie: any;
   selectedQuestion: any = 1;
   selectedMovieTrailer: string
+  selectedMovieBackdrop: string
   movieList: string[]
 
   constructor() {}
@@ -29,6 +30,9 @@ export class AppComponent {
 
   getMovieTrailer(trailer) {
     this.selectedMovieTrailer = trailer
-  }  
+  }
 
+  getMovieBackdrop(backdrop) {
+    this.selectedMovieBackdrop = backdrop
+  }
 }

@@ -1,1 +1,5 @@
-<div style="background-color: rgb(157, 155, 167); height: 100%; width:100% "></div>
+<div>
+  <div class="backdropBackground">
+    <img *ngIf="backdrop != undefined" [attr.src]="'https://image.tmdb.org/t/p/w780' + backdrop" class="backdropImage">
+  </div>
+</div>

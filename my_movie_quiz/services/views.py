@@ -71,12 +71,4 @@ class TrailerSearch(View):
         video_src = subprocess.run(["youtube-dl", "-g", "https://www.imdb.com/videoplayer/" + trailer_id], encoding='utf-8', stdout=subprocess.PIPE)
         print(video_src)
         return JsonResponse(video_src.stdout, safe=False)
-
-    # def get(self, request, movie_info):
-    #     search_url = "https://youtube.googleapis.com/youtube/v3/search?part=snippet"
-    #     params = {"maxResults" : 1, "q": "trailer" + movie_info, "key": "AIzaSyDdU8fgEmwuJP-eL3v_HxNv2AogCmC7wYA"}
-    #     response = requests.get(search_url, params=params)
-    #     search_result = response.json()
-    #     video_id = search_result["items"][0]["id"]["videoId"]
-    #     video_src = subprocess.run(["youtube-dl", "-g", "https://www.youtube.com/watch?v=" + video_id], encoding='utf-8', stdout=subprocess.PIPE)
-    #     return JsonResponse(video_src.stdout.split("\n")[0], safe=False)
+    

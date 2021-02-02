@@ -1,41 +1,52 @@
 .card-img-top {
-    width: auto;    
-    height: 8.5vw;
-    object-fit: contain;
+  width: auto;    
+  height: 8.5vw;
+  object-fit: contain;
 }
 
 .pixelated {
-    margin-right: 50%;
-    width: auto;    
-    height: 8.5vw;
-    image-rendering: pixelated
+  margin-right: 50%;
+  width: auto;    
+  height: 8.5vw;
+  image-rendering: pixelated
 }
 
 .card {
-    background-color: rgba(255, 255, 255, 0) !important;
-    border: 0px;
-    margin-top: -4px;
+  background-color: rgba(255, 255, 255, 0) !important;
+  border: 0px;
+  margin-top: -4px;
 }
 
 .card-body {
-    height: 2vw;
+  height: 2vw;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 .example-radio-group {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
-}
-
-.example-radio-button {
-    margin: 5px;
+  display: flex;
+  flex-direction: row;  
 }
 
 .canvas-wrapper {
-    width: 84;
-    height: 67;
+  width: 84;
+  height: 67;
+}
+
+.qAWindow{
+  text-align: center;
+}
+  
+@media only screen and (min-width: 1020px) {
+  .qAWindow  {
+      height: 450px;
+      width: 662px;    
   }
+  .toolBox {
+      margin-top: 24px;
+      width: 662px;
+      height: 51px;
+  }
+}
