@@ -1,10 +1,12 @@
-<div class="d-flex flex-row">
-  <div class="justify-content-center ml-3 my-auto">
-    <div class="d-flex justify-content-start mx-auto mt-3">
-      <button class="btn btn-sm btn-info mr-2" (click)="questionEditor(1)">Plot</button>
-      <button class="btn btn-sm btn-info mr-2" (click)="questionEditor(2)">Actor</button>
-      <button class="btn btn-sm btn-info mr-2" (click)="questionEditor(3)">Poster</button>
-      <button class="btn btn-sm btn-info" (click)="questionEditor(4)">Trailer</button>
+<div class="d-flex questionTypeBar">
+
+  <div class="justify-content-center my-auto">
+    <div class="d-flex justify-content-start ">
+      <button class="btn btn-sm btn-info questionSwitch" (click)="questionEditor(1)">Plot</button>
+      <button class="btn btn-sm btn-info questionSwitch" (click)="questionEditor(2)">Actor</button>
+      <button class="btn btn-sm btn-info questionSwitch" (click)="questionEditor(3)">Poster</button>
+      <button class="btn btn-sm btn-info questionSwitch" (click)="questionEditor(4)">Trailer</button>
     </div>
   </div>
+
 </div>

@@ -18,9 +18,10 @@ class MoviesSearch(View):
             json_data = json.loads(response.text)
         
             for i in json_data["results"]:
+                print(i)
                 if any(j in i["genre_ids"] for j in [16, 99, 10402, 10770]) or i["vote_count"] < 150:
                     pass
-                else: movies_list.append({"id": i["id"], "poster":i["poster_path"], "title":i["original_title"]})
+                else: movies_list.append({"id": i["id"], "poster":i["poster_path"], "title":i["original_title"], "backdrop":i["backdrop_path"]})
 
             if len(json_data["results"]) < 20:
                 isSearching = False

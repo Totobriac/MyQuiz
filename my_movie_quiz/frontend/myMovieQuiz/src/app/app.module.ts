@@ -22,8 +22,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { QASwitchComponent } from './qaswitch/qaswitch.component';
 import { TrailerQuestionComponent } from './quiz-editor/trailer-question/trailer-question.component';
-import { SafePipe } from './safe.pipe';
-import { Globals } from './globals';
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
@@ -33,6 +31,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { QuizQuestionsComponent } from './quiz-questions/quiz-questions.component';
 import { QuestionTypeComponent } from './question-type/question-type.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { TopDisplayComponent } from './top-display/top-display.component';
 
 @NgModule({
   declarations: [
@@ -44,10 +43,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     PosterQuestionComponent,
     QASwitchComponent,
     TrailerQuestionComponent,
-    SafePipe,
     QuizQuestionsComponent,
     QuestionTypeComponent,
-    NavbarComponent 
+    NavbarComponent,
+    TopDisplayComponent 
   ],
   imports: [
     BrowserModule,
@@ -69,9 +68,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     VgOverlayPlayModule,
     VgBufferingModule,
     VgStreamingModule,
+    
     PickerModule
   ],
-  providers: [Globals],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,17 +1,32 @@
-<app-navbar (movieList)="selectedMovies($event)">  
-</app-navbar>
+<div class="container">
 
-<app-movie-search (movie)="selectedMovie($event)" 
-                  (trailer)="getMovieTrailer($event)"
-                  [movieList]="movieList">
-</app-movie-search>
+  <app-navbar class="nav" 
+              (movieList)="selectedMovies($event)">  
+  </app-navbar>
 
-<app-question-type (questionType)="selectQuestion($event)">  
-</app-question-type>
- 
-<app-quiz-editor [quizedMovie]="quizedMovie"
-                 [component]="selectedQuestion"
-                 [trailer]="selectedMovieTrailer">
-</app-quiz-editor>
+  <app-movie-search class="search"
+                    (movie)="selectedMovie($event)" 
+                    (trailer)="getMovieTrailer($event)"
+                    [movieList]="movieList">
+  </app-movie-search>
 
-<app-quiz-questions></app-quiz-questions>
+  <app-question-type class="questionType" 
+                    (questionType)="selectQuestion($event)">  
+  </app-question-type>
+  
+  <app-quiz-editor class="editor"
+                    [quizedMovie]="quizedMovie"
+                    [component]="selectedQuestion"
+                    [trailer]="selectedMovieTrailer">
+  </app-quiz-editor>
+
+  <app-quiz-questions class="previews">  
+  </app-quiz-questions>
+
+  <div class="info" style="background-color: red"></div >
+
+  <app-top-display class="top"></app-top-display>
+
+  
+
+</div>

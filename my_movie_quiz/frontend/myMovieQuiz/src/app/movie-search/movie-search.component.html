@@ -1,14 +1,12 @@
+<div class="searchBar" rounded style="height: 100%">
 
-<div class="searchBar mt-3 rounded">
-
-  <div style="height: 140px">
-    <div class="d-flex flex-row  overflow-auto pt-2">
-      <div *ngFor="let movie of movieList" class="mr-2 moviePoster" (click)="chooseMovie(movie.id)">
+  <div>
+    <div class="movieTile">
+      <div *ngFor="let movie of movieList" class="moviePoster" (click)="chooseMovie(movie.id)">
         <img [src]="'https://image.tmdb.org/t/p/w92' + movie.poster">        
       </div>
     </div>
   </div>
-
 
 </div> 
 
