@@ -27,7 +27,6 @@ import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { VgStreamingModule } from '@videogular/ngx-videogular/streaming';
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { QuizQuestionsComponent } from './quiz-questions/quiz-questions.component';
 import { QuestionTypeComponent } from './question-type/question-type.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -68,8 +67,6 @@ import { TopDisplayComponent } from './top-display/top-display.component';
     VgOverlayPlayModule,
     VgBufferingModule,
     VgStreamingModule,
-    
-    PickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

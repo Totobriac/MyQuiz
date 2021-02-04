@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-qaswitch',
@@ -8,12 +8,16 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class QASwitchComponent {
 
   @Output() setSection = new EventEmitter()
-  showQuestion = true;
+  showQuestion: boolean = true;
+  selectedPage: string = "Answer"
 
   model:any
 
-  switchQA () {    
+  onChange() {    
     this.showQuestion = !this.showQuestion
     this.setSection.emit(this.showQuestion)
-  }
+    if (this.selectedPage == "Answer") {
+      this.selectedPage = "Question"
+    } else { this.selectedPage = "Answer"}
+  } 
 }

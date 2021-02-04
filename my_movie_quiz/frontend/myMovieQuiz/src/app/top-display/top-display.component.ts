@@ -11,9 +11,7 @@ export class TopDisplayComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   
   }
-
-  // backdropUrl= "https://image.tmdb.org/t/p/w300" + this.backdrop
-
 }
+  

@@ -21,7 +21,7 @@ class MoviesSearch(View):
                 print(i)
                 if any(j in i["genre_ids"] for j in [16, 99, 10402, 10770]) or i["vote_count"] < 150:
                     pass
-                else: movies_list.append({"id": i["id"], "poster":i["poster_path"], "title":i["original_title"], "backdrop":i["backdrop_path"]})
+                else: movies_list.append({"id": i["id"], "poster":i["poster_path"], "title":i["original_title"], "backdrop":i["backdrop_path"], "year":i["release_date"]})
 
             if len(json_data["results"]) < 20:
                 isSearching = False
@@ -52,7 +52,7 @@ class ActorsSearch(View):
 
     def get(self, request, actors):
         actorPicUrl= []
-        actors_list = actors.split('-')              
+        actors_list = actors.split('$')              
         subscription_key = "9dc015a3a15c45abb05f88bcea641c2d"
         search_url = "https://api.bing.microsoft.com/v7.0/images/search"
         headers = {"Ocp-Apim-Subscription-Key" : subscription_key}

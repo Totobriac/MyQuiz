@@ -31,6 +31,8 @@ export class ActorQuestionComponent implements OnInit {
   pixHeight: any
   pixWidth: any
 
+  bottomToolBox : boolean = false
+
   displays = [{value:"Name", checked: true},
               {value: "Character", checked: false},
               {value: "None", checked: false}];
@@ -42,12 +44,12 @@ export class ActorQuestionComponent implements OnInit {
 
   getPicturesList () {    
     this.actors = this.quizedMovie.cast.slice(0,4)
-    for (let i = 0; i < this.actors.length; i++) {  
-      this.actorName[i] = this.actors[i].actor}     
-    var actorsString = this.actorName.join('-')
-    this.searchActor.searchActor(actorsString)
-      .subscribe (r => {this.actorPicUrl = r
-                        console.log(r)})                              
+      for (let i = 0; i < this.actors.length; i++) {  
+        this.actorName[i] = this.actors[i].actor}     
+      var actorsString = this.actorName.join('$')
+      this.searchActor.searchActor(actorsString)
+        .subscribe (r => {this.actorPicUrl = r
+                          console.log(r)})                              
   }
 
   selectActor(index) {
@@ -86,5 +88,9 @@ export class ActorQuestionComponent implements OnInit {
     var src = this.pixelActor.pixelate(this.selectedActor, value.value)
     this.actorPicUrl[this.selectedActor][this.photoIndex[this.selectedActor]]= src    
     this.imgClass[this.selectedActor] = true
+  }
+
+  showBottomTools() {
+    this.bottomToolBox = true
   }
 }

@@ -21,7 +21,13 @@ export class NavbarComponent implements OnInit {
   submitForm(movie: string) {
     console.log(movie)      
     this.searchMovieService.searchMovies(movie)       
-    .subscribe((r:any) => { this.movieList.emit(r)
-                            console.log(r)})                             
+    .subscribe((r:any) => { r.sort(function(a,b){
+                              var c: any = new Date(a.year);
+                              var d: any = new Date(b.year);
+                              return c-d;
+                            });
+                            this.movieList.emit(r)
+                            console.log(r)}) 
+                                                        
   }
 }

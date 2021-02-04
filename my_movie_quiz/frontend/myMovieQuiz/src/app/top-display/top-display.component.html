@@ -1,5 +1,2 @@
-<div>
-  <div class="backdropBackground">
-    <img *ngIf="backdrop != undefined" [attr.src]="'https://image.tmdb.org/t/p/w780' + backdrop" class="backdropImage">
-  </div>
-</div>
+<header *ngIf="backdrop" [style.background-image]="'url('+'https://image.tmdb.org/t/p/w780' +  this.backdrop+')'">  
+</header>

@@ -61,7 +61,7 @@
 
 
 
-<div class="toolBox d-flex" style="background-color: rgb(4, 113, 150)">
+<div class="toolBox d-flex" (click)="showBottomTools()">
 
   <button mat-mini-fab color="accent" class="ml-2 mr-2 mt-1" (click)="previousPicture(selectedActor)">
     <!-- <mat-icon>chevron_left</mat-icon> -->
@@ -92,12 +92,17 @@
     </mat-form-field>
   </form>
 
-  <app-qaswitch (setSection)="onSelectedSection($event)" class="my-auto ml-3"></app-qaswitch>
+  <!-- <app-qaswitch (setSection)="onSelectedSection($event)" class="my-auto ml-3"></app-qaswitch> -->
+  <div class="switchDiv">
+    <div class="switch">
+      <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
+    </div>
+  </div>
 
 </div>
 
 
-<div class="toolBox d-flex" style="background-color: rgb(4, 113, 150)">
+<div  *ngIf="bottomToolBox" class="toolBox d-flex" style="background-color: rgb(4, 113, 150)">
 
   <div class="container my-auto">
     <mat-radio-group  [(ngModel)]="nameDisplay" class="example-radio-group">

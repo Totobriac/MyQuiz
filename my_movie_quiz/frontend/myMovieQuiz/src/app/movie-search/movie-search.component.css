@@ -27,3 +27,22 @@
     margin-left: 5px;   
   }
 }
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color:  red rgb(4, 113, 150);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(4, 113, 150);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: red;  
+}
