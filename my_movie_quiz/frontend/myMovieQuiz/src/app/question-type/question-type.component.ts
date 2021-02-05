@@ -10,7 +10,7 @@ export class QuestionTypeComponent implements OnInit {
 
   constructor() { }
   @Output() questionType = new EventEmitter()
-  selectedQuestion: any = 1;
+  selectedQuestion: number = 1;
 
   ngOnInit(): void {
   }

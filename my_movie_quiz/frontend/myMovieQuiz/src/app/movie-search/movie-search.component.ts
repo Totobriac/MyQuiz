@@ -19,6 +19,8 @@ export class MovieSearchComponent implements OnInit {
   @Input() movieList: []
   trailerId: string
   videoSource: any
+  isSelected: boolean = false
+
   ngOnInit(): void {
   }
 
@@ -27,7 +29,6 @@ export class MovieSearchComponent implements OnInit {
     this.searchMovie.searchMovie(movieId)       
     .subscribe((r:any) => {this.movie.emit(r)                          
                           this.trailerId = r.trailer.id
-                          console.log(r)
                           this.getTrailer()})
   }
 
@@ -35,7 +36,6 @@ export class MovieSearchComponent implements OnInit {
     if (this.trailerId != undefined){
       this.searchMovie.getTrailer(this.trailerId)
         .subscribe(r=> { this.videoSource = r
-                        console.log(r)
                         this.trailer.emit(r)})
     }
   }

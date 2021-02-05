@@ -13,7 +13,7 @@
 
   <app-question-type class="questionType" 
                     (questionType)="selectQuestion($event)">  
-  </app-question-type>
+  </app-question-type>  
   
   <app-quiz-editor class="editor"
                     [quizedMovie]="quizedMovie"
@@ -21,14 +21,13 @@
                     [trailer]="selectedMovieTrailer">
   </app-quiz-editor>
 
-  <app-quiz-questions class="previews">  
+  <app-quiz-questions class="previews"
+                      [component]="selectedQuestion">  
   </app-quiz-questions>
 
   <div class="info" style="background-color: red"></div >
 
   <app-top-display class="top"
-                   [backdrop]="selectedMovieBackdrop"></app-top-display>
-
-  
+                   [backdrop]="selectedMovieBackdrop"></app-top-display>  
 
 </div>

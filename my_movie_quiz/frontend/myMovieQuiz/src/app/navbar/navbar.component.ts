@@ -27,7 +27,6 @@ export class NavbarComponent implements OnInit {
                               return c-d;
                             });
                             this.movieList.emit(r)
-                            console.log(r)}) 
-                                                        
+                            console.log(r)})                                                        
   }
 }

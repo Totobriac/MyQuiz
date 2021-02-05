@@ -66,11 +66,9 @@
     grid-template-rows: 24px 100px 30px 300px 202px auto;
     grid-template-columns: 200px auto auto 200px;
   }
-
   .editor {
     display: flex;
     align-self: flex-start;
     justify-self: center;
-  }
-    
+  }    
 }

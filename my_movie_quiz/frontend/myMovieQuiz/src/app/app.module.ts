@@ -31,6 +31,9 @@ import { QuizQuestionsComponent } from './quiz-questions/quiz-questions.componen
 import { QuestionTypeComponent } from './question-type/question-type.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TopDisplayComponent } from './top-display/top-display.component';
+import { CurtainComponent } from './quiz-editor/curtain/curtain.component';
+import { QuizCurtainComponent } from './quiz-questions/quiz-curtain/quiz-curtain.component';
+import { QuestionsListComponent } from './quiz-questions/questions-list/questions-list.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { TopDisplayComponent } from './top-display/top-display.component';
     QuizQuestionsComponent,
     QuestionTypeComponent,
     NavbarComponent,
-    TopDisplayComponent 
+    TopDisplayComponent,
+    CurtainComponent,
+    QuizCurtainComponent,
+    QuestionsListComponent 
   ],
   imports: [
     BrowserModule,

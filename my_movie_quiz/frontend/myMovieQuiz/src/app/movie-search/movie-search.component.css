@@ -2,7 +2,7 @@
     background-color: rgb(4, 113, 150);
 }
 
-.moviePoster {
+/* .moviePoster {
   cursor: pointer;
 }
 
@@ -12,6 +12,21 @@
 
 .moviePoster:hover {
   opacity: 1.0;
+} */
+
+.moviePoster {
+  cursor: pointer;
+  opacity: 1;  
+}
+
+.selected {
+  animation: fade 2s linear;
+}
+
+
+@keyframes fade {
+  0%,100% { opacity: 1 }
+  50% { opacity: 0 }
 }
 
 @media only screen and (min-width: 1020px) {

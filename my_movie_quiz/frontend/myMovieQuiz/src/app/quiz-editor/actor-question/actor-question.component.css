@@ -51,7 +51,7 @@ button:focus {
   .toolBox {
     margin-top: 24px;
     width: 662px;
-    height: 51px;
+    height: 52px;
     display: flex;
     justify-content: space-between;
   }

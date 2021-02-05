@@ -14,8 +14,8 @@
 </div>
 
 <div class="toolBox">
-  <div class="d-flex justify-content-around my-auto" style="background-color:  rgb(4, 113, 150);">
 
+  <div class="d-flex flex-row tools">
     <div class="d-flex flex-row">
       <span style="color: white" class="my-auto mr-2">Blur</span>
       <mat-slider min="0" max="15" step="1" value="1" (input)="onBlurChange($event)"></mat-slider>
@@ -30,8 +30,16 @@
       <span style="color: white" class="my-auto mr-2">Rotate</span>
       <mat-slide-toggle (input)="onRotationChange()" class="my-auto"></mat-slide-toggle>
     </div>
-
-    <app-qaswitch (setSection)="onSelectedSection($event)" class="my-auto"></app-qaswitch>
-    
   </div>
+ 
+  <!-- <div class="my-auto switch">
+    <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
+  </div> -->
+
+  <div>
+    <div class="switch">
+      <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
+    </div>
+  </div>
+
 </div>

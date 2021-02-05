@@ -9,7 +9,7 @@ export class AppComponent {
 
   title = 'myMovieQuiz';
   quizedMovie: any;
-  selectedQuestion: any = 1;
+  selectedQuestion: any = 0;
   selectedMovieTrailer: string
   selectedMovieBackdrop: string
   movieList: string[]
@@ -21,7 +21,7 @@ export class AppComponent {
   }
 
   selectedMovie(movie) {
-    this.selectedQuestion = 1
+    this.selectedQuestion = 0
     this.quizedMovie = movie}    
 
   selectQuestion(questionType) {

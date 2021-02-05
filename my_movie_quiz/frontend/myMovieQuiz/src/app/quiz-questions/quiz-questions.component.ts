@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-quiz-questions',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quiz-questions.component.css']
 })
 export class QuizQuestionsComponent implements OnInit {
+
+  @Input() component: number
 
   constructor() { }
 
