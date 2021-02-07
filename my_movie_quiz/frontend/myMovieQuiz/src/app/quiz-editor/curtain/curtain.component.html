@@ -1,4 +1,10 @@
-<div>
-    <div class="top"></div>  
-    <div class="bottom"></div>
+<div class="curtain">
+
+  <div id="top" width="662" height="450">
+    <img *ngIf="backdrop  != undefined" src="https://image.tmdb.org/t/p/w780{{backdrop}}" alt="">
+  </div>
+
+  <div id="bottom">
+    <img *ngIf="backdrop  != undefined" src="https://image.tmdb.org/t/p/w780{{backdrop}}" alt="">
+  </div>
 </div>

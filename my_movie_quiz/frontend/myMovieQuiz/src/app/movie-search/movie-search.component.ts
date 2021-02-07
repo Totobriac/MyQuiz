@@ -24,8 +24,8 @@ export class MovieSearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  chooseMovie(movieId:number, movieBackrop: string) {
-    this.backdrop.emit(movieBackrop)
+  chooseMovie(movieId:number, movieBackdrop: string) {     
+    this.backdrop.emit(movieBackdrop)
     this.searchMovie.searchMovie(movieId)       
     .subscribe((r:any) => {this.movie.emit(r)                          
                           this.trailerId = r.trailer.id
@@ -38,5 +38,5 @@ export class MovieSearchComponent implements OnInit {
         .subscribe(r=> { this.videoSource = r
                         this.trailer.emit(r)})
     }
-  }
+  }  
 }

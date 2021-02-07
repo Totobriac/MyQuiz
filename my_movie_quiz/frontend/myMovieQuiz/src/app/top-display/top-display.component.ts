@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TopDisplayComponent implements OnInit {
 
   @Input() backdrop: string
+  @Input() component: number
 
   constructor() { }
 

@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class QuizQuestionsComponent implements OnInit {
 
   @Input() component: number
+  @Input() backdrop: string
 
   constructor() { }
 

@@ -13,6 +13,7 @@ export class AppComponent {
   selectedMovieTrailer: string
   selectedMovieBackdrop: string
   movieList: string[]
+  selectedMovieBackdropSource: string
 
   constructor() {}
 
@@ -34,5 +35,5 @@ export class AppComponent {
 
   getMovieBackdrop(backdrop) {
     this.selectedMovieBackdrop = backdrop
-  }
+  } 
 }

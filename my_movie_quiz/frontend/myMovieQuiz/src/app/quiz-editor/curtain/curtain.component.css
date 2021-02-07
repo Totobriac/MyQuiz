@@ -1,13 +1,27 @@
-.top {
-  background-color: greenyellow;
-  height: 450px;
+#top {
   width: 662px; 
+  height: 450px;
+  overflow: hidden;
 }
 
-.bottom {
-  background-color: greenyellow;
-  height: 52px;
+#top img {
+  width: 887px; 
+  height: 526px;
+}
+
+#bottom {
   width: 662px;
-  margin-top: 24px; 
+  height: 52px;
+  margin-top: 24px;
+  overflow: hidden;
 }
 
+#bottom img {
+  width: 887px; 
+  height: 526px;
+  margin-top: -474px;
+}
+
+.curtain {
+  height: 526px;
+} 

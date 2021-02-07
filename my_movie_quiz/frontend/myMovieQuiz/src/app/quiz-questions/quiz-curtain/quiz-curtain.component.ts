@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-quiz-curtain',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quiz-curtain.component.css']
 })
 export class QuizCurtainComponent implements OnInit {
+
+  @Input() backdrop: string
 
   constructor() { }
 

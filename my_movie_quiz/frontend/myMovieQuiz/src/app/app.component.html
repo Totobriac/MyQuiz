@@ -18,16 +18,19 @@
   <app-quiz-editor class="editor"
                     [quizedMovie]="quizedMovie"
                     [component]="selectedQuestion"
-                    [trailer]="selectedMovieTrailer">
+                    [trailer]="selectedMovieTrailer"
+                    [backdrop]="selectedMovieBackdrop">
   </app-quiz-editor>
 
   <app-quiz-questions class="previews"
-                      [component]="selectedQuestion">  
+                      [component]="selectedQuestion"
+                      [backdrop]="selectedMovieBackdrop">  
   </app-quiz-questions>
 
   <div class="info" style="background-color: red"></div >
 
   <app-top-display class="top"
-                   [backdrop]="selectedMovieBackdrop"></app-top-display>  
+                   [backdrop]="selectedMovieBackdrop"
+                   [component]="selectedQuestion"></app-top-display>  
 
 </div>

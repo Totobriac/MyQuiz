@@ -10,10 +10,12 @@ export class QuizEditorComponent implements OnInit {
   @Input() quizedMovie;
   @Input() component: number
   @Input() trailer: string
+  @Input() backdrop: string
+  
   videoSource: any
   
   constructor() { }  
 
   ngOnInit(): void {    
-    }
+  }
 }

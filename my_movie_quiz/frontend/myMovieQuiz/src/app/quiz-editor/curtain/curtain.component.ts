@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-curtain',
@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CurtainComponent implements OnInit {
 
+  @Input() backdrop: string
+ 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
