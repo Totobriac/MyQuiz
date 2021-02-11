@@ -11,11 +11,14 @@ export class QuizEditorComponent implements OnInit {
   @Input() component: number
   @Input() trailer: string
   @Input() backdrop: string
+  @Input() fontSize: number
+  @Input() changeColor: boolean
+  @Input() fontFamily: string
   
   videoSource: any
   
   constructor() { }  
 
-  ngOnInit(): void {    
+  ngOnInit(): void {  
   }
 }

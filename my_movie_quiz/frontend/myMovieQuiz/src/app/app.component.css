@@ -32,8 +32,8 @@
   grid-area: previews;
 }
 
-.info {
-  grid-area: info;
+.tool {
+  grid-area: tool;
 }
 
 .top {
@@ -60,7 +60,7 @@
       " nav nav top top "
       " search questionType top top "
       " search editor editor previews "
-      " info editor editor previews "
+      " tool editor editor previews "
       " . . . . ";      
 
     grid-template-rows: 24px 100px 30px 300px 202px auto;

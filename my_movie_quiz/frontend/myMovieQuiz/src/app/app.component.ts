@@ -14,6 +14,9 @@ export class AppComponent {
   selectedMovieBackdrop: string
   movieList: string[]
   selectedMovieBackdropSource: string
+  fontSize: number
+  fontFamily: string
+  changeColor: boolean
 
   constructor() {}
 
@@ -27,7 +30,7 @@ export class AppComponent {
 
   selectQuestion(questionType) {
     this.selectedQuestion = questionType
-    console.log(this.selectedQuestion)}
+  }
 
   getMovieTrailer(trailer) {
     this.selectedMovieTrailer = trailer
@@ -35,5 +38,17 @@ export class AppComponent {
 
   getMovieBackdrop(backdrop) {
     this.selectedMovieBackdrop = backdrop
-  } 
+  }
+
+  selectedFontSize(fontSize) {
+    this.fontSize = fontSize
+  }
+
+  changeFontColor(changeColor) {
+    this.changeColor = changeColor
+  }
+
+  changeFontFamily(fontFamily) {
+    this.fontFamily = fontFamily
+  }
 }

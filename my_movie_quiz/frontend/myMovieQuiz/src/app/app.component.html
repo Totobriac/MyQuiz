@@ -19,7 +19,10 @@
                     [quizedMovie]="quizedMovie"
                     [component]="selectedQuestion"
                     [trailer]="selectedMovieTrailer"
-                    [backdrop]="selectedMovieBackdrop">
+                    [backdrop]="selectedMovieBackdrop"
+                    [fontSize]="fontSize"
+                    [changeColor]="changeColor"
+                    [fontFamily]="fontFamily">
   </app-quiz-editor>
 
   <app-quiz-questions class="previews"
@@ -27,10 +30,15 @@
                       [backdrop]="selectedMovieBackdrop">  
   </app-quiz-questions>
 
-  <div class="info" style="background-color: red"></div >
+  <app-tool-box class="tool"
+                (fontSize)="selectedFontSize($event)"
+                (changeColor)="changeFontColor($event)"
+                (fontFamily)="changeFontFamily($event)">
+  </app-tool-box>
 
   <app-top-display class="top"
                    [backdrop]="selectedMovieBackdrop"
-                   [component]="selectedQuestion"></app-top-display>  
+                   [component]="selectedQuestion">
+  </app-top-display>  
 
 </div>

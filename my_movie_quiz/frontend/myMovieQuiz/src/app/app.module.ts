@@ -34,6 +34,8 @@ import { TopDisplayComponent } from './top-display/top-display.component';
 import { CurtainComponent } from './quiz-editor/curtain/curtain.component';
 import { QuizCurtainComponent } from './quiz-questions/quiz-curtain/quiz-curtain.component';
 import { QuestionsListComponent } from './quiz-questions/questions-list/questions-list.component';
+import { ToolBoxComponent } from './tool-box/tool-box.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { QuestionsListComponent } from './quiz-questions/questions-list/question
     TopDisplayComponent,
     CurtainComponent,
     QuizCurtainComponent,
-    QuestionsListComponent 
+    QuestionsListComponent,
+    ToolBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +76,7 @@ import { QuestionsListComponent } from './quiz-questions/questions-list/question
     VgOverlayPlayModule,
     VgBufferingModule,
     VgStreamingModule,
+    AngularSvgIconModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

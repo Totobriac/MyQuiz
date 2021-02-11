@@ -25,11 +25,12 @@ export class MovieSearchComponent implements OnInit {
   }
 
   chooseMovie(movieId:number, movieBackdrop: string) {     
-    this.backdrop.emit(movieBackdrop)
+    // this.backdrop.emit(movieBackdrop)
     this.searchMovie.searchMovie(movieId)       
     .subscribe((r:any) => {this.movie.emit(r)                          
                           this.trailerId = r.trailer.id
-                          this.getTrailer()})
+                          this.getTrailer()
+                          this.backdrop.emit(movieBackdrop)})
   }
 
   getTrailer() {

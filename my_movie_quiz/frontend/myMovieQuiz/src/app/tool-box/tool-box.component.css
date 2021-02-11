@@ -1,0 +1,42 @@
+.tools {
+  background-color: red;
+  height: 100%;  
+}
+
+.fontSize {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.fontIcon {
+  margin-top: 5px;
+}
+
+.fontColorIcon {
+  border: none;
+  background: none;
+  outline: none
+}
+
+.fontColor {
+  display: flex;
+  justify-content: center;
+}
+
+.family {
+  width: 100px;
+  background-color: white;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  -moz-box-shadow: 0 0 6px white;
+  -webkit-box-shadow: 0 0 6px white;
+  box-shadow: 0 0 6px white;
+}
+
+.fontFamily {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+}
