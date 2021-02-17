@@ -40,3 +40,37 @@
   display: flex;
   justify-content: center;
 }
+
+.toolSwitch {
+  color: white;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(4, 113, 150);
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.fontsTools {
+  height: 170px;
+}
+
+.backgroundTools {
+  height: 170px;
+}
+
+.backgroundThemeSelector {
+  display: flex;
+  width: 190px;
+  padding-top: 12px;
+  margin-left: 5px;
+}
+
+.textBackCheck {
+  margin-top: 6px;
+  margin-left: 23px;
+  color: white;
+}
+
+.backColor {  
+  margin-left: 88px;
+}

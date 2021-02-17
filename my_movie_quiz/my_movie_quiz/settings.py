@@ -85,8 +85,12 @@ WSGI_APPLICATION = 'my_movie_quiz.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'moviepictures',
+        'USER': 'pi',
+        'PASSWORD': '1914d',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 

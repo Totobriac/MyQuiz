@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-plot-question',
   templateUrl: './plot-question.component.html',
@@ -8,24 +7,28 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PlotQuestionComponent implements OnInit {
 
-  constructor() { }
+  constructor() { }    
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {    
   }
 
   showQuestion = true
   editable = "false"
   @Input() quizedMovie;
   @Input() fontSize: number;
-  @Input() changeColor: boolean;
+  @Input() changeColor: object;
   @Input() fontFamily: string;
+  @Input() background: string;
+  @Input() textBackground: boolean;
+
+  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/scary/pexels-onanini-750319.jpg"
   
   colors = ["Blue", "Orange", "Green", "Brown",
             "Grey", "White", "Red", "Black",
             "Yellow", "Violet", "Pink", "Aqua"]
 
-  color: string = "Black"
+  color: string = "White"
+  backTextColor: string = "Black"
   
   enableEdition() {
     if (this.editable == "false") {
@@ -42,6 +45,9 @@ export class PlotQuestionComponent implements OnInit {
   }
 
   newFontColor(color) {
-    this.color = color
+    if(this.changeColor['fontOrBack'] == 'font') {
+      this.color = color} 
+    else { this.backTextColor = color}
   }
+  
 }

@@ -1,5 +1,9 @@
-.qAWindow{
+.qAWindow {
   text-align: center;
+}
+
+.question {
+  background-size: cover;
 }
 
 @media only screen and (min-width: 1020px) {
@@ -30,7 +34,9 @@
 
   .plot {
     padding-right: 20px;
-    padding-left: 20px;    
+    padding-left: 20px;
+    margin-right: 20px;
+    margin-left: 20px;  
   }
 
   .colorPalette {
@@ -50,4 +56,5 @@
     -webkit-box-shadow: 0 0 6px white;
     box-shadow: 0 0 6px white;
   }
+
 }

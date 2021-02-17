@@ -8,12 +8,14 @@ import { Component, Input, OnInit } from '@angular/core';
 export class QuizEditorComponent implements OnInit {
 
   @Input() quizedMovie;
-  @Input() component: number
-  @Input() trailer: string
-  @Input() backdrop: string
-  @Input() fontSize: number
-  @Input() changeColor: boolean
-  @Input() fontFamily: string
+  @Input() component: number;
+  @Input() trailer: string;
+  @Input() backdrop: string;
+  @Input() fontSize: number;
+  @Input() changeColor: object;
+  @Input() fontFamily: string;
+  @Input() background: string;
+  @Input() textBackground: boolean;
   
   videoSource: any
   

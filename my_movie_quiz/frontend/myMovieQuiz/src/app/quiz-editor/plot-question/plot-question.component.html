@@ -1,25 +1,28 @@
 <div class="d-flex qAWindow">
 
   <div *ngIf="showQuestion === true && quizedMovie != undefined"
-        class="d-flex justify-content-center w-100"
-    style="background-color: rgb(242, 248, 248);">
+        class="d-flex justify-content-center w-100 question"
+        [ngStyle]="{'backgroundImage': (background) ?  'url(' + background['lowUrl'] + ')' : 'url(' + backUrl + ')'}"
+        >
+
     <text class="plot my-auto" 
           [contentEditable]="editable"
           [style.font-size.px]="fontSize != undefined ? fontSize : 26"
           [style.color]="color"
-          [style.font-family]="fontFamily">
+          [style.font-family]="fontFamily"
+          [style.background-color]="backTextColor">
           {{ quizedMovie.plot }}  
     </text>
+
   </div>
 
-  <div *ngIf="showQuestion === false && quizedMovie != undefined" class="d-flex justify-content-center w-100"
-    style="background-color: rgb(218, 236, 236);">
+  <div *ngIf="showQuestion === false && quizedMovie != undefined" class="d-flex justify-content-center w-100">
     <h1 class="my-auto">{{ quizedMovie.title }}</h1>
   </div>
 
 </div>
 
-<div *ngIf="changeColor == false || changeColor == undefined" class="toolBox">
+<div *ngIf="changeColor == undefined || changeColor['change'] == false || changeColor['change'] == undefined" class="toolBox">
 
   <div>
     <button class= "btn btn-info my-2 rounded-0 border-0" (click)="enableEdition()">Edit</button>
@@ -34,10 +37,13 @@
 
 </div>
 
-<div *ngIf="changeColor == true" class="toolBox">  
+
+<div *ngIf="changeColor != undefined && changeColor['change'] == true" class="toolBox">
+
   <div class="colorPalette">
     <div *ngFor="let color of colors;" class="colorTile" 
         [style.background-color]="color"
         (click)="newFontColor(color)"></div>
   </div>
+
 </div>

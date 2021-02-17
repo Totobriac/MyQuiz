@@ -1,23 +1,65 @@
 <div class="tools">
 
-  <div class="fontSize">
-    <mat-icon [ngStyle]="{'color':'white'}" class="fontIcon">format_size</mat-icon>
-    <mat-slider min="26" max="40"
-                step="2" value="26"
-                (input)="changeFontSize($event)"
-                thumbLabel= true
-                tickInterval= 2>
-    </mat-slider>
+  <div *ngIf="showFonts" class="fontsTools">
+
+    <div class="fontSize">
+      <mat-icon [ngStyle]="{'color':'white'}" class="fontIcon">format_size</mat-icon>
+      <mat-slider min="26" max="40"
+                  step="2" value="26"
+                  (input)="changeFontSize($event)"
+                  thumbLabel= true
+                  tickInterval= 2>
+      </mat-slider>
+    </div>
+
+    <div class="fontColor">
+      <button (click)="changeFontColor('font')" class="fontColorIcon"><mat-icon [ngStyle]="{'color':'white'}">palette</mat-icon></button>
+    </div>
+
+    <div class="fontFamily">
+      <button (click)="changeFontFamily(1)" class="fontColorIcon"><mat-icon [ngStyle]="{'color':'white'}">chevron_left</mat-icon></button>
+        <div class="family">{{ fonts[index] }}</div>
+      <button (click)="changeFontFamily(2)" class="fontColorIcon"><mat-icon [ngStyle]="{'color':'white'}">chevron_right</mat-icon></button>
+    </div>
+
   </div>
 
-  <div class="fontColor">
-    <button (click)="changeFontColor()" class="fontColorIcon"><mat-icon [ngStyle]="{'color':'white'}">palette</mat-icon></button>
+  <div *ngIf="!showFonts" class="backgroundTools">
+
+    <div class="backgroundThemeSelector">
+      <button (click)="changeBackground(1)" class="fontColorIcon"><mat-icon [ngStyle]="{'color':'white'}">chevron_left</mat-icon></button>
+        <div class="input-group input-group-sm">        
+          <select class="custom-select"
+                  (change)="selectTheme($event.target.value)">
+            <option selected>Background</option>
+            <option value="1">Scary</option>
+            <option value="2">Abstract</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      <button (click)="changeBackground(2)"
+              class="fontColorIcon">
+              <mat-icon [ngStyle]="{'color':'white'}">chevron_right
+              </mat-icon>
+      </button>
+    </div>
+
+    <div>
+      <mat-checkbox class="textBackCheck"
+                    [checked]="backText"
+                    (change)="switchBack()">Text Background
+      </mat-checkbox>
+    </div>
+
+    <div class="backColor">
+      <button (click)="changeFontColor('back')" class="fontColorIcon"><mat-icon [ngStyle]="{'color':'white'}">palette</mat-icon></button>
+    </div>
+
   </div>
 
-  <div class="fontFamily">
-    <button (click)="changeFontFamily(1)" class="fontColorIcon"><mat-icon [ngStyle]="{'color':'white'}">chevron_left</mat-icon></button>
-      <div class="family">{{ fonts[index] }}</div>
-    <button (click)="changeFontFamily(2)" class="fontColorIcon"><mat-icon [ngStyle]="{'color':'white'}">chevron_right</mat-icon></button>
-  </div>
+  <div class="toolSwitch">
+    <mat-slide-toggle (change)="onChange()"><span>{{ selectedTools }}</span></mat-slide-toggle>
+  </div> 
+  
+</div>
 
-</div> 

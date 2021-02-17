@@ -5,6 +5,10 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 import subprocess
 import json
+from .models import Picture, Tags
+from .serializers import PictureSerializer, TagsSerializer
+from rest_framework.decorators import api_view
+from rest_framework import generics, viewsets
 
 class MoviesSearch(View):
 
@@ -67,8 +71,27 @@ class ActorsSearch(View):
 class TrailerSearch(View):
     
     def get(self, request, trailer_id):
-        print("ok")
         video_src = subprocess.run(["youtube-dl", "-g", "https://www.imdb.com/videoplayer/" + trailer_id], encoding='utf-8', stdout=subprocess.PIPE)
         print(video_src)
         return JsonResponse(video_src.stdout, safe=False)
+
+
+class PictureViewSet(viewsets.ModelViewSet):
+   
+
+    queryset = Picture.objects.all()
+    serializer_class = PictureSerializer
     
+
+class TagsViewSet(viewsets.ModelViewSet):
+
+    queryset = Tags.objects.all()
+    serializer_class = TagsSerializer
+
+
+class TagPicsListAPIView(generics.ListAPIView):
+    serializer_class = PictureSerializer
+
+    def get_queryset(self):
+        kwarg_tag = self.kwargs.get('tag')
+        return Picture.objects.filter(tag=kwarg_tag)

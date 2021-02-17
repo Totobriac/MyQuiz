@@ -16,7 +16,9 @@ export class AppComponent {
   selectedMovieBackdropSource: string
   fontSize: number
   fontFamily: string
-  changeColor: boolean
+  changeColor: object
+  background: string
+  textBackground: boolean
 
   constructor() {}
 
@@ -46,9 +48,18 @@ export class AppComponent {
 
   changeFontColor(changeColor) {
     this.changeColor = changeColor
+    console.log(this.changeColor)
   }
 
   changeFontFamily(fontFamily) {
     this.fontFamily = fontFamily
+  }
+
+  changeBackground(background) {
+    this.background = background
+  }
+
+  switchTextBack(turnOnOff) {
+    this.textBackground = turnOnOff
   }
 }

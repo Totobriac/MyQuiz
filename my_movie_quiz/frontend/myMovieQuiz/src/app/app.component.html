@@ -22,7 +22,9 @@
                     [backdrop]="selectedMovieBackdrop"
                     [fontSize]="fontSize"
                     [changeColor]="changeColor"
-                    [fontFamily]="fontFamily">
+                    [fontFamily]="fontFamily"
+                    [background]="background"
+                    [textBackground]="textBackground">
   </app-quiz-editor>
 
   <app-quiz-questions class="previews"
@@ -33,12 +35,15 @@
   <app-tool-box class="tool"
                 (fontSize)="selectedFontSize($event)"
                 (changeColor)="changeFontColor($event)"
-                (fontFamily)="changeFontFamily($event)">
+                (fontFamily)="changeFontFamily($event)"
+                (background)="changeBackground($event)"
+                (textBackground)="switchTextBack($event)">
   </app-tool-box>
 
   <app-top-display class="top"
                    [backdrop]="selectedMovieBackdrop"
                    [component]="selectedQuestion">
   </app-top-display>  
-
+  
 </div>
+
