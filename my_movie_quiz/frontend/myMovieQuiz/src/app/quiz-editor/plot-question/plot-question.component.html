@@ -2,17 +2,16 @@
 
   <div *ngIf="showQuestion === true && quizedMovie != undefined"
         class="d-flex justify-content-center w-100 question"
-        [ngStyle]="{'backgroundImage': (background) ?  'url(' + background['lowUrl'] + ')' : 'url(' + backUrl + ')'}"
-        >
-
-    <text class="plot my-auto" 
-          [contentEditable]="editable"
-          [style.font-size.px]="fontSize != undefined ? fontSize : 26"
-          [style.color]="color"
-          [style.font-family]="fontFamily"
-          [style.background-color]="backTextColor">
-          {{ quizedMovie.plot }}  
-    </text>
+        [ngStyle]="{'backgroundImage': (background) ?  'url(' + background['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+    
+      <text class="plot my-auto" 
+            [contentEditable]="editable"
+            [style.font-size.px]="fontSize != undefined ? fontSize : 26"
+            [style.color]="fontColor != undefined ? fontColor : 'rgb(0 , 0, 0)' "
+            [style.font-family]="fontFamily"
+            [style.background-color]="backTextColor != undefined ? backTextColor : 'rgba(255, 0, 0, 0.7)'">         
+            {{ quizedMovie.plot }}  
+      </text>    
 
   </div>
 
@@ -25,13 +24,18 @@
 <div *ngIf="changeColor == undefined || changeColor['change'] == false || changeColor['change'] == undefined" class="toolBox">
 
   <div>
-    <button class= "btn btn-info my-2 rounded-0 border-0" (click)="enableEdition()">Edit</button>
-    <button class= "btn btn-info my-2 rounded-0 border-0" (click)="shuffle()">Shuffle</button>    
+    <button class= "btn btn-info my-2 rounded-0 border-0" 
+            (click)="enableEdition()">Edit
+    </button>
+    <button class= "btn btn-info my-2 rounded-0 border-0" 
+            (click)="shuffle()">Shuffle
+    </button>    
   </div>
 
   <div class="switchDiv">
     <div class="switch">
-      <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
+      <app-qaswitch (setSection)="onSelectedSection($event)">
+      </app-qaswitch>
     </div>
   </div>
 
@@ -40,10 +44,9 @@
 
 <div *ngIf="changeColor != undefined && changeColor['change'] == true" class="toolBox">
 
-  <div class="colorPalette">
-    <div *ngFor="let color of colors;" class="colorTile" 
-        [style.background-color]="color"
-        (click)="newFontColor(color)"></div>
-  </div>
+  <app-palette [changeColor]="changeColor"
+              (fontColor)="onSelectedFontColor($event)"
+              (backTextColor)="onSelectedBackTextColor($event)">
+  </app-palette>
 
 </div>

@@ -18,7 +18,7 @@ export class AppComponent {
   fontFamily: string
   changeColor: object
   background: string
-  textBackground: boolean
+  backOpacity: number
 
   constructor() {}
 
@@ -59,7 +59,7 @@ export class AppComponent {
     this.background = background
   }
 
-  switchTextBack(turnOnOff) {
-    this.textBackground = turnOnOff
+  setBackOpacity(opacity) {
+    this.backOpacity = opacity['value']
   }
 }

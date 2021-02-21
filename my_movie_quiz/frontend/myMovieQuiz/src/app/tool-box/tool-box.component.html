@@ -31,10 +31,10 @@
         <div class="input-group input-group-sm">        
           <select class="custom-select"
                   (change)="selectTheme($event.target.value)">
-            <option selected>Background</option>
-            <option value="1">Scary</option>
-            <option value="2">Abstract</option>
-            <option value="3">Three</option>
+                  <option selected>Background</option>
+                  <option value="1">Scary</option>
+                  <option value="2">Abstract</option>
+                  <option value="3">Three</option>
           </select>
         </div>
       <button (click)="changeBackground(2)"
@@ -44,11 +44,14 @@
       </button>
     </div>
 
-    <div>
-      <mat-checkbox class="textBackCheck"
-                    [checked]="backText"
-                    (change)="switchBack()">Text Background
-      </mat-checkbox>
+    <div class="fontSize">
+      <mat-icon [ngStyle]="{'color':'white'}" class="fontIcon">opacity</mat-icon>
+      <mat-slider min="0" max="1"
+                  step="0.02" value="0.7"
+                  (input)="changeOpacity($event)"
+                  thumbLabel= true
+                  tickInterval= 0.1>
+      </mat-slider>
     </div>
 
     <div class="backColor">
@@ -59,7 +62,7 @@
 
   <div class="toolSwitch">
     <mat-slide-toggle (change)="onChange()"><span>{{ selectedTools }}</span></mat-slide-toggle>
-  </div> 
+  </div>  
   
 </div>
 

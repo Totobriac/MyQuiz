@@ -24,7 +24,7 @@
                     [changeColor]="changeColor"
                     [fontFamily]="fontFamily"
                     [background]="background"
-                    [textBackground]="textBackground">
+                    [backOpacity]="backOpacity">
   </app-quiz-editor>
 
   <app-quiz-questions class="previews"
@@ -37,7 +37,7 @@
                 (changeColor)="changeFontColor($event)"
                 (fontFamily)="changeFontFamily($event)"
                 (background)="changeBackground($event)"
-                (textBackground)="switchTextBack($event)">
+                (backOpacity)="setBackOpacity($event)">
   </app-tool-box>
 
   <app-top-display class="top"

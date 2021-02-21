@@ -12,7 +12,7 @@ export class ToolBoxComponent implements OnInit {
   @Output() changeColor = new EventEmitter()
   @Output() fontFamily = new EventEmitter()
   @Output() background = new EventEmitter()
-  @Output() textBackground = new EventEmitter()
+  @Output() backOpacity = new EventEmitter()
 
   size: number = 20
   change: boolean = false
@@ -105,9 +105,8 @@ export class ToolBoxComponent implements OnInit {
         this.background.emit(this.backgrounds[this.backIndex])}}
   }
 
-  switchBack() {
-    this.backText = !this.backText
-    this.textBackground.emit(this.backText)
+  changeOpacity(opacity) {
+    this.backOpacity.emit(opacity)
   }
 }
 

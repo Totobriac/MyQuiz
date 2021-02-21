@@ -1,0 +1,8 @@
+<div class="colorPalette">
+
+  <div *ngFor="let color of colors;" class="colorTile"  
+      (click)="newFontColor(color)"
+      [style.background-color]="'rgb(' + color + ')'"> 
+  </div>
+  
+</div>

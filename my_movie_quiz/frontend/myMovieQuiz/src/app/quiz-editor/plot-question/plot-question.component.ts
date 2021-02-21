@@ -7,9 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PlotQuestionComponent implements OnInit {
 
-  constructor() { }    
+  constructor() { }  
 
   ngOnInit(): void {    
+  }
+
+  ngOnChanges(changes) {
+    this.backTextColor = "rgba(" + this.color + "," + this.backOpacity + ")"
   }
 
   showQuestion = true
@@ -19,21 +23,15 @@ export class PlotQuestionComponent implements OnInit {
   @Input() changeColor: object;
   @Input() fontFamily: string;
   @Input() background: string;
-  @Input() textBackground: boolean;
+  @Input() backOpacity: number;
 
-  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/scary/pexels-onanini-750319.jpg"
+  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/scary/pexels-onanini-750319.jpg"   
+  fontColor: any
+  backTextColor: any
+  color: any
   
-  colors = ["Blue", "Orange", "Green", "Brown",
-            "Grey", "White", "Red", "Black",
-            "Yellow", "Violet", "Pink", "Aqua"]
-
-  color: string = "White"
-  backTextColor: string = "Black"
-  
-  enableEdition() {
-    if (this.editable == "false") {
-      this.editable = "true"}
-    else {this.editable = "false"}    
+  enableEdition() {    
+    this.editable == "false" ?  this.editable = "true" : this.editable = "false"
   }
 
   onSelectedSection(value) {
@@ -44,10 +42,12 @@ export class PlotQuestionComponent implements OnInit {
     this.quizedMovie.plot = this.quizedMovie.plot.split(' ').sort(() => Math.floor(Math.random() * Math.floor(3)) - 1).join(' ').replace(".","") + "."
   }
 
-  newFontColor(color) {
-    if(this.changeColor['fontOrBack'] == 'font') {
-      this.color = color} 
-    else { this.backTextColor = color}
+  onSelectedFontColor(color) {
+    this.fontColor= "rgb(" + color + ")"
   }
-  
+
+  onSelectedBackTextColor(color) {  
+    this.color = color
+    this.backTextColor = "rgba(" + color + ", 0.7)"
+  }
 }

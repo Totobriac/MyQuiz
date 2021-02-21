@@ -39,7 +39,7 @@
     margin-left: 20px;  
   }
 
-  .colorPalette {
+  /* .colorPalette {
     margin-left: 8px;
     margin-right: 8px;
     display: flex;
@@ -55,6 +55,6 @@
     -moz-box-shadow: 0 0 6px white;
     -webkit-box-shadow: 0 0 6px white;
     box-shadow: 0 0 6px white;
-  }
+  } */
 
 }

@@ -36,6 +36,7 @@ import { QuizCurtainComponent } from './quiz-questions/quiz-curtain/quiz-curtain
 import { QuestionsListComponent } from './quiz-questions/questions-list/questions-list.component';
 import { ToolBoxComponent } from './tool-box/tool-box.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { PaletteComponent } from './quiz-editor/palette/palette.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     QuizCurtainComponent,
     QuestionsListComponent,
     ToolBoxComponent,
+    PaletteComponent,
   ],
   imports: [
     BrowserModule,
