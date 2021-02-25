@@ -85,7 +85,7 @@ export class ActorQuestionComponent implements OnInit {
   }
 
   pixelize(value) {
-    var src = this.pixelActor.pixelate(this.selectedActor, value.value)
+    var src = this.pixelActor.pixelate(this.selectedActor, value)
     this.actorPicUrl[this.selectedActor][this.photoIndex[this.selectedActor]]= src    
     this.imgClass[this.selectedActor] = true
   }

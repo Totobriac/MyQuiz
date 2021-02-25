@@ -61,8 +61,11 @@ class ActorsSearch(View):
         search_url = "https://api.bing.microsoft.com/v7.0/images/search"
         headers = {"Ocp-Apim-Subscription-Key" : subscription_key}
         for actor in actors_list:
+            print(actor)
             response = requests.get(search_url, headers=headers, params={"q": actor, "count": "10"})
-            search_results = response.json()            
+            print(response)
+            search_results = response.json()
+            print(search_results)           
             url_list = [val["thumbnailUrl"] for val in search_results["value"]]
             actorPicUrl.append(url_list)
         return JsonResponse(actorPicUrl, safe=False)

@@ -4,14 +4,17 @@
         class="d-flex justify-content-center w-100 question"
         [ngStyle]="{'backgroundImage': (background) ?  'url(' + background['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
     
-      <text class="plot my-auto" 
-            [contentEditable]="editable"
-            [style.font-size.px]="fontSize != undefined ? fontSize : 26"
-            [style.color]="fontColor != undefined ? fontColor : 'rgb(0 , 0, 0)' "
-            [style.font-family]="fontFamily"
-            [style.background-color]="backTextColor != undefined ? backTextColor : 'rgba(255, 0, 0, 0.7)'">         
-            {{ quizedMovie.plot }}  
-      </text>    
+    <text class="plot my-auto"
+          [style.border-radius]="getRadius()"
+          [style.border]="getBorder()"
+          [style.font-weight]="getWeight()"
+          [contentEditable]="editable"
+          [style.font-size.px]="fontSize != undefined ? fontSize : 32"
+          [style.color]="fontColor != undefined ? fontColor : 'rgb(0 , 0, 0)' "
+          [style.font-family]="fontFamily"
+          [style.background-color]="backOpacity != undefined ? backTextColor : 'rgba(' + color + ', 0.7)'">         
+          {{ quizedMovie.plot }}
+    </text>    
 
   </div>
 
@@ -46,7 +49,8 @@
 
   <app-palette [changeColor]="changeColor"
               (fontColor)="onSelectedFontColor($event)"
-              (backTextColor)="onSelectedBackTextColor($event)">
+              (backTextColor)="onSelectedBackTextColor($event)"
+              (borderColor)="onSelectedBorderColor($event)">
   </app-palette>
 
 </div>

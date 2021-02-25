@@ -24,7 +24,10 @@
                     [changeColor]="changeColor"
                     [fontFamily]="fontFamily"
                     [background]="background"
-                    [backOpacity]="backOpacity">
+                    [backOpacity]="backOpacity"
+                    [cornerStyle]="cornerStyle"
+                    [isBold]="isBold"
+                    [borderStyle]="borderStyle">
   </app-quiz-editor>
 
   <app-quiz-questions class="previews"
@@ -37,7 +40,10 @@
                 (changeColor)="changeFontColor($event)"
                 (fontFamily)="changeFontFamily($event)"
                 (background)="changeBackground($event)"
-                (backOpacity)="setBackOpacity($event)">
+                (backOpacity)="setBackOpacity($event)"
+                (rounded)="setCornerStyle($event)"
+                (bold)="isTextBold($event)"
+                (border)="whichBorder($event)">
   </app-tool-box>
 
   <app-top-display class="top"

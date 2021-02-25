@@ -15,13 +15,21 @@ export class PaletteComponent implements OnInit {
   @Input() changeColor: object;
   @Output() fontColor = new EventEmitter()
   @Output() backTextColor = new EventEmitter()
+  @Output() borderColor = new EventEmitter()
 
-  colors = [ "0, 0, 0", "160, 128, 96", "255, 160, 16",
-              "160, 32, 255", "0, 32, 255", "96, 255, 128",
-              "255, 224, 32", "255, 96, 208", "0, 192, 0"]
+  colors = [ "0, 0, 0", "192, 192, 192", "255, 0, 0",
+              "255, 255, 0", "0, 128, 0", "0, 255, 255",
+              "128, 0, 128", "255, 0, 255", "0, 128, 128",
+              "255, 255, 255"]
 
   
   newFontColor(color) {
-    this.changeColor['fontOrBack'] == 'font' ? this.fontColor.emit(color) : this.backTextColor.emit(color)
+    if (this.changeColor['colorTool'] == 'font') {
+      this.fontColor.emit(color)
+    } else if (this.changeColor['colorTool'] == 'back') {
+      this.backTextColor.emit(color)
+    } else if (this.changeColor['colorTool'] == 'border') {
+      this.borderColor.emit(color)
+    }
     }
 }

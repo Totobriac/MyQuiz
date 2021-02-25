@@ -19,6 +19,9 @@ export class AppComponent {
   changeColor: object
   background: string
   backOpacity: number
+  cornerStyle: string
+  isBold: boolean
+  borderStyle: string
 
   constructor() {}
 
@@ -48,7 +51,6 @@ export class AppComponent {
 
   changeFontColor(changeColor) {
     this.changeColor = changeColor
-    console.log(this.changeColor)
   }
 
   changeFontFamily(fontFamily) {
@@ -61,5 +63,17 @@ export class AppComponent {
 
   setBackOpacity(opacity) {
     this.backOpacity = opacity['value']
+  }
+
+  setCornerStyle(cornerStyle) {
+    this.cornerStyle = cornerStyle
+  }
+
+  isTextBold(bold) {
+    this.isBold = bold
+  }
+
+  whichBorder(border) {
+    this.borderStyle = border
   }
 }

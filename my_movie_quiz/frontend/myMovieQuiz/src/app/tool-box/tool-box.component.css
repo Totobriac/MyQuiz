@@ -21,7 +21,7 @@
 
 .fontColor {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .family {
@@ -36,7 +36,7 @@
 }
 
 .fontFamily {
-  margin-top: 5px;
+  padding-top: 12px;
   display: flex;
   justify-content: center;
 }
@@ -71,6 +71,8 @@
   color: white;
 }
 
-.backColor {  
-  margin-left: 88px;
+.back {
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-evenly;
 }

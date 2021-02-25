@@ -6,14 +6,12 @@ import { Injectable } from "@angular/core";
 
 export class PixelActor {
 
-  img:  HTMLImageElement
+  img: HTMLImageElement
   
-  pixelate(selectedActor, value){    
-    if (value === 1) {
-      this.img = document.getElementById(selectedActor.toString()) as HTMLImageElement;
-    }
+  pixelate(selectedActor, value){
+    this.img = document.getElementById(selectedActor.toString()) as HTMLImageElement;    
     var canvas = <HTMLCanvasElement>document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");    
+    var ctx = canvas.getContext("2d");   
     canvas.width = this.img.width / value;
     canvas.height = this.img.height / value;
     ctx.drawImage(this.img, 0, 0, canvas.width, canvas.height);

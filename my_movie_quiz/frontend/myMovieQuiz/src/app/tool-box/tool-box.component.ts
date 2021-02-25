@@ -13,8 +13,12 @@ export class ToolBoxComponent implements OnInit {
   @Output() fontFamily = new EventEmitter()
   @Output() background = new EventEmitter()
   @Output() backOpacity = new EventEmitter()
+  @Output() rounded = new EventEmitter()
+  @Output() bold = new EventEmitter()
+  @Output() border = new EventEmitter()
 
-  size: number = 20
+  size: number
+  opacity: number
   change: boolean = false
   fonts: string[] = ['Regular', 'Clean', 'Horror', 'Cartoon',
                     'Handwritten', 'Vintage', 'Medieval',
@@ -31,6 +35,12 @@ export class ToolBoxComponent implements OnInit {
                         "'Smokum', cursive",
                         "'Stalinist One', cursive",]
 
+  borderStyles: string[] = ["none", "solid","dotted", "dashed",
+                            "double", "thick double", "1rem solid",
+                            "4mm ridge", "outset"]
+
+  cornerStyles: string[] = ["none", "rounded", "handdrawn"]
+
   tags: string[] = ['scary', 'abstract']
   index: number = 0
   backIndex: number = 0
@@ -39,6 +49,10 @@ export class ToolBoxComponent implements OnInit {
   backgrounds: string[]
   backText: boolean = true
   fontOrBack: string
+  isRounded: boolean = false
+  isTextBold: boolean = false
+  borderIndex: number = 0
+  cornerIndex: number = 0
 
   ngOnInit(): void {   
   }
@@ -46,13 +60,14 @@ export class ToolBoxComponent implements OnInit {
   constructor (private backgroundPicService : BackgroundPicService) {}
 
   changeFontSize(selectedSize) {    
-    this.size= selectedSize.value
+    this.size = selectedSize.value
     this.fontSize.emit(this.size)
   }
 
-  changeFontColor(fontOrBack) {
+  changeTheColor(fontOrBackOrBorder) {
     this.change = !this.change    
-    this.changeColor.emit({change: this.change, fontOrBack: fontOrBack})
+    this.changeColor.emit({change: this.change, colorTool: fontOrBackOrBorder})
+    console.log(this.change)
   }
 
   changeFontFamily(nextOrPrevious) {
@@ -72,7 +87,8 @@ export class ToolBoxComponent implements OnInit {
   }
 
   onChange() {    
-    this.showFonts = !this.showFonts    
+    this.showFonts = !this.showFonts
+    this.change = false
     if (this.selectedTools == "Fonts") {
       this.selectedTools = "Background"
       this.changeColor.emit({change: false, fontOrBack: null})
@@ -106,7 +122,24 @@ export class ToolBoxComponent implements OnInit {
   }
 
   changeOpacity(opacity) {
+    this.opacity = opacity['value']
     this.backOpacity.emit(opacity)
   }
+
+  onChangeCorner() {
+    this.cornerIndex == this.cornerStyles.length -  1 ? this.cornerIndex = 0 : this.cornerIndex ++
+    this.rounded.emit(this.cornerStyles[this.cornerIndex])
+  }
+
+  isBold() {
+    this.isTextBold = !this.isTextBold
+    this.bold.emit(this.isTextBold)
+  }
+
+  changeBorder() {
+    this.borderIndex == this.borderStyles.length -  1 ? this.borderIndex = 0 : this.borderIndex ++
+    this.border.emit(this.borderStyles[this.borderIndex])
+  }
+  
 }
 

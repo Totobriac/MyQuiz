@@ -1,14 +1,26 @@
 <div class="d-flex qAWindow">
 
-  <div *ngIf="showQuestion === true" class="d-flex justify-content-center w-100"
-    style="background-color: rgba(179, 218, 218, 0.1);">
-    <img src="{{ quizedMovie.poster}}" alt="movie poster" class="img-thumbnail" style="height: 100%;"
-      [ngStyle]="{'filter': blurring + ' ' + color }" [style.transform]="rotation">
+  <div *ngIf="showQuestion === true" 
+        class="posterDiv">
+
+    <div class="blurDiv"
+         [ngStyle]="{'filter': blurring }">
+
+      <img src="{{ quizedMovie.poster}}" alt="movie poster"         
+          style="height: 100%;"
+          [ngStyle]="{'filter': color }"
+          [style.transform]="rotation">
+
+    </div>
+
   </div>
 
-  <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100"
-    style="background-color: rgba(179, 218, 218, 0.1);">
+
+  <div *ngIf="showQuestion === false" 
+        class="posterDiv">
+
     <h1 class="my-auto">{{ quizedMovie.title }}</h1>
+    
   </div>
 
 </div>
@@ -18,12 +30,12 @@
   <div class="d-flex flex-row tools">
     <div class="d-flex flex-row">
       <span style="color: white" class="my-auto mr-2">Blur</span>
-      <mat-slider min="0" max="15" step="1" value="1" (input)="onBlurChange($event)"></mat-slider>
+      <mat-slider min="0" max="15" step="1" value="0" (input)="onBlurChange($event)"></mat-slider>
     </div> 
 
     <div class="d-flex flex-row">
       <span style="color: white" class="my-auto mr-2">Color</span>
-      <mat-slider min="0" max="360" step="10" value="1" (input)="onColorChange($event)"></mat-slider>
+      <mat-slider min="0" max="360" step="10" value="0" (input)="onColorChange($event)"></mat-slider>
     </div>
 
     <div class="d-flex flex-row">

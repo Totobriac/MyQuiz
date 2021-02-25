@@ -16,7 +16,9 @@ export class QuizEditorComponent implements OnInit {
   @Input() fontFamily: string;
   @Input() background: string;
   @Input() backOpacity: number;
-  
+  @Input() cornerStyle: string;
+  @Input() isBold: boolean;
+  @Input() borderStyle: string;
   videoSource: any
   
   constructor() { }  
