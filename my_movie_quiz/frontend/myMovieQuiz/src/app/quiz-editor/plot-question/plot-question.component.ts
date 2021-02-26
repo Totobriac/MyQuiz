@@ -9,12 +9,12 @@ export class PlotQuestionComponent implements OnInit {
 
   constructor() { }  
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
   }
 
   ngOnChanges(changes) {
     this.color == undefined ? this.color = "255, 255, 255" : this.color =  this.color
-    this.backTextColor = "rgba(" + this.color + "," + this.backOpacity + ")"    
+    this.backTextColor = "rgba(" + this.color + "," + this.backOpacity + ")"
   }
 
   showQuestion = true
@@ -22,11 +22,11 @@ export class PlotQuestionComponent implements OnInit {
   @Input() quizedMovie;
   @Input() fontSize: number;
   @Input() changeColor: object;
-  @Input() fontFamily: string;
-  @Input() background: string;
+  @Input() plotFF: string;
+  @Input() plotBack: string;
   @Input() backOpacity: number;
-  @Input() cornerStyle: string;
-  @Input() isBold: boolean;
+  @Input() cornerStyle: object;
+  @Input() isBold: object;
   @Input() borderStyle: string
 
   backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/scary/pexels-onanini-750319.jpg"   
@@ -34,6 +34,7 @@ export class PlotQuestionComponent implements OnInit {
   backTextColor: any
   color: any
   borderColor: any
+  
   
   enableEdition() {    
     this.editable == "false" ?  this.editable = "true" : this.editable = "false"
@@ -57,17 +58,19 @@ export class PlotQuestionComponent implements OnInit {
   }
 
   getRadius() {
-    if (this.cornerStyle == "none" || this.cornerStyle == undefined) {
+    if (this.cornerStyle == undefined) {
       return('0px')
-    } else if (this.cornerStyle == "rounded") {
-      return('20px')
-    } else {return('2em 1em 4em / 0.5em 3em')}
+    } else if (this.cornerStyle['question'] == 1) {
+        return(this.cornerStyle['value'])}
   }
 
-  getWeight() {
-    var weight: string
-    this.isBold == false || this.isBold == undefined ? weight='normal' : weight='bold'
-    return weight
+  getWeight() {  
+    if (this.isBold == undefined) {
+      return("normal")}
+    else if (this.isBold['question'] == 1 && this.isBold['value'] == true) {
+      return("bold")}
+    else if (this.isBold['question'] == 1 && this.isBold['value'] == false) {
+      return("normal")}
   }
 
   getBorder() {
@@ -80,4 +83,5 @@ export class PlotQuestionComponent implements OnInit {
   onSelectedBorderColor(color) {
     this.borderColor = color
   }
+
 }

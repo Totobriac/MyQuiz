@@ -1,6 +1,7 @@
 <div class="d-flex qAWindow">
 
-  <div *ngIf="showQuestion === true" class="mainDiv">
+  <div *ngIf="showQuestion === true" class="mainDiv"
+        [ngStyle]="{'backgroundImage': (actBack) ?  'url(' + actBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
 
 
     <div *ngFor="let actor of actorName; index as i" class="actorCard">
@@ -12,7 +13,13 @@
               [id]="i">
         </div>
         <div class="nameContain">
-          <h5><b>{{ actorName[i]}}</b></h5>          
+          <span [style.border-radius]="getRadius()"
+                [style.border]="getBorder()"
+                [style.font-weight]="getWeight()"
+                [style.color]="fontColor != undefined ? fontColor : 'rgb(0 , 0, 0)' "
+                [style.font-family]="actFF"
+                [style.background-color]="backOpacity != undefined ? backTextColor : 'rgba(' + color + ', 0.7)'">{{ actorName[i]}}
+        </span>          
         </div>
       </div>
     </div>
@@ -21,58 +28,7 @@
 
   </div>
 
-    <!-- <div class="container-fluid">
-
-      <div class="row h-50">
-        <div class="col bg-success d-flex justify-content-center">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body d">
-              <div class="d-flex">
-                <img class="mx-auto" [ngClass]="imgClass[0] ? 'pixelated' : 'card-img-top'" [src]="actorPicUrl[0][photoIndex[0]]" id="0" crossorigin="anonymous">
-              </div>
-              <canvas id="canvas" style="display: none;" class="card-img-top"></canvas>
-              <p class="card-text text-center mt-2" ><b>{{actorName[0]}}</b></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col bg-secondary d-flex justify-content-center">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <div class="d-flex">
-                <img class="mx-auto" [ngClass]="imgClass[1] ? 'pixelated' : 'card-img-top'" [src]="actorPicUrl[1][photoIndex[1]]" id="1" crossorigin="anonymous">
-              </div>
-              <p class="card-text text-center mt-2"><b>{{actorName[1]}}</b></p>
-            </div>
-          </div>
-        </div>
-      </div>
- 
-      <div class="row h-50">
-        <div class="col bg-danger d-flex justify-content-center">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <div class="d-flex">
-                <img class="mx-auto" [ngClass]="imgClass[2] ? 'pixelated' : 'card-img-top'" [src]="actorPicUrl[2][photoIndex[2]]" id="2" crossorigin="anonymous">
-              </div>
-              <p class="card-text text-center mt-2"><b>{{actorName[2]}}</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col bg-info d-flex justify-content-center">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <div class="d-flex">
-                <img class="mx-auto" [ngClass]="imgClass[3] ? 'pixelated' : 'card-img-top'" [src]="actorPicUrl[3][photoIndex[3]]" id="3" crossorigin="anonymous">
-              </div>
-              <p class="card-text text-center mt-2"><b>{{actorName[3]}}</b></p>
-            </div>
-          </div>
-        </div>
-      </div>     
-
-    </div>
-  </div> -->
+  
 
   <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100" style="background-color: rgba(179, 218, 218, 0.1);" >
     <h1 class="my-auto">{{ quizedMovie.title }}</h1>    

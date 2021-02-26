@@ -15,12 +15,14 @@ export class AppComponent {
   movieList: string[]
   selectedMovieBackdropSource: string
   fontSize: number
-  fontFamily: string
+  plotFF: string
+  actFF: string
   changeColor: object
-  background: string
+  plotBack: string
+  actBack: string
   backOpacity: number
   cornerStyle: string
-  isBold: boolean
+  isBold: object
   borderStyle: string
 
   constructor() {}
@@ -54,11 +56,21 @@ export class AppComponent {
   }
 
   changeFontFamily(fontFamily) {
-    this.fontFamily = fontFamily
+    if (fontFamily['question'] == 1) {
+      this.plotFF = fontFamily['value']}
+    else if (fontFamily['question'] == 2) {
+      this.actFF = fontFamily['value']} 
   }
 
-  changeBackground(background) {
-    this.background = background
+  changePlotBack(background) {
+    this.plotBack = background
+  }
+
+  changePicBack(background) {
+    if (background['question'] == 1) {
+      this.plotBack = background['value']}
+    else if (background['question'] == 2) {
+      this.actBack = background['value']}
   }
 
   setBackOpacity(opacity) {

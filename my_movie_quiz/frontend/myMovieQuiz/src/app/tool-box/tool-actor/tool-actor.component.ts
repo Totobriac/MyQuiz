@@ -3,13 +3,13 @@ import { ToolsService } from '../tools.service';
 
 
 @Component({
-  selector: 'app-tool-plot',
-  templateUrl: './tool-plot.component.html',
-  styleUrls: ['./tool-plot.component.css']
+  selector: 'app-tool-actor',
+  templateUrl: './tool-actor.component.html',
+  styleUrls: ['./tool-actor.component.css']
 })
-export class ToolPlotComponent implements OnInit {
+export class ToolActorComponent implements OnInit {
 
-  @Input() component : number 
+  @Input() component: number
   @Output() fontSize = new EventEmitter()
   @Output() changeColor = new EventEmitter()
   @Output() fontFamily = new EventEmitter()
@@ -21,12 +21,11 @@ export class ToolPlotComponent implements OnInit {
 
   size: number
   opacity: number
-  change: boolean = false 
+  change: boolean = false
   borderStyles: string[] = ["none", "solid","dotted", "dashed",
                             "double", "thick double", "1rem solid",
                             "4mm ridge", "outset"]
   tags: string[] = ['scary', 'abstract']
-  index: number = 0
   backIndex: number = 0
   showFonts: boolean = false
   selectedTools: string ="Fonts"
@@ -50,8 +49,8 @@ export class ToolPlotComponent implements OnInit {
     this.changeColor.emit({change: this.change, colorTool: fontOrBackOrBorder})
   }
 
-  changeFontFamily(nOrP) {
-    var fontFamily = this.toolsService.changeFF(nOrP)
+  changeFontFamily(nextOrPrevious) {
+    var fontFamily = this.toolsService.changeFF(nextOrPrevious)
     this.fontDisplay = fontFamily['fonts']
     this.fontFamily.emit({question: this.component, value:fontFamily['cssFonts']})
   }

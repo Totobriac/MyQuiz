@@ -2,7 +2,7 @@
 
   <div *ngIf="showQuestion === true && quizedMovie != undefined"
         class="d-flex justify-content-center w-100 question"
-        [ngStyle]="{'backgroundImage': (background) ?  'url(' + background['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+        [ngStyle]="{'backgroundImage': (plotBack) ?  'url(' + plotBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
     
     <text class="plot my-auto"
           [style.border-radius]="getRadius()"
@@ -11,7 +11,7 @@
           [contentEditable]="editable"
           [style.font-size.px]="fontSize != undefined ? fontSize : 32"
           [style.color]="fontColor != undefined ? fontColor : 'rgb(0 , 0, 0)' "
-          [style.font-family]="fontFamily"
+          [style.font-family]="plotFF"
           [style.background-color]="backOpacity != undefined ? backTextColor : 'rgba(' + color + ', 0.7)'">         
           {{ quizedMovie.plot }}
     </text>    

@@ -13,11 +13,16 @@ export class QuizEditorComponent implements OnInit {
   @Input() backdrop: string;
   @Input() fontSize: number;
   @Input() changeColor: object;
-  @Input() fontFamily: string;
-  @Input() background: string;
+
+  @Input() plotFF: string;
+  @Input() actFF: string;
+
+  @Input() plotBack: string;
+  @Input() actBack: object;
+
   @Input() backOpacity: number;
   @Input() cornerStyle: string;
-  @Input() isBold: boolean;
+  @Input() isBold: object;
   @Input() borderStyle: string;
   videoSource: any
   

@@ -39,6 +39,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PaletteComponent } from './quiz-editor/palette/palette.component';
 import { ToolCurtainComponent } from './tool-box/tool-curtain/tool-curtain.component';
 import { ToolPlotComponent } from './tool-box/tool-plot/tool-plot.component';
+import { ToolActorComponent } from './tool-box/tool-actor/tool-actor.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ToolPlotComponent } from './tool-box/tool-plot/tool-plot.component';
     PaletteComponent,
     ToolCurtainComponent,
     ToolPlotComponent,
+    ToolActorComponent,
   ],
   imports: [
     BrowserModule,

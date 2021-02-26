@@ -33,13 +33,32 @@ export class ActorQuestionComponent implements OnInit {
 
   bottomToolBox : boolean = false
 
+  @Input() changeColor: object;
+  @Input() actFF: string;
+  @Input() actBack: string;
+  @Input() backOpacity: number;
+  @Input() cornerStyle: object;
+  @Input() isBold: boolean;
+  @Input() borderStyle: string
+
+  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/scary/pexels-onanini-750319.jpg"   
+  fontColor: any
+  backTextColor: any
+  color: any
+  borderColor: any
+
   displays = [{value:"Name", checked: true},
               {value: "Character", checked: false},
               {value: "None", checked: false}];
   nameDisplay: ""  
 
   ngOnInit(){
-    this.getPicturesList()    
+    this.getPicturesList()
+  }
+
+  ngOnChanges(changes) {
+    this.color == undefined ? this.color = "255, 255, 255" : this.color =  this.color
+    this.backTextColor = "rgba(" + this.color + "," + this.backOpacity + ")"    
   }
 
   getPicturesList () {    
@@ -93,4 +112,41 @@ export class ActorQuestionComponent implements OnInit {
   showBottomTools() {
     this.bottomToolBox = true
   }
+
+  onSelectedFontColor(color) {
+    this.fontColor= "rgb(" + color + ")"
+  }
+
+  onSelectedBackTextColor(color) {  
+    this.color = color
+    this.backTextColor = "rgba(" + color + ", 0.7)"
+  }
+
+  getRadius() {
+    if (this.cornerStyle == undefined) {
+      return('0px')
+    } else if (this.cornerStyle['question'] == 2) {
+        return(this.cornerStyle['value'])}
+  }
+
+  getWeight() {
+    if (this.isBold == undefined) {
+      return("normal")}
+    else if (this.isBold['question'] == 2 && this.isBold['value'] == true) {
+      return("bold")}
+    else if (this.isBold['question'] == 2 && this.isBold['value'] == false) {
+      return("normal")}
+  }
+
+  getBorder() {
+    var border: string
+    this.borderStyle == undefined ? border='none' : border= this.borderStyle
+    this.borderColor == undefined ? border = border : border = border + ' rgb(' + this.borderColor + ')'
+    return border
+  }
+
+  onSelectedBorderColor(color) {
+    this.borderColor = color
+  }
+
 }
