@@ -14,16 +14,31 @@ export class AppComponent {
   selectedMovieBackdrop: string
   movieList: string[]
   selectedMovieBackdropSource: string
-  fontSize: number
+  fontSize: object
+
   plotFF: string
   actFF: string
+
+  plotFS: number
+  actFS: number
+
   changeColor: object
+
   plotBack: string
   actBack: string
-  backOpacity: number
-  cornerStyle: string
+
+  plotOpacity: number
+  actorOpacity: number
+
+  plotCorn: string
+  actCorn: string
+
   isBold: object
-  borderStyle: string
+
+  plotBorder: string
+  actorBorder: string
+
+  display: string
 
   constructor() {}
 
@@ -48,7 +63,8 @@ export class AppComponent {
   }
 
   selectedFontSize(fontSize) {
-    this.fontSize = fontSize
+    if (fontSize['question'] == 1) {
+      this.plotFS = fontSize['value']}    
   }
 
   changeFontColor(changeColor) {
@@ -74,11 +90,17 @@ export class AppComponent {
   }
 
   setBackOpacity(opacity) {
-    this.backOpacity = opacity['value']
+    if (opacity['question'] == 1) {
+      this.plotOpacity = opacity['value']}
+    else if (opacity['question'] == 2) {
+      this.actorOpacity= opacity['value']} 
   }
 
   setCornerStyle(cornerStyle) {
-    this.cornerStyle = cornerStyle
+    if (cornerStyle['question'] == 1) {
+      this.plotCorn = cornerStyle['value']}
+    else if (cornerStyle['question'] == 2) {
+      this.actCorn = cornerStyle['value']}
   }
 
   isTextBold(bold) {
@@ -86,6 +108,14 @@ export class AppComponent {
   }
 
   whichBorder(border) {
-    this.borderStyle = border
+    console.log(border)
+    if (border['question'] == 1) {
+      this.plotBorder = border['value']}
+    else if (border['question'] == 2) {
+      this.actorBorder = border['value']}
+  }
+
+  selectedDisplay(display) {
+    this.display = display
   }
 }

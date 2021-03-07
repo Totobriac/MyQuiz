@@ -24,6 +24,10 @@ button:focus {
 .toolBox {
   background-color: rgb(4, 113, 150)
 }
+
+.actorChoice {
+  background-color: rgb(4, 113, 150);
+}
   
 @media only screen and (min-width: 1020px) {
   .qAWindow  {
@@ -77,5 +81,14 @@ button:focus {
   .cardPicture {
     width: auto;
     height: 170px;
+  }
+
+  .actorChoice {
+    width: 120px;
+  }
+
+  .actorCustom {
+    width: 120px;
+    padding: 0;
   }
 }

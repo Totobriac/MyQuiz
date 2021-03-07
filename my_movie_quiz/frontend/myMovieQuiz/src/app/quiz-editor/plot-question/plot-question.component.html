@@ -5,14 +5,14 @@
         [ngStyle]="{'backgroundImage': (plotBack) ?  'url(' + plotBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
     
     <text class="plot my-auto"
-          [style.border-radius]="getRadius()"
+          [style.border-radius]="plotCorn == undefined ? '0px' : plotCorn"
           [style.border]="getBorder()"
           [style.font-weight]="getWeight()"
           [contentEditable]="editable"
-          [style.font-size.px]="fontSize != undefined ? fontSize : 32"
-          [style.color]="fontColor != undefined ? fontColor : 'rgb(0 , 0, 0)' "
+          [style.font-size.px]="plotFS != undefined ? plotFS : 32"
+          [style.color]="plotFontColor != undefined ? plotFontColor : 'rgb(0 , 0, 0)' "
           [style.font-family]="plotFF"
-          [style.background-color]="backOpacity != undefined ? backTextColor : 'rgba(' + color + ', 0.7)'">         
+          [style.background-color]="plotOpacity != undefined ? backTextColor : 'rgba(' + plotBackColor + ', 0.7)'">         
           {{ quizedMovie.plot }}
     </text>    
 
@@ -48,9 +48,9 @@
 <div *ngIf="changeColor != undefined && changeColor['change'] == true" class="toolBox">
 
   <app-palette [changeColor]="changeColor"
-              (fontColor)="onSelectedFontColor($event)"
-              (backTextColor)="onSelectedBackTextColor($event)"
-              (borderColor)="onSelectedBorderColor($event)">
+               (fontColor)="onSelectedFontColor($event)"
+               (backTextColor)="onSelectedBackTextColor($event)"
+               (borderColor)="onSelectedBorderColor($event)">
   </app-palette>
 
 </div>

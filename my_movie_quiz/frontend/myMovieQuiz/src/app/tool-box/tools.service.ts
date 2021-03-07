@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BackgroundPicService} from './background-pic.service'
+import { HttpClient } from "@angular/common/http"
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToolsService {
 
-  constructor(private backgroundPicService : BackgroundPicService) { }
+  constructor(private http: HttpClient) { }
 
-  index: number = 0
   backIndex: number = 0
-  cornerIndex: number = 0
-  backgrounds: string[]
   cssFonts: string[] = [ "'Roboto', sans-serif",
                         "'Playfair Display', serif",
                         "'Butcherman', cursive",
@@ -26,49 +24,37 @@ export class ToolsService {
                       'Handwritten', 'Vintage', 'Medieval',
                       'Romantic', 'Western', 'Futuristic']
   cornerStyles: string[] = ["0px", "20px", "2em 1em 4em / 0.5em 3em"]
+  backgroundsList = []
 
-  changeFF(nextOrPrevious) {
-    if(nextOrPrevious == 2) {
-      if (this.index == this.cssFonts.length-1) {
-        this.index = 0
-        return({cssFonts: this.cssFonts[this.index], fonts: this.fonts[this.index]})} 
-      else {this.index ++
-        return({cssFonts: this.cssFonts[this.index], fonts: this.fonts[this.index]})}
-    } 
-    else { 
-      if (this.index == 0) {
-        this.index = this.cssFonts.length-1
-        return({cssFonts: this.cssFonts[this.index], fonts: this.fonts[this.index]})}
-      else {this.index --
-        return({cssFonts: this.cssFonts[this.index], fonts: this.fonts[this.index]})}}
+  changeFF(nOrP: number, index: number) {
+    if (index + nOrP == this.cssFonts.length) {
+      index = 0}
+    else if (index + nOrP == -1) {
+      index = this.cssFonts.length-1}
+    else {index = index + nOrP}
+    return({cssFonts: this.cssFonts[index], fonts: this.fonts[index], index: index})    
   }
+
+  corner(cornIndex: number) {
+    cornIndex == this.cornerStyles.length - 1 ? cornIndex = 0 : cornIndex ++
+    return({index: cornIndex, value: this.cornerStyles[cornIndex]})    
+  }
+
 
   theme(theme: number) {
-    this.backIndex = 0
-    var tag = Number(theme) + 4
-    this.backgroundPicService.getBackgrounds(tag)
-    .subscribe((r:any) => { console.log(r)
-                            this.backgrounds= r
-                            return(this.backgrounds[this.backIndex])})
+    return this.http.get('http://127.0.0.1:8000/api/picturetag/' + theme + '/') 
   }
 
-  background(nOrP) {
-    if(nOrP == 2) {
-      if (this.backIndex == this.backgrounds.length-1) {
-        this.backIndex = 0
-        return(this.backgrounds[this.backIndex])}
-      else {this.backIndex ++
-           return(this.backgrounds[this.backIndex])}
-    } else { 
-      if (this.backIndex == 0) {
-        this.backIndex = this.backgrounds.length-1
-        return(this.backgrounds[this.backIndex])}
-      else {this.backIndex --
-        return(this.backgrounds[this.backIndex])}
-    }
+  background(nOrP: number, component, index) {
+    index = index + nOrP
+    if (index == this.backgroundsList[component].length) {
+      index = 0}
+    else if (index == -1) {
+      index = this.backgroundsList[component].length-1}
+    return({backgrounds: this.backgroundsList[component][index], index: index})
   }
 
-  corner() {
-    this.cornerIndex == this.cornerStyles.length - 1 ? this.cornerIndex = 0 : this.cornerIndex ++
-    return(this.cornerStyles[this.cornerIndex])}
+  setBackgrounds(component, backgrounds) {
+    this.backgroundsList[component] = backgrounds
+    console.log(this.backgroundsList)}
 }

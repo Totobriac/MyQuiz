@@ -15,6 +15,7 @@ export class MovieSearchComponent implements OnInit {
   @Output() movie = new EventEmitter()
   @Output() trailer = new EventEmitter()
   @Output() backdrop = new EventEmitter()
+  @Output() deletePicUrl = new EventEmitter()
 
   @Input() movieList: []
   trailerId: string

@@ -7,18 +7,20 @@
     <div *ngFor="let actor of actorName; index as i" class="actorCard">
       <div class="card">
         <div class="cardPicture">
-          <img [src]="actorPicUrl[i][photoIndex[i]]"
-              [ngClass]="imgClass[0] ? 'pixelated' : 'actorPic'"
-              crossorigin="anonymous"
-              [id]="i">
+          <img *ngIf="actorPicUrl != undefined"
+               [attr.src]="actorPicUrl[i][photoIndex[i]]"
+               [ngClass]="imgClass[0] ? 'pixelated' : 'actorPic'"
+               crossorigin="anonymous"
+               [id]="i">
         </div>
         <div class="nameContain">
-          <span [style.border-radius]="getRadius()"
+          <span [style.border-radius]="actCorn == undefined ? '0px' : actCorn"
                 [style.border]="getBorder()"
                 [style.font-weight]="getWeight()"
-                [style.color]="fontColor != undefined ? fontColor : 'rgb(0 , 0, 0)' "
+                [style.color]="actorFontColor != undefined ? actorFontColor : 'rgb(0 , 0, 0)' "
                 [style.font-family]="actFF"
-                [style.background-color]="backOpacity != undefined ? backTextColor : 'rgba(' + color + ', 0.7)'">{{ actorName[i]}}
+                [style.background-color]="actorOpacity != undefined ? backTextColor : 'rgba(' + actorBackColor + ', 0.7)'">
+                {{ displayName[i] }}
         </span>          
         </div>
       </div>
@@ -38,36 +40,51 @@
 
 
 
-<div class="toolBox d-flex" (click)="showBottomTools()">
+<div *ngIf="changeColor == undefined || changeColor['change'] == false || changeColor['change'] == undefined" class="toolBox">
 
-  <button mat-mini-fab color="accent" class="ml-2 mr-2 mt-1" (click)="previousPicture(selectedActor)">
+  <button mat-mini-fab color="accent" class="mt-1" (click)="nextPicture(-1, selectedActor)">
     <mat-icon>chevron_left</mat-icon>
   </button>
 
-  <mat-form-field style="background-color: rgb(4, 113, 150);" >
+  <mat-form-field class="actorChoice">
     <mat-label>Actor</mat-label>
-      <mat-select [(ngModel)]="selectedActor" (selectionChange)="selectActor($event.value)">
+      <mat-select (selectionChange)="selectActor($event.value)">
         <mat-option *ngFor="let actor of actors, index as index" [value]="index">
           {{actor.actor}}
         </mat-option>
       </mat-select>
   </mat-form-field>
 
-  <button mat-mini-fab color="accent"  class="ml-2 mt-1" (click)="nextPicture(selectedActor)">
+  <button mat-mini-fab color="accent"  class="mt-1" (click)="nextPicture(1, selectedActor)">
     <mat-icon>chevron_right</mat-icon>
   </button>
 
   <form #searchActor="ngForm"
         (ngSubmit)= submitForm(searchActor.value)>
-    <mat-form-field class="ml-2 mr-2">
+    <mat-form-field class="actorCustom">
       <mat-label>Custom Search</mat-label>
       <input matInput autocomplete="off"
-                      type="text"
-                      name="actorSearch"
-                      placeholder="Ex. young, cartoon..." 
-                      (ngModel)="model.searchActor">        
+            type="text"
+            name="actorSearch"
+            placeholder="Ex. young, cartoon..." 
+            (ngModel)="model.searchActor">        
     </mat-form-field>
   </form>
+
+  <span style="color: white" class="my-auto mr-2">Pixelate</span>
+  <mat-slider
+    class="my-auto" 
+    max= 10
+    min= 0
+    step= 2
+    thumbLabel= true
+    tickInterval= 1
+    value= "0"
+    [(ngModel)]="pixelValue"
+    [vertical]=false
+    (input)="pixelize($event.value)">Pixelate
+  </mat-slider>
+
 
   <div>
     <div class="switch">
@@ -78,30 +95,12 @@
 </div>
 
 
-<div  *ngIf="bottomToolBox" class="toolBox d-flex" style="background-color: rgb(4, 113, 150)">
+<div *ngIf="changeColor != undefined && changeColor['change'] == true" class="toolBox">
 
-  <div class="container my-auto">
-    <mat-radio-group  [(ngModel)]="nameDisplay" class="example-radio-group">
-      <mat-radio-button *ngFor="let display of displays" [value]="display.value" 
-                        (change)="selectDisplay(display)" [checked]="display.checked"
-                        class="ml-3">
-        <span style="color: white">{{display.value}}</span>
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
-
-  <span style="color: white" class="my-auto mr-2">Pixelate</span>
-  <mat-slider
-    class="my-auto" 
-    max= 5
-    min= 1
-    step= 1
-    thumbLabel= true
-    tickInterval= 1
-    value= "1"
-    [(ngModel)]="pixelValue"
-    [vertical]=false
-    (input)="pixelize($event.value)">Pixelate
-  </mat-slider>
+  <app-palette [changeColor]="changeColor"
+              (fontColor)="onSelectedFontColor($event)"
+              (backTextColor)="onSelectedBackTextColor($event)"
+              (borderColor)="onSelectedBorderColor($event)">
+  </app-palette>
 
 </div>

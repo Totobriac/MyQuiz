@@ -20,19 +20,29 @@
                     [component]="selectedQuestion"
                     [trailer]="selectedMovieTrailer"
                     [backdrop]="selectedMovieBackdrop"
-                    [fontSize]="fontSize"
+                    
                     [changeColor]="changeColor"
 
                     [plotFF]="plotFF"
                     [actFF]="actFF"
 
+                    [plotFS]="plotFS"                    
+
                     [plotBack]="plotBack"
                     [actBack]="actBack"
 
-                    [backOpacity]="backOpacity"
-                    [cornerStyle]="cornerStyle"
+                    [plotOpacity]="plotOpacity"
+                    [actorOpacity]="actorOpacity"
+
+                    [plotCorn]="plotCorn"
+                    [actCorn]="actCorn"
+
                     [isBold]="isBold"
-                    [borderStyle]="borderStyle">
+
+                    [plotBorder]="plotBorder"
+                    [actorBorder]="actorBorder"
+                    
+                    [display]="display">
   </app-quiz-editor>
 
   <app-quiz-questions class="previews"
@@ -49,7 +59,8 @@
                 (backOpacity)="setBackOpacity($event)"
                 (rounded)="setCornerStyle($event)"
                 (bold)="isTextBold($event)"
-                (border)="whichBorder($event)">
+                (border)="whichBorder($event)"
+                (nameDisplay)="selectedDisplay($event)">
   </app-tool-box>
 
   <app-top-display class="top"

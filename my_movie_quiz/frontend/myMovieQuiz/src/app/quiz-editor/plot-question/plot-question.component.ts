@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-plot-question',
@@ -6,35 +6,42 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./plot-question.component.css']
 })
 export class PlotQuestionComponent implements OnInit {
+ 
+  @Input() quizedMovie;
+  @Input() plotFS: number;
+  @Input() changeColor: object;
+  @Input() plotFF: string;
+  @Input() plotBack: string;
+  @Input() plotOpacity: number;
+  @Input() plotCorn: string;
+  @Input() isBold: object;
+  @Input() plotBorder: string
+  @Input() plotBackColor: any
+  @Input() plotFontColor: any
+  @Input() plotBorderColor: any
+
+  @Output() setPlotBackColor= new EventEmitter
+  @Output() setPlotFontColor= new EventEmitter
+  @Output() setPlotBorderColor= new EventEmitter
+
+  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg"   
+  
+  backTextColor: any
+  fontColor: any
+  borderColor: any
+  showQuestion = true
+  editable = "false"
 
   constructor() { }  
 
   ngOnInit(): void {
+    this.changeColor ? this.changeColor['change']= false : null
   }
 
   ngOnChanges(changes) {
-    this.color == undefined ? this.color = "255, 255, 255" : this.color =  this.color
-    this.backTextColor = "rgba(" + this.color + "," + this.backOpacity + ")"
-  }
-
-  showQuestion = true
-  editable = "false"
-  @Input() quizedMovie;
-  @Input() fontSize: number;
-  @Input() changeColor: object;
-  @Input() plotFF: string;
-  @Input() plotBack: string;
-  @Input() backOpacity: number;
-  @Input() cornerStyle: object;
-  @Input() isBold: object;
-  @Input() borderStyle: string
-
-  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/scary/pexels-onanini-750319.jpg"   
-  fontColor: any
-  backTextColor: any
-  color: any
-  borderColor: any
-  
+    this.plotBackColor == undefined ? this.plotBackColor = "255, 255, 255" : this.plotBackColor = this.plotBackColor
+    this.backTextColor = "rgba(" + this.plotBackColor + "," + this.plotOpacity + ")"
+  }  
   
   enableEdition() {    
     this.editable == "false" ?  this.editable = "true" : this.editable = "false"
@@ -49,19 +56,20 @@ export class PlotQuestionComponent implements OnInit {
   }
 
   onSelectedFontColor(color) {
-    this.fontColor= "rgb(" + color + ")"
+    this.plotFontColor = color    
+    this.fontColor= "rgb(" + this.plotFontColor + ")"
+    this.setPlotFontColor.emit(this.fontColor)      
   }
 
   onSelectedBackTextColor(color) {  
-    this.color = color
-    this.backTextColor = "rgba(" + color + ", 0.7)"
+    this.plotBackColor = color
+    this.setPlotBackColor.emit(color)
+    this.backTextColor= "rgba(" + this.plotBackColor + "," + this.plotOpacity + ")"
   }
 
-  getRadius() {
-    if (this.cornerStyle == undefined) {
-      return('0px')
-    } else if (this.cornerStyle['question'] == 1) {
-        return(this.cornerStyle['value'])}
+  onSelectedBorderColor(color) {
+    this.plotBorderColor = color
+    this.setPlotBorderColor.emit(color)
   }
 
   getWeight() {  
@@ -75,13 +83,8 @@ export class PlotQuestionComponent implements OnInit {
 
   getBorder() {
     var border: string
-    this.borderStyle == undefined ? border='none' : border= this.borderStyle
-    this.borderColor == undefined ? border = border : border = border + ' rgb(' + this.borderColor + ')'
+    this.plotBorder == undefined ? border='none' : border= this.plotBorder
+    this.plotBorderColor == undefined ? border = border : border = border + ' rgb(' + this.plotBorderColor + ')'
     return border
   }
-
-  onSelectedBorderColor(color) {
-    this.borderColor = color
-  }
-
 }

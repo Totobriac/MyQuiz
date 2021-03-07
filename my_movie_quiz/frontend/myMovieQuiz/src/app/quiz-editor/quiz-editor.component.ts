@@ -11,7 +11,8 @@ export class QuizEditorComponent implements OnInit {
   @Input() component: number;
   @Input() trailer: string;
   @Input() backdrop: string;
-  @Input() fontSize: number;
+
+  @Input() plotFS: number;
   @Input() changeColor: object;
 
   @Input() plotFF: string;
@@ -20,14 +21,67 @@ export class QuizEditorComponent implements OnInit {
   @Input() plotBack: string;
   @Input() actBack: object;
 
-  @Input() backOpacity: number;
-  @Input() cornerStyle: string;
+  @Input() plotOpacity: number;
+  @Input() actorOpacity: number;
+
+  @Input() plotCorn: string;
+  @Input() actCorn: string;
+
   @Input() isBold: object;
-  @Input() borderStyle: string;
+
+  @Input() actorBorder: string;
+  @Input() plotBorder: string;
+
+  @Input() display: string
+
   videoSource: any
+
+  plotBackColor: string
+  actorBackColor: string
+
+  plotFontColor: any
+  actorFontColor: any
+
+  plotBorderColor: any
+  actorBorderColor: any
+
+  actorPicUrl: any
+  oldId: any
   
   constructor() { }  
 
   ngOnInit(): void {  
+  }
+
+  setPlotBackColor(color) {
+    this.plotBackColor = color
+  }
+
+  setActorBackColor(color) {
+    this.actorBackColor = color
+  }
+
+  setPlotFontColor(color) {    
+    this.plotFontColor = color
+  }
+
+  setActorFontColor(color) {    
+    this.actorFontColor = color
+  }
+
+  setPlotBorderColor(color) {
+    this.plotBorderColor = color
+  }
+
+  setActorBorderColor(color) {
+    this.actorBorderColor = color
+  }
+
+  savePicUrl(picUrl) {
+    this.actorPicUrl = picUrl
+  }
+
+  saveId(id) {
+    this.oldId = id
   }
 }

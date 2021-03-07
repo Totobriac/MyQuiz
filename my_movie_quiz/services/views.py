@@ -25,7 +25,11 @@ class MoviesSearch(View):
                 print(i)
                 if any(j in i["genre_ids"] for j in [16, 99, 10402, 10770]) or i["vote_count"] < 150:
                     pass
-                else: movies_list.append({"id": i["id"], "poster":i["poster_path"], "title":i["original_title"], "backdrop":i["backdrop_path"], "year":i["release_date"]})
+                else: movies_list.append({"id": i["id"],
+                                          "poster":i["poster_path"],
+                                          "title":i["original_title"],
+                                          "backdrop":i["backdrop_path"],
+                                          "year":i["release_date"]})
 
             if len(json_data["results"]) < 20:
                 isSearching = False
@@ -61,11 +65,8 @@ class ActorsSearch(View):
         search_url = "https://api.bing.microsoft.com/v7.0/images/search"
         headers = {"Ocp-Apim-Subscription-Key" : subscription_key}
         for actor in actors_list:
-            print(actor)
-            response = requests.get(search_url, headers=headers, params={"q": actor, "count": "10"})
-            print(response)
+            response = requests.get(search_url, headers=headers, params={"q": actor + " actor", "count": "10"})
             search_results = response.json()
-            print(search_results)           
             url_list = [val["thumbnailUrl"] for val in search_results["value"]]
             actorPicUrl.append(url_list)
         return JsonResponse(actorPicUrl, safe=False)
@@ -79,8 +80,7 @@ class TrailerSearch(View):
         return JsonResponse(video_src.stdout, safe=False)
 
 
-class PictureViewSet(viewsets.ModelViewSet):
-   
+class PictureViewSet(viewsets.ModelViewSet):   
 
     queryset = Picture.objects.all()
     serializer_class = PictureSerializer
@@ -93,6 +93,7 @@ class TagsViewSet(viewsets.ModelViewSet):
 
 
 class TagPicsListAPIView(generics.ListAPIView):
+
     serializer_class = PictureSerializer
 
     def get_queryset(self):
