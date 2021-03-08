@@ -9,7 +9,7 @@
         <div class="cardPicture">
           <img *ngIf="actorPicUrl != undefined"
                [attr.src]="actorPicUrl[i][photoIndex[i]]"
-               [ngClass]="imgClass[0] ? 'pixelated' : 'actorPic'"
+               [ngClass]="imgClass[i]  ? 'pixelated' : 'actorPic'"
                crossorigin="anonymous"
                [id]="i">
         </div>
@@ -74,13 +74,12 @@
   <span style="color: white" class="my-auto mr-2">Pixelate</span>
   <mat-slider
     class="my-auto" 
-    max= 10
+    max= 4
     min= 0
-    step= 2
+    step= 1
     thumbLabel= true
     tickInterval= 1
-    value= "0"
-    [(ngModel)]="pixelValue"
+    [value]= pixelValue[selectedActor]   
     [vertical]=false
     (input)="pixelize($event.value)">Pixelate
   </mat-slider>
