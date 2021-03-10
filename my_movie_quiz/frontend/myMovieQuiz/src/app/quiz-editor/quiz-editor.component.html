@@ -55,6 +55,18 @@
                           (saveId)="saveId($event)"
                           [oldId]="oldId"
 
+                          (saveImgClass)="saveImgClass($event)"
+                          [imgClassSaved]="imgClassSaved"
+
+                          (savePixelValue)="savePixelValue($event)"
+                          [pixelValueSaved]="pixelValueSaved"
+
+                          (saveSrc)="saveSrc($event)"
+                          [src]="src"
+
+                          (savePhotoIndex)="savePhotoIndex($event)"
+                          [photoIndexSaved]="photoIndexSaved"
+
                           *ngSwitchCase="2">
       </app-actor-question>
       <app-poster-question [quizedMovie]="quizedMovie" *ngSwitchCase="3"></app-poster-question>

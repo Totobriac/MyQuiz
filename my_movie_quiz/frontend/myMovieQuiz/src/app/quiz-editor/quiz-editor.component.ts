@@ -47,6 +47,12 @@ export class QuizEditorComponent implements OnInit {
 
   actorPicUrl: any
   oldId: any
+
+  imgClassSaved: boolean[]
+  pixelValueSaved: number[]
+
+  src: any[]
+  photoIndexSaved: any[];
   
   constructor() { }  
 
@@ -83,5 +89,21 @@ export class QuizEditorComponent implements OnInit {
 
   saveId(id) {
     this.oldId = id
+  }
+
+  saveImgClass(imgClass) {
+    this.imgClassSaved = imgClass
+  }
+
+  savePixelValue(pixelValue) {
+    this.pixelValueSaved = pixelValue
+  }
+
+  saveSrc(src) {
+    this.src = src
+  }
+
+  savePhotoIndex(photoIndex) {
+    this.photoIndexSaved = photoIndex
   }
 }

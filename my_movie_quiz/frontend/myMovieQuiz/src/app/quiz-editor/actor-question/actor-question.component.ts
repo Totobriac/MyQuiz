@@ -25,19 +25,27 @@ export class ActorQuestionComponent implements OnInit {
   @Input() actorFontColor: any;
   @Input() actorBorderColor: any;
   @Input() display: any;
+  @Input() imgClassSaved: boolean[]
+  @Input() pixelValueSaved: number[]
+  @Input() src: any[]
+  @Input() photoIndexSaved: number[]
 
   @Output() setActorBackColor= new EventEmitter
   @Output() setActorFontColor= new EventEmitter
   @Output() setActorBorderColor= new EventEmitter
   @Output() savePicUrl = new EventEmitter
   @Output() saveId = new EventEmitter
+  @Output() saveImgClass = new EventEmitter
+  @Output() savePixelValue = new EventEmitter
+  @Output() saveSrc = new EventEmitter
+  @Output() savePhotoIndex = new EventEmitter
 
   actors: any = [];
   actorName: any = ["","","",""];
   actorCharacter: any = ["","","",""];
-  imgClass = [false, false, false, false];
-  pixelValue: number[] = [0, 0, 0, 0];
-  photoIndex = [0, 0, 0, 0];
+  imgClass: boolean[];
+  pixelValue: number[];
+  photoIndex: number[];
   selectedActor: number;
   showQuestion: boolean = true;
   pixHeight: any;
@@ -47,13 +55,12 @@ export class ActorQuestionComponent implements OnInit {
   color: any;
   displayName: string[]
   backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg";
-  src: any;
 
   constructor(private searchActor: SearchActor,
               private pixelActor: PixelActor) {}
 
   ngOnInit(){   
-    this.retreiveActors()    
+    this.retreiveActors()
   }
 
   ngOnChanges(changes) {    
@@ -76,18 +83,36 @@ export class ActorQuestionComponent implements OnInit {
 
   selectActor(index) {
     this.selectedActor = index
-    this.src = this.pixelActor.pixelate(this.selectedActor)
   }
 
   nextPicture(nOrP: number, selectedActor: number) {
+    var oldPic
+    var wasPixelated = false
+    if (this.src != undefined && this.src[selectedActor] != undefined) {
+      oldPic = this.src[selectedActor][0]
+      wasPixelated = true
+      this.src[selectedActor] = void (0)
+    }
     this.pixelValue[this.selectedActor] = 0
-    this.src = []
     if (this.photoIndex[selectedActor] + nOrP == this.actorPicUrl[selectedActor].length) {
-    this.photoIndex[selectedActor] = 0
+      this.photoIndex[selectedActor] = 0
+      if (wasPixelated == true) {
+        this.actorPicUrl[this.selectedActor][this.actorPicUrl[selectedActor].length] = oldPic
+        this.imgClass[this.selectedActor] = false
+      }
     } else if (this.photoIndex[selectedActor] + nOrP == -1) {
-    this.photoIndex[selectedActor] = this.actorPicUrl[selectedActor].length -1
-    } else {this.photoIndex[selectedActor] = this.photoIndex[selectedActor] + nOrP}
-    this.src = this.pixelActor.pixelate(this.selectedActor)
+      this.photoIndex[selectedActor] = this.actorPicUrl[selectedActor].length - 1
+      if (wasPixelated == true) {
+        this.actorPicUrl[this.selectedActor][0] = oldPic
+        this.imgClass[this.selectedActor] = false
+      }
+    } else {
+      this.photoIndex[selectedActor] = this.photoIndex[selectedActor] + nOrP
+      if (wasPixelated == true) {
+        this.actorPicUrl[this.selectedActor][this.photoIndex[this.selectedActor] + (nOrP * -1)] = oldPic
+        this.imgClass[this.selectedActor] = false
+      }
+    }
   }
 
   submitForm(form: any) {
@@ -100,8 +125,16 @@ export class ActorQuestionComponent implements OnInit {
   }
 
   pixelize(value) {
+    if (this.src == undefined) {
+      this.src = [undefined, undefined, undefined, undefined]
+      this.src[this.selectedActor] = this.pixelActor.pixelate(this.selectedActor)
+    } else if (value == 1 && this.src[this.selectedActor] == undefined) {
+      this.src[this.selectedActor] = this.pixelActor.pixelate(this.selectedActor)
+    } else if (value > 1 && this.src[this.selectedActor] != undefined) {
+      this.src[this.selectedActor] = this.src[this.selectedActor]
+    }
     this.pixelValue[this.selectedActor] = value
-    this.actorPicUrl[this.selectedActor][this.photoIndex[this.selectedActor]]= this.src[value]   
+    this.actorPicUrl[this.selectedActor][this.photoIndex[this.selectedActor]] = this.src[this.selectedActor][value]
     this.pixelValue[this.selectedActor] == 0 ? this.imgClass[this.selectedActor] = false : this.imgClass[this.selectedActor] = true
   }
 
@@ -149,21 +182,42 @@ export class ActorQuestionComponent implements OnInit {
   ngOnDestroy() {
     this.savePicUrl.emit(this.actorPicUrl)
     this.saveId.emit(this.quizedMovie['id'])
+    this.saveImgClass.emit(this.imgClass)
+    this.savePixelValue.emit(this.pixelValue)
+    this.saveSrc.emit(this.src)
+    this.savePhotoIndex.emit(this.photoIndex)
   }
 
   retreiveActors() {
     if (this.oldId == undefined) {
       this.getActorsList()
       this.getPicturesList()
+      this.photoIndex = [0, 0, 0, 0]
+      this.pixelValue =  [0, 0, 0, 0]
+      this.imgClass =  [false, false, false, false]
     } else if (this.oldId != this.quizedMovie['id']) {
-      this.actorPicUrl = void 0
+      console.log('newId');
+      this.actorPicUrl = void(0)
       this.getActorsList()
       this.getPicturesList()
+      this.photoIndex = [0, 0, 0, 0]
+      this.imgClass = [false, false, false, false]
+      this.src = [undefined, undefined, undefined, undefined]
+      this.pixelValue =  [0, 0, 0, 0]
+      this.imgClass =  [false, false, false, false] 
     } else if (this.actorPicUrl == undefined ) {
       this.getActorsList()
       this.getPicturesList()
+      this.photoIndex = [0, 0, 0, 0]
+      this.imgClass = [false, false, false, false]
+      this.src = [undefined, undefined, undefined, undefined]
+      this.pixelValue =  [0, 0, 0, 0]
+      this.imgClass =  [false, false, false, false]
     } else { this.getActorsList()
-             this.actorPicUrl = this.actorPicUrl}
+             this.actorPicUrl = this.actorPicUrl
+             this.photoIndex = this.photoIndexSaved
+             this.pixelValue = this.pixelValueSaved
+             this.imgClass = this.imgClassSaved }
     this.changeColor ? this.changeColor['change'] = false : null
   }
 }

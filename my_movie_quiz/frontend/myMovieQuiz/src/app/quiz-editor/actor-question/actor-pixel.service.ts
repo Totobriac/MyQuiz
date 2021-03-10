@@ -13,7 +13,6 @@ export class PixelActor {
   pixelate(selectedActor) {
     this.pixelatedPics = []
     this.img = document.getElementById(selectedActor.toString()) as HTMLImageElement;
-    console.log(this.img)
     this.originalImg = this.img
     this.pixelatedPics.push(this.img['src'])
 
