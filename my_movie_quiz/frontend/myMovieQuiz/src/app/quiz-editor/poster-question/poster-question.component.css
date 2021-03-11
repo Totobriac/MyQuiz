@@ -36,4 +36,26 @@
     height: 100%;
     width: 304px;
   }
+
+  .poster {
+    height: 450px;
+  }
+
+  .fontColorIcon {
+    border: none;
+    background: none;
+    outline: none
+  }
+
+  .family {
+    margin-top: 14px;
+    width: 120px;
+    background-color: white;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    -moz-box-shadow: 0 0 6px white;
+    -webkit-box-shadow: 0 0 6px white;
+    box-shadow: 0 0 6px white;
+  }
 }

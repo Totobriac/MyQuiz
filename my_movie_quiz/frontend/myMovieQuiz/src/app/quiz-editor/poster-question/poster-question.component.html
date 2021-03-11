@@ -4,12 +4,18 @@
         class="posterDiv">
 
     <div class="blurDiv"
-         [ngStyle]="{'filter': blurring }">
+          [ngStyle]="{'filter': color }"
+          [ngStyle]="{'filter': blurring }"
+          [style.transform]="rotation">
+
+      <div [style]="style"
+           class="poster"
+           [ngClass]="imageEffect">
 
       <img src="{{ quizedMovie.poster}}" alt="movie poster"         
-          style="height: 100%;"
-          [ngStyle]="{'filter': color }"
-          [style.transform]="rotation">
+           style="height: 100%;">
+
+      </div>
 
     </div>
 
@@ -34,8 +40,16 @@
     </div> 
 
     <div class="d-flex flex-row">
-      <span style="color: white" class="my-auto mr-2">Color</span>
-      <mat-slider min="0" max="360" step="10" value="0" (input)="onColorChange($event)"></mat-slider>
+      
+      <button (click)="changeEffect(-1)" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">chevron_left</mat-icon>
+      </button>
+
+      <div class="family">{{ imageEffectDisplay }}</div>
+
+      <button (click)="changeEffect(1)" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">chevron_right</mat-icon>
+      </button>
     </div>
 
     <div class="d-flex flex-row">
@@ -51,3 +65,6 @@
   </div>
 
 </div>
+
+<!-- <span style="color: white" class="my-auto mr-2">Color</span>
+<mat-slider min="0" max="360" step="10" value="0" (input)="onColorChange($event)"></mat-slider> -->
