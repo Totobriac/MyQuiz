@@ -40,6 +40,8 @@ export class AppComponent {
 
   display: string
 
+  posterSrc: any
+
   constructor() {}
 
   selectedMovies(movieList) {
@@ -117,5 +119,9 @@ export class AppComponent {
 
   selectedDisplay(display) {
     this.display = display
+  }
+
+  getPosterSrc(src) {
+    this.posterSrc = src
   }
 }

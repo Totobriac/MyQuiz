@@ -31,6 +31,7 @@ export class ToolBoxComponent implements OnInit {
   actorBorderIndex: number;
   
   @Input() component: number;
+  @Input() quizedMovie: object;
 
   @Output() fontSize = new EventEmitter()
   @Output() changeColor = new EventEmitter()
@@ -42,6 +43,7 @@ export class ToolBoxComponent implements OnInit {
   @Output() bold = new EventEmitter()
   @Output() border = new EventEmitter()
   @Output() nameDisplay = new EventEmitter()
+  @Output() posterSrc = new EventEmitter()
 
   selectedFontSize(size) {
     console.log(size)
@@ -109,5 +111,9 @@ export class ToolBoxComponent implements OnInit {
   selectedDisplay(display) {
     console.log(display)
     this.nameDisplay.emit(display)
+  }
+
+  getPosterSrc(src) {
+    this.posterSrc.emit(src)
   }
 }

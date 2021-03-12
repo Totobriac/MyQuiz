@@ -53,7 +53,13 @@
                   [component]="component"
 
                   (nameDisplay)="selectedDisplay($event)"
-                  *ngSwitchCase="2">
+                  *ngSwitchCase="2">                  
   </app-tool-actor>
+
+  <app-tool-poster  [quizedMovie]="quizedMovie"
+                    (posterSrc)="getPosterSrc($event)"
+                    *ngSwitchCase="3">
+                    
+  </app-tool-poster>
   
 </ng-container>

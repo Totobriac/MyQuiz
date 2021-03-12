@@ -1,0 +1,14 @@
+<div class="tools">
+  <image-cropper 
+    [imageURL]="urlToCrop" 
+    [maintainAspectRatio]="false"    
+    [resizeToWidth]="300" 
+    [resizeToHeight]="450" 
+    [onlyScaleDown]="true" 
+    [alignImage]="'left'"  
+    format="png"
+    (imageLoaded)="imageLoaded()"
+    (imageCropped)="imageCropped($event)"    
+>
+  </image-cropper>
+</div>

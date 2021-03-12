@@ -32,7 +32,9 @@ export class QuizEditorComponent implements OnInit {
   @Input() actorBorder: string;
   @Input() plotBorder: string;
 
-  @Input() display: string
+  @Input() display: string;
+
+  @Input() posterSrc: any;
 
   videoSource: any
 

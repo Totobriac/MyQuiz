@@ -3,17 +3,16 @@
   <div *ngIf="showQuestion === true" 
         class="posterDiv">
 
-    <div class="blurDiv"
-          [ngStyle]="{'filter': color }"
-          [ngStyle]="{'filter': blurring }"
-          [style.transform]="rotation">
+    <div class="blurDiv"          
+         [ngStyle]="{'filter': blurring }"
+         [style.transform]="rotation">
 
       <div [style]="style"
            class="poster"
            [ngClass]="imageEffect">
 
-      <img src="{{ quizedMovie.poster}}" alt="movie poster"         
-           style="height: 100%;">
+        <img [attr.src]="posterSrc" alt="movie poster"         
+            style="height: 100%;">
 
       </div>
 

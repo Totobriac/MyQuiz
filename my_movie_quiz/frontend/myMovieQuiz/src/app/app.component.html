@@ -42,7 +42,9 @@
                     [plotBorder]="plotBorder"
                     [actorBorder]="actorBorder"
                     
-                    [display]="display">
+                    [display]="display"
+                    
+                    [posterSrc]="posterSrc">
   </app-quiz-editor>
 
   <app-quiz-questions class="previews"
@@ -51,6 +53,7 @@
   </app-quiz-questions>
 
   <app-tool-box class="tool"
+                [quizedMovie]="quizedMovie"
                 [component]="selectedQuestion"
                 (fontSize)="selectedFontSize($event)"
                 (changeColor)="changeFontColor($event)"
@@ -60,7 +63,8 @@
                 (rounded)="setCornerStyle($event)"
                 (bold)="isTextBold($event)"
                 (border)="whichBorder($event)"
-                (nameDisplay)="selectedDisplay($event)">
+                (nameDisplay)="selectedDisplay($event)"
+                (posterSrc)="getPosterSrc($event)">
   </app-tool-box>
 
   <app-top-display class="top"

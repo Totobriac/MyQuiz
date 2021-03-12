@@ -69,7 +69,13 @@
 
                           *ngSwitchCase="2">
       </app-actor-question>
-      <app-poster-question [quizedMovie]="quizedMovie" *ngSwitchCase="3"></app-poster-question>
+
+      <app-poster-question [quizedMovie]="quizedMovie"
+                           [posterSrc]="posterSrc"
+                           *ngSwitchCase="3">
+      </app-poster-question>
+
+
       <app-trailer-question [quizedMovie]="quizedMovie" [videoSource]="trailer" *ngSwitchCase="4"></app-trailer-question>
     </ng-container>
     

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
@@ -38,10 +38,15 @@ export class PosterQuestionComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  @Input() quizedMovie;  
+  @Input() quizedMovie;
+  @Input() posterSrc;  
 
-  ngOnInit(): void {
-    this.back = 'url(' + this.quizedMovie.poster + ')'
+  ngOnInit(): void {    
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.back = 'url(' + this.posterSrc + ')'
+    console.log('ok')
   }
 
   get style() {
@@ -52,7 +57,6 @@ export class PosterQuestionComponent implements OnInit {
     let blurValue= event.value;  
     this.blurring = "blur("+ blurValue +"px)"
   }
-
 
   onRotationChange() {
     this.rotation === "rotate(180deg)"? this.rotation = "rotate(0deg)" : this.rotation = "rotate(180deg)"    
@@ -74,10 +78,3 @@ export class PosterQuestionComponent implements OnInit {
     this.imageEffect = this.imgEffects[this.effectIndex]['value']
   }
 }
-
-
-
-// onColorChange(event: any) {
-//   let colorValue= event.value;  
-//   this.color = "hue-rotate("+ colorValue +"deg)"
-// }

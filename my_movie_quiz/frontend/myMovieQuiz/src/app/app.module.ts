@@ -40,6 +40,8 @@ import { PaletteComponent } from './quiz-editor/palette/palette.component';
 import { ToolCurtainComponent } from './tool-box/tool-curtain/tool-curtain.component';
 import { ToolPlotComponent } from './tool-box/tool-plot/tool-plot.component';
 import { ToolActorComponent } from './tool-box/tool-actor/tool-actor.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ToolPosterComponent } from './tool-box/tool-poster/tool-poster.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { ToolActorComponent } from './tool-box/tool-actor/tool-actor.component';
     ToolCurtainComponent,
     ToolPlotComponent,
     ToolActorComponent,
+    ToolPosterComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ import { ToolActorComponent } from './tool-box/tool-actor/tool-actor.component';
     VgOverlayPlayModule,
     VgBufferingModule,
     VgStreamingModule,
+    ImageCropperModule,
     AngularSvgIconModule.forRoot()
   ],
   providers: [],
