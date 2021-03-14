@@ -1,7 +1,23 @@
 .qAWindow{
     text-align: center;   
   }
-  
+
+.fontColorIcon {
+  color: white;
+  border: none;
+  background: none;
+  outline: none; 
+}
+
+.mat-slider{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.question {
+  background-size: cover;
+}
+
 @media only screen and (min-width: 1020px) {
   .qAWindow {
     height: 450px;
@@ -29,8 +45,10 @@
   .posterDiv {
     display: flex !important;
     justify-content: center !important;
-    align-items: center !important; 
+    margin-top: auto;
+    margin-bottom: auto; 
     width: 100% !important;
+    /* height: 100% !important; */
   }
 
   .blurDiv {
@@ -43,9 +61,8 @@
   }
 
   .fontColorIcon {
-    border: none;
-    background: none;
-    outline: none
+    margin-top: 14px;
+    margin-bottom: 14px;
   }
 
   .family {

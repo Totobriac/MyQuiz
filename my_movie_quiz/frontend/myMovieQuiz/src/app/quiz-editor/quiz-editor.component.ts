@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-quiz-editor',
@@ -20,6 +20,7 @@ export class QuizEditorComponent implements OnInit {
 
   @Input() plotBack: string;
   @Input() actBack: object;
+  @Input() posterBack: object;
 
   @Input() plotOpacity: number;
   @Input() actorOpacity: number;
@@ -35,6 +36,7 @@ export class QuizEditorComponent implements OnInit {
   @Input() display: string;
 
   @Input() posterSrc: any;
+
 
   videoSource: any
 

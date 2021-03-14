@@ -32,6 +32,7 @@ export class ToolBoxComponent implements OnInit {
   
   @Input() component: number;
   @Input() quizedMovie: object;
+  @Input() poster: string;
 
   @Output() fontSize = new EventEmitter()
   @Output() changeColor = new EventEmitter()

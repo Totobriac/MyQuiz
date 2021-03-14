@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,7 @@ export class AppComponent {
   selectedQuestion: any = 0;
   selectedMovieTrailer: string
   selectedMovieBackdrop: string
+  selectedMoviePoster: string
   movieList: string[]
   selectedMovieBackdropSource: string
   fontSize: object
@@ -26,6 +27,7 @@ export class AppComponent {
 
   plotBack: string
   actBack: string
+  posterBack: string
 
   plotOpacity: number
   actorOpacity: number
@@ -41,6 +43,7 @@ export class AppComponent {
   display: string
 
   posterSrc: any
+
 
   constructor() {}
 
@@ -64,6 +67,10 @@ export class AppComponent {
     this.selectedMovieBackdrop = backdrop
   }
 
+  getMoviePoster(poster) {
+    this.selectedMoviePoster = poster
+  }
+
   selectedFontSize(fontSize) {
     if (fontSize['question'] == 1) {
       this.plotFS = fontSize['value']}    
@@ -85,10 +92,13 @@ export class AppComponent {
   }
 
   changePicBack(background) {
+    console.log(background);
     if (background['question'] == 1) {
       this.plotBack = background['value']}
     else if (background['question'] == 2) {
       this.actBack = background['value']}
+    else if (background['question'] == 3) {
+      this.posterBack = background['value']}
   }
 
   setBackOpacity(opacity) {
@@ -124,4 +134,5 @@ export class AppComponent {
   getPosterSrc(src) {
     this.posterSrc = src
   }
+
 }

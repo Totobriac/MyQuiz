@@ -28,11 +28,9 @@ export class ToolsService {
 
   changeFF(nOrP: number, index: number) {
     if (index + nOrP == this.cssFonts.length) {
-      index = 0
-    }
+      index = 0}
     else if (index + nOrP == -1) {
-      index = this.cssFonts.length - 1
-    }
+      index = this.cssFonts.length - 1}
     else { index = index + nOrP }
     return ({ cssFonts: this.cssFonts[index], fonts: this.fonts[index], index: index })
   }
@@ -57,6 +55,5 @@ export class ToolsService {
   }
 
   setBackgrounds(component, backgrounds) {
-    this.backgroundsList[component] = backgrounds
-    console.log(this.backgroundsList)}
+    this.backgroundsList[component] = backgrounds}
 }

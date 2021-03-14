@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { Url } from 'url';
+import { Component, OnInit, Input, Output, EventEmitter,} from '@angular/core';
+import { ImageCroppedEvent,} from 'ngx-image-cropper';
+import { ToolsService } from '../tools.service';
 
 @Component({
   selector: 'app-tool-poster',
@@ -9,17 +9,27 @@ import { Url } from 'url';
 })
 export class ToolPosterComponent implements OnInit {
 
-  @Input() quizedMovie: any;
+  @Input() poster: string;
+  @Input() component: number;
+  @Input() posterListIndex: any;
+  @Input() posterThemeOption: number;
 
-  @Output() posterSrc = new EventEmitter()
+
+  @Output() posterSrc = new EventEmitter();
+  @Output() picBack = new EventEmitter();
+  @Output() selectedOption = new EventEmitter();
+  @Output() backListIndex = new EventEmitter();
 
   croppedImage: any = '';
-  urlToCrop: Url;
+  urlToCrop: string;
+  cropping: boolean = true;
+  selectedTools: string = "Background"
+  backgrounds: any; 
 
-  constructor() { }
+  constructor (private toolsService : ToolsService) {}
 
   ngOnInit(): void {
-    this.urlToCrop = this.quizedMovie.poster
+    this.urlToCrop = "https://image.tmdb.org/t/p/w500" + this.poster
   }
 
   imageCropped(event: ImageCroppedEvent) {
@@ -31,4 +41,23 @@ export class ToolPosterComponent implements OnInit {
     console.log('Image loaded');
   }
 
+  onChange() {    
+    this.cropping = !this.cropping
+    this.selectedTools == "Crop" ? this.selectedTools = "Background" : this.selectedTools = "Crop"
+  }
+
+  selectTheme(theme: number) {    
+    this.toolsService.theme(theme)
+    .subscribe((r) => {this.backgrounds = r
+                      this.picBack.emit({question: this.component, value: this.backgrounds[0]})
+                      this.selectedOption.emit({question: this.component, value: theme})
+                      this.toolsService.setBackgrounds(this.component, this.backgrounds)})    
+  }
+
+  changeBackground(nOrP) {
+    var backPic = this.toolsService.background(nOrP, this.component,  this.posterListIndex ? this.posterListIndex['index'] : 0)
+    console.log(backPic);
+    this.picBack.emit({question: this.component, value: backPic['backgrounds']})
+    this.backListIndex.emit({question: this.component, index: backPic['index']})
+  }
 }

@@ -1,14 +1,65 @@
 <div class="tools">
-  <image-cropper 
-    [imageURL]="urlToCrop" 
-    [maintainAspectRatio]="false"    
-    [resizeToWidth]="300" 
-    [resizeToHeight]="450" 
-    [onlyScaleDown]="true" 
-    [alignImage]="'left'"  
-    format="png"
-    (imageLoaded)="imageLoaded()"
-    (imageCropped)="imageCropped($event)"    
->
-  </image-cropper>
+
+  <div class="cropTools">
+
+    <div [style.z-index]="cropping ? '100' : '-100'">
+
+      <image-cropper    
+        [imageURL]="urlToCrop" 
+        [maintainAspectRatio]="false"    
+        [resizeToWidth]="300" 
+        [resizeToHeight]="450" 
+        [onlyScaleDown]="true" 
+        [alignImage]="'center'"
+        format="png"
+        (imageLoaded)="imageLoaded()"
+        (imageCropped)="imageCropped($event)">
+      </image-cropper>
+
+    </div>  
+
+    <div class="back" [style.z-index]="cropping ? '-100' : '100'">
+
+      <div class="backgroundThemeSelector">
+
+        <button (click)="changeBackground(-1)" class="fontColorIcon">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+  
+        <div class="input-group input-group-sm">
+          <select class="custom-select" (change)="selectTheme($event.target.value)">
+            <option [selected]="posterThemeOption == undefined">Backgrounds</option>
+            <option value=5 [selected]="posterThemeOption == 5">Scary</option>
+            <option value=6 [selected]="posterThemeOption == 6">Abstract</option>
+          </select>
+        </div>
+  
+        <button (click)="changeBackground(1)" class="fontColorIcon">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+  
+      </div>
+
+      <!-- <div class="borderTools">
+
+        <button (click)="changeBorder()" class="fontColorIcon">
+          <mat-icon>border_outer</mat-icon>
+        </button>
+  
+        <button (click)="changeTheColor('border')" class="fontColorIcon">
+          <mat-icon>border_color</mat-icon>
+        </button>
+  
+      </div> -->
+      
+    </div>
+
+  </div>
+
+  <div class="toolSwitch">
+    <mat-slide-toggle (change)="onChange()">
+      <span>{{ selectedTools}}</span>
+    </mat-slide-toggle>
+  </div>
+
 </div>

@@ -15,6 +15,7 @@ export class MovieSearchComponent implements OnInit {
   @Output() movie = new EventEmitter()
   @Output() trailer = new EventEmitter()
   @Output() backdrop = new EventEmitter()
+  @Output() poster = new EventEmitter()
   @Output() deletePicUrl = new EventEmitter()
 
   @Input() movieList: []
@@ -25,12 +26,13 @@ export class MovieSearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  chooseMovie(movieId:number, movieBackdrop: string) {     
+  chooseMovie(movieId:number, movieBackdrop: string, moviePoster: string) {     
     this.searchMovie.searchMovie(movieId)       
     .subscribe((r:any) => {this.movie.emit(r)                          
                           this.trailerId = r.trailer.id
                           this.getTrailer()
-                          this.backdrop.emit(movieBackdrop)})
+                          this.backdrop.emit(movieBackdrop)
+                          this.poster.emit(moviePoster)})
   }
 
   getTrailer() {

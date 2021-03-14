@@ -7,6 +7,7 @@
   <app-movie-search class="search"
                     (movie)="selectedMovie($event)" 
                     (trailer)="getMovieTrailer($event)"
+                    (poster)="getMoviePoster($event)"
                     (backdrop)="getMovieBackdrop($event)"
                     [movieList]="movieList">
   </app-movie-search>
@@ -30,6 +31,7 @@
 
                     [plotBack]="plotBack"
                     [actBack]="actBack"
+                    [posterBack]="posterBack"
 
                     [plotOpacity]="plotOpacity"
                     [actorOpacity]="actorOpacity"
@@ -44,7 +46,8 @@
                     
                     [display]="display"
                     
-                    [posterSrc]="posterSrc">
+                    [posterSrc]="posterSrc"                
+                    >
   </app-quiz-editor>
 
   <app-quiz-questions class="previews"
@@ -55,6 +58,7 @@
   <app-tool-box class="tool"
                 [quizedMovie]="quizedMovie"
                 [component]="selectedQuestion"
+                [poster]="selectedMoviePoster"
                 (fontSize)="selectedFontSize($event)"
                 (changeColor)="changeFontColor($event)"
                 (fontFamily)="changeFontFamily($event)"                
@@ -64,7 +68,8 @@
                 (bold)="isTextBold($event)"
                 (border)="whichBorder($event)"
                 (nameDisplay)="selectedDisplay($event)"
-                (posterSrc)="getPosterSrc($event)">
+                (posterSrc)="getPosterSrc($event)"
+                >
   </app-tool-box>
 
   <app-top-display class="top"

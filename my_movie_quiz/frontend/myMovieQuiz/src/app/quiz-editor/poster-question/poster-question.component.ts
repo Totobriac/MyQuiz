@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnInit, SimpleChanges, EventEmitter } from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
@@ -39,14 +39,13 @@ export class PosterQuestionComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer) {}
 
   @Input() quizedMovie;
-  @Input() posterSrc;  
+  @Input() posterSrc;
+  @Input() posterBack;
 
-  ngOnInit(): void {    
-  }
+  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg" 
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.back = 'url(' + this.posterSrc + ')'
-    console.log('ok')
+  ngOnInit(): void {
+    this.back = 'url(' + this.posterSrc + ')' 
   }
 
   get style() {
@@ -77,4 +76,5 @@ export class PosterQuestionComponent implements OnInit {
     this.imageEffectDisplay = this.imgEffects[this.effectIndex]['display']
     this.imageEffect = this.imgEffects[this.effectIndex]['value']
   }
+
 }

@@ -56,8 +56,10 @@
                   *ngSwitchCase="2">                  
   </app-tool-actor>
 
-  <app-tool-poster  [quizedMovie]="quizedMovie"
+  <app-tool-poster  [poster]="poster"
                     (posterSrc)="getPosterSrc($event)"
+                    (picBack)="changePicBack($event)"
+                    [component]="component"
                     *ngSwitchCase="3">
                     
   </app-tool-poster>

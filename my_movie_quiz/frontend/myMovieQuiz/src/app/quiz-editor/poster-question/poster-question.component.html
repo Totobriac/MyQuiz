@@ -1,60 +1,55 @@
 <div class="d-flex qAWindow">
 
-  <div *ngIf="showQuestion === true" 
-        class="posterDiv">
-
-    <div class="blurDiv"          
-         [ngStyle]="{'filter': blurring }"
-         [style.transform]="rotation">
-
-      <div [style]="style"
-           class="poster"
-           [ngClass]="imageEffect">
-
-        <img [attr.src]="posterSrc" alt="movie poster"         
-            style="height: 100%;">
-
+  <div *ngIf="showQuestion === true" class="posterDiv question"
+       [ngStyle]="{'backgroundImage': (posterBack) ?  'url(' + posterBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+  
+    <div class="blurDiv my-auto" [ngStyle]="{'filter': blurring }" [style.transform]="rotation">
+  
+      <div [style]="style" class="poster" [ngClass]="imageEffect">
+  
+        <img [attr.src]="posterSrc" alt="movie poster" style="height: 100%; border: solid 3px red">
+  
       </div>
-
+  
     </div>
-
+  
   </div>
 
 
-  <div *ngIf="showQuestion === false" 
-        class="posterDiv">
+  <div *ngIf="showQuestion === false" class="posterDiv">
 
     <h1 class="my-auto">{{ quizedMovie.title }}</h1>
-    
+
   </div>
 
 </div>
 
-<div class="toolBox">
+<div class="toolBox">  
 
   <div class="d-flex flex-row tools">
+
     <div class="d-flex flex-row">
-      <span style="color: white" class="my-auto mr-2">Blur</span>
+      <mat-icon class="fontColorIcon">blur_on</mat-icon>
       <mat-slider min="0" max="15" step="1" value="0" (input)="onBlurChange($event)"></mat-slider>
     </div> 
 
     <div class="d-flex flex-row">
       
       <button (click)="changeEffect(-1)" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">chevron_left</mat-icon>
+        <mat-icon>chevron_left</mat-icon>
       </button>
 
       <div class="family">{{ imageEffectDisplay }}</div>
 
       <button (click)="changeEffect(1)" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">chevron_right</mat-icon>
+        <mat-icon>chevron_right</mat-icon>
       </button>
     </div>
+    
+    <button (click)="onRotationChange()" class="fontColorIcon">
+      <mat-icon>rotate_right</mat-icon>
+    </button>
 
-    <div class="d-flex flex-row">
-      <span style="color: white" class="my-auto mr-2">Rotate</span>
-      <mat-slide-toggle (input)="onRotationChange()" class="my-auto"></mat-slide-toggle>
-    </div>
   </div>
 
   <div>
@@ -64,6 +59,3 @@
   </div>
 
 </div>
-
-<!-- <span style="color: white" class="my-auto mr-2">Color</span>
-<mat-slider min="0" max="360" step="10" value="0" (input)="onColorChange($event)"></mat-slider> -->
