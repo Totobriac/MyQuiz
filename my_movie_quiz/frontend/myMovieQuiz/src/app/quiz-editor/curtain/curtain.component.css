@@ -1,0 +1,27 @@
+#top {
+  width: 662px; 
+  height: 450px;
+  overflow: hidden;
+}
+
+#top img {
+  width: 887px; 
+  height: 526px;
+}
+
+#bottom {
+  width: 662px;
+  height: 52px;
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+#bottom img {
+  width: 887px; 
+  height: 526px;
+  margin-top: -474px;
+}
+
+.curtain {
+  height: 526px;
+} 

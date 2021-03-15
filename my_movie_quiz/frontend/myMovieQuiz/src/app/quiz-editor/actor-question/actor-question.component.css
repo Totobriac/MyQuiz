@@ -1,41 +1,94 @@
-.card-img-top {
-    width: auto;    
-    height: 8.5vw;
-    object-fit: contain;
-}
-
-.pixelated {
-    margin-right: 50%;
-    width: auto;    
-    height: 8.5vw;
-    image-rendering: pixelated
-}
-
 .card {
-    background-color: rgba(255, 255, 255, 0) !important;
-    border: 0px;
-    margin-top: -4px;
-}
-
-.card-body {
-    height: 2vw;
+  background-color: rgba(255, 255, 255, 0) !important;
+  border: 0px;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 .example-radio-group {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
-}
-
-.example-radio-button {
-    margin: 5px;
+  display: flex;
+  flex-direction: row;  
 }
 
 .canvas-wrapper {
-    width: 84;
-    height: 67;
+  width: 84;
+  height: 67;
+}
+
+.qAWindow{
+  text-align: center;
+}
+
+.toolBox {
+  background-color: rgb(4, 113, 150)
+}
+
+.actorChoice {
+  background-color: rgb(4, 113, 150);
+}
+  
+@media only screen and (min-width: 1020px) {
+  .qAWindow  {
+    height: 450px;
+    width: 662px;    
   }
+
+  .toolBox {
+    margin-top: 24px;
+    width: 662px;
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .switch {
+    margin-right: 24px;
+    margin-top: 12px;
+  }
+
+  .actorCard {
+    height: 225px;
+    width: 331px;
+    margin-top: 6px;
+  }
+
+  .mainDiv {
+    display: flex;
+    flex-wrap: wrap;
+    background-size: cover;
+  }
+
+  .actorPic {
+    width: auto;
+    height: 170px;
+    object-fit: contain;
+  }
+
+  .nameContain {
+    margin-top: 12px;
+    font-size: 20px;
+  }
+
+  .pixelated {    
+    width: auto;    
+    height: 170px;
+    object-fit: contain;
+    image-rendering: pixelated
+  }
+
+  .cardPicture {
+    width: auto;
+    height: 170px;
+  }
+
+  .actorChoice {
+    width: 120px;
+  }
+
+  .actorCustom {
+    width: 120px;
+    padding: 0;
+  }
+}

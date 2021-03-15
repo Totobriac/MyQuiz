@@ -1,44 +1,9 @@
 .searchBar {
     background-color: rgb(4, 113, 150);
-  }
-
-.movieSearch {
-  width: 250px;
-  font-size: 20px;
 }
 
-.movieSearch mat-label {
-  color: white;
-  /* add label text color here */
-}
-
-.movieSearch .mat-input-element {
-  color: white;
-  /* add input text color here */
-}
-
-.movieSearch .mat-input-element::placeholder {
-  color: white;
-  /* add placeholder css here */
-}
-
-.mat-form-field-label {
-  color: white !important;
-}
-.mat-form-field-underline {
-  background-color: white !important;;
-}
-.mat-form-field-ripple {
-  background-color: white !important;
-}
-
-.mat-focused .mat-form-field-underline,
-.mat-focused .mat-form-field-ripple {
-    background-color: white !important;
-}
-
-.moviePoster {
-  cursor: pointer
+/* .moviePoster {
+  cursor: pointer;
 }
 
 .moviePoster {
@@ -47,4 +12,52 @@
 
 .moviePoster:hover {
   opacity: 1.0;
+} */
+
+.moviePoster {
+  cursor: pointer;
+  opacity: 1;  
+}
+
+.selected {
+  animation: fade 2s linear;
+}
+
+
+@keyframes fade {
+  0%,100% { opacity: 1 }
+  50% { opacity: 0 }
+}
+
+@media only screen and (min-width: 1020px) {
+  .movieTile {
+    height: 354px;
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+  }
+  .moviePoster {
+    margin-bottom: 10px;
+    margin-left: 5px;   
+  }
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color:  red rgb(4, 113, 150);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(4, 113, 150);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: red;  
 }

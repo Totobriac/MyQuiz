@@ -1,23 +1,56 @@
-<div class="d-flex justify-content-center mt-2 " style="height: 400px">
+<div class="d-flex qAWindow">
 
-  <div *ngIf="showQuestion === true" class="border row col-md-5 d-flex justify-content-center"
-    style="background-color: rgb(242, 248, 248);">
-    <h3 class="my-auto" [contentEditable]="editable">{{ quizedMovie.plot }}
-    </h3>
+  <div *ngIf="showQuestion === true && quizedMovie != undefined"
+        class="d-flex justify-content-center w-100 question"
+        [ngStyle]="{'backgroundImage': (plotBack) ?  'url(' + plotBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+    
+    <text class="plot my-auto"
+          [style.border-radius]="plotCorn == undefined ? '0px' : plotCorn"
+          [style.border]="getBorder()"
+          [style.font-weight]="getWeight()"
+          [contentEditable]="editable"
+          [style.font-size.px]="plotFS != undefined ? plotFS : 32"
+          [style.color]="plotFontColor != undefined ? plotFontColor : 'rgb(0 , 0, 0)' "
+          [style.font-family]="plotFF"
+          [style.background-color]="plotOpacity != undefined ? backTextColor : 'rgba(' + plotBackColor + ', 0.7)'">         
+          {{ quizedMovie.plot }}
+    </text>    
+
   </div>
 
-  <div *ngIf="showQuestion === false" class="border row col-md-5 d-flex justify-content-center"
-    style="background-color: rgba(179, 218, 218, 0.1);">
+  <div *ngIf="showQuestion === false && quizedMovie != undefined" class="d-flex justify-content-center w-100">
     <h1 class="my-auto">{{ quizedMovie.title }}</h1>
   </div>
 
 </div>
 
-<div class="container mt-3">
-  <div class="d-flex justify-content-around rounded" style="background-color: rgb(4, 113, 150)">
-    <button class= "btn btn-info my-2 ml-2" (click)="enableEdition()">Edit</button>
-    <button class= "btn btn-info my-2 ml-2" (click)="shuffle()">Shuffle</button>
-    <app-qaswitch (setSection)="onSelectedSection($event)" class="my-auto"></app-qaswitch>
+<div *ngIf="changeColor == undefined || changeColor['change'] == false || changeColor['change'] == undefined" class="toolBox">
+
+  <div>
+    <button class= "btn btn-info my-2 rounded-0 border-0" 
+            (click)="enableEdition()">Edit
+    </button>
+    <button class= "btn btn-info my-2 rounded-0 border-0" 
+            (click)="shuffle()">Shuffle
+    </button>    
   </div>
+
+  <div class="switchDiv">
+    <div class="switch">
+      <app-qaswitch (setSection)="onSelectedSection($event)">
+      </app-qaswitch>
+    </div>
+  </div>
+
 </div>
 
+
+<div *ngIf="changeColor != undefined && changeColor['change'] == true" class="toolBox">
+
+  <app-palette [changeColor]="changeColor"
+               (fontColor)="onSelectedFontColor($event)"
+               (backTextColor)="onSelectedBackTextColor($event)"
+               (borderColor)="onSelectedBorderColor($event)">
+  </app-palette>
+
+</div>

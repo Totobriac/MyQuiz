@@ -22,14 +22,26 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { QASwitchComponent } from './qaswitch/qaswitch.component';
 import { TrailerQuestionComponent } from './quiz-editor/trailer-question/trailer-question.component';
-import { SafePipe } from './safe.pipe';
-import { Globals } from './globals';
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { VgStreamingModule } from '@videogular/ngx-videogular/streaming';
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { QuizQuestionsComponent } from './quiz-questions/quiz-questions.component';
+import { QuestionTypeComponent } from './question-type/question-type.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { TopDisplayComponent } from './top-display/top-display.component';
+import { CurtainComponent } from './quiz-editor/curtain/curtain.component';
+import { QuizCurtainComponent } from './quiz-questions/quiz-curtain/quiz-curtain.component';
+import { QuestionsListComponent } from './quiz-questions/questions-list/questions-list.component';
+import { ToolBoxComponent } from './tool-box/tool-box.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { PaletteComponent } from './quiz-editor/palette/palette.component';
+import { ToolCurtainComponent } from './tool-box/tool-curtain/tool-curtain.component';
+import { ToolPlotComponent } from './tool-box/tool-plot/tool-plot.component';
+import { ToolActorComponent } from './tool-box/tool-actor/tool-actor.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ToolPosterComponent } from './tool-box/tool-poster/tool-poster.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +53,19 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     PosterQuestionComponent,
     QASwitchComponent,
     TrailerQuestionComponent,
-    SafePipe 
+    QuizQuestionsComponent,
+    QuestionTypeComponent,
+    NavbarComponent,
+    TopDisplayComponent,
+    CurtainComponent,
+    QuizCurtainComponent,
+    QuestionsListComponent,
+    ToolBoxComponent,
+    PaletteComponent,
+    ToolCurtainComponent,
+    ToolPlotComponent,
+    ToolActorComponent,
+    ToolPosterComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,9 +87,10 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     VgOverlayPlayModule,
     VgBufferingModule,
     VgStreamingModule,
-    PickerModule
+    ImageCropperModule,
+    AngularSvgIconModule.forRoot()
   ],
-  providers: [Globals],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

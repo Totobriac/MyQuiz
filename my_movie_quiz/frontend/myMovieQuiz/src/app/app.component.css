@@ -1,0 +1,74 @@
+.container {
+  display: grid;
+  height: 100vh;
+
+  gap: 24px;
+  grid-template-rows: auto auto 1fr auto auto;
+  grid-template-areas: 
+   "nav"
+   "search"
+   "questionType"
+   "editor"
+   "previews";
+}
+
+.nav {
+  grid-area: nav;
+}
+
+.search {
+  grid-area: search;
+}
+
+.questionType {
+  grid-area: questionType;
+}
+
+.editor {
+  grid-area: editor;
+}
+
+.previews {
+  grid-area: previews;
+}
+
+.tool {
+  grid-area: tool;
+}
+
+.top {
+  grid-area: top;
+}
+
+@media (min-width: 720px) {
+  .container {
+    grid-template-areas: 
+      "nav nav nav"
+      "search questionType questionType"
+      "search editor editor"
+      "search editor editor"
+      "previews previews previews";
+
+    grid-template-rows: auto auto 1fr auto auto;    
+  }
+}
+
+@media (min-width: 1020px) {
+  .container {   
+    grid-template-areas:
+      " . . . . "
+      " nav nav top top "
+      " search questionType top top "
+      " search editor editor previews "
+      " tool editor editor previews "
+      " . . . . ";      
+
+    grid-template-rows: 24px 100px 30px 300px 202px auto;
+    grid-template-columns: 200px auto auto 200px;
+  }
+  .editor {
+    display: flex;
+    align-self: flex-start;
+    justify-self: center;
+  }    
+}

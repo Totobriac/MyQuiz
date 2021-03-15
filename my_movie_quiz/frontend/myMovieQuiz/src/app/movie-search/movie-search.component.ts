@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { SearchMovie } from './movie-search.service';
 
@@ -13,42 +13,33 @@ export class MovieSearchComponent implements OnInit {
   model: any
   value: string
   @Output() movie = new EventEmitter()
-  @Output() questionType = new EventEmitter()
   @Output() trailer = new EventEmitter()
+  @Output() backdrop = new EventEmitter()
+  @Output() poster = new EventEmitter()
+  @Output() deletePicUrl = new EventEmitter()
 
-  movieList: [] = []
+  @Input() movieList: []
   trailerId: string
   videoSource: any
+  isSelected: boolean = false
+
   ngOnInit(): void {
   }
 
-  submitForm(movie: string) {       
-    this.searchMovie.searchMovies(movie)       
-    .subscribe((r:any) => { if (r.length == 1) {
-                              this.movieList = r
-                              this.chooseMovie(r[0].id)}
-                            else {this.movieList = r}
-                            this.value= ""})    
-  }
-
-  chooseMovie(movieId:number) {
+  chooseMovie(movieId:number, movieBackdrop: string, moviePoster: string) {     
     this.searchMovie.searchMovie(movieId)       
     .subscribe((r:any) => {this.movie.emit(r)                          
                           this.trailerId = r.trailer.id
-                          console.log(r)
-                          this.getTrailer()})
-  }
-
-  questionEditor(page) {    
-    this.questionType.emit(page)
+                          this.getTrailer()
+                          this.backdrop.emit(movieBackdrop)
+                          this.poster.emit(moviePoster)})
   }
 
   getTrailer() {
     if (this.trailerId != undefined){
       this.searchMovie.getTrailer(this.trailerId)
         .subscribe(r=> { this.videoSource = r
-                        console.log(r)
                         this.trailer.emit(r)})
     }
-  }
+  }  
 }

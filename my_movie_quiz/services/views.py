@@ -5,6 +5,10 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 import subprocess
 import json
+from .models import Picture, Tags
+from .serializers import PictureSerializer, TagsSerializer
+from rest_framework.decorators import api_view
+from rest_framework import generics, viewsets
 
 class MoviesSearch(View):
 
@@ -18,9 +22,14 @@ class MoviesSearch(View):
             json_data = json.loads(response.text)
         
             for i in json_data["results"]:
+                print(i)
                 if any(j in i["genre_ids"] for j in [16, 99, 10402, 10770]) or i["vote_count"] < 150:
                     pass
-                else: movies_list.append({"id": i["id"], "poster":i["poster_path"], "title":i["original_title"]})
+                else: movies_list.append({"id": i["id"],
+                                          "poster":i["poster_path"],
+                                          "title":i["original_title"],
+                                          "backdrop":i["backdrop_path"],
+                                          "year":i["release_date"]})
 
             if len(json_data["results"]) < 20:
                 isSearching = False
@@ -51,13 +60,13 @@ class ActorsSearch(View):
 
     def get(self, request, actors):
         actorPicUrl= []
-        actors_list = actors.split('-')              
+        actors_list = actors.split('$')              
         subscription_key = "9dc015a3a15c45abb05f88bcea641c2d"
         search_url = "https://api.bing.microsoft.com/v7.0/images/search"
         headers = {"Ocp-Apim-Subscription-Key" : subscription_key}
         for actor in actors_list:
-            response = requests.get(search_url, headers=headers, params={"q": actor, "count": "10"})
-            search_results = response.json()            
+            response = requests.get(search_url, headers=headers, params={"q": actor + " actor", "count": "10"})
+            search_results = response.json()
             url_list = [val["thumbnailUrl"] for val in search_results["value"]]
             actorPicUrl.append(url_list)
         return JsonResponse(actorPicUrl, safe=False)
@@ -66,16 +75,27 @@ class ActorsSearch(View):
 class TrailerSearch(View):
     
     def get(self, request, trailer_id):
-        print("ok")
         video_src = subprocess.run(["youtube-dl", "-g", "https://www.imdb.com/videoplayer/" + trailer_id], encoding='utf-8', stdout=subprocess.PIPE)
         print(video_src)
         return JsonResponse(video_src.stdout, safe=False)
 
-    # def get(self, request, movie_info):
-    #     search_url = "https://youtube.googleapis.com/youtube/v3/search?part=snippet"
-    #     params = {"maxResults" : 1, "q": "trailer" + movie_info, "key": "AIzaSyDdU8fgEmwuJP-eL3v_HxNv2AogCmC7wYA"}
-    #     response = requests.get(search_url, params=params)
-    #     search_result = response.json()
-    #     video_id = search_result["items"][0]["id"]["videoId"]
-    #     video_src = subprocess.run(["youtube-dl", "-g", "https://www.youtube.com/watch?v=" + video_id], encoding='utf-8', stdout=subprocess.PIPE)
-    #     return JsonResponse(video_src.stdout.split("\n")[0], safe=False)
+
+class PictureViewSet(viewsets.ModelViewSet):   
+
+    queryset = Picture.objects.all()
+    serializer_class = PictureSerializer
+    
+
+class TagsViewSet(viewsets.ModelViewSet):
+
+    queryset = Tags.objects.all()
+    serializer_class = TagsSerializer
+
+
+class TagPicsListAPIView(generics.ListAPIView):
+
+    serializer_class = PictureSerializer
+
+    def get_queryset(self):
+        kwarg_tag = self.kwargs.get('tag')
+        return Picture.objects.filter(tag=kwarg_tag)

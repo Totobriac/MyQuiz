@@ -1,0 +1,114 @@
+<div class="tools">
+
+  <div *ngIf="showFonts" class="fontsTools">
+
+    <div class="fontFamily">
+
+      <button (click)="changeFontFamily(-1)" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">chevron_left</mat-icon>
+      </button>
+
+      <div class="family">{{ plotFontFamily == undefined ? "Regular" : plotFontFamily['display'] }}</div>
+
+      <button (click)="changeFontFamily(1)" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">chevron_right</mat-icon>
+      </button>
+
+    </div>
+
+
+    <div class="fontSize">
+
+      <mat-icon [ngStyle]="{'color':'white'}" class="fontIcon">format_size</mat-icon>
+      <mat-slider min="26" max="40" step="2" [value]="plotFontSize == undefined ? 32 : plotFontSize" (input)="changeFontSize($event.value)"
+        thumbLabel=true tickInterval=2>
+      </mat-slider>
+
+    </div>
+
+
+    <div class="fontColor">
+
+      <button (click)="changeTheColor('font')" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">format_color_text</mat-icon>
+      </button>
+
+      <button (click)="isBold()" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">format_bold</mat-icon>
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div *ngIf="!showFonts" class="backgroundTools">
+
+
+    <div class="backgroundThemeSelector">
+
+      <button (click)="changeBackground(-1)" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">chevron_left</mat-icon>
+      </button>
+
+      <div class="input-group input-group-sm">
+        <select class="custom-select" (change)="selectTheme($event.target.value)">
+          <option [selected]="plotThemeOption == undefined">Backgrounds</option>
+          <option value=5 [selected]="plotThemeOption == 5">Scary</option>
+          <option value=6 [selected]="plotThemeOption == 6">Abstract</option>
+        </select>
+      </div>
+
+      <button (click)="changeBackground(1)" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">chevron_right</mat-icon>
+      </button>
+
+    </div>
+
+
+    <div class="fontSize">
+
+      <mat-icon [ngStyle]="{'color':'white'}" class="fontIcon">opacity</mat-icon>
+      <mat-slider min="0" max="1" step="0.02" [value]="plotOpacity == undefined ? 0.7 : plotOpacity"
+        (input)="changeOpacity($event.value)" thumbLabel=true tickInterval=0.1>
+      </mat-slider>
+
+    </div>
+
+
+    <div class="back">
+
+      <button (click)="changeTheColor('back')" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}"> format_color_fill</mat-icon>
+      </button>
+
+      <button (click)="onChangeCorner()" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">rounded_corner</mat-icon>
+      </button>
+
+    </div>
+
+    <div class="back">
+
+      <button (click)="changeBorder()" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">border_outer</mat-icon>
+      </button>
+
+      <button (click)="changeTheColor('border')" class="fontColorIcon">
+        <mat-icon [ngStyle]="{'color':'white'}">border_color</mat-icon>
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="toolSwitch">
+    <mat-slide-toggle (change)="onChange()">
+      <span>{{ selectedTools }}</span>
+    </mat-slide-toggle>
+  </div>
+
+</div>

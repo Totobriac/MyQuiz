@@ -1,37 +1,59 @@
-<div class="d-flex justify-content-center mt-2 " style="height: 400px">
-
-  <div *ngIf="showQuestion === true" class="border row col-md-5 d-flex justify-content-center"
-    style="background-color: rgba(179, 218, 218, 0.1);">
-    <img src="{{ quizedMovie.poster}}" alt="movie poster" class="img-thumbnail" style="height: 100%;"
-      [ngStyle]="{'filter': blurring + ' ' + color }" [style.transform]="rotation">
+<div *ngIf="showQuestion === true" class="posterDiv"
+     [ngStyle]="{'backgroundImage': (posterBack) ?  'url(' + posterBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+  
+    <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation">
+  
+      <div class="poster" [style]="style" [ngClass]="imageEffect">
+  
+        <img [attr.src]="posterSrc">
+  
+      </div>
+  
+    </div>
+  
   </div>
 
-  <div *ngIf="showQuestion === false" class="border row col-md-5 d-flex justify-content-center"
-    style="background-color: rgba(179, 218, 218, 0.1);">
-    <h1 class="my-auto">{{ quizedMovie.title }}</h1>
-  </div>
+  
+<div *ngIf="showQuestion === false" class="posterDiv"
+     [ngStyle]="{'backgroundImage': (posterBack) ?  'url(' + posterBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+
+  <h1 class="my-auto">{{ quizedMovie.title }}</h1>
 
 </div>
 
-<div class="container mt-3">
-  <div class="d-flex justify-content-around my-auto" style="background-color:  rgb(4, 113, 150);">
+
+<div class="toolBox">  
+
+  <div class="d-flex flex-row tools">
 
     <div class="d-flex flex-row">
-      <span style="color: white" class="my-auto mr-2">Blur</span>
-      <mat-slider min="0" max="15" step="1" value="1" (input)="onBlurChange($event)"></mat-slider>
+      <mat-icon class="fontColorIcon">blur_on</mat-icon>
+      <mat-slider min="0" max="15" step="1" value="0" (input)="onBlurChange($event)"></mat-slider>
     </div> 
 
     <div class="d-flex flex-row">
-      <span style="color: white" class="my-auto mr-2">Color</span>
-      <mat-slider min="0" max="360" step="10" value="1" (input)="onColorChange($event)"></mat-slider>
+      
+      <button (click)="changeEffect(-1)" class="fontColorIcon">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <div class="family">{{ imageEffectDisplay }}</div>
+
+      <button (click)="changeEffect(1)" class="fontColorIcon">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
     </div>
+    
+    <button (click)="onRotationChange()" class="fontColorIcon">
+      <mat-icon>rotate_right</mat-icon>
+    </button>
 
-    <div class="d-flex flex-row">
-      <span style="color: white" class="my-auto mr-2">Rotate</span>
-      <mat-slide-toggle (input)="onRotationChange()" class="my-auto"></mat-slide-toggle>
-    </div>
-
-
-    <app-qaswitch (setSection)="onSelectedSection($event)" class="my-auto"></app-qaswitch>
   </div>
+
+  <div>
+    <div class="switch">
+      <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
+    </div>
+  </div>
+
 </div>
