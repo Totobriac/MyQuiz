@@ -56,7 +56,7 @@ export class ToolPosterComponent implements OnInit {
 
   changeBackground(nOrP) {
     var backPic = this.toolsService.background(nOrP, this.component,  this.posterListIndex ? this.posterListIndex['index'] : 0)
-    console.log(backPic);
+    console.log(this.posterListIndex);
     this.picBack.emit({question: this.component, value: backPic['backgrounds']})
     this.backListIndex.emit({question: this.component, index: backPic['index']})
   }

@@ -59,6 +59,8 @@
   <app-tool-poster  [poster]="poster"
                     (posterSrc)="getPosterSrc($event)"
                     (picBack)="changePicBack($event)"
+                    (backListIndex)="selectedListIndex($event)"
+                    [posterListIndex]="posterListIndex"
                     [component]="component"
                     *ngSwitchCase="3">
                     

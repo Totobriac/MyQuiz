@@ -49,6 +49,7 @@ export class PosterQuestionComponent implements OnInit {
   }
 
   get style() {
+    this.back = 'url(' + this.posterSrc + ')' 
     return this.sanitizer.bypassSecurityTrustStyle(`--back: ${this.back}`);
   }
 

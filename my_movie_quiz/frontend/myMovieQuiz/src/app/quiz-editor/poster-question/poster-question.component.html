@@ -1,13 +1,11 @@
-<div class="d-flex qAWindow">
-
-  <div *ngIf="showQuestion === true" class="posterDiv question"
-       [ngStyle]="{'backgroundImage': (posterBack) ?  'url(' + posterBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+<div *ngIf="showQuestion === true" class="posterDiv"
+     [ngStyle]="{'backgroundImage': (posterBack) ?  'url(' + posterBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
   
-    <div class="blurDiv my-auto" [ngStyle]="{'filter': blurring }" [style.transform]="rotation">
+    <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation">
   
-      <div [style]="style" class="poster" [ngClass]="imageEffect">
+      <div class="poster" [style]="style" [ngClass]="imageEffect">
   
-        <img [attr.src]="posterSrc" alt="movie poster" style="height: 100%; border: solid 3px red">
+        <img [attr.src]="posterSrc">
   
       </div>
   
@@ -15,14 +13,14 @@
   
   </div>
 
+  
+<div *ngIf="showQuestion === false" class="posterDiv"
+     [ngStyle]="{'backgroundImage': (posterBack) ?  'url(' + posterBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
 
-  <div *ngIf="showQuestion === false" class="posterDiv">
-
-    <h1 class="my-auto">{{ quizedMovie.title }}</h1>
-
-  </div>
+  <h1 class="my-auto">{{ quizedMovie.title }}</h1>
 
 </div>
+
 
 <div class="toolBox">  
 

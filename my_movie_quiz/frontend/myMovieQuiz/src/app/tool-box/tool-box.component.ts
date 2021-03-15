@@ -26,6 +26,7 @@ export class ToolBoxComponent implements OnInit {
 
   plotListIndex: object;
   actorListIndex: object;
+  posterListIndex: object;
 
   plotBorderIndex: number;
   actorBorderIndex: number;
@@ -107,6 +108,8 @@ export class ToolBoxComponent implements OnInit {
       this.plotListIndex = listIndex
     } else if (listIndex['question'] == 2) {
       this.actorListIndex = listIndex}
+    else if (listIndex['question'] == 3) {
+      this.posterListIndex = listIndex}
   }
 
   selectedDisplay(display) {
