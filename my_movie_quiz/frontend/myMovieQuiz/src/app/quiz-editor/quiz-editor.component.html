@@ -3,51 +3,15 @@
   <div>
 
     <ng-container [ngSwitch]="component">
-      <app-curtain *ngSwitchCase="0" [backdrop]="backdrop"></app-curtain>
-      <app-plot-question [quizedMovie]="quizedMovie" 
-                         [plotFS]="plotFS"
-                         [changeColor]="changeColor"
-                         [plotFF]="plotFF"
-                         [plotBack]="plotBack"
-                         [plotOpacity]="plotOpacity"
-                         [plotCorn]="plotCorn"
-                         [isBold]="isBold"
 
-                         [plotBorder]="plotBorder"
-
-                         (setPlotBackColor)="setPlotBackColor($event)"
-                         [plotBackColor]="plotBackColor"
-
-                         (setPlotFontColor)="setPlotFontColor($event)"
-                         [plotFontColor]="plotFontColor"
-
-                         (setPlotBorderColor)="setPlotBorderColor($event)"
-                         [plotBorderColor]="plotBorderColor"
-
-                         *ngSwitchCase="1">
+      <app-curtain *ngSwitchCase="0">
+      </app-curtain>
+      
+      <app-plot-question *ngSwitchCase="1">
       </app-plot-question>
 
 
-      <app-actor-question [quizedMovie]="quizedMovie"
-                          [changeColor]="changeColor"
-                          [actFF]="actFF"
-                          [actBack]="actBack"
-                          [actorOpacity]="actorOpacity"
-                          [actCorn]="actCorn"
-                          [isBold]="isBold"
-                          
-                          [actorBorder]="actorBorder"
-
-                          (setActorBackColor)="setActorBackColor($event)"
-                          [actorBackColor]="actorBackColor"
-
-                          (setActorFontColor)="setActorFontColor($event)"
-                          [actorFontColor]="actorFontColor"
-
-                          (setActorBorderColor)="setActorBorderColor($event)"
-                          [actorBorderColor]="actorBorderColor"
-
-                          [display]="display"
+      <app-actor-question [display]="display"
 
                           (savePicUrl)="savePicUrl($event)"
                           [actorPicUrl]="actorPicUrl"
@@ -70,14 +34,13 @@
                           *ngSwitchCase="2">
       </app-actor-question>
 
-      <app-poster-question [quizedMovie]="quizedMovie"
-                           [posterSrc]="posterSrc"
+      <app-poster-question [posterSrc]="posterSrc"
                            [posterBack]="posterBack"
                            *ngSwitchCase="3">
       </app-poster-question>
 
 
-      <app-trailer-question [quizedMovie]="quizedMovie" [videoSource]="trailer" *ngSwitchCase="4"></app-trailer-question>
+      <app-trailer-question [videoSource]="trailer" *ngSwitchCase="4"></app-trailer-question>
     </ng-container>
     
   </div>

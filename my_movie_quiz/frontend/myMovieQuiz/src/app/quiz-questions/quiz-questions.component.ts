@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MovieDataService } from '../services/movie-data.service';
 
 @Component({
   selector: 'app-quiz-questions',
@@ -7,12 +9,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class QuizQuestionsComponent implements OnInit {
 
-  @Input() component: number
-  @Input() backdrop: string
+  component: number
+  subscription: Subscription
 
-  constructor() { }
+  constructor(private data: MovieDataService) { }
 
   ngOnInit(): void {
+    this.subscription = this.data.currentComponent.subscribe(component => this.component = component)
   }
 
 }

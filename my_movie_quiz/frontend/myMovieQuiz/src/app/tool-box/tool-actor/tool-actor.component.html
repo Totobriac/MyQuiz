@@ -6,25 +6,25 @@
     <div class="fontFamily">
 
       <button (click)="changeFontFamily(-1)" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">chevron_left</mat-icon>
+        <mat-icon>chevron_left</mat-icon>
       </button>
 
-      <div class="family">{{ actFontFamily == undefined ? "Regular" : actFontFamily['display'] }}</div>
+      <div class="family">{{ tools.fontFamily.display }}</div>
 
       <button (click)="changeFontFamily(1)" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">chevron_right</mat-icon>
+        <mat-icon>chevron_right</mat-icon>
       </button>
 
     </div>
 
     <div class="fontColor">
 
-      <button (click)="changeTheColor('font')" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">format_color_text</mat-icon>
+      <button (click)="changeColor('actorFont')" class="fontColorIcon">
+        <mat-icon>format_color_text</mat-icon>
       </button>
 
       <button (click)="isBold()" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">format_bold</mat-icon>
+        <mat-icon>format_bold</mat-icon>
       </button>    
 
     </div>
@@ -50,7 +50,7 @@
     <div class="backgroundThemeSelector">
 
       <button (click)="changeBackground(-1)" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">chevron_left</mat-icon>
+        <mat-icon>chevron_left</mat-icon>
       </button>
 
       <div class="input-group input-group-sm">
@@ -62,7 +62,7 @@
       </div>
 
       <button (click)="changeBackground(1)" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">chevron_right</mat-icon>
+        <mat-icon>chevron_right</mat-icon>
       </button>
 
     </div>
@@ -70,9 +70,11 @@
 
     <div class="fontSize">
 
-      <mat-icon [ngStyle]="{'color':'white'}" class="fontIcon">opacity</mat-icon>
-      <mat-slider min="0" max="1" step="0.02" [value]="actorOpacity == undefined ? 0.7 : actorOpacity"
-        (input)="changeOpacity($event.value)" thumbLabel=true tickInterval=0.1>
+      <mat-icon class="fontIcon">opacity</mat-icon>
+      <mat-slider min="0" max="1" step="0.02" 
+                  [value]="tools.opacity"
+                  (input)="changeOpacity($event.value)"
+                  thumbLabel=true tickInterval=0.1>
       </mat-slider>
 
     </div>
@@ -80,12 +82,12 @@
 
     <div class="back">
 
-      <button (click)="changeTheColor('back')" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}"> format_color_fill</mat-icon>
+      <button (click)="changeColor('actorBack')" class="fontColorIcon">
+        <mat-icon> format_color_fill</mat-icon>
       </button>
 
       <button (click)="onChangeCorner()" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">rounded_corner</mat-icon>
+        <mat-icon>rounded_corner</mat-icon>
       </button>
 
     </div>
@@ -93,11 +95,11 @@
     <div class="back">
 
       <button (click)="changeBorder()" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">border_outer</mat-icon>
+        <mat-icon>border_outer</mat-icon>
       </button>
 
-      <button (click)="changeTheColor('border')" class="fontColorIcon">
-        <mat-icon [ngStyle]="{'color':'white'}">border_color</mat-icon>
+      <button (click)="changeColor('actorBorder')" class="fontColorIcon">
+        <mat-icon>border_color</mat-icon>
       </button>
 
     </div>

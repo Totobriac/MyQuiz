@@ -1,4 +1,6 @@
-import { Component, OnInit, Input,} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MovieDataService } from 'src/app/services/movie-data.service';
 
 @Component({
   selector: 'app-curtain',
@@ -7,10 +9,12 @@ import { Component, OnInit, Input,} from '@angular/core';
 })
 export class CurtainComponent implements OnInit {
 
-  @Input() backdrop: string
- 
-  constructor() { }
+  backdrop: any
+  subscription: Subscription
+
+  constructor(private data: MovieDataService) { }
 
   ngOnInit(): void {
+    this.subscription = this.data.currentMovieDb.subscribe(movie => this.backdrop = movie.backdrop)
   }
 }

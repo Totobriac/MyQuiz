@@ -1,6 +1,8 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { SearchMovieService } from './search-movie.service'
+import { Component, OnInit,} from '@angular/core';
+import { MovieDb } from '../interfaces/movie';
+import { SearchMovieService } from './search-movie.service';
+import { MovieDataService } from "../services/movie-data.service";
+
 
 @Component({
   selector: 'app-navbar',
@@ -8,12 +10,11 @@ import { SearchMovieService } from './search-movie.service'
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  @Output() movieList = new EventEmitter()
   
   value: any
 
-  constructor( private searchMovieService : SearchMovieService ) { }
+  constructor( private searchMovieService: SearchMovieService,
+               private data: MovieDataService ) { }
 
   ngOnInit(): void {
   }
@@ -21,12 +22,12 @@ export class NavbarComponent implements OnInit {
   submitForm(movie: string) {
     console.log(movie)      
     this.searchMovieService.searchMovies(movie)       
-    .subscribe((r:any) => { r.sort(function(a,b){
-                              var c: any = new Date(a.year);
-                              var d: any = new Date(b.year);
-                              return c-d;
-                            });
-                            this.movieList.emit(r)
-                            console.log(r)})                                                        
+    .subscribe((r: MovieDb[]) => { r.sort(function(a,b){
+                                  var c: any = new Date(a.year);
+                                  var d: any = new Date(b.year);
+                                  return c-d;
+                                  });
+                                  this.data.changeMovieList(r)
+                                  console.log(r)})                                                        
   }
 }

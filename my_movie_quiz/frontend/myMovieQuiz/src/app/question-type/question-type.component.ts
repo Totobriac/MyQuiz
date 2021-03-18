@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { MovieDataService } from '../services/movie-data.service';
 
 @Component({
   selector: 'app-question-type',
@@ -8,15 +8,12 @@ import { EventEmitter } from '@angular/core';
 })
 export class QuestionTypeComponent implements OnInit {
 
-  constructor() { }
-  @Output() questionType = new EventEmitter()
-  selectedQuestion: number = 1;
+  constructor(private data: MovieDataService) {}
 
   ngOnInit(): void {
   }
 
-  questionEditor(page) {    
-    this.questionType.emit(page)
+  questionEditor(page) {
+    this.data.changeComponent(page)   
   }
-
 }

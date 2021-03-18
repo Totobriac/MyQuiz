@@ -1,5 +1,8 @@
-import { Component, Input, Output, OnInit, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, } from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
+import { MovieDataService } from "../../services/movie-data.service";
+import { Subscription } from 'rxjs';
+import { Movie } from 'src/app/interfaces/movie';
 
 @Component({
   selector: 'app-poster-question',
@@ -36,15 +39,19 @@ export class PosterQuestionComponent implements OnInit {
   imageEffectDisplay: string = 'No effect'
   imageEffect: string
 
-  constructor(private sanitizer: DomSanitizer) {}
+  movie: Movie
+  subscription: Subscription
 
-  @Input() quizedMovie;
+  constructor(private sanitizer: DomSanitizer,
+              private data: MovieDataService) {}
+
   @Input() posterSrc;
   @Input() posterBack;
 
   backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg" 
 
   ngOnInit(): void {
+    this.subscription = this.data.currentMovie.subscribe(movie => this.movie = movie)
     this.back = 'url(' + this.posterSrc + ')' 
   }
 

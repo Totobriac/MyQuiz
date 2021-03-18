@@ -1,4 +1,7 @@
-import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ActorTools } from 'src/app/interfaces/actorTools';
+import { MovieDataService } from 'src/app/services/movie-data.service';
 import { ToolsService } from '../tools.service';
 
 
@@ -9,111 +12,80 @@ import { ToolsService } from '../tools.service';
 })
 export class ToolActorComponent implements OnInit {
 
-  @Input() component: number;
-  @Input() actFontFamily: string;
-  @Input() actCornIndex: number;
-  @Input() actorThemeOption: number;
-  @Input() actorListIndex: object;
-  @Input() actorOpacity: number;
-  @Input() actorBorderIndex: number;
-
-  @Output() fontSize = new EventEmitter();
-  @Output() changeColor = new EventEmitter();
-  @Output() fontDisplay = new EventEmitter();
-  @Output() fontFamily = new EventEmitter();
-  @Output() picBack = new EventEmitter();
-  @Output() backOpacity = new EventEmitter();
-  @Output() rounded = new EventEmitter();
-  @Output() bold = new EventEmitter();
-  @Output() border = new EventEmitter();
-  @Output() selectedOption = new EventEmitter();
-  @Output() backListIndex = new EventEmitter();
-  @Output() nameDisplay = new EventEmitter();
-
-  size: number;
-  opacity: number;
-  change: boolean = false;
-  borderStyles: string[] = ["none", "solid","dotted", "dashed",
-                            "double", "thick double", "outset"];
-  tags: string[] = ['scary', 'abstract'];
-  backIndex: number = 0;
+  selectedTools: string = "Background"
   showFonts: boolean = false;
-  selectedTools: string ="Names";
-  fontOrBack: string;
-  isTextBold: boolean = false;
-  borderIndex: number
-  backgrounds: any;
- 
 
-  ngOnInit(): void {   
+  tools: ActorTools
+  subscription: Subscription  
+
+  ngOnInit(): void {
+    this.subscription = this.data.currentActorTools.subscribe(tools => this.tools = tools)
   }
 
-  constructor (private toolsService : ToolsService) {}
+  constructor (private toolsService : ToolsService,
+               private data : MovieDataService) {}
 
-  changeFontSize(selectedSize) {    
-    this.size = selectedSize.value
-    this.fontSize.emit(this.size)
-  }
-
-  changeTheColor(fBb) {
-    this.change = !this.change    
-    this.changeColor.emit({change: this.change, colorTool: fBb})
-  }
-
-  changeFontFamily(nOrP) {
-    var fontFamily = this.toolsService.changeFF(nOrP,  this.actFontFamily ? this.actFontFamily['index'] : 0)
-    this.fontFamily.emit({question: this.component, value:fontFamily['cssFonts'],
-                          displayValue: fontFamily['fonts'], index: fontFamily['index']})
-  } 
-
-  onChange() {    
-    this.showFonts = !this.showFonts
-    this.change = false
-    if (this.selectedTools == "Names") {
-       this.selectedTools = "Background"
-       this.changeColor.emit({change: false, fontOrBack: null})
-    } else { this.selectedTools = "Names"
-             this.changeColor.emit({change: false, fontOrBack: null})}
-  }
-
-  selectTheme(theme: number) {
-    this.selectedOption.emit({question: this.component, value: theme}) 
-    this.toolsService.theme(theme)
-    .subscribe((r) => {this.backgrounds = r
-                      this.picBack.emit({question: this.component, value: this.backgrounds[0]})
-                      this.selectedOption.emit({question: this.component, value: theme})
-                      this.toolsService.setBackgrounds(this.component, this.backgrounds)})
-  }
-
-  changeBackground(nOrP) {   
-    var backPic = this.toolsService.background(nOrP, this.component, this.actorListIndex ? this.actorListIndex['index'] : 0)
-    this.picBack.emit({question: this.component, value: backPic['backgrounds']})
-    this.backListIndex.emit({question: this.component, index: backPic['index']})
+  changeFontSize(selectedSize) {
+    this.data.changePalette("none")
+    this.data.changeFontSize(selectedSize)
   }
 
   changeOpacity(opacity) {
-    this.opacity = opacity['value']
-    this.backOpacity.emit({question: this.component, value: opacity})
-  }
+    this.data.changePaletteA("none")
+    this.data.changeOpacityA(opacity)
+  }  
 
   onChangeCorner() {
-    var corner = this.toolsService.corner(this.actCornIndex ? this.actCornIndex: 0)
-    this.rounded.emit({question: this.component, value: corner['value'], index: corner['index']})
-  }
-
-  isBold() {
-    this.isTextBold = !this.isTextBold
-    this.bold.emit({question: this.component, value:this.isTextBold})
+    this.data.changePaletteA("none")
+    var corner = this.toolsService.corner(this.tools.corner.index)
+    this.data.changeCornerA(corner)
   }
 
   changeBorder() {
-    this.actorBorderIndex == undefined ? this.borderIndex = 0 : this.borderIndex = this.actorBorderIndex
-    this.borderIndex == this.borderStyles.length -  1 ? this.borderIndex = 0 : this.borderIndex ++
-    this.border.emit({question: this.component, value: this.borderStyles[this.borderIndex], index: this.borderIndex})
+    this.data.changePaletteA("none")
+    var border = this.toolsService.border(this.tools.border.index)
+    this.data.changeBorderA(border)
+  } 
+
+  changeFontFamily(next: number) {
+    this.data.changePaletteA("none")
+    var family = this.toolsService.family(this.tools.fontFamily.index, next)
+    this.data.changeFontFamilyA(family)
   }
 
-  selectDisplay(display) {
-    console.log(display)
-    this.nameDisplay.emit(display)
+  isBold() {
+    this.data.changePaletteA("none")
+    this.tools.weight == "normal" ? this.data.changeWeightA("bold") : this.data.changeWeightA("normal")
   }
-}
+
+  selectTheme(theme: number) {
+    this.data.changePaletteA("none")   
+    this.toolsService.theme(theme)
+    .subscribe((backgrounds) => {var back = backgrounds 
+                                this.data.changeThemeA(back);
+                                this.data.changeBackgroundA(back[0])})    
+  }
+
+  changeBackground(next: number) {
+    this.data.changePaletteA("none")
+    var index = this.tools.background.id + next
+    if (index == this.tools.backgrounds.length) {
+      index = 0
+    } else if (index == -1) {
+      index = this.tools.backgrounds.length - 1
+    }
+    this.data.changeBackgroundA(this.tools.backgrounds[index])
+  }
+
+  changeColor(tool: string) {
+    this.data.changePaletteA(tool)  
+  }
+
+  onChange() {
+    this.data.changePaletteA("none")
+    this.showFonts = !this.showFonts   
+    this.selectedTools == "Fonts" ? this.selectedTools = "Background" : this.selectedTools = "Fonts"
+  }  
+    
+ }
+  

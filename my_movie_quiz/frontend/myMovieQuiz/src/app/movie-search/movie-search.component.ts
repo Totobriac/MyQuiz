@@ -1,6 +1,10 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { SearchMovie } from './movie-search.service';
+import { MovieDataService } from "../services/movie-data.service";
+import { Movie, MovieDb } from '../interfaces/movie';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-movie-search',
@@ -9,30 +13,33 @@ import { SearchMovie } from './movie-search.service';
 })
 export class MovieSearchComponent implements OnInit {
 
-  constructor(private searchMovie: SearchMovie ) { }
+  constructor(private searchMovie: SearchMovie,
+              private data: MovieDataService) { }
+
   model: any
   value: string
-  @Output() movie = new EventEmitter()
   @Output() trailer = new EventEmitter()
-  @Output() backdrop = new EventEmitter()
-  @Output() poster = new EventEmitter()
-  @Output() deletePicUrl = new EventEmitter()
 
-  @Input() movieList: []
   trailerId: string
   videoSource: any
   isSelected: boolean = false
 
+  subscription: Subscription;
+  movieList: MovieDb[];
+
   ngOnInit(): void {
+    this.subscription = this.data.currentMovieList.subscribe(movieList => this.movieList = movieList)
   }
 
-  chooseMovie(movieId:number, movieBackdrop: string, moviePoster: string) {     
-    this.searchMovie.searchMovie(movieId)       
-    .subscribe((r:any) => {this.movie.emit(r)                          
-                          this.trailerId = r.trailer.id
-                          this.getTrailer()
-                          this.backdrop.emit(movieBackdrop)
-                          this.poster.emit(moviePoster)})
+  chooseMovie(movie: MovieDb) {
+    this.data.changeMovieDb(movie)  
+    this.searchMovie.searchMovie(movie.id)       
+    .subscribe((r: Movie) => { this.data.changeMovie(r)
+                               console.log(r)
+                               this.data.changeComponent(0)                      
+                               // this.trailerId = r.trailer.id
+                               this.getTrailer()
+                            })
   }
 
   getTrailer() {
@@ -41,5 +48,5 @@ export class MovieSearchComponent implements OnInit {
         .subscribe(r=> { this.videoSource = r
                         this.trailer.emit(r)})
     }
-  }  
+  }
 }

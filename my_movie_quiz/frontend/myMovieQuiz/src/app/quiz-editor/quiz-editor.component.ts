@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input,OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MovieDataService } from '../services/movie-data.service';
 
 @Component({
   selector: 'app-quiz-editor',
@@ -7,47 +9,9 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 })
 export class QuizEditorComponent implements OnInit {
 
-  @Input() quizedMovie;
-  @Input() component: number;
   @Input() trailer: string;
   @Input() backdrop: string;
 
-  @Input() plotFS: number;
-  @Input() changeColor: object;
-
-  @Input() plotFF: string;
-  @Input() actFF: string;
-
-  @Input() plotBack: string;
-  @Input() actBack: object;
-  @Input() posterBack: object;
-
-  @Input() plotOpacity: number;
-  @Input() actorOpacity: number;
-
-  @Input() plotCorn: string;
-  @Input() actCorn: string;
-
-  @Input() isBold: object;
-
-  @Input() actorBorder: string;
-  @Input() plotBorder: string;
-
-  @Input() display: string;
-
-  @Input() posterSrc: any;
-
-
-  videoSource: any
-
-  plotBackColor: string
-  actorBackColor: string
-
-  plotFontColor: any
-  actorFontColor: any
-
-  plotBorderColor: any
-  actorBorderColor: any
 
   actorPicUrl: any
   oldId: any
@@ -57,35 +21,15 @@ export class QuizEditorComponent implements OnInit {
 
   src: any[]
   photoIndexSaved: any[];
+
+  component: number
+  subscription: Subscription
   
-  constructor() { }  
+  constructor(private data: MovieDataService) { }  
 
-  ngOnInit(): void {  
-  }
-
-  setPlotBackColor(color) {
-    this.plotBackColor = color
-  }
-
-  setActorBackColor(color) {
-    this.actorBackColor = color
-  }
-
-  setPlotFontColor(color) {    
-    this.plotFontColor = color
-  }
-
-  setActorFontColor(color) {    
-    this.actorFontColor = color
-  }
-
-  setPlotBorderColor(color) {
-    this.plotBorderColor = color
-  }
-
-  setActorBorderColor(color) {
-    this.actorBorderColor = color
-  }
+  ngOnInit(): void {
+    this.subscription = this.data.currentComponent.subscribe(component => this.component = component)
+  }  
 
   savePicUrl(picUrl) {
     this.actorPicUrl = picUrl

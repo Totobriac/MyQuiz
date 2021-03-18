@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SearchActor } from './actor-question.service';
 import { PixelActor } from './actor-pixel.service';
-import { ɵangular_material_src_cdk_bidi_bidi_a } from '@angular/cdk/bidi';
+import { MovieDataService } from "../../services/movie-data.service";
+import { Subscription } from 'rxjs';
+import { Movie } from 'src/app/interfaces/movie';
+import { ActorTools} from 'src/app/interfaces/actorTools';
 
 @Component({
   selector: 'app-actor-question',
@@ -11,19 +14,9 @@ import { ɵangular_material_src_cdk_bidi_bidi_a } from '@angular/cdk/bidi';
 
 export class ActorQuestionComponent implements OnInit {
 
-  @Input() quizedMovie;
   @Input() actorPicUrl: any;
   @Input() oldId: any;
-  @Input() changeColor: object;
-  @Input() actFF: string;
-  @Input() actBack: string;
-  @Input() actorOpacity: number;
-  @Input() actCorn: string;
-  @Input() isBold: boolean;
-  @Input() actorBorder: string;
-  @Input() actorBackColor: any;
-  @Input() actorFontColor: any;
-  @Input() actorBorderColor: any;
+  
   @Input() display: any;
   @Input() imgClassSaved: boolean[]
   @Input() pixelValueSaved: number[]
@@ -54,23 +47,25 @@ export class ActorQuestionComponent implements OnInit {
   backTextColor: any;
   color: any;
   displayName: string[]
+
+  movie: Movie
+  tools: ActorTools
+  subscription: Subscription
   backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg";
 
   constructor(private searchActor: SearchActor,
-    private pixelActor: PixelActor) { }
+              private pixelActor: PixelActor,
+              private data: MovieDataService) { }
 
   ngOnInit() {
+    this.subscription = this.data.currentMovie.subscribe(movie => this.movie = movie)
+    this.subscription = this.data.currentActorTools.subscribe(tools => this.tools = tools)
+
     this.retreiveActors()
   }
 
-  ngOnChanges(changes) {
-    this.actorBackColor == undefined ? this.actorBackColor = "255, 255, 255" : this.actorBackColor = this.actorBackColor
-    this.backTextColor = "rgba(" + this.actorBackColor + "," + this.actorOpacity + ")"
-    this.selectDisplay()
-  }
-
   getActorsList() {
-    this.actors = this.quizedMovie.cast.slice(0, 4)
+    this.actors = this.movie.cast.slice(0, 4)
     for (let i = 0; i < this.actors.length; i++) {
       this.actorName[i] = this.actors[i].actor
       this.actorCharacter[i] = this.actors[i].character
@@ -79,7 +74,8 @@ export class ActorQuestionComponent implements OnInit {
 
   getPicturesList() {
     this.searchActor.searchActor(this.actorName.join('$'))
-      .subscribe(r => { this.actorPicUrl = r })
+      .subscribe(r => { this.actorPicUrl = r 
+                        console.log('ok')})
   }
 
   selectActor(index) {
@@ -139,42 +135,7 @@ export class ActorQuestionComponent implements OnInit {
     this.pixelValue[this.selectedActor] == 0 ? this.imgClass[this.selectedActor] = false : this.imgClass[this.selectedActor] = true
   }
 
-  onSelectedFontColor(color) {
-    this.actorFontColor = color
-    this.fontColor = "rgb(" + this.actorFontColor + ")"
-    this.setActorFontColor.emit(this.fontColor)
-  }
-
-  onSelectedBackTextColor(color) {
-    this.actorBackColor = color
-    this.setActorBackColor.emit(color)
-    this.backTextColor = "rgba(" + color + ", 0.7)"
-  }
-
-  onSelectedBorderColor(color) {
-    this.actorBorderColor = color
-    this.setActorBorderColor.emit(color)
-  }
-
-  getWeight() {
-    if (this.isBold == undefined) {
-      return ("normal")
-    }
-    else if (this.isBold['question'] == 2 && this.isBold['value'] == true) {
-      return ("bold")
-    }
-    else if (this.isBold['question'] == 2 && this.isBold['value'] == false) {
-      return ("normal")
-    }
-  }
-
-  getBorder() {
-    var border: string
-    this.actorBorder == undefined ? border = 'none' : border = this.actorBorder
-    this.actorBorderColor == undefined ? border = border : border = border + ' rgb(' + this.actorBorderColor + ')'
-    return border
-  }
-
+  
   selectDisplay() {
     if (this.display === undefined || this.display === "Name") {
       this.displayName = this.actorName
@@ -185,7 +146,7 @@ export class ActorQuestionComponent implements OnInit {
 
   ngOnDestroy() {
     this.savePicUrl.emit(this.actorPicUrl)
-    this.saveId.emit(this.quizedMovie['id'])
+    this.saveId.emit(this.movie.id)
     this.saveImgClass.emit(this.imgClass)
     this.savePixelValue.emit(this.pixelValue)
     this.saveSrc.emit(this.src)
@@ -199,7 +160,7 @@ export class ActorQuestionComponent implements OnInit {
       this.photoIndex = [0, 0, 0, 0]
       this.pixelValue = [0, 0, 0, 0]
       this.imgClass = [false, false, false, false]
-    } else if (this.oldId != this.quizedMovie['id']) {
+    } else if (this.oldId != this.movie.id) {
       this.actorPicUrl = void (0)
       this.getActorsList()
       this.getPicturesList()
@@ -223,6 +184,5 @@ export class ActorQuestionComponent implements OnInit {
       this.pixelValue = this.pixelValueSaved
       this.imgClass = this.imgClassSaved
     }
-    this.changeColor ? this.changeColor['change'] = false : null
   }
 }

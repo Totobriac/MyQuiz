@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 import subprocess
 import json
-from .models import Picture, Tags
+from .models import Tags, Picture
 from .serializers import PictureSerializer, TagsSerializer
 from rest_framework.decorators import api_view
 from rest_framework import generics, viewsets
@@ -95,6 +95,7 @@ class TagsViewSet(viewsets.ModelViewSet):
 class TagPicsListAPIView(generics.ListAPIView):
 
     serializer_class = PictureSerializer
+
 
     def get_queryset(self):
         kwarg_tag = self.kwargs.get('tag')

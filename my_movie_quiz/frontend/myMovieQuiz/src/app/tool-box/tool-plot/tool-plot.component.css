@@ -11,12 +11,14 @@
 
 .fontIcon {
   margin-top: 5px;
+  color: white;
 }
 
 .fontColorIcon {
   border: none;
   background: none;
-  outline: none
+  outline: none;
+  color: white;
 }
 
 .fontColor {

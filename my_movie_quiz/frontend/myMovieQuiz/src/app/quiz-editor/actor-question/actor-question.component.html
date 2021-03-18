@@ -1,7 +1,7 @@
 <div class="d-flex qAWindow">
 
   <div *ngIf="showQuestion === true" class="mainDiv"
-        [ngStyle]="{'backgroundImage': (actBack) ?  'url(' + actBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+  [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
 
     <div *ngFor="let actor of actorName; index as i" class="actorCard">
@@ -14,12 +14,12 @@
                [id]="i">
         </div>
         <div class="nameContain">
-          <span [style.border-radius]="actCorn == undefined ? '0px' : actCorn"
-                [style.border]="getBorder()"
-                [style.font-weight]="getWeight()"
-                [style.color]="actorFontColor != undefined ? actorFontColor : 'rgb(0 , 0, 0)' "
-                [style.font-family]="actFF"
-                [style.background-color]="actorOpacity != undefined ? backTextColor : 'rgba(' + actorBackColor + ', 0.7)'">
+          <span [style.border-radius]="tools.corner.value"
+                [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'"
+                [style.font-weight]="tools.weight"
+                [style.color]="'rgb(' + tools.fontColor + ')'"
+                [style.font-family]="tools.fontFamily.value"
+                [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
                 {{ displayName[i] }}
         </span>          
         </div>
@@ -33,14 +33,14 @@
   
 
   <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100" style="background-color: rgba(179, 218, 218, 0.1);" >
-    <h1 class="my-auto">{{ quizedMovie.title }}</h1>    
+    <h1 class="my-auto">{{ movie.title }}</h1>    
   </div>
 
 </div>
 
 
 
-<div *ngIf="changeColor == undefined || changeColor['change'] == false || changeColor['change'] == undefined" class="toolBox">
+<div *ngIf="tools.palette == 'none'" class="toolBox">
 
   <button mat-mini-fab color="accent" class="mt-1" (click)="nextPicture(-1, selectedActor)">
     <mat-icon>chevron_left</mat-icon>
@@ -93,13 +93,8 @@
 
 </div>
 
+<div *ngIf="tools.palette != 'none'" class="toolBox">
 
-<div *ngIf="changeColor != undefined && changeColor['change'] == true" class="toolBox">
-
-  <app-palette [changeColor]="changeColor"
-              (fontColor)="onSelectedFontColor($event)"
-              (backTextColor)="onSelectedBackTextColor($event)"
-              (borderColor)="onSelectedBorderColor($event)">
-  </app-palette>
+  <app-palette></app-palette>
 
 </div>
