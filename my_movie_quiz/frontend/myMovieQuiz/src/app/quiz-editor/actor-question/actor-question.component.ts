@@ -5,6 +5,7 @@ import { MovieDataService } from "../../services/movie-data.service";
 import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/interfaces/movie';
 import { ActorTools} from 'src/app/interfaces/actorTools';
+import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
 
 @Component({
   selector: 'app-actor-question',
@@ -23,9 +24,6 @@ export class ActorQuestionComponent implements OnInit {
   @Input() src: any[]
   @Input() photoIndexSaved: number[]
 
-  @Output() setActorBackColor = new EventEmitter
-  @Output() setActorFontColor = new EventEmitter
-  @Output() setActorBorderColor = new EventEmitter
   @Output() savePicUrl = new EventEmitter
   @Output() saveId = new EventEmitter
   @Output() saveImgClass = new EventEmitter
@@ -43,9 +41,6 @@ export class ActorQuestionComponent implements OnInit {
   showQuestion: boolean = true;
   pixHeight: any;
   pixWidth: any;
-  fontColor: any;
-  backTextColor: any;
-  color: any;
   displayName: string[]
 
   movie: Movie
@@ -55,13 +50,17 @@ export class ActorQuestionComponent implements OnInit {
 
   constructor(private searchActor: SearchActor,
               private pixelActor: PixelActor,
-              private data: MovieDataService) { }
+              private movieData: MovieDataService,
+              private actorToolsData: ActorToolsDataService) { }
 
   ngOnInit() {
-    this.subscription = this.data.currentMovie.subscribe(movie => this.movie = movie)
-    this.subscription = this.data.currentActorTools.subscribe(tools => this.tools = tools)
-
-    this.retreiveActors()
+    this.subscription = this.movieData.currentMovie.subscribe(movie => this.movie = movie)
+    this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.tools = tools)
+    this.photoIndex = [0, 0, 0, 0]
+    this.pixelValue = [0, 0, 0, 0]
+    this.imgClass = [false, false, false, false]
+    this.getActorsList()
+    this.getPicturesList()
   }
 
   getActorsList() {

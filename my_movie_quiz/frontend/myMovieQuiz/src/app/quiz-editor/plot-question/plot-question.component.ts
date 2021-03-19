@@ -3,13 +3,14 @@ import { MovieDataService } from "../../services/movie-data.service";
 import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/interfaces/movie';
 import { PlotTools} from 'src/app/interfaces/plotTools';
-
+import { PlotToolsDataService } from 'src/app/services/plotTools-data.service';
 
 @Component({
   selector: 'app-plot-question',
   templateUrl: './plot-question.component.html',
   styleUrls: ['./plot-question.component.css']
 })
+
 export class PlotQuestionComponent implements OnInit {
   
   showQuestion = true
@@ -19,12 +20,13 @@ export class PlotQuestionComponent implements OnInit {
   tools: PlotTools;
   subscription: Subscription;
 
-  constructor(private data: MovieDataService) { }
+  constructor(private movieData: MovieDataService,
+              private plotToolsData: PlotToolsDataService) { }
 
 
   ngOnInit(): void {
-    this.subscription = this.data.currentMovie.subscribe(movie => this.movie = movie)
-    this.subscription = this.data.currentPlotTools.subscribe(tools => this.tools = tools)
+    this.subscription = this.movieData.currentMovie.subscribe(movie => this.movie = movie)
+    this.subscription = this.plotToolsData.currentPlotTools.subscribe(tools => this.tools = tools)
   }
  
   enableEdition() {

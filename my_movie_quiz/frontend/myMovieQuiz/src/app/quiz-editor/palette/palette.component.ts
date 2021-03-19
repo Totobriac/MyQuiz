@@ -2,7 +2,8 @@ import { Component, OnInit, } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PlotTools} from 'src/app/interfaces/plotTools';
 import { ActorTools} from 'src/app/interfaces/actorTools';
-import { MovieDataService } from 'src/app/services/movie-data.service';
+import { PlotToolsDataService } from 'src/app/services/plotTools-data.service';
+import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
 
 @Component({
   selector: 'app-palette',
@@ -21,26 +22,27 @@ export class PaletteComponent implements OnInit {
   plotTools: PlotTools
   actorTools: ActorTools
 
-  constructor(private data : MovieDataService) { }
+  constructor(private plotToolsData: PlotToolsDataService,
+              private actorToolsData: ActorToolsDataService) { }
 
   ngOnInit(): void {
-    this.subscription = this.data.currentPlotTools.subscribe(tools => this.plotTools = tools)
-    this.subscription = this.data.currentActorTools.subscribe(tools => this.actorTools = tools)
+    this.subscription = this.plotToolsData.currentPlotTools.subscribe(tools => this.plotTools = tools)
+    this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.actorTools = tools)
   }
 
   newColor(color) {
     if (this.plotTools.palette == "plotFont") {
-      this.data.changeFontColor(color)
+      this.plotToolsData.changeFontColor(color)
     } else if (this.plotTools.palette == "plotBack") {
-      this.data.changeBackColor(color)
+      this.plotToolsData.changeBackColor(color)
     } else if (this.plotTools.palette == "plotBorder") {
-      this.data.changeBorderColor(color)
+      this.plotToolsData.changeBorderColor(color)
     } else if (this.actorTools.palette == "actorFont") {
-      this.data.changeFontColorA(color)
+      this.actorToolsData.changeFontColor(color)
     } else if (this.actorTools.palette == "actorBack") {
-      this.data.changeBackColorA(color)
+      this.actorToolsData.changeBackColor(color)
     } else if (this.actorTools.palette == "actorBorder") {
-      this.data.changeBorderColorA(color)
+      this.actorToolsData.changeBorderColor(color)
     } 
   }
 }
