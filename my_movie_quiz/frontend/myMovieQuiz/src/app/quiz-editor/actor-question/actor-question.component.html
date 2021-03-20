@@ -4,12 +4,12 @@
   [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
 
-    <div *ngFor="let actor of actorName; index as i" class="actorCard">
+    <div *ngFor="let act of actor.pic; index as i" class="actorCard">
+      
       <div class="card">
         <div class="cardPicture">
-          <img *ngIf="actorPicUrl != undefined"
-               [attr.src]="actorPicUrl[i][photoIndex[i]]"
-               [ngClass]="imgClass[i]  ? 'pixelated' : 'actorPic'"
+          <img [attr.src]="act.url"
+               [ngClass]="actor.pixValue[i] > 0  ? 'pixelated' : 'actorPic'"
                crossorigin="anonymous"
                [id]="i">
         </div>
@@ -20,7 +20,7 @@
                 [style.color]="'rgb(' + tools.fontColor + ')'"
                 [style.font-family]="tools.fontFamily.value"
                 [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
-                {{ actorName[i] }}
+                {{ actorName[i][actor.display] }}
         </span>          
         </div>
       </div>
@@ -42,7 +42,7 @@
 
 <div *ngIf="tools.palette == 'none'" class="toolBox">
 
-  <button mat-mini-fab color="accent" class="mt-1" (click)="nextPicture(-1, selectedActor)">
+  <button mat-mini-fab color="accent" class="mt-1" (click)="nextPicture(-1)">
     <mat-icon>chevron_left</mat-icon>
   </button>
 
@@ -55,7 +55,7 @@
       </mat-select>
   </mat-form-field>
 
-  <button mat-mini-fab color="accent"  class="mt-1" (click)="nextPicture(1, selectedActor)">
+  <button mat-mini-fab color="accent"  class="mt-1" (click)="nextPicture(1)">
     <mat-icon>chevron_right</mat-icon>
   </button>
 
@@ -79,9 +79,9 @@
     step= 1
     thumbLabel= true
     tickInterval= 1
-    [value]= pixelValue[selectedActor]   
+    [value]= actor.pixValue[selectAct]
     [vertical]=false
-    (input)="pixelize($event.value)">Pixelate
+    (input)="pixelNav($event.value)">Pixelate
   </mat-slider>
 
 

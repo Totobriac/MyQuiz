@@ -5,6 +5,7 @@ import { Movie, MovieDb,} from '../interfaces/movie';
 @Injectable({
   providedIn: 'root'
 })
+
 export class MovieDataService {
 
   private movie = new BehaviorSubject({} as Movie);

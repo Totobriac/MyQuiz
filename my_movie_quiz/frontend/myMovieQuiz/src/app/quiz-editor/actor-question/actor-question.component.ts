@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/interfaces/movie';
 import { ActorTools} from 'src/app/interfaces/actorTools';
 import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
+import { Actor} from 'src/app/interfaces/actor';
+import { ActorDataService } from 'src/app/services/actor-data.service';
 
 @Component({
   selector: 'app-actor-question',
@@ -15,173 +17,100 @@ import { ActorToolsDataService } from 'src/app/services/actorTools-data.service'
 
 export class ActorQuestionComponent implements OnInit {
 
-  @Input() actorPicUrl: any;
-  @Input() oldId: any;
-  
-  @Input() display: any;
-  @Input() imgClassSaved: boolean[]
-  @Input() pixelValueSaved: number[]
-  @Input() src: any[]
-  @Input() photoIndexSaved: number[]
-
-  @Output() savePicUrl = new EventEmitter
-  @Output() saveId = new EventEmitter
-  @Output() saveImgClass = new EventEmitter
-  @Output() savePixelValue = new EventEmitter
-  @Output() saveSrc = new EventEmitter
-  @Output() savePhotoIndex = new EventEmitter
-
-  actors: any = [];
-  actorName: any = ["", "", "", ""];
-  actorCharacter: any = ["", "", "", ""];
-  imgClass: boolean[];
-  pixelValue: number[];
-  photoIndex: number[];
-  selectedActor: number;
+  actorName: any = [[], [], [], []]
   showQuestion: boolean = true;
-  pixHeight: any;
-  pixWidth: any;
-  displayName: string[]
-
-  movie: Movie
-  tools: ActorTools
-  subscription: Subscription
-  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg";
+  movie: Movie;
+  tools: ActorTools;
+  actor: Actor;
+  pics: object[] = []
+  pixUrls: object[] = []
+  pixValue: number[] = []
+  urls: any
+  actors: any;
+  selectAct: number;
+  subscription: Subscription;
 
   constructor(private searchActor: SearchActor,
               private pixelActor: PixelActor,
               private movieData: MovieDataService,
-              private actorToolsData: ActorToolsDataService) { }
+              private actorToolsData: ActorToolsDataService,
+              private actorData: ActorDataService) { }
 
   ngOnInit() {
     this.subscription = this.movieData.currentMovie.subscribe(movie => this.movie = movie)
     this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.tools = tools)
-    this.photoIndex = [0, 0, 0, 0]
-    this.pixelValue = [0, 0, 0, 0]
-    this.imgClass = [false, false, false, false]
+    this.subscription = this.actorData.currentActor.subscribe(actor => this.actor = actor)
     this.getActorsList()
     this.getPicturesList()
   }
 
   getActorsList() {
     this.actors = this.movie.cast.slice(0, 4)
-    for (let i = 0; i < this.actors.length; i++) {
-      this.actorName[i] = this.actors[i].actor
-      this.actorCharacter[i] = this.actors[i].character
-    }
+    this.actors.forEach((actor, index) => {
+      this.actorName[index].push("")
+      this.actorName[index].push(actor.actor)
+      this.actorName[index].push(actor.character)
+    });
+    console.log(this.actorName);
+
   }
 
   getPicturesList() {
     this.searchActor.searchActor(this.actorName.join('$'))
-      .subscribe(r => { this.actorPicUrl = r 
-                        console.log('ok')})
-  }
-
-  selectActor(index) {
-    this.selectedActor = index
-  }
-
-  nextPicture(nOrP: number, selectedActor: number) {
-    var oldPic
-    var wasPixelated = false
-    if (this.src != undefined && this.src[selectedActor] != undefined) {
-      oldPic = this.src[selectedActor][0]
-      wasPixelated = true
-      this.src[selectedActor] = void (0)
-    }
-    this.pixelValue[this.selectedActor] = 0
-    if (this.photoIndex[selectedActor] + nOrP == this.actorPicUrl[selectedActor].length) {
-      this.photoIndex[selectedActor] = 0
-      if (wasPixelated == true) {
-        this.actorPicUrl[this.selectedActor][this.actorPicUrl[selectedActor].length] = oldPic
-        this.imgClass[this.selectedActor] = false
-      }
-    } else if (this.photoIndex[selectedActor] + nOrP == -1) {
-      this.photoIndex[selectedActor] = this.actorPicUrl[selectedActor].length - 1
-      if (wasPixelated == true) {
-        this.actorPicUrl[this.selectedActor][0] = oldPic
-        this.imgClass[this.selectedActor] = false
-      }
-    } else {
-      this.photoIndex[selectedActor] = this.photoIndex[selectedActor] + nOrP
-      if (wasPixelated == true) {
-        this.actorPicUrl[this.selectedActor][this.photoIndex[this.selectedActor] + (nOrP * -1)] = oldPic
-        this.imgClass[this.selectedActor] = false
-      }
-    }
-  }
-
-  submitForm(form: any) {
-    this.searchActor.searchActor(this.actors[this.selectedActor].actor + " " + form.actorSearch + " actor")
-      .subscribe((r: any) => { this.actorPicUrl[this.selectedActor] = r[0] })
+      .subscribe(r => {
+        this.urls = r
+        this.actorData.changeUrls(r)
+        for (var i in r) {
+          const pic: object = r[i][0]
+          this.pics.push(pic)
+        }
+        this.actorData.changePic(this.pics)
+      })
   }
 
   onSelectedSection(value) {
     this.showQuestion = value
   }
 
-  pixelize(value) {
-    if (this.src == undefined) {
-      this.src = [undefined, undefined, undefined, undefined]
-      this.src[this.selectedActor] = this.pixelActor.pixelate(this.selectedActor)
-    } else if (value == 1 && this.src[this.selectedActor] == undefined) {
-      this.src[this.selectedActor] = this.pixelActor.pixelate(this.selectedActor)
-    } else if (value > 1 && this.src[this.selectedActor] != undefined) {
-      this.src[this.selectedActor] = this.src[this.selectedActor]
+  selectActor(index) {
+    this.selectAct = index
+  }
+
+  nextPicture(next: number) {
+    this.pixUrls[this.selectAct] = void(0)
+    this.actorData.changePixUrls(this.pixUrls)
+    this.pixValue[this.selectAct] = 0
+    this.actorData.changePicValue(this.pixValue)
+    var index = this.actor.pic[this.selectAct].index + next
+    if (index == this.actor.urls[this.selectAct].length) {
+      index = 0
+    } else if (index == -1) {
+      index = this.actor.urls[this.selectAct].length - 1
     }
-    this.pixelValue[this.selectedActor] = value
-    this.actorPicUrl[this.selectedActor][this.photoIndex[this.selectedActor]] = this.src[this.selectedActor][value]
-    this.pixelValue[this.selectedActor] == 0 ? this.imgClass[this.selectedActor] = false : this.imgClass[this.selectedActor] = true
+    this.pics[this.selectAct] = this.actor.urls[this.selectAct][index]
+    this.actorData.changePic(this.pics)
   }
 
-  
-  selectDisplay() {
-    if (this.display === undefined || this.display === "Name") {
-      this.displayName = this.actorName
-    } else if (this.display === "Character") {
-      this.displayName = this.actorCharacter
-    } else { this.displayName = ["", "", "", ""] }
+  submitForm(form: any) {
+    this.searchActor.searchActor(this.actors[this.selectAct].actor + " " + form.actorSearch + " actor")
+      .subscribe((r: any) => { this.urls[this.selectAct] = [];
+                               this.actorData.changeUrls(this.urls)
+                               for (let i of r[0]) {
+                                 this.urls[this.selectAct].push(i)
+                               }
+                               this.actorData.changeUrls(this.urls)
+                               this.pics[this.selectAct] = this.actor.urls[this.selectAct][0]
+                               this.actorData.changePic(this.pics)})
   }
 
-  ngOnDestroy() {
-    this.savePicUrl.emit(this.actorPicUrl)
-    this.saveId.emit(this.movie.id)
-    this.saveImgClass.emit(this.imgClass)
-    this.savePixelValue.emit(this.pixelValue)
-    this.saveSrc.emit(this.src)
-    this.savePhotoIndex.emit(this.photoIndex)
-  }
-
-  retreiveActors() {
-    if (this.oldId == undefined) {
-      this.getActorsList()
-      this.getPicturesList()
-      this.photoIndex = [0, 0, 0, 0]
-      this.pixelValue = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-    } else if (this.oldId != this.movie.id) {
-      this.actorPicUrl = void (0)
-      this.getActorsList()
-      this.getPicturesList()
-      this.photoIndex = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-      this.src = [undefined, undefined, undefined, undefined]
-      this.pixelValue = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-    } else if (this.actorPicUrl == undefined) {
-      this.getActorsList()
-      this.getPicturesList()
-      this.photoIndex = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-      this.src = [undefined, undefined, undefined, undefined]
-      this.pixelValue = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-    } else {
-      this.getActorsList()
-      this.actorPicUrl = this.actorPicUrl
-      this.photoIndex = this.photoIndexSaved
-      this.pixelValue = this.pixelValueSaved
-      this.imgClass = this.imgClassSaved
-    }
+  pixelNav(value) {
+    if (this.pixUrls[this.selectAct] == undefined) {
+      this.pixUrls[this.selectAct] = this.pixelActor.pixelate(this.selectAct, this.actor.pic[this.selectAct])
+      this.actorData.changePixUrls(this.pixUrls)}
+    
+    this.pics[this.selectAct]  = {index: this.actor.pixUrls[this.selectAct][value].picIndex , url: this.actor.pixUrls[this.selectAct][value].src} 
+    this.actorData.changePic(this.pics)
+    this.pixValue[this.selectAct] = value
+    this.actorData.changePicValue(this.pixValue)
   }
 }

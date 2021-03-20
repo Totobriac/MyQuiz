@@ -10,10 +10,8 @@ import { MovieDataService } from '../services/movie-data.service';
 export class QuizEditorComponent implements OnInit {
 
   @Input() trailer: string;
-  @Input() backdrop: string;
 
 
-  actorPicUrl: any
   oldId: any
 
   imgClassSaved: boolean[]
@@ -31,10 +29,7 @@ export class QuizEditorComponent implements OnInit {
     this.subscription = this.data.currentComponent.subscribe(component => this.component = component)
   }  
 
-  savePicUrl(picUrl) {
-    this.actorPicUrl = picUrl
-  }
-
+ 
   saveId(id) {
     this.oldId = id
   }
@@ -51,7 +46,4 @@ export class QuizEditorComponent implements OnInit {
     this.src = src
   }
 
-  savePhotoIndex(photoIndex) {
-    this.photoIndexSaved = photoIndex
-  }
 }

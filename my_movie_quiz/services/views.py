@@ -59,15 +59,19 @@ class MovieSearch(View):
 class ActorsSearch(View):
 
     def get(self, request, actors):
-        actorPicUrl= []
+        actorPicUrl = []
         actors_list = actors.split('$')              
         subscription_key = "9dc015a3a15c45abb05f88bcea641c2d"
         search_url = "https://api.bing.microsoft.com/v7.0/images/search"
         headers = {"Ocp-Apim-Subscription-Key" : subscription_key}
         for actor in actors_list:
+            i = 0
+            url_list = []
             response = requests.get(search_url, headers=headers, params={"q": actor + " actor", "count": "10"})
             search_results = response.json()
-            url_list = [val["thumbnailUrl"] for val in search_results["value"]]
+            for val in search_results["value"]:
+                url_list.append({'index': i ,'url': val["thumbnailUrl"]})
+                i += 1
             actorPicUrl.append(url_list)
         return JsonResponse(actorPicUrl, safe=False)
 
@@ -95,7 +99,6 @@ class TagsViewSet(viewsets.ModelViewSet):
 class TagPicsListAPIView(generics.ListAPIView):
 
     serializer_class = PictureSerializer
-
 
     def get_queryset(self):
         kwarg_tag = self.kwargs.get('tag')

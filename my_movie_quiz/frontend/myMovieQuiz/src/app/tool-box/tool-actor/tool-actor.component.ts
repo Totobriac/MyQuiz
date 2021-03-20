@@ -1,6 +1,7 @@
 import { Component, OnInit, } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActorTools } from 'src/app/interfaces/actorTools';
+import { ActorDataService } from 'src/app/services/actor-data.service';
 import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
 import { ToolsService } from '../tools.service';
 
@@ -19,7 +20,8 @@ export class ToolActorComponent implements OnInit {
 
 
   constructor (private toolsService : ToolsService,
-               private actorToolsData : ActorToolsDataService) {}
+               private actorToolsData : ActorToolsDataService,
+               private actorData : ActorDataService) {}
 
   ngOnInit(): void {
     this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.tools = tools)
@@ -80,7 +82,10 @@ export class ToolActorComponent implements OnInit {
     this.actorToolsData.changePalette("none")
     this.showFonts = !this.showFonts   
     this.selectedTools == "Fonts" ? this.selectedTools = "Background" : this.selectedTools = "Fonts"
-  }  
-    
+  }
+
+  selectDisplay(display: number) {
+    this.actorData.changeDisplayValue(display)
+  }    
  }
   
