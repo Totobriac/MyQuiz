@@ -46,4 +46,15 @@ export class ActorDataService {
   changeDisplayValue(display: number) {
     this.actor.next(Object.assign(this.actor.value, { display: display }))
   }
+
+  deletePicsUrls() {
+    this.actor.next(Object.assign(this.actor.value, { urls: [[{ index: 0, url: "" }],
+                                                             [{ index: 1, url: "" }],
+                                                             [{ index: 2, url: "" }],
+                                                             [{ index: 3, url: "" }]],
+                                                      pic: [{ index: 0, url: "https://media.giphy.com/media/WoDtSrCVHBmy4/giphy.gif" },
+                                                            { index: 1, url: "https://media.giphy.com/media/WoDtSrCVHBmy4/giphy.gif" },
+                                                            { index: 2, url: "https://media.giphy.com/media/WoDtSrCVHBmy4/giphy.gif" },
+                                                            { index: 3, url: "https://media.giphy.com/media/WoDtSrCVHBmy4/giphy.gif" }],}))                 
+  }
 }

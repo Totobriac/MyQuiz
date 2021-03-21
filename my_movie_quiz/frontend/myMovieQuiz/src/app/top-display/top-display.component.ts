@@ -10,15 +10,15 @@ import { Subscription } from 'rxjs';
 })
 export class TopDisplayComponent implements OnInit {
 
-  @Input() component: number
-
   backdrop: any
+  component: number
   subscription: Subscription
 
-  constructor(private data: MovieDataService) { }
+  constructor(private movieData: MovieDataService) { }
 
   ngOnInit(): void {
-    this.subscription = this.data.currentMovieDb.subscribe(movie => this.backdrop = movie.backdrop)
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.backdrop = movie.backdrop)
+    this.subscription = this.movieData.currentComponent.subscribe(component => this.component = component)
   }
 }
   

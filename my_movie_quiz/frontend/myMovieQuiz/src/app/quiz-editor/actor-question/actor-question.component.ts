@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SearchActor } from './actor-question.service';
 import { PixelActor } from './actor-pixel.service';
 import { MovieDataService } from "../../services/movie-data.service";
@@ -17,7 +17,7 @@ import { ActorDataService } from 'src/app/services/actor-data.service';
 
 export class ActorQuestionComponent implements OnInit {
 
-  actorName: any = [[], [], [], []]
+  actorName: any = [["", "", "", ""], [], []]
   showQuestion: boolean = true;
   movie: Movie;
   tools: ActorTools;
@@ -26,7 +26,6 @@ export class ActorQuestionComponent implements OnInit {
   pixUrls: object[] = []
   pixValue: number[] = []
   urls: any
-  actors: any;
   selectAct: number;
   subscription: Subscription;
 
@@ -40,23 +39,22 @@ export class ActorQuestionComponent implements OnInit {
     this.subscription = this.movieData.currentMovie.subscribe(movie => this.movie = movie)
     this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.tools = tools)
     this.subscription = this.actorData.currentActor.subscribe(actor => this.actor = actor)
-    this.getActorsList()
-    this.getPicturesList()
+    if (this.actor.urls[3].length < 9) {
+      this.getActorsList()
+      this.getPicturesList()
+    }    
   }
 
   getActorsList() {
-    this.actors = this.movie.cast.slice(0, 4)
-    this.actors.forEach((actor, index) => {
-      this.actorName[index].push("")
-      this.actorName[index].push(actor.actor)
-      this.actorName[index].push(actor.character)
+    var actors = this.movie.cast.slice(0, 4)
+    actors.forEach((actor) => {
+      this.actorName[1].push(actor.actor)
+      this.actorName[2].push(actor.character)
     });
-    console.log(this.actorName);
-
   }
 
   getPicturesList() {
-    this.searchActor.searchActor(this.actorName.join('$'))
+    this.searchActor.searchActor(this.actorName[1].join('$'))
       .subscribe(r => {
         this.urls = r
         this.actorData.changeUrls(r)
@@ -92,7 +90,7 @@ export class ActorQuestionComponent implements OnInit {
   }
 
   submitForm(form: any) {
-    this.searchActor.searchActor(this.actors[this.selectAct].actor + " " + form.actorSearch + " actor")
+    this.searchActor.searchActor(this.actorName[1][this.selectAct] + " " + form.actorSearch )
       .subscribe((r: any) => { this.urls[this.selectAct] = [];
                                this.actorData.changeUrls(this.urls)
                                for (let i of r[0]) {

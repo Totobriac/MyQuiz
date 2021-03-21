@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { SearchMovie } from './movie-search.service';
 import { MovieDataService } from "../services/movie-data.service";
 import { Movie, MovieDb } from '../interfaces/movie';
 import { Subscription } from 'rxjs';
+import { ActorDataService } from '../services/actor-data.service';
 
 
 @Component({
@@ -14,10 +15,9 @@ import { Subscription } from 'rxjs';
 export class MovieSearchComponent implements OnInit {
 
   constructor(private searchMovie: SearchMovie,
-              private data: MovieDataService) { }
+              private movieData: MovieDataService,
+              private actorData: ActorDataService) { }
 
-  model: any
-  value: string
   @Output() trailer = new EventEmitter()
 
   trailerId: string
@@ -27,16 +27,21 @@ export class MovieSearchComponent implements OnInit {
   subscription: Subscription;
   movieList: MovieDb[];
 
+  actors: any
+
   ngOnInit(): void {
-    this.subscription = this.data.currentMovieList.subscribe(movieList => this.movieList = movieList)
+    this.subscription = this.movieData.currentMovieList.subscribe(movieList => this.movieList = movieList)
+    this.subscription = this.actorData.currentActor.subscribe(actors => this.actors = actors)
   }
 
   chooseMovie(movie: MovieDb) {
-    this.data.changeMovieDb(movie)  
+    this.actorData.deletePicsUrls()
+    console.log(this.actors);
+    this.movieData.changeComponent(0)
+    this.movieData.changeMovieDb(movie)  
     this.searchMovie.searchMovie(movie.id)       
-    .subscribe((r: Movie) => { this.data.changeMovie(r)
-                               console.log(r)
-                               this.data.changeComponent(0)                      
+    .subscribe((r: Movie) => { this.movieData.changeMovie(r)
+                               console.log(r)                                                   
                                // this.trailerId = r.trailer.id
                                this.getTrailer()
                             })

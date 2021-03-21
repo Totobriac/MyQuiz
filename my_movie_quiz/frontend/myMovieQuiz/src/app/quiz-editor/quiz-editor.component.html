@@ -10,28 +10,7 @@
       <app-plot-question *ngSwitchCase="1">
       </app-plot-question>
 
-
-      <app-actor-question [display]="display"
-
-                          (savePicUrl)="savePicUrl($event)"
-                          [actorPicUrl]="actorPicUrl"
-
-                          (saveId)="saveId($event)"
-                          [oldId]="oldId"
-
-                          (saveImgClass)="saveImgClass($event)"
-                          [imgClassSaved]="imgClassSaved"
-
-                          (savePixelValue)="savePixelValue($event)"
-                          [pixelValueSaved]="pixelValueSaved"
-
-                          (saveSrc)="saveSrc($event)"
-                          [src]="src"
-
-                          (savePhotoIndex)="savePhotoIndex($event)"
-                          [photoIndexSaved]="photoIndexSaved"
-
-                          *ngSwitchCase="2">
+      <app-actor-question *ngSwitchCase="2">
       </app-actor-question>
 
       <app-poster-question [posterSrc]="posterSrc"
@@ -39,8 +18,8 @@
                            *ngSwitchCase="3">
       </app-poster-question>
 
-
       <app-trailer-question [videoSource]="trailer" *ngSwitchCase="4"></app-trailer-question>
+
     </ng-container>
     
   </div>

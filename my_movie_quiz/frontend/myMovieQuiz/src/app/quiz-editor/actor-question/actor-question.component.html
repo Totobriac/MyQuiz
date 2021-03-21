@@ -20,7 +20,7 @@
                 [style.color]="'rgb(' + tools.fontColor + ')'"
                 [style.font-family]="tools.fontFamily.value"
                 [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
-                {{ actorName[i][actor.display] }}
+                {{ actorName[actor.display][i] }}
         </span>          
         </div>
       </div>
@@ -49,8 +49,8 @@
   <mat-form-field class="actorChoice">
     <mat-label>Actor</mat-label>
       <mat-select (selectionChange)="selectActor($event.value)">
-        <mat-option *ngFor="let actor of actors, index as index" [value]="index">
-          {{actor.actor}}
+        <mat-option *ngFor="let actor of actorName[1]; index as index" [value]="index">
+          {{ actor }}
         </mat-option>
       </mat-select>
   </mat-form-field>

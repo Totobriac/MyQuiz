@@ -19,6 +19,7 @@ export class MovieDataService {
 
   private component = new BehaviorSubject(0);
   currentComponent = this.component.asObservable();
+  currentActor: any;
 
   changeMovie(movie: Movie) {
     this.movie.next(movie)

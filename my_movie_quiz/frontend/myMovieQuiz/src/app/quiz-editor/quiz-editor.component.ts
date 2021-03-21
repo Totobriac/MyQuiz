@@ -11,15 +11,6 @@ export class QuizEditorComponent implements OnInit {
 
   @Input() trailer: string;
 
-
-  oldId: any
-
-  imgClassSaved: boolean[]
-  pixelValueSaved: number[]
-
-  src: any[]
-  photoIndexSaved: any[];
-
   component: number
   subscription: Subscription
   
@@ -27,23 +18,5 @@ export class QuizEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscription = this.data.currentComponent.subscribe(component => this.component = component)
-  }  
-
- 
-  saveId(id) {
-    this.oldId = id
-  }
-
-  saveImgClass(imgClass) {
-    this.imgClassSaved = imgClass
-  }
-
-  savePixelValue(pixelValue) {
-    this.pixelValueSaved = pixelValue
-  }
-
-  saveSrc(src) {
-    this.src = src
-  }
-
+  }   
 }
