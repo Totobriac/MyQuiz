@@ -3,7 +3,7 @@ import { SearchActor } from './actor-question.service';
 import { PixelActor } from './actor-pixel.service';
 import { MovieDataService } from "../../services/movie-data.service";
 import { Subscription } from 'rxjs';
-import { Movie } from 'src/app/interfaces/movie';
+import { MovieDb } from 'src/app/interfaces/movie';
 import { ActorTools} from 'src/app/interfaces/actorTools';
 import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
 import { Actor} from 'src/app/interfaces/actor';
@@ -19,7 +19,7 @@ export class ActorQuestionComponent implements OnInit {
 
   actorName: any = [["", "", "", ""], [], []]
   showQuestion: boolean = true;
-  movie: Movie;
+  movie: MovieDb;
   tools: ActorTools;
   actor: Actor;
   pics: object[] = []
@@ -36,19 +36,19 @@ export class ActorQuestionComponent implements OnInit {
               private actorData: ActorDataService) { }
 
   ngOnInit() {
-    this.subscription = this.movieData.currentMovie.subscribe(movie => this.movie = movie)
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
     this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.tools = tools)
     this.subscription = this.actorData.currentActor.subscribe(actor => this.actor = actor)
+    this.getActorsList()
     if (this.actor.urls[3].length < 9) {
-      this.getActorsList()
       this.getPicturesList()
     }    
   }
 
   getActorsList() {
-    var actors = this.movie.cast.slice(0, 4)
+    var actors = this.movie.cast
     actors.forEach((actor) => {
-      this.actorName[1].push(actor.actor)
+      this.actorName[1].push(actor.name)
       this.actorName[2].push(actor.character)
     });
   }

@@ -5,7 +5,6 @@
 }
 
 .cropTools {
-  /* position: absolute; */
   height: 170px;
   display: flex;
   justify-content: center;

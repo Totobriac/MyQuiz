@@ -23,9 +23,7 @@ export class ToolPlotComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscription = this.plotToolsData.currentPlotTools.subscribe(tools => this.tools = tools)
-  }
-
-  
+  }  
 
   changeFontSize(selectedSize) {
     this.plotToolsData.changePalette("none")

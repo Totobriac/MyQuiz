@@ -1,55 +1,17 @@
-<div class="d-flex justify-content-center mt-2 " style="height: 400px">
+<div class="d-flex qAWindow">
 
-  <div class="border row col-md-5 d-flex justify-content-center"
-      style="background-color: rgba(179, 218, 218, 0.1);">
-
-    <div class="my-auto">
-     
-      <vg-player>         
-        <video *ngIf="videoSource" 
-                #media
-                #vgHls="vgHls"
-                [vgMedia]="media"               
-                [vgHls]="videoSource"
-                id="trailer"
-                controls
-                width="480px"
-                height="360px"
-                autoplay="true"                
-                crossorigin>
-        </video>
-      </vg-player>
-
-      <!-- <video controls 
-        width="480px" height="360px"
-        [attr.src]= "videoSource"
-        crossOrigin = "anonymous"
-        id="trailer">
-      </video> -->
-
-    </div>
+  <div class="my-auto mx-auto">
+    
+    <div id="player"></div>
 
   </div>
-      
 
-  <div class="border row col-md-5 d-flex justify-content-center"
-    style="background-color: rgba(179, 218, 218, 0.1);">
-    <div class="my-auto">
-      <img [attr.src]="imageSource" width="480px" height="340px" style="border:1px" alt="">
-    </div>
-  </div>
-
-  <canvas id="canvas" style="display: none;"></canvas>
 </div>
 
-<div class="container mt-3">
+<div class="toolBox">
   <div class="d-flex justify-content-around rounded" style="background-color: rgb(4, 113, 150)">
     <div class="container">
       <button class= "btn btn-info my-2" (click)="takeScreenshot()">Take screenshot</button>
-      <button class= "btn btn-info my-2 ml-2" (click)="createGif()">Make a GIF</button>
-
-      <button class= "btn btn-info my-2 ml-2" (click)="playGif()">Play GIF</button>
-
     </div>
   </div>
 </div>

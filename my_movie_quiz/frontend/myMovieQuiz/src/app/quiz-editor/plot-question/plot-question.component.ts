@@ -1,7 +1,7 @@
 import { Component, OnInit, } from '@angular/core';
 import { MovieDataService } from "../../services/movie-data.service";
 import { Subscription } from 'rxjs';
-import { Movie } from 'src/app/interfaces/movie';
+import { MovieDb } from 'src/app/interfaces/movie';
 import { PlotTools} from 'src/app/interfaces/plotTools';
 import { PlotToolsDataService } from 'src/app/services/plotTools-data.service';
 
@@ -16,7 +16,7 @@ export class PlotQuestionComponent implements OnInit {
   showQuestion = true
   editable = "false"
 
-  movie: Movie;
+  movie: MovieDb;
   tools: PlotTools;
   subscription: Subscription;
 
@@ -25,7 +25,7 @@ export class PlotQuestionComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.subscription = this.movieData.currentMovie.subscribe(movie => this.movie = movie)
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
     this.subscription = this.plotToolsData.currentPlotTools.subscribe(tools => this.tools = tools)
   }
  

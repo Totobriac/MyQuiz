@@ -1,16 +1,18 @@
 <ng-container [ngSwitch]="component">
-  <app-tool-curtain *ngSwitchCase="0"></app-tool-curtain>
 
-  <app-tool-plot  *ngSwitchCase="1">
+  <app-tool-curtain *ngSwitchCase="0">
+  </app-tool-curtain>
+
+  <app-tool-plot *ngSwitchCase="1">
   </app-tool-plot>
 
-  <app-tool-actor (nameDisplay)="selectedDisplay($event)"
-                  *ngSwitchCase="2">                  
+  <app-tool-actor *ngSwitchCase="2">                  
   </app-tool-actor>
 
-  <app-tool-poster  (posterSrc)="getPosterSrc($event)"
-                    *ngSwitchCase="3">
-                    
+  <app-tool-poster *ngSwitchCase="3">
   </app-tool-poster>
+
+  <app-tool-trailer *ngSwitchCase="4">
+  </app-tool-trailer>                    
   
 </ng-container>

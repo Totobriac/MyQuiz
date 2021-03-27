@@ -1,6 +1,8 @@
-import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { TrailerSearchService } from './trailer-search.service'
+import { Subscription } from 'rxjs';
+import { MovieDb } from 'src/app/interfaces/movie';
+import { MovieDataService } from 'src/app/services/movie-data.service';
+
 
 @Component({
   selector: 'app-trailer-question',
@@ -10,64 +12,57 @@ import { TrailerSearchService } from './trailer-search.service'
 
 export class TrailerQuestionComponent implements OnInit {
 
-  @Input() quizedMovie;
-  @Input() videoSource
+  movie: MovieDb
+  subscription: Subscription;
 
-  isTrailer = false
-  imageSource: any
-  imgSrc: any
-  gifPictures: any[] = []
+  apiLoaded = false;
+  YT: any;
+  video: any;
+  player: any;
+  reframed: boolean = false;
     
-  constructor(private trailerSearchService: TrailerSearchService) { }
+  constructor( private movieData: MovieDataService) { }
 
   ngOnInit() {
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.video = movie.trailer)
+    if (!this.apiLoaded) {
+      console.log("loaded");
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.body.appendChild(tag);
+      this.apiLoaded = true;
+
+      window['onYouTubeIframeAPIReady'] = () => this.startVideo();
+    }
   }
 
-  drawPicture () {
-    var canvas = <HTMLCanvasElement>document.getElementById("canvas");
-    var ctx = canvas.getContext("2d"); 
-    canvas.width = 480;
-    canvas.height = 360;
-    const vid = document.getElementById("trailer") as HTMLVideoElement
-    ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
-    var img = new Image(); 
-    img.setAttribute('crossOrigin', 'anonymous');
-    this.imgSrc = canvas.toDataURL()
-    return this.imgSrc
+  startVideo(){
+    this.reframed = false;
+      this.player = new window['YT'].Player('player', {
+        videoId: this.video,
+        playerVars: {
+          'cc_load_policy': 0,
+          'autoplay': 0,
+          'modestbranding': 1,
+          'controls': 2,
+          'disablekb': 1,
+          'rel': 0,
+          'showinfo': 0,
+          'fs': 0,
+          'playsinline': 1,
+        },        
+      });
   }
 
   takeScreenshot() {
-    this.drawPicture()
-    this.imageSource= this.imgSrc  
+    var time = this.player.getCurrentTime()
+    console.log(time)
   }
 
-  getTrailer() {
-    console.log(this.quizedMovie.trailer.id)
-    this.trailerSearchService.getTrailer(this.quizedMovie.trailer.id)
-      .subscribe(r=> { this.videoSource = r})
-  }
-
-  createGif() {
-    var counter = 1
-    setInterval(() => { while (counter < 20) {this.drawPicture()
-                                              this.gifPictures.push(this.imgSrc)
-                                              console.log("done")                                          
-                                              counter ++ }}, 300)
+  ngOnDestroy() {
+    window['YT'] = null;
+    if (this.player) {
+      this.player.destroy();
     }
-
-  playGif() {
-    var currentFrame = 0;
-    // function changePicture() {
-    //   this.imageSource = this.gifPictures[currentFrame];
-    //   console.log(this.gifPictures[5])
-    //   currentFrame++; 
-    //   if(currentFrame >= this.gifPictures.length){
-    //     currentFrame = 0;}
-    // }
-  
-    setInterval(() => {while (currentFrame < 20) {
-                      this.imageSource = this.gifPictures[currentFrame]
-                      currentFrame ++ 
-                      console.log(this.imageSource)}},1000);
-  }    
+  }
 }

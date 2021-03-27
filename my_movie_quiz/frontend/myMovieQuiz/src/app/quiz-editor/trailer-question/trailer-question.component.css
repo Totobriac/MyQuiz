@@ -1,0 +1,20 @@
+.qAWindow {
+  text-align: center;
+  background-color: rgb(4, 113, 150);
+}
+
+@media only screen and (min-width: 1020px) {
+  .qAWindow  {
+    height: 450px;
+    width: 662px;    
+  }
+
+  .toolBox {
+    margin-top: 24px;
+    width: 662px;
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(4, 113, 150);
+  }
+}

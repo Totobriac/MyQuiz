@@ -1,28 +1,23 @@
 <div *ngIf="showQuestion === true" class="posterDiv"
-     [ngStyle]="{'backgroundImage': (posterBack) ?  'url(' + posterBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
-  
-    <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation">
-  
+  [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
+
+    <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation" [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'"
+    >
       <div class="poster" [style]="style" [ngClass]="imageEffect">
-  
-        <img [attr.src]="posterSrc">
-  
+        <img [attr.src]="tools.posterSrc">
       </div>
-  
     </div>
-  
-  </div>
-
-  
-<div *ngIf="showQuestion === false" class="posterDiv"
-     [ngStyle]="{'backgroundImage': (posterBack) ?  'url(' + posterBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
-
-  <h1 class="my-auto">{{ movie.title }}</h1>
 
 </div>
 
+  
+<div *ngIf="showQuestion === false" class="posterDiv"
+  [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
+  <h1 class="my-auto">{{ movie.title }}</h1>
+</div>
 
-<div class="toolBox">  
+
+<div *ngIf="tools.palette == 'none'" class="toolBox">  
 
   <div class="d-flex flex-row tools">
 
@@ -55,5 +50,11 @@
       <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
     </div>
   </div>
+
+</div>
+
+<div *ngIf="tools.palette != 'none'" class="toolBox">
+
+  <app-palette></app-palette>
 
 </div>

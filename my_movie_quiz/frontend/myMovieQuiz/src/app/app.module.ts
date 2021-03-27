@@ -21,11 +21,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { QASwitchComponent } from './qaswitch/qaswitch.component';
 import { TrailerQuestionComponent } from './quiz-editor/trailer-question/trailer-question.component';
-import { VgCoreModule } from '@videogular/ngx-videogular/core';
-import { VgControlsModule } from '@videogular/ngx-videogular/controls';
-import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
-import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
-import { VgStreamingModule } from '@videogular/ngx-videogular/streaming';
 import { QuizQuestionsComponent } from './quiz-questions/quiz-questions.component';
 import { QuestionTypeComponent } from './question-type/question-type.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -41,7 +36,9 @@ import { ToolPlotComponent } from './tool-box/tool-plot/tool-plot.component';
 import { ToolActorComponent } from './tool-box/tool-actor/tool-actor.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ToolPosterComponent } from './tool-box/tool-poster/tool-poster.component';
-
+import { ToolTrailerComponent } from './tool-box/tool-trailer/tool-trailer.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +62,7 @@ import { ToolPosterComponent } from './tool-box/tool-poster/tool-poster.componen
     ToolPlotComponent,
     ToolActorComponent,
     ToolPosterComponent,
+    ToolTrailerComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,13 +78,9 @@ import { ToolPosterComponent } from './tool-box/tool-poster/tool-poster.componen
     MatInputModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    MatRadioModule,
-    VgCoreModule,
-    VgControlsModule,
-    VgOverlayPlayModule,
-    VgBufferingModule,
-    VgStreamingModule,
+    MatRadioModule,    
     ImageCropperModule,
+    YouTubePlayerModule,
     AngularSvgIconModule.forRoot()
   ],
   providers: [],

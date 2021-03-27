@@ -22,11 +22,11 @@ export class ToolsService {
                             {index: 1, value:"20px"},
                             {index: 2, value: "2em 1em 4em / 0.5em 3em"}]
 
-  borderStyles: object[] = [{index: 0, value: "0px"}, {index: 2, value: "solid"},
-                            {index: 3, value: "dotted"}, {index: 4, value: "dashed"},
-                            {index: 5, value: "double"}, {index: 6, value: "thick double"},
-                            {index: 7, value: "1rem solid"}, {index: 8, value: "4mm ridge"},
-                            {index: 9, value: "outset"}];
+  borderStyles: object[] = [{index: 0, value: "0px"}, {index: 1, value: "solid"},
+                            {index: 2, value: "dotted"}, {index: 3, value: "dashed"},
+                            {index: 4, value: "double"}, {index: 5, value: "thick double"},
+                            {index: 6, value: "1rem solid"}, {index: 7, value: "4mm ridge"},
+                            {index: 8, value: "outset"}];
 
   constructor(private http: HttpClient) { }
 
@@ -37,6 +37,8 @@ export class ToolsService {
   }
 
   border(index: number) {
+    console.log(index);
+    console.log(this.borderStyles.length);
     index == this.borderStyles.length - 1 ? index = 0 : index ++
     return(this.borderStyles[index])    
   }
