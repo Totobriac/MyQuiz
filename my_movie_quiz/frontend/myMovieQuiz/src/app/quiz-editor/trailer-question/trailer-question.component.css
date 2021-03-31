@@ -14,7 +14,12 @@
     width: 662px;
     height: 52px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     background-color: rgb(4, 113, 150);
+  }
+
+  .screenshot {
+    width: 150px;
+    height: auto;
   }
 }

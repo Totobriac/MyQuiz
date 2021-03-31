@@ -1,17 +1,23 @@
 <div class="d-flex qAWindow">
 
-  <div class="my-auto mx-auto">
-    
+  <div *ngIf="screenshotTaken === false"
+       class="my-auto mx-auto">
     <div id="player"></div>
-
   </div>
 
-</div>
-
-<div class="toolBox">
-  <div class="d-flex justify-content-around rounded" style="background-color: rgb(4, 113, 150)">
-    <div class="container">
-      <button class= "btn btn-info my-2" (click)="takeScreenshot()">Take screenshot</button>
+  <div *ngIf="screenshotTaken === true && screenshotUrls != undefined">
+    <div *ngFor="let url of screenshotUrls">
+      <img [src]="'https://moviepictures.s3.amazonaws.com/' + url['url']"
+            class="screenshot">        
     </div>
   </div>
+
 </div>
+
+
+
+<div class="toolBox">
+      <button class= "btn btn-info my-2" (click)="takeScreenshot()">Take screenshot</button>
+      <button class= "btn btn-info my-2" (click)="generateScrapBooks()">Generate ScrapBook</button>
+</div>
+

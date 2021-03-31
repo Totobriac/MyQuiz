@@ -6,19 +6,25 @@ from django.http import JsonResponse
 import subprocess
 import json
 import urllib.parse
+import boto3
 from .models import Tags, Picture
 from .serializers import PictureSerializer, TagsSerializer
 from rest_framework.decorators import api_view
 from rest_framework import generics, viewsets
+import os
+from dotenv import load_dotenv, find_dotenv
+
 
 class MoviesSearch(View):
 
     def get(self, request, movie):
+        load_dotenv()
+        API_KEY = os.environ.get("IMDB_KEY")
         movies_list = []
         index = 1
         isSearching = True
         while isSearching == True:
-            search_url = "https://api.themoviedb.org/3/search/movie?api_key=137e8b3a07e487eeeaa6f211207f674a&language=en-US&query=" + movie + "&page=" + str(index) + "&include_adult=false"
+            search_url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY +"&language=en-US&query=" + movie + "&page=" + str(index) + "&include_adult=false"
             response = requests.get(search_url)
             json_data = json.loads(response.text)
         
@@ -48,15 +54,47 @@ class MoviesSearch(View):
 class TrailerSearch(View):
 
     def get(self, request, *args, **kwargs):
+        load_dotenv()
+        API_KEY = os.environ.get("YT_KEY")
         title = kwargs.get('title')
         date = kwargs.get('date').split("-")[0]
         params = urllib.parse.quote(title + " hd trailer " + date)        
-        search_url = "https://youtube.googleapis.com/youtube/v3/search?part=id&maxResults=1&q=" + params  + "&key=AIzaSyDdU8fgEmwuJP-eL3v_HxNv2AogCmC7wYA"
+        search_url = "https://youtube.googleapis.com/youtube/v3/search?part=id&maxResults=1&q=" + params  + "&key=" + API_KEY
         response = requests.get(search_url)
         json_data = json.loads(response.text)
         yt_id = json_data["items"][0]["id"]["videoId"]
 
         return JsonResponse({'trailer_id': yt_id}, safe=False)
+
+
+class CreateScrapBook(View):
+
+    def get(self, request, *args, **kwargs):
+        load_dotenv()
+        AWS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+        AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+        print(AWS_ACCESS_KEY, AWS_KEY_ID)
+        i = 1
+        stdouts = []
+        urls = []       
+        video_id = kwargs.get('video')
+        timestamps = kwargs.get('timestamps')
+        video_src = getSrc(video_id)
+        for timestamp in timestamps.split(","):           
+            video = subprocess.run(["ffmpeg", "-y", "-ss", timestamp, "-i", video_src, "-f", "image2", "-vframes", "1", "-"], stdout=subprocess.PIPE)
+            stdouts.append(video.stdout)
+
+        client = boto3.client('s3',
+                              aws_access_key_id = AWS_KEY_ID,
+                              aws_secret_access_key = AWS_ACCESS_KEY)
+
+        for stdout in stdouts:
+            file_path = "screenshot/" + "{}_pic_{}.jpeg".format(video_id, i)
+            client.put_object(Body=stdout, Bucket="moviepictures", Key= file_path, ContentType='image/JPEG')
+            urls.append({"url" : file_path})
+            i += 1
+
+        return JsonResponse(urls, safe=False)
 
 
 class ActorsSearch(View):
@@ -98,3 +136,8 @@ class TagPicsListAPIView(generics.ListAPIView):
     def get_queryset(self):
         kwarg_tag = self.kwargs.get('tag')
         return Picture.objects.filter(tag=kwarg_tag)
+
+
+def getSrc(video_id):
+    video_src = subprocess.run(["youtube-dl", "-g", "https://www.youtube.com/watch?v=" + video_id], encoding='utf-8', stdout=subprocess.PIPE)
+    return(video_src.stdout.splitlines()[0])

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MovieDb } from 'src/app/interfaces/movie';
 import { MovieDataService } from 'src/app/services/movie-data.service';
+import { TrailerQuestionService } from './trailer-question.service';
 
 
 @Component({
@@ -14,6 +15,9 @@ export class TrailerQuestionComponent implements OnInit {
 
   movie: MovieDb
   subscription: Subscription;
+  timeStamps = [];
+  screenshotTaken: boolean = false
+  screenshotUrls: any
 
   apiLoaded = false;
   YT: any;
@@ -21,7 +25,8 @@ export class TrailerQuestionComponent implements OnInit {
   player: any;
   reframed: boolean = false;
     
-  constructor( private movieData: MovieDataService) { }
+  constructor( private movieData: MovieDataService,
+               private scrapService: TrailerQuestionService) { }
 
   ngOnInit() {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.video = movie.trailer)
@@ -56,7 +61,17 @@ export class TrailerQuestionComponent implements OnInit {
 
   takeScreenshot() {
     var time = this.player.getCurrentTime()
-    console.log(time)
+    var milSeconds = (time%1).toString().split(".")[1]
+    var timeStamp = new Date(time * 1000).toISOString().substr(11, 8)
+    if (this.timeStamps.length < 6) this.timeStamps.push(timeStamp + "." + milSeconds)
+    console.log(this.timeStamps);
+  }
+
+  generateScrapBooks() {
+    this.screenshotTaken = true
+    this.scrapService.createScrapBook(this.video, this.timeStamps)
+    .subscribe(r => {console.log(r);
+                    this.screenshotUrls = r;})
   }
 
   ngOnDestroy() {
