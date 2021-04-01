@@ -1,14 +1,22 @@
-<div class="d-flex qAWindow">
+<div class="qAWindow"
+     #dragBounds
+     id="container">
 
-  <div *ngIf="screenshotTaken === false"
-       class="my-auto mx-auto">
+  <div *ngIf="screenshotTaken === false" class="my-auto mx-auto">
     <div id="player"></div>
   </div>
 
   <div *ngIf="screenshotTaken === true && screenshotUrls != undefined">
-    <div *ngFor="let url of screenshotUrls">
-      <img [src]="'https://moviepictures.s3.amazonaws.com/' + url['url']"
-            class="screenshot">        
+    <div *ngFor="let url of screenshotUrls"
+          class="screenshot"
+          ngDraggable
+          ngResizable
+          [rzAspectRatio]="aspectRatio"
+          [rzHandles]="'e,s,se'"
+          rzContainment="#container"
+          [bounds]="dragBounds"
+          [inBounds]="true"
+          [style.background-image]= "'url('+'https://moviepictures.s3.amazonaws.com/' + url['url']+')'">      
     </div>
   </div>
 

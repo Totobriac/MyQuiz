@@ -38,6 +38,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ToolPosterComponent } from './tool-box/tool-poster/tool-poster.component';
 import { ToolTrailerComponent } from './tool-box/tool-trailer/tool-trailer.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { AngularDraggableModule } from 'ngx-draggable-resize';
  
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     MatRadioModule,    
     ImageCropperModule,
     YouTubePlayerModule,
+    AngularDraggableModule,
     AngularSvgIconModule.forRoot()
   ],
   providers: [],

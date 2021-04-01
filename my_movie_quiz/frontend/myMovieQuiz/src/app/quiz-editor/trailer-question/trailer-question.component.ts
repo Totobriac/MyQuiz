@@ -15,9 +15,10 @@ export class TrailerQuestionComponent implements OnInit {
 
   movie: MovieDb
   subscription: Subscription;
-  timeStamps = [];
   screenshotTaken: boolean = false
   screenshotUrls: any
+  aspectRatio = true;
+  videoSrcId: number
 
   apiLoaded = false;
   YT: any;
@@ -30,15 +31,18 @@ export class TrailerQuestionComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.video = movie.trailer)
+
     if (!this.apiLoaded) {
       console.log("loaded");
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
       document.body.appendChild(tag);
       this.apiLoaded = true;
-
       window['onYouTubeIframeAPIReady'] = () => this.startVideo();
     }
+    this.scrapService.retreiveSrc(this.video)
+    .subscribe(r => {console.log(r);
+                     this.videoSrcId = r['id']})
   }
 
   startVideo(){
@@ -63,15 +67,15 @@ export class TrailerQuestionComponent implements OnInit {
     var time = this.player.getCurrentTime()
     var milSeconds = (time%1).toString().split(".")[1]
     var timeStamp = new Date(time * 1000).toISOString().substr(11, 8)
-    if (this.timeStamps.length < 6) this.timeStamps.push(timeStamp + "." + milSeconds)
-    console.log(this.timeStamps);
+    var fullTimeStamp = timeStamp + "." + milSeconds
+    console.log(this.videoSrcId, fullTimeStamp);
+    this.scrapService.takeScreenShot(this.videoSrcId, fullTimeStamp)
+    .subscribe(r => {console.log(r);
+                    this.screenshotUrls = r;})
   }
 
   generateScrapBooks() {
     this.screenshotTaken = true
-    this.scrapService.createScrapBook(this.video, this.timeStamps)
-    .subscribe(r => {console.log(r);
-                    this.screenshotUrls = r;})
   }
 
   ngOnDestroy() {

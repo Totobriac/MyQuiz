@@ -1,6 +1,12 @@
 .qAWindow {
   text-align: center;
   background-color: rgb(4, 113, 150);
+  position: relative;
+}
+
+.ng-resizable-diagonal {
+  border-bottom: none !important;
+  border-left: none !important;
 }
 
 @media only screen and (min-width: 1020px) {
@@ -19,7 +25,10 @@
   }
 
   .screenshot {
-    width: 150px;
-    height: auto;
+    width: 130px;
+    height: 75px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
   }
 }

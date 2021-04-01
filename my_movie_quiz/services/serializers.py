@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Picture, Tags
+from .models import Picture, Tags, VideoSource
 
  
 class PictureSerializer(serializers.ModelSerializer):
@@ -16,3 +16,10 @@ class TagsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tags
         fields = ['tag']
+        
+
+class VideoSourceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = VideoSource
+        fields = ['video_src']

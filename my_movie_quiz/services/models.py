@@ -14,3 +14,6 @@ class Picture (models.Model):
     tag = models.ManyToManyField('Tags')
     lowUrl = models.URLField(max_length = 200)
     highUrl = models.URLField(max_length = 200)
+
+class VideoSource (models.Model):
+    video_src = models.TextField()

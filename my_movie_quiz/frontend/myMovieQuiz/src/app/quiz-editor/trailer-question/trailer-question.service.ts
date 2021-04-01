@@ -6,9 +6,13 @@ import { Injectable } from '@angular/core';
 })
 export class TrailerQuestionService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  createScrapBook(video, timeStamps) {
-    return this.http.get("http://127.0.0.1:8000/api/scrapbook/" + video + "/" + timeStamps)
+  retreiveSrc(video) {
+    return this.http.get("http://127.0.0.1:8000/api/video_src/" + video)
+  }
+
+  takeScreenShot(videoSrcId, timeStamps) {
+    return this.http.get("http://127.0.0.1:8000/api/scrapbook/" + videoSrcId + "/" + timeStamps)
   }
 }

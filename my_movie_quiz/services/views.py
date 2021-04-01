@@ -7,13 +7,21 @@ import subprocess
 import json
 import urllib.parse
 import boto3
-from .models import Tags, Picture
-from .serializers import PictureSerializer, TagsSerializer
+from .models import Tags, Picture, VideoSource
+from .serializers import PictureSerializer, TagsSerializer, VideoSourceSerializer
 from rest_framework.decorators import api_view
 from rest_framework import generics, viewsets
 import os
 from dotenv import load_dotenv, find_dotenv
 
+from rest_framework.response import Response
+from rest_framework import status
+
+import string
+import random
+
+def id_generator(size=4, chars=string.digits):
+    return ''.join(random.choice(chars) for x in range(size))
 
 class MoviesSearch(View):
 
@@ -27,7 +35,7 @@ class MoviesSearch(View):
             search_url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY +"&language=en-US&query=" + movie + "&page=" + str(index) + "&include_adult=false"
             response = requests.get(search_url)
             json_data = json.loads(response.text)
-        
+            print(json_data)
             for i in json_data["results"]:
                 if any(j in i["genre_ids"] for j in [16, 99, 10402, 10770]) or i["vote_count"] < 150:
                     pass
@@ -67,34 +75,35 @@ class TrailerSearch(View):
         return JsonResponse({'trailer_id': yt_id}, safe=False)
 
 
+class RetreiveSrc(View):
+
+    def get(self, request, video):
+        video_src = getSrc(video)
+        serializer = VideoSourceSerializer(data={'video_src': video_src})
+        if serializer.is_valid():
+            source = serializer.save()
+        return JsonResponse({'id': source.id})
+
+        
 class CreateScrapBook(View):
 
     def get(self, request, *args, **kwargs):
         load_dotenv()
         AWS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-        AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-        print(AWS_ACCESS_KEY, AWS_KEY_ID)
-        i = 1
-        stdouts = []
-        urls = []       
-        video_id = kwargs.get('video')
-        timestamps = kwargs.get('timestamps')
-        video_src = getSrc(video_id)
-        for timestamp in timestamps.split(","):           
-            video = subprocess.run(["ffmpeg", "-y", "-ss", timestamp, "-i", video_src, "-f", "image2", "-vframes", "1", "-"], stdout=subprocess.PIPE)
-            stdouts.append(video.stdout)
+        AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")        
+        video_src_id = kwargs.get('video_src_id')
+        timestamp = kwargs.get('timestamps')
+        video_src = VideoSource.objects.get(pk = video_src_id)
+        video = subprocess.run(["ffmpeg", "-y", "-ss", timestamp, "-i", video_src.video_src, "-f", "image2", "-vframes", "1", "-"], stdout=subprocess.PIPE)
 
         client = boto3.client('s3',
                               aws_access_key_id = AWS_KEY_ID,
                               aws_secret_access_key = AWS_ACCESS_KEY)
+        file_id = id_generator()
+        file_path = "screenshot/" + "{}_pic_{}.jpeg".format(file_id, video_src_id)
+        client.put_object(Body=video.stdout, Bucket="moviepictures", Key= file_path, ContentType='image/JPEG')
 
-        for stdout in stdouts:
-            file_path = "screenshot/" + "{}_pic_{}.jpeg".format(video_id, i)
-            client.put_object(Body=stdout, Bucket="moviepictures", Key= file_path, ContentType='image/JPEG')
-            urls.append({"url" : file_path})
-            i += 1
-
-        return JsonResponse(urls, safe=False)
+        return JsonResponse({'url': file_path})
 
 
 class ActorsSearch(View):
