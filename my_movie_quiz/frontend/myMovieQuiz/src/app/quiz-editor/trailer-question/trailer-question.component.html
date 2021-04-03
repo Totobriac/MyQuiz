@@ -2,21 +2,22 @@
      #dragBounds
      id="container">
 
-  <div *ngIf="screenshotTaken === false" class="my-auto mx-auto">
+  <div *ngIf="screenshotTaken === false" class="moviePlayer">
     <div id="player"></div>
   </div>
 
-  <div *ngIf="screenshotTaken === true && screenshotUrls != undefined">
-    <div *ngFor="let url of screenshotUrls"
-          class="screenshot"
-          ngDraggable
-          ngResizable
+  <div *ngIf="tools.scrapPic != undefined" class="scrapPicDisp">
+    <div *ngFor="let scrap of tools.scrapPic"
+          class="scrapPic"
+          [ngDraggable]= "screenshotTaken"
+          [ngResizable]= "screenshotTaken"
+          [style.position]= "picPosition"
           [rzAspectRatio]="aspectRatio"
           [rzHandles]="'e,s,se'"
           rzContainment="#container"
           [bounds]="dragBounds"
           [inBounds]="true"
-          [style.background-image]= "'url('+'https://moviepictures.s3.amazonaws.com/' + url['url']+')'">      
+          [style.background-image]= "'url('+'https://moviepictures.s3.amazonaws.com/' + scrap.url+')'">
     </div>
   </div>
 

@@ -12,7 +12,8 @@
 @media only screen and (min-width: 1020px) {
   .qAWindow  {
     height: 450px;
-    width: 662px;    
+    width: 662px;
+    padding-top: 10px;
   }
 
   .toolBox {
@@ -24,11 +25,16 @@
     background-color: rgb(4, 113, 150);
   }
 
-  .screenshot {
-    width: 130px;
-    height: 75px;
+  .scrapPicDisp {
+    display: flex;
+    justify-content: space-around;
+    height: 65px;
+  }
+
+  .scrapPic {
+    height: 65px;
+    width: 115px;
     background-repeat: no-repeat;
     background-size: contain;
-    position: absolute;
   }
 }
