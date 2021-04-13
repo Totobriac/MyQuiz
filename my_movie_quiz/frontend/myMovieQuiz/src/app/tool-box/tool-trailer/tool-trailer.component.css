@@ -3,6 +3,7 @@
   height: 100%;
   overflow: auto;
   display: flex;
+  justify-content: center;
 }
 
 .previewPics {
@@ -48,4 +49,17 @@
   background: none;
   outline: none;
   color: white;
+}
+
+.scrapPic {
+  height: 30px;
+  width: auto;
+  margin-bottom: 5px;
+}
+
+.layersStack {
+  display: flex;
+  flex-direction: column;
+  cursor: move;
+  padding-top: 5px;
 }

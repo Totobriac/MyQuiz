@@ -1,0 +1,28 @@
+<div class="window">
+
+  <div *ngIf="showQuestion === true" class="question">
+    <!-- [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }" -->
+    <div class="albums">
+      <div *ngFor="let albumCover of albumsCover">
+        <img [src]="albumCover.cover_url" class="albumCover"
+            (click)="getTracks(albumCover.id)">
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100">
+    <h1 class="my-auto">{{ movie.title }}</h1>
+  </div>
+
+</div>
+
+<div class="toolBox">
+
+  <div class="switchDiv">
+    <div class="switch">
+      <app-qaswitch (setSection)="onSelectedSection($event)">
+      </app-qaswitch>
+    </div>
+  </div>
+
+</div>

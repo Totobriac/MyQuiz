@@ -2,17 +2,9 @@
     background-color: rgb(4, 113, 150);
 }
 
-/* .moviePoster {
-  cursor: pointer;
+#canvas {
+  display: none;
 }
-
-.moviePoster {
-  opacity: 0.7;
-}
-
-.moviePoster:hover {
-  opacity: 1.0;
-} */
 
 .moviePoster {
   cursor: pointer;
@@ -60,4 +52,16 @@
 
 *::-webkit-scrollbar-thumb {
   background-color: red;  
+}
+
+.palette {
+  width: 200px;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.colorTile {
+  height: 25px;
+  width: 25px;
 }

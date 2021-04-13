@@ -15,12 +15,15 @@ import { TrailerQuestionService } from './trailer-question.service';
 
 export class TrailerQuestionComponent implements OnInit {
 
-  movie: MovieDb
+  movie: MovieDb;
   subscription: Subscription;
   screenshotTaken: boolean = false;
-  screenshotUrls: any;
-  previewUrls: object[] = [];
+  previewPicUrl: object[] = [];
+  previewGifUrl: object[] = [];
   aspectRatio = true;
+  showQuestion: boolean = true;
+  showVideo: boolean = true;
+  gifDuration: number;
 
   apiLoaded = false;
   YT: any;
@@ -32,10 +35,10 @@ export class TrailerQuestionComponent implements OnInit {
     
   constructor( private movieData: MovieDataService,
                private trailerToolsData: TrailerToolsDataService, 
-               private scrapService: TrailerQuestionService) { }
+               private trailerService: TrailerQuestionService) { }
 
   ngOnInit() {
-    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.video = movie.trailer)
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
     this.subscription = this.trailerToolsData.currentTrailerTools.subscribe(tools => this.tools = tools)
 
     if (!this.apiLoaded) {
@@ -48,7 +51,7 @@ export class TrailerQuestionComponent implements OnInit {
     }
 
     if (this.tools.videoSrcId == null) {
-      this.scrapService.retreiveSrc(this.video)
+      this.trailerService.retreiveSrc(this.movie.trailer)
       .subscribe(r => {console.log(r);
                       this.trailerToolsData.changeVideoSrcId(r['id'])})
     }
@@ -57,7 +60,7 @@ export class TrailerQuestionComponent implements OnInit {
   startVideo(){
     this.reframed = false;
       this.player = new window['YT'].Player('player', {
-        videoId: this.video,
+        videoId: this.movie.trailer,
         playerVars: {
           'cc_load_policy': 0,
           'autoplay': 0,
@@ -72,23 +75,39 @@ export class TrailerQuestionComponent implements OnInit {
       });
   }
 
-  takeScreenshot() {
+  getCurrentTime() {
     var time = this.player.getCurrentTime()
     var milSeconds = (time%1).toString().split(".")[1]
     var timeStamp = new Date(time * 1000).toISOString().substr(11, 8)
-    var fullTimeStamp = timeStamp + "." + milSeconds
+    return (timeStamp + "." + milSeconds)
+  }
+ 
+  takeScreenshot() {
+    var fullTimeStamp = this.getCurrentTime()
     console.log(this.tools.videoSrcId, fullTimeStamp);
-    this.scrapService.takeScreenShot(this.tools.videoSrcId, fullTimeStamp)
-    .subscribe(r => {console.log(r);
-                     this.previewUrls.push({url: r['url']});
-                     this.trailerToolsData.addPreviewPic(this.previewUrls)
-                    })
+    this.trailerService.takeScreenShot(this.tools.videoSrcId, fullTimeStamp)
+      .subscribe(r => {
+        console.log(r);
+        this.previewPicUrl.push({ url: r['url'] });
+        this.trailerToolsData.addPreviewPic(this.previewPicUrl);
+      })
   }
 
   generateScrapBooks() {
-    this.screenshotTaken = true
-    this.picPosition = "absolute"
-    console.log(this.tools);
+    this.screenshotTaken = true;
+    this.picPosition = "absolute";
+  }
+
+  takeGif() {
+    if (this.gifDuration) {
+      var fullTimeStamp = this.getCurrentTime();
+      this.trailerService.createGif(this.tools.videoSrcId, fullTimeStamp, this.gifDuration)
+      .subscribe(r => {
+        console.log(r);
+        this.previewPicUrl.push({ url: r['url'] });
+        this.trailerToolsData.addPreviewPic(this.previewPicUrl);        
+      })
+    }
   }
 
   ngOnDestroy() {
@@ -97,4 +116,14 @@ export class TrailerQuestionComponent implements OnInit {
       this.player.destroy();
     }
   }
+
+  onSelectedSection(value) {
+    this.showVideo = !this.showVideo
+    this.showQuestion = value
+  }
+
+  duration(time) {
+    this.gifDuration = time;
+  }
+
 }

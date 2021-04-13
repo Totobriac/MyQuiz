@@ -39,7 +39,9 @@ import { ToolPosterComponent } from './tool-box/tool-poster/tool-poster.componen
 import { ToolTrailerComponent } from './tool-box/tool-trailer/tool-trailer.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { AngularDraggableModule } from 'ngx-draggable-resize';
- 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MusicQuestionComponent } from './quiz-editor/music-question/music-question.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +66,7 @@ import { AngularDraggableModule } from 'ngx-draggable-resize';
     ToolActorComponent,
     ToolPosterComponent,
     ToolTrailerComponent,
+    MusicQuestionComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ import { AngularDraggableModule } from 'ngx-draggable-resize';
     ImageCropperModule,
     YouTubePlayerModule,
     AngularDraggableModule,
+    DragDropModule,
     AngularSvgIconModule.forRoot()
   ],
   providers: [],

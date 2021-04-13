@@ -64,7 +64,7 @@
       " . . . . ";      
 
     grid-template-rows: 24px 100px 30px 300px 202px auto;
-    grid-template-columns: 200px auto auto 200px;
+    grid-template-columns: 200px auto 314px 200px;
   }
   .editor {
     display: flex;

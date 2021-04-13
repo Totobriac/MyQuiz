@@ -15,4 +15,8 @@ export class TrailerQuestionService {
   takeScreenShot(videoSrcId, timeStamps) {
     return this.http.get("http://127.0.0.1:8000/api/scrapbook/" + videoSrcId + "/" + timeStamps)
   }
+
+  createGif(videoSrcId, timeStamps, duration) {
+    return this.http.get(("http://127.0.0.1:8000/api/gif/" + videoSrcId + "/" + timeStamps + "/" + duration))
+  }
 }

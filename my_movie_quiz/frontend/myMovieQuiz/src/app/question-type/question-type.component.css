@@ -2,5 +2,20 @@
     .questionSwitch  {
       margin-right: 24px;
       background-color: rgb(202, 16, 9);
-    }    
+      border-radius: 0px;
+      border: 0px;
+    }
+    
+    .btn{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .questionBar {
+      display: flex;
+      justify-content: space-between;
+      height: 30px;
+      width: 260px;
+    }
 }

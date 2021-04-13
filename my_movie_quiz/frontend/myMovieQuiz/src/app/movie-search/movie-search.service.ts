@@ -10,7 +10,6 @@ export class SearchMovie {
   constructor(private http: HttpClient) { }
       
   getTrailer(title: string, year: number){
-    console.log('http://127.0.0.1:8000/api/search_trailer/' + title + "/" + year.toString());
     return this.http.get('http://127.0.0.1:8000/api/search_trailer/' + title + "/" + year.toString())    
   }
 }

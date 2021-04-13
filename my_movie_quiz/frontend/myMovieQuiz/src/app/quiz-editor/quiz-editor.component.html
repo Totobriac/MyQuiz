@@ -1,27 +1,25 @@
 <div>
 
-  <div>
+  <ng-container [ngSwitch]="component">
 
-    <ng-container [ngSwitch]="component">
+    <app-curtain *ngSwitchCase="0">
+    </app-curtain>
 
-      <app-curtain *ngSwitchCase="0">
-      </app-curtain>
-      
-      <app-plot-question *ngSwitchCase="1">
-      </app-plot-question>
+    <app-plot-question *ngSwitchCase="1">
+    </app-plot-question>
 
-      <app-actor-question *ngSwitchCase="2">
-      </app-actor-question>
+    <app-actor-question *ngSwitchCase="2">
+    </app-actor-question>
 
-      <app-poster-question [posterSrc]="posterSrc"
-                           [posterBack]="posterBack"
-                           *ngSwitchCase="3">
-      </app-poster-question>
+    <app-poster-question *ngSwitchCase="3">
+    </app-poster-question>
 
-      <app-trailer-question [videoSource]="trailer" *ngSwitchCase="4"></app-trailer-question>
+    <app-trailer-question *ngSwitchCase="4">
+    </app-trailer-question>
 
-    </ng-container>
-    
-  </div>
+    <app-music-question *ngSwitchCase="5">
+    </app-music-question>
+
+  </ng-container>
 
 </div>

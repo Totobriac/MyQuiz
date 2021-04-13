@@ -9,5 +9,6 @@ export interface MovieDb {
   cast: [{ name: string;
            character: string;
            profile_path: string;  
- }];
+  }];
+  music_composer: string;
 }

@@ -12,7 +12,7 @@ export class PlotToolsDataService {
   constructor() { }
 
   private plotTools = new BehaviorSubject<PlotTools>({
-    fontSize: 32,
+    fontSize: 28,
     fontFamily: {
       index: 0,
       value: "'Roboto', sans-serif",

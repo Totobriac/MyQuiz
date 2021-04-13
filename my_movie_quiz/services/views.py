@@ -13,10 +13,8 @@ from rest_framework.decorators import api_view
 from rest_framework import generics, viewsets
 import os
 from dotenv import load_dotenv, find_dotenv
-
-from rest_framework.response import Response
-from rest_framework import status
-
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 import string
 import random
 
@@ -35,7 +33,6 @@ class MoviesSearch(View):
             search_url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY +"&language=en-US&query=" + movie + "&page=" + str(index) + "&include_adult=false"
             response = requests.get(search_url)
             json_data = json.loads(response.text)
-            print(json_data)
             for i in json_data["results"]:
                 if any(j in i["genre_ids"] for j in [16, 99, 10402, 10770]) or i["vote_count"] < 150:
                     pass
@@ -55,7 +52,9 @@ class MoviesSearch(View):
             response = requests.get(search_url)
             json_data = json.loads(response.text)
             i['cast'] = json_data['cast'][:4]
-
+            for j in json_data["crew"]:
+                if j["department"] == "Sound" and (j["job"] == "Music" or j["job"] == "Original Music Composer"):
+                    i['music_composer'] = (j['name'])
         return JsonResponse(movies_list, safe=False)
 
 
@@ -94,7 +93,7 @@ class CreateScrapBook(View):
         video_src_id = kwargs.get('video_src_id')
         timestamp = kwargs.get('timestamps')
         video_src = VideoSource.objects.get(pk = video_src_id)
-        video = subprocess.run(["ffmpeg", "-y", "-ss", timestamp, "-i", video_src.video_src, "-f", "image2", "-vframes", "1", "-"], stdout=subprocess.PIPE)
+        video = subprocess.run(["ffmpeg", "-y", "-ss", timestamp, "-i", video_src.video_src, "-f", "image2", "-vframes", "1", "-filter:v", "scale='720:-1'", "-"], stdout=subprocess.PIPE)
 
         client = boto3.client('s3',
                               aws_access_key_id = AWS_KEY_ID,
@@ -102,6 +101,28 @@ class CreateScrapBook(View):
         file_id = id_generator()
         file_path = "screenshot/" + "{}_pic_{}.jpeg".format(file_id, video_src_id)
         client.put_object(Body=video.stdout, Bucket="moviepictures", Key= file_path, ContentType='image/JPEG')
+
+        return JsonResponse({'url': file_path})
+
+
+class CreateGif(View):
+
+    def get(self, request, *args, **kwargs):
+        load_dotenv()
+        AWS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+        AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")    
+        video_src_id = kwargs.get('video_src_id')
+        timestamp = kwargs.get('timestamps')
+        duration = kwargs.get('duration')
+        video_src = VideoSource.objects.get(pk = video_src_id)
+        gif = subprocess.run(["ffmpeg","-y", "-ss", timestamp, "-t", duration, "-i", video_src.video_src, "-f", "gif", "-filter_complex", "[0:v] fps=5,scale=480:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse", "-"], stdout=subprocess.PIPE)
+
+        client = boto3.client('s3',
+                              aws_access_key_id = AWS_KEY_ID,
+                              aws_secret_access_key = AWS_ACCESS_KEY)
+        file_id = id_generator()
+        file_path = "gif/" + "{}_pic_{}.gif".format(file_id, video_src_id)
+        client.put_object(Body=gif.stdout, Bucket="moviepictures", Key= file_path, ContentType='image/gif')
 
         return JsonResponse({'url': file_path})
 
@@ -124,6 +145,61 @@ class ActorsSearch(View):
                 i += 1
             actorPicUrl.append(url_list)
         return JsonResponse(actorPicUrl, safe=False)
+
+
+class AlbumSearch(View):
+
+    def get(self, request, *args, **kwargs):
+        year = kwargs.get('year')
+        movie_name = kwargs.get('movie_name')
+        composer = kwargs.get('composer')
+        albums_cover = []
+        albums_id = []
+        y = year.split("-")[0]
+        search_year= str(y) + "-" + str(int(y)+ 1)
+        load_dotenv()
+        cl_id = os.environ.get("CLIENT_ID")
+        cl_secret = os.environ.get("CLIENT_SECRET")
+        sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=cl_id,
+                                                                   client_secret=cl_secret))
+        q = "album:{} year:{}".format(movie_name, search_year)
+        year_results = sp.search(q , type='album', limit=6)
+        extractData(year_results, albums_cover, albums_id)
+
+        q = "album:{} artist:{}".format(movie_name, composer)
+        results = sp.search(q , type='album', limit=6)
+        extractData(results, albums_cover, albums_id)
+
+        q = "album:{} 'soundtrack'".format(movie_name)
+        results = sp.search(q , type='album', limit=6)
+        extractData(results, albums_cover, albums_id)
+
+        if len(albums_cover) == 0:
+            q = "{}".format(movie_name)
+            results = sp.search(q, type='playlist', limit=6)
+            for playlist in results['playlists']['items']:
+                albums_cover.append({'id': playlist['id'], 'cover_url': playlist['images'][0]['url']})
+        return JsonResponse(albums_cover, safe=False)
+
+def extractData(results, albums_list, albums_id):
+    for album in results['albums']['items']:
+        if album['id'] not in albums_id:
+            albums_id.append(album['id'])
+            albums_list.append({'id': album['id'], 'cover_url':album['images'][1]['url']})
+        else: pass
+
+
+class TrackSearch(View):
+
+    def get(self, request, music_id):        
+        load_dotenv()
+        cl_id = os.environ.get("CLIENT_ID")
+        cl_secret = os.environ.get("CLIENT_SECRET")
+        sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=cl_id,
+                                                                   client_secret=cl_secret))
+        q = music_id
+        tracks_result = sp.album_tracks(q)
+        print(tracks_result)
 
 
 class PictureViewSet(viewsets.ModelViewSet):   

@@ -1,0 +1,62 @@
+.window {
+    text-align: center;
+    background-color: rgb(4, 113, 150);
+    display: flex;
+    justify-content: center;
+  }
+  
+.question {
+background-size: cover;
+}  
+  
+  @media only screen and (min-width: 1020px) {
+  .window  {
+    height: 450px;
+    width: 662px;    
+  }
+
+  .toolBox {
+    margin-top: 24px;
+    width: 662px;
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(4, 113, 150);
+  }
+
+  .switchDiv {
+    background-color: rgb(4, 113, 150);    
+  }
+
+  .switch {
+    margin-left: 48px;
+    margin-right: 24px;
+    margin-top: 12px;
+  }
+
+  .albumCover {
+    height: 130px;
+    width: 130px;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .albumCover:hover {
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  .albums {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 300px;
+    width: 600px;   
+  }
+
+  .question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

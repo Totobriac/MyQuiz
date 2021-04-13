@@ -13,5 +13,8 @@ urlpatterns = [
     path('video_src/<str:video>', views.RetreiveSrc.as_view(), name='video_src'),
     path('search_trailer/<str:title>/<str:date>', views.TrailerSearch.as_view(), name='trailer_search'),
     path('scrapbook/<str:video_src_id>/<str:timestamps>', views.CreateScrapBook.as_view()),
+    path('gif/<str:video_src_id>/<str:timestamps>/<str:duration>', views.CreateGif.as_view()),
     path('picturetag/<str:tag>/', views.TagPicsListAPIView.as_view()),
+    path('album/<str:movie_name>/<str:year>/<str:composer>', views.AlbumSearch.as_view(), name='album_search'),
+    path('tracks/<str:music_id>', views.TrackSearch.as_view(), name='track_search'),
 ]
