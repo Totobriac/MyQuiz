@@ -13,8 +13,8 @@ from rest_framework.decorators import api_view
 from rest_framework import generics, viewsets
 import os
 from dotenv import load_dotenv, find_dotenv
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+# import spotipy
+# from spotipy.oauth2 import SpotifyClientCredentials
 import string
 import random
 
@@ -52,9 +52,11 @@ class MoviesSearch(View):
             response = requests.get(search_url)
             json_data = json.loads(response.text)
             i['cast'] = json_data['cast'][:4]
+            composers = []
             for j in json_data["crew"]:
                 if j["department"] == "Sound" and (j["job"] == "Music" or j["job"] == "Original Music Composer"):
-                    i['music_composer'] = (j['name'])
+                    composers.append(j['name'])
+                i['music_composer'] = composers
         return JsonResponse(movies_list, safe=False)
 
 
@@ -146,60 +148,48 @@ class ActorsSearch(View):
             actorPicUrl.append(url_list)
         return JsonResponse(actorPicUrl, safe=False)
 
-
 class AlbumSearch(View):
 
     def get(self, request, *args, **kwargs):
-        year = kwargs.get('year')
-        movie_name = kwargs.get('movie_name')
-        composer = kwargs.get('composer')
-        albums_cover = []
         albums_id = []
-        y = year.split("-")[0]
-        search_year= str(y) + "-" + str(int(y)+ 1)
-        load_dotenv()
-        cl_id = os.environ.get("CLIENT_ID")
-        cl_secret = os.environ.get("CLIENT_SECRET")
-        sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=cl_id,
-                                                                   client_secret=cl_secret))
-        q = "album:{} year:{}".format(movie_name, search_year)
-        year_results = sp.search(q , type='album', limit=6)
-        extractData(year_results, albums_cover, albums_id)
+        albums_list = []
+        movie_name = kwargs.get('movie_name')
+        movie = movie_name.replace("&", "and")
+        composers = kwargs.get('composer')
+        base_url = "https://api.deezer.com/search?q="
+        for composer in composers.split(','):
+            response = requests.get(base_url + movie + " " + composer + "&limit=6")
+            results = response.json()
+            for result in results["data"]:
+                if result["album"]["id"] not in albums_id:
+                    albums_id.append(result["album"]["id"])
+                    albums_list.append({'id': result["album"]["id"], "cover_url": result["album"]["cover_medium"], "type": "album"})
+                else: pass
 
-        q = "album:{} artist:{}".format(movie_name, composer)
-        results = sp.search(q , type='album', limit=6)
-        extractData(results, albums_cover, albums_id)
+        base_url = "https://api.deezer.com/search/playlist?q="
+        response = requests.get(base_url + movie +" soundtrack" + "&limit=6")
+        results = response.json()
+        for result in results["data"]:
+            if result["id"] not in albums_id:
+                albums_id.append(result["id"])
+                albums_list.append({'id': result["id"], "cover_url": result["picture_medium"], "type": "playlist"})
+            else: pass
 
-        q = "album:{} 'soundtrack'".format(movie_name)
-        results = sp.search(q , type='album', limit=6)
-        extractData(results, albums_cover, albums_id)
-
-        if len(albums_cover) == 0:
-            q = "{}".format(movie_name)
-            results = sp.search(q, type='playlist', limit=6)
-            for playlist in results['playlists']['items']:
-                albums_cover.append({'id': playlist['id'], 'cover_url': playlist['images'][0]['url']})
-        return JsonResponse(albums_cover, safe=False)
-
-def extractData(results, albums_list, albums_id):
-    for album in results['albums']['items']:
-        if album['id'] not in albums_id:
-            albums_id.append(album['id'])
-            albums_list.append({'id': album['id'], 'cover_url':album['images'][1]['url']})
-        else: pass
+        return JsonResponse(albums_list, safe=False)
 
 
 class TrackSearch(View):
 
-    def get(self, request, music_id):        
-        load_dotenv()
-        cl_id = os.environ.get("CLIENT_ID")
-        cl_secret = os.environ.get("CLIENT_SECRET")
-        sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=cl_id,
-                                                                   client_secret=cl_secret))
-        q = music_id
-        tracks_result = sp.album_tracks(q)
-        print(tracks_result)
+    def get(self, request, music_id, format):
+        if format != "track":
+            response = requests.get(
+                "https://api.deezer.com/" + format + "/" + music_id + "/tracks")
+            results = response.json()
+            return JsonResponse(results['data'], safe=False)
+        else:
+            response = requests.get("https://api.deezer.com/track/" + music_id)
+            results = response.json()
+            return JsonResponse(results, safe=False)
 
 
 class PictureViewSet(viewsets.ModelViewSet):   

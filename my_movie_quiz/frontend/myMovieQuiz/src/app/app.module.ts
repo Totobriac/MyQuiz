@@ -41,6 +41,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { AngularDraggableModule } from 'ngx-draggable-resize';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MusicQuestionComponent } from './quiz-editor/music-question/music-question.component';
+import { ToolMusicComponent } from './tool-box/tool-music/tool-music.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { MusicQuestionComponent } from './quiz-editor/music-question/music-quest
     ToolPosterComponent,
     ToolTrailerComponent,
     MusicQuestionComponent,
+    ToolMusicComponent,
   ],
   imports: [
     BrowserModule,

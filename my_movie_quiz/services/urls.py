@@ -16,5 +16,5 @@ urlpatterns = [
     path('gif/<str:video_src_id>/<str:timestamps>/<str:duration>', views.CreateGif.as_view()),
     path('picturetag/<str:tag>/', views.TagPicsListAPIView.as_view()),
     path('album/<str:movie_name>/<str:year>/<str:composer>', views.AlbumSearch.as_view(), name='album_search'),
-    path('tracks/<str:music_id>', views.TrackSearch.as_view(), name='track_search'),
+    path('tracks/<str:music_id>/<str:format>', views.TrackSearch.as_view(), name='track_search'),
 ]

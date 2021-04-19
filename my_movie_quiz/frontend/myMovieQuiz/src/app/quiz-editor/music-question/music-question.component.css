@@ -4,6 +4,10 @@
     display: flex;
     justify-content: center;
   }
+
+.player {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
   
 .question {
 background-size: cover;
@@ -34,6 +38,11 @@ background-size: cover;
     margin-top: 12px;
   }
 
+  .albums {
+    display: flex;
+    flex-direction: column;   
+  }
+
   .albumCover {
     height: 130px;
     width: 130px;
@@ -46,17 +55,71 @@ background-size: cover;
     cursor: pointer;
   }
 
-  .albums {
+  .albumsCover {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 300px;
-    width: 600px;   
+    min-height: 300px;
+    min-width: 600px;       
   }
 
   .question {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .deezerSearch {
+    background-color: rgb(4, 113, 150);
+    border-radius: 4px;
+    width: 600px;
+    height: 80px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .deezerInput {
+    position: absolute;
+    bottom: 6px;
+    margin-left: 10px;
+    margin-right: auto;    
+  }
+
+  input {
+    width: 580px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  img {
+    height: 26px;
+    width: auto;
+    margin-top: 8px;
+  }
+
+  .infoText {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .infoText text {
+    margin-left: 10px;
+    color: white;
+    text-align: left;
+    font-style: italic;
+    font-family: initial;
+  }
+
+  .info {
+    display: block;
+    font-size: 16px;
+    line-height: 95%;
+    margin-top: 7px;
+  }
+
+  .infoText img {
+    margin-right: 10px;
   }
 }

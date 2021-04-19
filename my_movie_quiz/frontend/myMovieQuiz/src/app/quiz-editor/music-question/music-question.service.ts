@@ -12,7 +12,7 @@ export class MusicQuestionService {
     return this.http.get("http://127.0.0.1:8000/api/album/" + movieName +"/"+ year +"/"+ composer)
   }
 
-  getTracks(musicId) {
-    return this.http.get("http://127.0.0.1:8000/api/tracks/" + musicId)
+  getTracks(musicId, type) {
+    return this.http.get("http://127.0.0.1:8000/api/tracks/" + musicId + "/" + type)
   }
 }

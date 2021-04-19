@@ -2,12 +2,43 @@
 
   <div *ngIf="showQuestion === true" class="question">
     <!-- [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }" -->
-    <div class="albums">
-      <div *ngFor="let albumCover of albumsCover">
-        <img [src]="albumCover.cover_url" class="albumCover"
-            (click)="getTracks(albumCover.id)">
+
+    <div *ngIf="isPlaying === false" class="albums">
+      <div class="albumsCover">
+        <div *ngFor="let albumCover of albumsCover">
+          <img [src]="albumCover.cover_url" class="albumCover" (click)="getTracks(albumCover.id, albumCover.type)">
+        </div>
       </div>
+
+      <div class="deezerSearch">
+
+        <div class="infoText">
+          <div>
+            <text class="info">Not what you are looking for? Find it on Deezer & grab it's url. <br>
+              It can be an album, a track or a playlist.</text>
+          </div>
+          <div>
+            <a href="https://www.deezer.com" target="_blank">
+              <img src="../../../assets/deezer-logo-small.png" alt="">
+            </a>
+          </div>
+        </div>
+
+        <form autocomplete="off" #deezerSearch="ngForm" (ngSubmit)=retreiveData(deezerSearch.value.deezerSearch)
+          class="deezerInput">
+          <input type="text" [(ngModel)]="value" name="deezerSearch"
+            placeholder="Ex: https://www.deezer.com/fr/album/365740 ...">
+        </form>
+
+      </div>
+
     </div>
+
+    <div *ngIf="isPlaying === true">
+      <iframe scrolling="yes" frameborder="0" allowTransparency="true" [src]="urlSafe" width="600"
+        height="300" class="player"></iframe>
+    </div>
+
   </div>
 
   <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100">
