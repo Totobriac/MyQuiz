@@ -15,4 +15,8 @@ export class MusicQuestionService {
   getTracks(musicId, type) {
     return this.http.get("http://127.0.0.1:8000/api/tracks/" + musicId + "/" + type)
   }
+
+  getSample(query) {
+    return this.http.get("http://127.0.0.1:8000/api/sample/" + query )
+  }
 }

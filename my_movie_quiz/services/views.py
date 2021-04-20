@@ -192,6 +192,16 @@ class TrackSearch(View):
             return JsonResponse(results, safe=False)
 
 
+class SampleSearch(View):
+
+    def get(self, request, query):
+        load_dotenv()
+        SOUND_TOKEN = os.environ.get("SOUND_TOKEN")
+        response = requests.get("https://freesound.org/apiv2/search/text/?query=" + query + "&fields=name,previews,duration&page_size=30&filter=duration:[1 TO 30]&token=" + SOUND_TOKEN)
+        results = response.json()
+        return JsonResponse(results, safe=False)
+
+
 class PictureViewSet(viewsets.ModelViewSet):   
 
     queryset = Picture.objects.all()

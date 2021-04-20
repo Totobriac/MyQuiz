@@ -13,7 +13,7 @@
 background-size: cover;
 }  
   
-  @media only screen and (min-width: 1020px) {
+@media only screen and (min-width: 1020px) {
   .window  {
     height: 450px;
     width: 662px;    
@@ -63,6 +63,15 @@ background-size: cover;
     min-width: 600px;       
   }
 
+  .mixer {
+    display: flex;
+    flex-direction: row;
+    min-height: 400px;
+    min-width: 600px;
+    background-color: bisque;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
   .question {
     display: flex;
     justify-content: center;
@@ -79,14 +88,13 @@ background-size: cover;
   }
 
   .deezerInput {
-    position: absolute;
-    bottom: 6px;
-    margin-left: 10px;
-    margin-right: auto;    
+    margin-left: 12px;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   input {
-    width: 580px;
+    width: 450px;
   }
 
   input:focus {
@@ -102,6 +110,7 @@ background-size: cover;
   .infoText {
     display: flex;
     justify-content: space-between;
+    margin-top: 18px;
   }
 
   .infoText text {
@@ -121,5 +130,51 @@ background-size: cover;
 
   .infoText img {
     margin-right: 10px;
+  }
+
+  .album {
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+
+  .trackTool {
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .mat-slider-horizontal {
+    min-width: 320px;
+  }
+
+  .sampleFinder {
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    border: none;
+    background: none;
+    outline: none;
+    color: white;
+  }
+
+  .sampleDisplay {
+    width: 410px;
+    background-color: white;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    -moz-box-shadow: 0 0 6px white;
+    -webkit-box-shadow: 0 0 6px white;
+    box-shadow: 0 0 6px white;
+  }
+
+  .sampleResult {
+    padding-top: 12px;
+    display: flex;
+    justify-content: center;
   }
 }
