@@ -1,0 +1,57 @@
+.mixer {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.track {
+  width: 100%;
+  height: 70px;
+  background-color: cadetblue;
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.sampleTitle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 0;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  width: fit-content
+}
+
+.musicTrack {
+  height: 70px;
+  cursor: grab;
+  background-color: cadetblue;
+  position: relative;
+}
+
+[id="0"] .musicVolume {
+  background-color: rgb(90, 156, 28);
+}
+
+[id="1"] .musicVolume {
+  background-color: chocolate;
+}
+
+[id="2"] .musicVolume {
+  background-color: rgb(78, 30, 210);
+}
+
+[id="3"] .musicVolume {
+  background-color: rgb(184, 51, 106);
+}
+
+[id="4"] .musicVolume {
+  background-color: rgb(137, 149, 150);
+}
+
+.musicVolume {
+  width: 100%;
+  position: absolute;
+  bottom: 0px !important;
+}

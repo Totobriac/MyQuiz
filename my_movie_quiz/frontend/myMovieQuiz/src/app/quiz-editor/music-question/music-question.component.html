@@ -32,7 +32,7 @@
     </div>
 
     <div class="mixer" *ngIf="mixing == true">
-
+      <app-mixer></app-mixer>
     </div>
 
   </div>
@@ -72,15 +72,18 @@
 
   <div *ngIf="mixing == true" class="sampleFinder">
 
-    <form *ngIf="samples == undefined"
-          #sampleSearch="ngForm" (ngSubmit)=searchSample(sampleSearch.value)>
-      <mat-form-field class="actorCustom">
-        <mat-label>Sample Search</mat-label>
-        <input matInput autocomplete="off" type="text"
-          name="sampleSearch" placeholder="Ex. drums, disco..."
-          (ngModel)="model.sampleSearch">
-      </mat-form-field>
-    </form>
+    <div *ngIf="samples == undefined" class="sampleSearch">
+      <form #sampleSearch="ngForm" (ngSubmit)=searchSample(sampleSearch.value)>
+        <mat-form-field>
+          <mat-label>Sample Search</mat-label>
+          <input matInput autocomplete="off" type="text" name="sampleSearch" placeholder="Ex. drums, disco..."
+            (ngModel)="model.sampleSearch">
+        </mat-form-field>
+      </form>
+      <button class="icon play" (click)=play()>
+        <mat-icon>play_circle_outline</mat-icon>
+      </button>
+    </div>
 
     <div *ngIf="samples != undefined" class="sampleResult">
       <button (click)="changeSample(-1)" class="icon">
@@ -92,11 +95,14 @@
       <button (click)="changeSample(1)" class="icon">
         <mat-icon>chevron_right</mat-icon>
       </button>
+
+      <button (click)="addToSamples()" class="icon"><mat-icon>playlist_add</mat-icon></button>
+      <button (click)="deleteSearch()" class="icon"><mat-icon class="deleteIcon">cancel</mat-icon></button>
     </div>
 
   </div>
 
-  <div class="switchDiv">
+  <div class="switchDiv" [class.switchTemplates]="samples != undefined">
     <div class="switch">
       <app-qaswitch (setSection)="onSelectedSection($event)">
       </app-qaswitch>

@@ -14,4 +14,8 @@ export class MusicDataService {
   changeMainTitle(mainTitle: any) {
     this.music.next(Object.assign(this.music.value, {mainTitle: mainTitle}))
   }
+
+  changeSamples(samples: object[]) {
+    this.music.next(Object.assign(this.music.value, {samples: samples}))
+  }
 }

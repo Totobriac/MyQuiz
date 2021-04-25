@@ -1,0 +1,45 @@
+<div class="mixer">
+
+  <div *ngFor="let track of tracks; index as i" class="track" onselectstart="return false">
+    <div [id]=i #myBounds>
+      <div id="myBounds">
+        <div class="sampleTitle">
+          {{ i == 0 ? music.mainTitle.title : (music.samples == undefined ? "" : (music.samples[i-1] == undefined ? "" :
+          music.samples[i-1].name)) }}
+        </div>
+        <div *ngIf="i == 0"
+          class="musicVolume"
+          ngResizable
+          rzHandles="n"
+          rzContainment=".track"
+          (rzStop)="onResizeHeight($event, i)"
+          [style.height.px]="getHeight(i)"
+          [style.top.px]="getTop(i)">
+        </div>
+        <div class="musicTrack"
+          (click)="setTools()"
+          [style.width.px]="getWidth(i)"
+          *ngIf="i > 0 && music.samples != undefined && music.samples[i-1] != undefined"
+          [ngDraggable]="draggable"
+          [lockAxis]= 'y' 
+          [bounds]="myBounds"
+          [inBounds]="true"
+          (endOffset)="onMoveEnd($event, i)"
+          ngResizable
+          rzHandles="e"
+          rzContainment="#myBounds"
+          (rzStop)="onResizeWidth($event, i)">
+          <div class="musicVolume"
+               ngResizable
+               rzHandles="n"
+               rzContainment=".musicTrack"
+               (rzStop)="onResizeHeight($event, i)"
+               [style.height.px]="getHeight(i)"
+               [style.top.px]="getTop(i)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

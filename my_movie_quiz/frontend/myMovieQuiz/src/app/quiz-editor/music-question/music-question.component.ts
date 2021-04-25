@@ -7,6 +7,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MusicDataService } from 'src/app/services/music-data.service';
 import { Music } from 'src/app/interfaces/music';
 import { Howl } from 'howler'
+import { MusicPlayerService } from './music-player.service';
 
 
 @Component({
@@ -30,13 +31,15 @@ export class MusicQuestionComponent implements OnInit {
   music: Music;
   samples: any;
   sampleIndex: number = 0;
-  sound: any;
-
+  sound: any;  
+  samplesList: object[] = []
+  playing: boolean = false
 
   constructor(private movieData: MovieDataService,
               private musicService: MusicQuestionService,
               public sanitizer: DomSanitizer,
-              private musicDataService: MusicDataService) { }
+              private musicDataService: MusicDataService,
+              private musicPlayer: MusicPlayerService,) { }
 
   ngOnInit(): void {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
@@ -72,23 +75,28 @@ export class MusicQuestionComponent implements OnInit {
   }
 
   trackChoice(track: number) {
-    this.track = track;
+    this.track = track - 1;
   }
 
   selectTrack() {
-    var mainTitle = {'title': this.themes[this.track]['title'], 'url':this.themes[this.track]['preview']};
+    var mainTitle = {'title': this.themes[this.track]['title'], 'url':this.themes[this.track]['preview'], 'volume': 0.8};
     this.musicDataService.changeMainTitle(mainTitle);
     this.mixing = true;
   }
 
   searchSample(sample) {
     this.musicService.getSample(sample['sampleSearch'])
-      .subscribe(r => {this.samples = r['results']})
+      .subscribe(r => {this.samples = r['results'];
+                       this.sound = new Howl({
+                         src: [this.samples[0]["previews"]["preview-lq-mp3"]],
+                         html5: true,
+                         loop: true,
+                         })
+                       this.sound.play()})
   }
 
   changeSample(next: number) {
-    if(this.sound != undefined){
-      this.sound.stop()};
+    this.sound.stop()
     var index = this.sampleIndex + next
     if (index == this.samples.length) {
       index = 0
@@ -98,9 +106,30 @@ export class MusicQuestionComponent implements OnInit {
     this.sampleIndex = index
     this.sound = new Howl({
       src: [this.samples[this.sampleIndex]["previews"]["preview-lq-mp3"]],
-      html5 :true,
+      html5: true,
+      loop: true,
     })
     this.sound.play()
     return (this.sampleIndex)
+  }
+
+  deleteSearch() {
+    this.sound.stop()
+    this.samples = undefined
+    this.sampleIndex = 0
+  }
+
+  addToSamples() {
+    this.samplesList.push({name: this.samples[this.sampleIndex]["name"],
+                          duration: this.samples[this.sampleIndex]["duration"],
+                          url: this.samples[this.sampleIndex]["previews"]["preview-hq-mp3"],
+                          start: 0,
+                          volume: 0.6})
+    this.musicDataService.changeSamples(this.samplesList)
+  }
+
+  play() {
+    console.log(this.music);  
+    this.musicPlayer.play(this.music)
   }
 }

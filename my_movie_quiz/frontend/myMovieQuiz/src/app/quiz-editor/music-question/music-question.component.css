@@ -32,6 +32,12 @@ background-size: cover;
     background-color: rgb(4, 113, 150);    
   }
 
+  .switchTemplates {
+    width: 150px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
   .switch {
     margin-left: 48px;
     margin-right: 24px;
@@ -63,13 +69,9 @@ background-size: cover;
     min-width: 600px;       
   }
 
-  .mixer {
-    display: flex;
-    flex-direction: row;
+  .mixer {   
     min-height: 400px;
     min-width: 600px;
-    background-color: bisque;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
   .question {
@@ -148,7 +150,11 @@ background-size: cover;
   }
 
   .sampleFinder {
-    margin-left: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .sampleSearch {
     display: flex;
     align-items: center;
   }
@@ -160,21 +166,33 @@ background-size: cover;
     color: white;
   }
 
+  .play {
+    margin-left: 6px;
+  }
+
+  .deleteIcon {
+    margin-left: 4px;
+  }
+
   .sampleDisplay {
-    width: 410px;
+    width: 360px;
     background-color: white;
     height: 24px;
     display: flex;
     justify-content: center;
-    overflow: auto;
+    overflow: hidden;
     -moz-box-shadow: 0 0 6px white;
     -webkit-box-shadow: 0 0 6px white;
     box-shadow: 0 0 6px white;
   }
 
   .sampleResult {
-    padding-top: 12px;
+    padding-top: 8px;
     display: flex;
     justify-content: center;
+  }
+
+  form {
+    margin-left: 12px;
   }
 }

@@ -42,6 +42,7 @@ import { AngularDraggableModule } from 'ngx-draggable-resize';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MusicQuestionComponent } from './quiz-editor/music-question/music-question.component';
 import { ToolMusicComponent } from './tool-box/tool-music/tool-music.component';
+import { MixerComponent } from './quiz-editor/mixer/mixer.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ToolMusicComponent } from './tool-box/tool-music/tool-music.component';
     ToolTrailerComponent,
     MusicQuestionComponent,
     ToolMusicComponent,
+    MixerComponent,
   ],
   imports: [
     BrowserModule,
