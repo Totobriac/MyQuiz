@@ -3,24 +3,38 @@
   <div *ngFor="let track of tracks; index as i" class="track" onselectstart="return false">
     <div [id]=i #myBounds>
       <div id="myBounds">
-        <div class="sampleTitle">
-          {{ i == 0 ? music.mainTitle.title : (music.samples == undefined ? "" : (music.samples[i-1] == undefined ? "" :
-          music.samples[i-1].name)) }}
+        <div class="title">
+          <div>
+            {{ i == 0 ? music.mainTitle.title : (music.samples == undefined ? "" : (music.samples[i-1] == undefined ? "" :
+            music.samples[i-1].name)) }}
+          </div>
+          <div *ngIf="(muted == false)" class="delete">
+            <button class="icon" (click)=mute()>
+              <mat-icon>volume_off</mat-icon>
+            </button>
+          </div>
+          
+          <div *ngIf="(muted == true)" class="delete">
+            <button class="icon" (click)=unmute()>
+              <mat-icon>volume_up</mat-icon>
+            </button>
+          </div>
         </div>
         <div *ngIf="i == 0"
           class="musicVolume"
           ngResizable
           rzHandles="n"
           rzContainment=".track"
+          (rzStart)="onResizeStart(i)"
           (rzStop)="onResizeHeight($event, i)"
           [style.height.px]="getHeight(i)"
           [style.top.px]="getTop(i)">
         </div>
         <div class="musicTrack"
-          (click)="setTools()"
           [style.width.px]="getWidth(i)"
           *ngIf="i > 0 && music.samples != undefined && music.samples[i-1] != undefined"
           [ngDraggable]="draggable"
+          (started)="onStart(i)"
           [lockAxis]= 'y' 
           [bounds]="myBounds"
           [inBounds]="true"
@@ -28,11 +42,13 @@
           ngResizable
           rzHandles="e"
           rzContainment="#myBounds"
+          (rzStart)="onResizeStart(i)"
           (rzStop)="onResizeWidth($event, i)">
           <div class="musicVolume"
                ngResizable
                rzHandles="n"
                rzContainment=".musicTrack"
+               (rzStart)="onResizeStart(i)"
                (rzStop)="onResizeHeight($event, i)"
                [style.height.px]="getHeight(i)"
                [style.top.px]="getTop(i)">
@@ -40,6 +56,13 @@
         </div>
       </div>
     </div>
+    <div *ngIf="i == 0" class="progressBar"
+      [style.width.px]="getProgress(i)">
+    </div>
+    <div *ngIf="i > 0 && music.samples != undefined && music.samples[i-1] != undefined" class="progressBar"
+      [style.width.px]="music.position == 0 ? 0 : getProgress(i)"
+      [style.margin-left.px]="getBorder(i)"
+      [style.max-width.px]="getMaxWidth(i)">
+    </div>
   </div>
-
 </div>

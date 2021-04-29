@@ -18,6 +18,7 @@ export class MixerComponent implements OnInit {
   music: Music;
   endOffset = { x: 0, y: 0 };
   size: any
+  muted: boolean = false
 
   constructor( private musicDataService: MusicDataService,
                private musicPlayerService: MusicPlayerService ) {}
@@ -30,6 +31,18 @@ export class MixerComponent implements OnInit {
     return (this.music.samples[i-1].duration * 20)
   }
 
+  getProgress(i) {
+    if (i == 0) {
+      return (this.music.position * 20)
+    }
+    else { return (this.music.position * 20 - this.music.samples[i-1].start * 20) }
+  }
+
+  getBorder(i) {
+    if (this.music.samples != undefined && this.music.samples[i - 1] != undefined) {
+      return (this.music.samples[i - 1].start * 20) }
+  }
+
   getHeight(i) {
     var height
     i == 0 ? height = (this.music.mainTitle.volume * 70) : height = (this.music.samples[i-1].volume * 70)
@@ -40,6 +53,10 @@ export class MixerComponent implements OnInit {
     var top
     i == 0 ? top = (70 - this.music.mainTitle.volume * 70) : top = (70 - this.music.samples[i-1].volume * 70)
     return top
+  }
+
+  getMaxWidth(i) {
+    return (this.music.samples[i-1].duration * 20)
   }
 
   onMoveEnd(event, i) {    
@@ -67,7 +84,21 @@ export class MixerComponent implements OnInit {
       this.musicPlayerService.setSampleVolume(i, event.size.height/70)}
   }
 
-  setTools() {
-    console.log("ok");
+  onResizeStart(index) {
+    this.musicDataService.changeCurrent(index)
+  }
+
+  onStart(index) {
+    this.musicDataService.changeCurrent(index)
+  }
+
+  mute() {
+    this.musicPlayerService.mute()
+    this.muted = true
+  }
+
+  unmute() {
+    this.musicPlayerService.unmute()
+    this.muted = false
   }
 }

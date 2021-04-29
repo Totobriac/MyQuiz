@@ -34,6 +34,8 @@ export class MusicQuestionComponent implements OnInit {
   sound: any;  
   samplesList: object[] = []
   playing: boolean = false
+  canPause: boolean = false
+
 
   constructor(private movieData: MovieDataService,
               private musicService: MusicQuestionService,
@@ -64,14 +66,16 @@ export class MusicQuestionComponent implements OnInit {
   getTracks(musicId, type) {
     this.isPlaying = true
     this.musicService.getTracks(musicId, type)
-      .subscribe(r => { this.themes = r;
-                        console.log(r); })
+      .subscribe(r => {
+        this.themes = r;
+        console.log(r);
+      })
     var newType = type
     if (type == "track") {
       newType = "tracks"
     }
     this.url = "https://www.deezer.com/plugins/player?format=classic&autoplay=false&playlist=true&width=600&height=350&color=EF5466&layout=&size=medium&type=" + newType + "&id=" + musicId + "&app_id=1";
-    this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
 
   trackChoice(track: number) {
@@ -79,12 +83,17 @@ export class MusicQuestionComponent implements OnInit {
   }
 
   selectTrack() {
-    var mainTitle = {'title': this.themes[this.track]['title'], 'url':this.themes[this.track]['preview'], 'volume': 0.8};
+    if (this.track == undefined)  this.track = 0  
+    var mainTitle = { 'title': this.themes[this.track]['title'], 'url': this.themes[this.track]['preview'], 'volume': 0.8, 'rate': 1, 'mute': false};
     this.musicDataService.changeMainTitle(mainTitle);
+    this.musicDataService.isPaused(false);
+    this.musicDataService.changeCurrent(0);
+    this.musicDataService.position(0);
     this.mixing = true;
   }
 
   searchSample(sample) {
+    console.log(this.music);
     this.musicService.getSample(sample['sampleSearch'])
       .subscribe(r => {this.samples = r['results'];
                        this.sound = new Howl({
@@ -96,7 +105,8 @@ export class MusicQuestionComponent implements OnInit {
   }
 
   changeSample(next: number) {
-    this.sound.stop()
+    this.sound.stop();
+    this.sound.unload();
     var index = this.sampleIndex + next
     if (index == this.samples.length) {
       index = 0
@@ -121,15 +131,29 @@ export class MusicQuestionComponent implements OnInit {
 
   addToSamples() {
     this.samplesList.push({name: this.samples[this.sampleIndex]["name"],
+                          themeDuration: this.samples[this.sampleIndex]["duration"],
                           duration: this.samples[this.sampleIndex]["duration"],
                           url: this.samples[this.sampleIndex]["previews"]["preview-hq-mp3"],
                           start: 0,
-                          volume: 0.6})
+                          volume: 0.6,
+                          rate: 1,
+                          position: 0,
+                          mute:false})
     this.musicDataService.changeSamples(this.samplesList)
   }
 
   play() {
-    console.log(this.music);  
+    this.musicDataService.isPaused(true)
     this.musicPlayer.play(this.music)
   }
+
+  pause() {
+    this.musicDataService.isPaused(false)
+    this.musicPlayer.pause()
+  }
+
+  stop() {
+    this.musicDataService.isPaused(false)
+    this.musicPlayer.stop()
+  } 
 }

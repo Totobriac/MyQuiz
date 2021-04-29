@@ -18,4 +18,16 @@ export class MusicDataService {
   changeSamples(samples: object[]) {
     this.music.next(Object.assign(this.music.value, {samples: samples}))
   }
+
+  changeCurrent(currentTrack: number) {
+    this.music.next(Object.assign(this.music.value, {currentTrack: currentTrack}))
+  }
+
+  isPaused(isPaused: boolean) {
+    this.music.next(Object.assign(this.music.value, {isPaused: isPaused}))
+  }
+
+  position(position: number) {
+    this.music.next(Object.assign(this.music.value, {position: position}))
+  }
 }
