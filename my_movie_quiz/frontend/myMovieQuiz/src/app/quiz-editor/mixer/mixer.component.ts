@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
 import { Music } from 'src/app/interfaces/music';
 import { MusicDataService } from 'src/app/services/music-data.service';
@@ -18,7 +19,6 @@ export class MixerComponent implements OnInit {
   music: Music;
   endOffset = { x: 0, y: 0 };
   size: any
-  muted: boolean = false
 
   constructor( private musicDataService: MusicDataService,
                private musicPlayerService: MusicPlayerService ) {}
@@ -62,6 +62,7 @@ export class MixerComponent implements OnInit {
   onMoveEnd(event, i) {    
     var musicSamples = this.music.samples;
     musicSamples[i-1].start = event.x/20;
+    event.x + musicSamples[i-1].duration * 20  > 540 ? console.log("too close") : console.log("ok");
     this.musicDataService.changeSamples(musicSamples);
   }
 
@@ -74,14 +75,15 @@ export class MixerComponent implements OnInit {
   onResizeHeight(event, i) {
     if (i == 0) {
       var mainTitle = this.music.mainTitle;
-      mainTitle.volume = event.size.height/70;
+      mainTitle.volume = event.size.height / 70;
       this.musicDataService.changeMainTitle(mainTitle);
-      this.musicPlayerService.setMainVolume(event.size.height/70)
+      this.musicPlayerService.setMainVolume(event.size.height / 70)
     } else {
       var musicSamples = this.music.samples;
-      musicSamples[i-1].volume = event.size.height/70;
+      musicSamples[i - 1].volume = event.size.height / 70;
       this.musicDataService.changeSamples(musicSamples);
-      this.musicPlayerService.setSampleVolume(i, event.size.height/70)}
+      this.musicPlayerService.setSampleVolume(i, event.size.height / 70)
+    }
   }
 
   onResizeStart(index) {
@@ -92,13 +94,29 @@ export class MixerComponent implements OnInit {
     this.musicDataService.changeCurrent(index)
   }
 
-  mute() {
-    this.musicPlayerService.mute()
-    this.muted = true
+  mute(i) {
+    this.musicPlayerService.mute(i)
+    if (i == 0) {
+      var mainTitle = this.music.mainTitle;
+      mainTitle.mute = true;
+      this.musicDataService.changeMainTitle(mainTitle);
+    } else {
+      var musicSamples = this.music.samples;
+      musicSamples[i - 1].mute = true;
+      this.musicDataService.changeSamples(musicSamples);
+    }
   }
 
-  unmute() {
-    this.musicPlayerService.unmute()
-    this.muted = false
+  unmute(i) {
+    this.musicPlayerService.unmute(i)
+    if (i == 0) {
+      var mainTitle = this.music.mainTitle;
+      mainTitle.mute = false;
+      this.musicDataService.changeMainTitle(mainTitle);
+    } else {
+      var musicSamples = this.music.samples;
+      musicSamples[i - 1].mute = false;
+      this.musicDataService.changeSamples(musicSamples);
+    }
   }
 }

@@ -8,14 +8,34 @@
             {{ i == 0 ? music.mainTitle.title : (music.samples == undefined ? "" : (music.samples[i-1] == undefined ? "" :
             music.samples[i-1].name)) }}
           </div>
-          <div *ngIf="(muted == false)" class="delete">
-            <button class="icon" (click)=mute()>
+          <div
+            *ngIf="i == 0 && music.mainTitle.mute == false"
+            class="delete">
+            <button class="icon" (click)=mute(i)>
               <mat-icon>volume_off</mat-icon>
             </button>
           </div>
           
-          <div *ngIf="(muted == true)" class="delete">
-            <button class="icon" (click)=unmute()>
+          <div
+            *ngIf="i == 0 && music.mainTitle.mute == true"
+            class="delete">
+            <button class="icon" (click)=unmute(i)>
+              <mat-icon>volume_up</mat-icon>
+            </button>
+          </div>
+
+          <div
+            *ngIf="i > 0 && music.samples != undefined && music.samples[i-1] != undefined && music.samples[i-1].mute == false"
+            class="delete">
+            <button class="icon" (click)=mute(i)>
+              <mat-icon>volume_off</mat-icon>
+            </button>
+          </div>
+          
+          <div
+            *ngIf="i > 0 && music.samples != undefined && music.samples[i-1] != undefined && music.samples[i-1].mute == true"
+            class="delete">
+            <button class="icon" (click)=unmute(i)>
               <mat-icon>volume_up</mat-icon>
             </button>
           </div>

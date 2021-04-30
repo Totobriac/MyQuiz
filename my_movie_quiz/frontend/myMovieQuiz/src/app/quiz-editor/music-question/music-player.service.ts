@@ -67,6 +67,8 @@ export class MusicPlayerService {
         src: [music.mainTitle.url],
         html5: true,
         volume: Number(music.mainTitle.volume),
+        mute: music.mainTitle.mute,
+        rate: music.mainTitle.rate,
       });
       this.id0 = this.mainSound.play();
       this.mainSound.on('end', () => { this.musicDataService.isPaused(false) });
@@ -80,6 +82,8 @@ export class MusicPlayerService {
             html5: true,
             loop: true,
             volume: Number([music.samples[0].volume]),
+            mute: music.samples[0].mute,
+            rate: music.samples[0].rate,
           });
           this.startOneTimeOut = setTimeout(() => {
             this.id1 = this.sampleOne.play()
@@ -88,13 +92,15 @@ export class MusicPlayerService {
             this.sampleOne.stop()
           }, (music.samples[0].start * 1000 + music.samples[0].duration * 1000));
         }
-
+        
         if (music.samples[1] != undefined) {
           this.sampleTwo = new Howl({
             src: [music.samples[1].url],
             html5: true,
             loop: true,
-            volume: Number([music.samples[1].volume])
+            volume: Number([music.samples[1].volume]),
+            mute: music.samples[1].mute,
+            rate: music.samples[1].rate,
           });
           this.sampleTwoTimeOut = setTimeout(() => {
             this.id2 = this.sampleTwo.play()
@@ -109,7 +115,10 @@ export class MusicPlayerService {
             src: [music.samples[2].url],
             html5: true,
             loop: true,
-            volume: Number([music.samples[2].volume])
+            volume: Number([music.samples[2].volume]),
+            mute: music.samples[2].mute,
+            rate: music.samples[2].rate,
+
           });
           this.sampleThreeTimeOut = setTimeout(() => {
             this.id3 = this.sampleThree.play()
@@ -124,7 +133,9 @@ export class MusicPlayerService {
             src: [music.samples[3].url],
             html5: true,
             loop: true,
-            volume: Number([music.samples[3].volume])
+            volume: Number([music.samples[3].volume]),
+            mute: music.samples[3].mute,
+            rate: music.samples[3].rate,
           });
           this.sampleFourTimeOut = setTimeout(() => {
             this.id4 = this.sampleFour.play()
@@ -204,11 +215,27 @@ export class MusicPlayerService {
     }
   }
 
-  mute() {
-    this.mainSound.mute(true)
+  mute(i) {
+    if (i == 0) this.mainSound.mute(true)
+    if (i == 1) this.sampleOne.mute(true)
+    if (i == 2) this.sampleTwo.mute(true)
+    if (i == 3) this.sampleThree.mute(true)
+    if (i == 4) this.sampleFour.mute(true)
   }
 
-  unmute() {
-    this.mainSound.mute(false)
+  unmute(i) {
+    if (i == 0) this.mainSound.mute(false)
+    if (i == 1) this.sampleOne.mute(false)
+    if (i == 2) this.sampleTwo.mute(false)
+    if (i == 3) this.sampleThree.mute(false)
+    if (i == 4) this.sampleFour.mute(false)
+  }
+
+  setRate(i, rate) {
+    if (i == 0) this.mainSound.rate(rate)
+    if (i == 1) this.sampleOne.rate(rate)
+    if (i == 2) this.sampleTwo.rate(rate)
+    if (i == 3) this.sampleThree.rate(rate)
+    if (i == 4) this.sampleFour.rate(rate) 
   }
 }
