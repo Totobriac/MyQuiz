@@ -19,7 +19,18 @@
   right: 0;
   z-index: 100;
   margin-right: 8px;
-  width: fit-content
+  width: fit-content;
+}
+
+.titleLeft {
+  position: absolute;
+  right: 0;
+  z-index: 100;
+  padding-left: 8px;
+  width: fit-content;
+  transform: translate(calc(-600px + 100%));
+  transition: 1s;
+  text-align: left;
 }
  
 .musicTrack {

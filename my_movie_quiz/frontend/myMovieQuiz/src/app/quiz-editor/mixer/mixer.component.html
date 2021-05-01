@@ -3,7 +3,7 @@
   <div *ngFor="let track of tracks; index as i" class="track" onselectstart="return false">
     <div [id]=i #myBounds>
       <div id="myBounds">
-        <div class="title">
+          <div [ngClass]="onEdge[i] == false ? 'title': 'titleLeft'">
           <div>
             {{ i == 0 ? music.mainTitle.title : (music.samples == undefined ? "" : (music.samples[i-1] == undefined ? "" :
             music.samples[i-1].name)) }}

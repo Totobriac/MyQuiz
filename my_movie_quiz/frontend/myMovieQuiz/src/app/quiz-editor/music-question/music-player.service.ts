@@ -27,38 +27,58 @@ export class MusicPlayerService {
   pausedId4: number;
   paused: boolean = false;
   startOneTimeOut: any;
-  sampleTwoTimeOut: any;
-  sampleThreeTimeOut: any;
-  sampleFourTimeOut: any;
+  startTwoTimeOut: any;
+  startThreeTimeOut: any;
+  startFourTimeOut: any;
   stopOneTimeOut: any;
-  position: number = 0
+  stopTwoTimeOut: any;
+  stopThreeTimeOut: any;
+  stopFourTimeOut: any;
+  position: number = 0;
   sampleOneInt: any;
+  oneWasPlaying: boolean;
 
-  constructor(private musicDataService: MusicDataService) {}
+  constructor(private musicDataService: MusicDataService) { }
 
   play(music) {
     if (this.paused == true) {
       this.mainSound.seek(this.pausedId0);
       this.mainSound.play();
-
-      if (this.pausedId1 != undefined) {
-        this.sampleOne.seek(this.pausedId1);
+      
+      if (this.oneWasPlaying == true) {
+        this.sampleOne.seek(this.pausedId1)
         this.sampleOne.play();
-        setTimeout(() => {
-          this.sampleOne.stop()
-        }, (music.samples[0].start * 1000 + music.samples[0].duration * 1000 - this.pausedId0 * 1000));
       }
+      else {
+        setTimeout(() => {
+          this.sampleOne.play()
+        }, (music.samples[0].start * 1000 - this.pausedId0 * 1000));
+      }
+      setTimeout(() => {
+        this.sampleOne.stop()
+      }, (music.samples[0].start * 1000 + music.samples[0].duration * 1000 - this.pausedId0 * 1000));
+      
+
       if (this.sampleTwo != undefined) {
         this.sampleTwo.seek(this.pausedId2);
         this.sampleTwo.play();
+        setTimeout(() => {
+          this.sampleTwo.stop()
+        }, (music.samples[1].start * 1000 + music.samples[1].duration * 1000 - this.pausedId1 * 1000));
       }
       if (this.sampleThree != undefined) {
         this.sampleThree.seek(this.pausedId3);
         this.sampleThree.play();
+        setTimeout(() => {
+          this.sampleThree.stop()
+        }, (music.samples[2].start * 1000 + music.samples[2].duration * 1000 - this.pausedId2 * 1000));
       }
       if (this.sampleFour != undefined) {
         this.sampleFour.seek(this.pausedId4);
         this.sampleFour.play();
+        setTimeout(() => {
+          this.sampleFour.stop()
+        }, (music.samples[3].start * 1000 + music.samples[3].duration * 1000 - this.pausedId3 * 1000));
       }
     }
 
@@ -71,6 +91,8 @@ export class MusicPlayerService {
         rate: music.mainTitle.rate,
       });
       this.id0 = this.mainSound.play();
+      this.mainSound.mute(music.mainTitle.mute)
+      this.mainSound.on('load', () => { console.log("loaded") });
       this.mainSound.on('end', () => { this.musicDataService.isPaused(false) });
       setInterval(() => { this.musicDataService.position(this.mainSound.seek()) }, 100);
 
@@ -82,9 +104,9 @@ export class MusicPlayerService {
             html5: true,
             loop: true,
             volume: Number([music.samples[0].volume]),
-            mute: music.samples[0].mute,
             rate: music.samples[0].rate,
           });
+          this.sampleOne.mute(music.samples[0].mute)
           this.startOneTimeOut = setTimeout(() => {
             this.id1 = this.sampleOne.play()
           }, (music.samples[0].start * 1000));
@@ -92,7 +114,7 @@ export class MusicPlayerService {
             this.sampleOne.stop()
           }, (music.samples[0].start * 1000 + music.samples[0].duration * 1000));
         }
-        
+
         if (music.samples[1] != undefined) {
           this.sampleTwo = new Howl({
             src: [music.samples[1].url],
@@ -102,10 +124,11 @@ export class MusicPlayerService {
             mute: music.samples[1].mute,
             rate: music.samples[1].rate,
           });
-          this.sampleTwoTimeOut = setTimeout(() => {
+          this.sampleTwo.mute(music.samples[1].mute)
+          this.startTwoTimeOut = setTimeout(() => {
             this.id2 = this.sampleTwo.play()
           }, (music.samples[1].start * 1000));
-          setTimeout(() => {
+          this.stopTwoTimeOut = setTimeout(() => {
             this.sampleTwo.stop()
           }, (music.samples[1].start * 1000 + music.samples[1].duration * 1000));
         }
@@ -118,12 +141,12 @@ export class MusicPlayerService {
             volume: Number([music.samples[2].volume]),
             mute: music.samples[2].mute,
             rate: music.samples[2].rate,
-
           });
-          this.sampleThreeTimeOut = setTimeout(() => {
+          this.sampleThree.mute(music.samples[2].mute)
+          this.startThreeTimeOut = setTimeout(() => {
             this.id3 = this.sampleThree.play()
           }, (music.samples[2].start * 1000));
-          setTimeout(() => {
+          this.stopThreeTimeOut = setTimeout(() => {
             this.sampleThree.stop()
           }, (music.samples[2].start * 1000 + music.samples[2].duration * 1000));
         }
@@ -137,10 +160,11 @@ export class MusicPlayerService {
             mute: music.samples[3].mute,
             rate: music.samples[3].rate,
           });
-          this.sampleFourTimeOut = setTimeout(() => {
+          this.sampleFour.mute(music.samples[3].mute)
+          this.startFourTimeOut = setTimeout(() => {
             this.id4 = this.sampleFour.play()
           }, (music.samples[3].start * 1000));
-          setTimeout(() => {
+          this.stopFourTimeOut = setTimeout(() => {
             this.sampleFour.stop()
           }, (music.samples[3].start * 1000 + music.samples[3].duration * 1000));
         }
@@ -152,24 +176,31 @@ export class MusicPlayerService {
     this.paused = true;
     this.mainSound.pause();
     this.pausedId0 = this.mainSound.seek(this.id0);
-    
+
     if (this.id1 != undefined && this.sampleOne.playing()) {
       this.sampleOne.pause();
       this.pausedId1 = this.sampleOne.seek(this.id1);
-      clearTimeout(this.stopOneTimeOut)
-      console.log(this.pausedId1)
+      clearTimeout(this.stopOneTimeOut);
+      this.oneWasPlaying = true;
     }
-    if (this.id2 != undefined) {
+    if (this.id1 != undefined) {
+      clearTimeout(this.startOneTimeOut);
+      this.oneWasPlaying = false;
+    }
+    if (this.id2 != undefined && this.sampleOne.playing()) {
       this.sampleTwo.pause()
       this.pausedId2 = this.sampleTwo.seek(this.id2);
+      clearTimeout(this.stopTwoTimeOut)
     }
-    if (this.id3 != undefined) {
+    if (this.id3 != undefined && this.sampleOne.playing()) {
       this.sampleThree.pause()
       this.pausedId3 = this.sampleThree.seek(this.id3);
+      clearTimeout(this.stopThreeTimeOut)
     }
-    if (this.id4 != undefined) {
+    if (this.id4 != undefined && this.sampleOne.playing()) {
       this.sampleFour.pause()
       this.pausedId4 = this.sampleFour.seek(this.id4);
+      clearTimeout(this.stopFourTimeOut)
     }
   }
 
@@ -187,15 +218,15 @@ export class MusicPlayerService {
     }
     if (this.sampleTwo && this.sampleTwo.state() == "loaded") {
       this.sampleTwo.unload();
-      clearTimeout(this.sampleTwoTimeOut)
+      clearTimeout(this.startTwoTimeOut)
     }
     if (this.sampleThree && this.sampleThree.state() == "loaded") {
       this.sampleThree.unload();
-      clearTimeout(this.sampleThreeTimeOut)
+      clearTimeout(this.startThreeTimeOut)
     }
     if (this.sampleFour && this.sampleFour.state() == "loaded") {
       this.sampleFour.unload();
-      clearTimeout(this.sampleFourTimeOut)
+      clearTimeout(this.startFourTimeOut)
     }
   }
 
@@ -236,6 +267,6 @@ export class MusicPlayerService {
     if (i == 1) this.sampleOne.rate(rate)
     if (i == 2) this.sampleTwo.rate(rate)
     if (i == 3) this.sampleThree.rate(rate)
-    if (i == 4) this.sampleFour.rate(rate) 
+    if (i == 4) this.sampleFour.rate(rate)
   }
 }

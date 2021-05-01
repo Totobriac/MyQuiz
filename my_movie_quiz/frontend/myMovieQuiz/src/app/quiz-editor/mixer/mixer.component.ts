@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
 import { Music } from 'src/app/interfaces/music';
 import { MusicDataService } from 'src/app/services/music-data.service';
@@ -19,6 +18,7 @@ export class MixerComponent implements OnInit {
   music: Music;
   endOffset = { x: 0, y: 0 };
   size: any
+  onEdge: boolean[] = [false, false, false, false, false]
 
   constructor( private musicDataService: MusicDataService,
                private musicPlayerService: MusicPlayerService ) {}
@@ -62,13 +62,15 @@ export class MixerComponent implements OnInit {
   onMoveEnd(event, i) {    
     var musicSamples = this.music.samples;
     musicSamples[i-1].start = event.x/20;
-    event.x + musicSamples[i-1].duration * 20  > 540 ? console.log("too close") : console.log("ok");
+    event.x + musicSamples[i-1].duration * 20  > 540 ? this.onEdge[i] = true : this.onEdge[i] = false;
     this.musicDataService.changeSamples(musicSamples);
   }
 
   onResizeWidth(event, i) {
     var musicSamples = this.music.samples;
     musicSamples[i-1].duration = event.size.width/20;
+    console.log(event);
+    musicSamples[i-1].start * 20 + event.size.width  > 540 ? this.onEdge[i] = true : this.onEdge[i] = false;
     this.musicDataService.changeSamples(musicSamples);
   }
 
