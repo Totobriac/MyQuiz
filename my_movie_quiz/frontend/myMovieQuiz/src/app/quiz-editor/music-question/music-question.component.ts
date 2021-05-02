@@ -155,5 +155,9 @@ export class MusicQuestionComponent implements OnInit {
   stop() {
     this.musicDataService.isPaused(false)
     this.musicPlayer.stop()
-  } 
+  }
+
+  forward(sec: number) {
+    this.musicPlayer.forward(sec, this.music)
+  }
 }

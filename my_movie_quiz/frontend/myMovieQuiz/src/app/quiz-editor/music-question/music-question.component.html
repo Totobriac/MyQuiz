@@ -97,8 +97,26 @@
         </button>
       </div>
 
+      <div class="control">
+        <button class="icon" (click)=forward(5)>
+          <mat-icon>forward_5</mat-icon>
+        </button>
+      </div>
+
+      <div class="control">
+        <button class="icon" (click)=forward(10)>
+          <mat-icon>forward_10</mat-icon>
+        </button>
+      </div>
+
       <div class="position">
         {{ music.position | number : '1.2-2' }}
+      </div>
+
+      <div class="control">
+        <button class="icon" style="color: red" (click)=forward(10)>
+          <mat-icon>save</mat-icon>
+        </button>
       </div>
 
     </div>
