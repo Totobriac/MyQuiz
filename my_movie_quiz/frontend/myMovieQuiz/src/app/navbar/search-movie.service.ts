@@ -11,4 +11,8 @@ export class SearchMovieService {
   searchMovies(movie: any) {
     return this.http.get('http://127.0.0.1:8000/api/search_movies/' + movie)
   }
+
+  autocomplete(movie: string) {
+    return this.http.get('http://127.0.0.1:8000/api/autocomplete/' + movie)
+  }
 }

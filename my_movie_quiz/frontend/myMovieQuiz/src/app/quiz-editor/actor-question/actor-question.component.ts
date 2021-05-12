@@ -54,15 +54,19 @@ export class ActorQuestionComponent implements OnInit {
   }
 
   getPicturesList() {
+    for (var act of this.movie.cast) {
+      const pic: object = {'index': 0 ,'url': "https://www.themoviedb.org/t/p/w185" + act.profile_path } 
+      this.pics.push(pic)
+    }
+    this.actorData.changePic(this.pics)
     this.searchActor.searchActor(this.actorName[1].join('$'))
       .subscribe(r => {
-        this.urls = r
-        this.actorData.changeUrls(r)
         for (var i in r) {
-          const pic: object = r[i][0]
-          this.pics.push(pic)
+          r[i].unshift(this.pics[i])
         }
-        this.actorData.changePic(this.pics)
+        this.actorData.changeUrls(r);
+        this.urls = r
+        console.log(this.actor.urls);      
       })
   }
 
@@ -80,6 +84,7 @@ export class ActorQuestionComponent implements OnInit {
     this.pixValue[this.selectAct] = 0
     this.actorData.changePicValue(this.pixValue)
     var index = this.actor.pic[this.selectAct].index + next
+    console.log(index);
     if (index == this.actor.urls[this.selectAct].length) {
       index = 0
     } else if (index == -1) {
@@ -96,6 +101,7 @@ export class ActorQuestionComponent implements OnInit {
                                for (let i of r[0]) {
                                  this.urls[this.selectAct].push(i)
                                }
+                               console.log(this.urls[this.selectAct]);
                                this.actorData.changeUrls(this.urls)
                                this.pics[this.selectAct] = this.actor.urls[this.selectAct][0]
                                this.actorData.changePic(this.pics)})

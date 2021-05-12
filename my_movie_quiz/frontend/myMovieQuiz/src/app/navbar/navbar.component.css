@@ -13,3 +13,50 @@ background-color: rgb(4, 113, 150);
 input {
   outline: none
 }
+
+@keyframes loader-animation {
+  0% {
+      left: -130%;
+  }
+  49% {
+      left: 130%;
+  }
+  50% {
+      left: 130%;
+  }
+  100% {
+      left: -130%;
+  }
+}
+.loader {
+  height: 5px;
+  width: 100%;
+  overflow: hidden;
+  padding: 0px !important;
+  background-color: rgb(4, 113, 150);
+}
+.loader .bar {
+  position: relative;
+  height: 5px;
+  width: 100%;
+  background-color: rgb(254, 254, 255);
+  animation-name: loader-animation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* input color class */
+::ng-deep input.mat-input-element {
+  color: #fefeff;
+}
+
+/* Change label color on focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #fcfdfd !important;
+}
+
+/* underline border color on focused */
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+  background-color: #f9fafa !important;
+}

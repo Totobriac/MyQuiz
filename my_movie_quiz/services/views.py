@@ -5,7 +5,6 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 import subprocess
 import json
-import urllib.parse
 import boto3
 from .models import Tags, Picture, VideoSource
 from .serializers import PictureSerializer, TagsSerializer, VideoSourceSerializer
@@ -13,13 +12,26 @@ from rest_framework.decorators import api_view
 from rest_framework import generics, viewsets
 import os
 from dotenv import load_dotenv, find_dotenv
-# import spotipy
-# from spotipy.oauth2 import SpotifyClientCredentials
 import string
 import random
+import base64
 
 def id_generator(size=4, chars=string.digits):
     return ''.join(random.choice(chars) for x in range(size))
+
+
+class Autocomplete(View):
+
+    def get(self, request, movie):
+        load_dotenv()
+        API_KEY = os.environ.get("IMDB_KEY")
+        search_url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY +"&language=en-US&query=" + movie
+        print(search_url)
+        response = requests.get(search_url)
+        json_data = json.loads(response.text)
+        
+        return JsonResponse(json_data, safe=False)
+
 
 class MoviesSearch(View):
 
@@ -63,16 +75,27 @@ class MoviesSearch(View):
 class TrailerSearch(View):
 
     def get(self, request, *args, **kwargs):
-        load_dotenv()
-        API_KEY = os.environ.get("YT_KEY")
         title = kwargs.get('title')
         date = kwargs.get('date').split("-")[0]
-        params = urllib.parse.quote(title + " hd trailer " + date)        
-        search_url = "https://youtube.googleapis.com/youtube/v3/search?part=id&maxResults=1&q=" + params  + "&key=" + API_KEY
-        response = requests.get(search_url)
-        json_data = json.loads(response.text)
-        yt_id = json_data["items"][0]["id"]["videoId"]
+        query = title + " hd trailer " + date
 
+        r = requests.get("https://api.qwant.com/api/search/videos",
+            params={
+                'count': 1,
+                'q': query,
+                't': 'videos',
+                'source': 'youtube',
+                'safesearch': 1,
+                'locale': 'en_US',
+                'uiv': 4
+            },             
+            headers={
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+            }
+        )
+        response = r.json().get('data').get('result').get('items')
+        urls = [r.get('url') for r in response]
+        yt_id = urls[0].split('=')[1]
         return JsonResponse({'trailer_id': yt_id}, safe=False)
 
 
@@ -132,21 +155,49 @@ class CreateGif(View):
 class ActorsSearch(View):
 
     def get(self, request, actors):
+        load_dotenv()
+        AWS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+        AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")    
+        session = boto3.Session(
+            aws_access_key_id=AWS_KEY_ID,
+            aws_secret_access_key=AWS_ACCESS_KEY,
+        )
         actorPicUrl = []
         actors_list = actors.split('$')              
-        subscription_key = "9dc015a3a15c45abb05f88bcea641c2d"
-        search_url = "https://api.bing.microsoft.com/v7.0/images/search"
-        headers = {"Ocp-Apim-Subscription-Key" : subscription_key}
         for actor in actors_list:
-            i = 0
+            r = requests.get("https://api.qwant.com/api/search/images",
+                params={
+                    'count': 6,
+                    'q': actor + " actor",
+                    't': 'images',
+                    'safesearch': 1,
+                    'locale': 'en_US',
+                    'uiv': 4,
+                    'size': 'medium',
+                },             
+                headers={
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+                }
+            )
             url_list = []
-            response = requests.get(search_url, headers=headers, params={"q": actor + " actor", "count": "10"})
-            search_results = response.json()
-            for val in search_results["value"]:
-                url_list.append({'index': i ,'url': val["thumbnailUrl"]})
-                i += 1
+            response = r.json().get('data').get('result').get('items')
+            urls = [r.get('media') for r in response]
+            i = 1
+            for url in urls:
+                print(url)
+                file_key = "actors/" + "{}.{}".format(actor, i)
+                s3_object = session.resource('s3').Object('moviepictures', file_key )
+
+                with requests.get(url, stream=True) as r:
+                    s3_object.put(Body=r.content, ContentType="image/jpeg")
+                    if len(actors_list) == 1 :
+                        url_list.append({"index": i-1, "url": "https://moviepictures.s3.eu-west-3.amazonaws.com/" + file_key})
+                    else: url_list.append({"index": i, "url": "https://moviepictures.s3.eu-west-3.amazonaws.com/" + file_key})
+                    i += 1
             actorPicUrl.append(url_list)
+
         return JsonResponse(actorPicUrl, safe=False)
+
 
 class AlbumSearch(View):
 

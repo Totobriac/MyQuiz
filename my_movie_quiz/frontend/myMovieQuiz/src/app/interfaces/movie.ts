@@ -12,3 +12,8 @@ export interface MovieDb {
   }];
   music_composer: string;
 }
+
+export interface MovieAuto {
+  id: number;
+  poster: any;
+}

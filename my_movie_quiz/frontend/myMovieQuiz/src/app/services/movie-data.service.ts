@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { MovieDb,} from '../interfaces/movie';
+import { MovieDb, MovieAuto} from '../interfaces/movie';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,9 @@ export class MovieDataService {
   private component = new BehaviorSubject(0);
   currentComponent = this.component.asObservable();
 
+  private autocomplete = new BehaviorSubject([] as MovieAuto[]);
+  currentMovieAuto = this.autocomplete.asObservable();
+
   changeMovieDb(movie: MovieDb) {
     this.movieDb.next(movie)
   }
@@ -31,5 +34,10 @@ export class MovieDataService {
 
   changeComponent(component: number) {
     this.component.next(component)
-  }  
+  }
+
+  changeMovieAuto(list: MovieAuto[]) {
+    this.autocomplete.next(list)
+  }
+  
 }

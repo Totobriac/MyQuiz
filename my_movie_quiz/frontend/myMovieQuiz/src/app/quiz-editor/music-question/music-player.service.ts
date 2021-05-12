@@ -138,7 +138,6 @@ export class MusicPlayerService {
     for (let i in this.sample) {
       if (this.sample[i].playing()) {
         forSample[i] = this.sample[i].seek();
-        this.sample[i].stop();
         this.sample[i].seek(forSample[i] + sec);
         this.sample[i].play();
         setTimeout(() => {

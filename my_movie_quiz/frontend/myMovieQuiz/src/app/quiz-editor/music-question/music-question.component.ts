@@ -160,4 +160,9 @@ export class MusicQuestionComponent implements OnInit {
   forward(sec: number) {
     this.musicPlayer.forward(sec, this.music)
   }
+
+  record() {
+    this.musicService.record(this.music)
+    .subscribe(r => console.log(r))
+  }
 }

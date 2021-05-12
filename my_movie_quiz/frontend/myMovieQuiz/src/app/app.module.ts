@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MovieSearchComponent } from './movie-search/movie-search.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuizEditorComponent } from './quiz-editor/quiz-editor.component';
 import { PlotQuestionComponent } from './quiz-editor/plot-question/plot-question.component';
 import { ActorQuestionComponent } from './quiz-editor/actor-question/actor-question.component';
@@ -43,6 +43,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MusicQuestionComponent } from './quiz-editor/music-question/music-question.component';
 import { ToolMusicComponent } from './tool-box/tool-music/tool-music.component';
 import { MixerComponent } from './quiz-editor/mixer/mixer.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SearchComponent } from './quiz-editor/search/search.component';
+
 
 @NgModule({
   declarations: [
@@ -71,6 +74,7 @@ import { MixerComponent } from './quiz-editor/mixer/mixer.component';
     MusicQuestionComponent,
     ToolMusicComponent,
     MixerComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +95,8 @@ import { MixerComponent } from './quiz-editor/mixer/mixer.component';
     YouTubePlayerModule,
     AngularDraggableModule,
     DragDropModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
     AngularSvgIconModule.forRoot()
   ],
   providers: [],

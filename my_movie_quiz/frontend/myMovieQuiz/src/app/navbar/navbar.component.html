@@ -1,8 +1,16 @@
 <nav class="navbar">
   <span class="navbar-brand" style="color:white"><b>Movie Quizz</b></span>
   <div clas="ml-4">
-    <form autocomplete="off" #searchMovie="ngForm" (ngSubmit)=submitForm(searchMovie.value.movieSearch)>
-      <input type="text" [(ngModel)]="value" name="movieSearch" placeholder="Search a Movie">
-    </form>
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="Search" aria-label="State" [matAutocomplete]="auto" [formControl]="searchMoviesCtrl">
+        <mat-autocomplete #auto="matAutocomplete" >
+          <mat-option *ngIf="isLoading" class="loader">
+            <div class="bar"></div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
   </div>
 </nav>
+
