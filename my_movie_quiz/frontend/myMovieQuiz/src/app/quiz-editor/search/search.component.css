@@ -14,9 +14,41 @@
   margin-top: auto;
   margin-left: auto;
   position: relative;
+  overflow-y: auto;
 }
 
 img{
   width: 80px;
   height: auto;
+  cursor: pointer;
+  margin-right: 12px;
+  margin-bottom: 6px;
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color:  red rgb(4, 113, 150);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(4, 113, 150);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: red;  
+}
+
+.toolBox {
+  margin-top: 24px;
+  width: 662px;
+  height: 52px;
+  background-color: rgb(4, 113, 150);
+  display: flex;
+  justify-content: space-between;
 }

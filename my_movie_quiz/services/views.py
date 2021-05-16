@@ -23,53 +23,72 @@ def id_generator(size=4, chars=string.digits):
 class Autocomplete(View):
 
     def get(self, request, movie):
+        results = []
         load_dotenv()
         API_KEY = os.environ.get("IMDB_KEY")
-        search_url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY +"&language=en-US&query=" + movie
-        print(search_url)
-        response = requests.get(search_url)
-        json_data = json.loads(response.text)
-        
-        return JsonResponse(json_data, safe=False)
+        for i in range(1,5):
+            search_url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY +"&language=en-US&query=" + movie + "&page=" + str(i)
+            response = requests.get(search_url)
+            if response.status_code == 200:
+                json_data = json.loads(response.text)["results"]
+                results.append(json_data)
+            else: break
+        flat_results = [item for sublist in results for item in sublist]
+        return JsonResponse(flat_results, safe=False)
+
+
+class PeopleAutocomplete(View):
+
+    def get(self, request, people):
+        results = []
+        load_dotenv()
+        API_KEY = os.environ.get("IMDB_KEY")
+        for i in range(1,5):
+            search_url = "https://api.themoviedb.org/3/search/person?api_key=" + API_KEY +"&language=en-US&query=" + people + "&page=" + str(i)
+            response = requests.get(search_url)
+            if response.status_code == 200:
+                json_data = json.loads(response.text)["results"]
+                results.append(json_data)
+            else: break
+        flat_results = [item for sublist in results for item in sublist]
+        return JsonResponse(flat_results, safe=False)
+
+
+class EmptyAutocomplete(View):
+
+    def get(self, request):
+        return JsonResponse([], safe=False)
 
 
 class MoviesSearch(View):
 
-    def get(self, request, movie):
+    def get(self, request, movie_id):
         load_dotenv()
         API_KEY = os.environ.get("IMDB_KEY")
-        movies_list = []
-        index = 1
-        isSearching = True
-        while isSearching == True:
-            search_url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY +"&language=en-US&query=" + movie + "&page=" + str(index) + "&include_adult=false"
-            response = requests.get(search_url)
-            json_data = json.loads(response.text)
-            for i in json_data["results"]:
-                if any(j in i["genre_ids"] for j in [16, 99, 10402, 10770]) or i["vote_count"] < 150:
-                    pass
-                else: movies_list.append({"id": i["id"],
-                                          "poster":i["poster_path"],
-                                          "title":i["original_title"],
-                                          "backdrop":i["backdrop_path"],
-                                          "year":i["release_date"],
-                                          "plot":i["overview"],
-                                          "trailer":""})
+        search_url = "https://api.themoviedb.org/3/movie/" + str(movie_id) +"/credits?api_key=137e8b3a07e487eeeaa6f211207f674a&language=en-US"
+        response = requests.get(search_url)
+        json_data = json.loads(response.text)
+        cast = json_data['cast'][:4]
+        composers = []
+        for j in json_data["crew"]:
+            if j["department"] == "Sound" and (j["job"] == "Music" or j["job"] == "Original Music Composer"):
+                composers.append(j['name'])
+        return JsonResponse({"cast": cast, "composers": composers}, safe=False)
 
-            if len(json_data["results"]) < 20:
-                isSearching = False
-            else: index += 1
-        for i in movies_list:
-            search_url = "https://api.themoviedb.org/3/movie/" + str(i['id']) +"/credits?api_key=137e8b3a07e487eeeaa6f211207f674a&language=en-US"
-            response = requests.get(search_url)
-            json_data = json.loads(response.text)
-            i['cast'] = json_data['cast'][:4]
-            composers = []
-            for j in json_data["crew"]:
-                if j["department"] == "Sound" and (j["job"] == "Music" or j["job"] == "Original Music Composer"):
-                    composers.append(j['name'])
-                i['music_composer'] = composers
-        return JsonResponse(movies_list, safe=False)
+
+class PersonSearch(View):
+
+    def get(self, request, person_id):
+        results = []
+        load_dotenv()
+        API_KEY = os.environ.get("IMDB_KEY")
+        search_url = "https://api.themoviedb.org/3/person/" + str(person_id) +"/movie_credits?api_key=137e8b3a07e487eeeaa6f211207f674a&language=en-US"
+        response = requests.get(search_url)
+        if response.status_code == 200:
+            json_data = json.loads(response.text)["cast"]
+            results.append(json_data)        
+        flat_results = [item for sublist in results for item in sublist]
+        return JsonResponse(flat_results, safe=False)
 
 
 class TrailerSearch(View):

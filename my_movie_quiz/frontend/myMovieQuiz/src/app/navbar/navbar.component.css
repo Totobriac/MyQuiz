@@ -8,6 +8,7 @@ input[type=text] {
 
 .navbar {
 background-color: rgb(4, 113, 150);
+height: 100px;
 }
 
 input {
@@ -59,4 +60,13 @@ input {
 /* underline border color on focused */
 ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
   background-color: #f9fafa !important;
+}
+
+.mat-select {
+  display: flex;
+  justify-content: flex-end;
+}
+
+::ng-deep .mat-form-field-infix {
+  display: flex !important;  
 }

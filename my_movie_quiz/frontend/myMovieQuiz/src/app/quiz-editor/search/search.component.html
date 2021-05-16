@@ -1,7 +1,14 @@
 <div class="main">
   <div class="autoResponse">
-    <div *ngFor="let movie of autoMovie">
-      <img *ngIf="movie != null" [src]="'https://image.tmdb.org/t/p/w92' + movie['poster_path']" alt="">
+    <div *ngFor="let response of autoResponse; index as i">
+      <img *ngIf="response != null" [src]="'https://image.tmdb.org/t/p/w92' + response['url']" alt=""
+        (click)="select(response, i)"
+        (mouseenter)="showInfo(i)"
+        (mouseleave)="hideInfo()">
     </div>
   </div>
+</div>
+
+<div class="toolBox">
+    {{ selectedMovieTitle}}
 </div>

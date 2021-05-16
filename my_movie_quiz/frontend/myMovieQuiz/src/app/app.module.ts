@@ -45,6 +45,7 @@ import { ToolMusicComponent } from './tool-box/tool-music/tool-music.component';
 import { MixerComponent } from './quiz-editor/mixer/mixer.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SearchComponent } from './quiz-editor/search/search.component';
+import { ToolSearchComponent } from './tool-box/tool-search/tool-search.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { SearchComponent } from './quiz-editor/search/search.component';
     ToolMusicComponent,
     MixerComponent,
     SearchComponent,
+    ToolSearchComponent,
   ],
   imports: [
     BrowserModule,
