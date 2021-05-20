@@ -1,5 +1,7 @@
 .searchBar {
-    background-color: rgb(4, 113, 150);
+  background-color: rgb(4, 113, 150);
+  /* height: 580px; */
+  overflow-y: auto;
 }
 
 #canvas {
@@ -23,15 +25,15 @@
 
 @media only screen and (min-width: 1020px) {
   .movieTile {
-    height: 354px;
     padding-top: 10px;
     display: flex;
     flex-wrap: wrap;
-    overflow-y: auto;
+    /* overflow-y: scroll; */
   }
   .moviePoster {
     margin-bottom: 10px;
-    margin-left: 5px;   
+    margin-left: 5px;
+    height: auto; 
   }
 }
 

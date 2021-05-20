@@ -12,8 +12,8 @@ export class SearchService {
     return this.http.get('http://127.0.0.1:8000/api/search_movies/' + movieId)
   }
 
-  searchPerson(personId: number) {
-    return this.http.get('http://127.0.0.1:8000/api/search_person/' + personId)
+  searchPerson(personId: number, dpt: string) {
+    return this.http.get('http://127.0.0.1:8000/api/search_person/' + personId + '/' + dpt)
   }
 
 }

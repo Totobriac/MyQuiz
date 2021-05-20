@@ -31,7 +31,6 @@ import { QuestionsListComponent } from './quiz-questions/questions-list/question
 import { ToolBoxComponent } from './tool-box/tool-box.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { PaletteComponent } from './quiz-editor/palette/palette.component';
-import { ToolCurtainComponent } from './tool-box/tool-curtain/tool-curtain.component';
 import { ToolPlotComponent } from './tool-box/tool-plot/tool-plot.component';
 import { ToolActorComponent } from './tool-box/tool-actor/tool-actor.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -45,7 +44,6 @@ import { ToolMusicComponent } from './tool-box/tool-music/tool-music.component';
 import { MixerComponent } from './quiz-editor/mixer/mixer.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SearchComponent } from './quiz-editor/search/search.component';
-import { ToolSearchComponent } from './tool-box/tool-search/tool-search.component';
 
 
 @NgModule({
@@ -67,7 +65,6 @@ import { ToolSearchComponent } from './tool-box/tool-search/tool-search.componen
     QuestionsListComponent,
     ToolBoxComponent,
     PaletteComponent,
-    ToolCurtainComponent,
     ToolPlotComponent,
     ToolActorComponent,
     ToolPosterComponent,
@@ -76,7 +73,6 @@ import { ToolSearchComponent } from './tool-box/tool-search/tool-search.componen
     ToolMusicComponent,
     MixerComponent,
     SearchComponent,
-    ToolSearchComponent,
   ],
   imports: [
     BrowserModule,

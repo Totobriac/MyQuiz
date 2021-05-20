@@ -65,7 +65,7 @@ class MoviesSearch(View):
     def get(self, request, movie_id):
         load_dotenv()
         API_KEY = os.environ.get("IMDB_KEY")
-        search_url = "https://api.themoviedb.org/3/movie/" + str(movie_id) +"/credits?api_key=137e8b3a07e487eeeaa6f211207f674a&language=en-US"
+        search_url = "https://api.themoviedb.org/3/movie/" + str(movie_id) +"/credits?api_key=" + API_KEY
         response = requests.get(search_url)
         json_data = json.loads(response.text)
         cast = json_data['cast'][:4]
@@ -76,16 +76,37 @@ class MoviesSearch(View):
         return JsonResponse({"cast": cast, "composers": composers}, safe=False)
 
 
-class PersonSearch(View):
+class Discover(View):
 
-    def get(self, request, person_id):
+    def get(self, request):
         results = []
         load_dotenv()
         API_KEY = os.environ.get("IMDB_KEY")
-        search_url = "https://api.themoviedb.org/3/person/" + str(person_id) +"/movie_credits?api_key=137e8b3a07e487eeeaa6f211207f674a&language=en-US"
+        for i in range(1,5):
+            search_url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&page=" + str(i)
+            response = requests.get(search_url)
+            if response.status_code == 200:
+                json_data = json.loads(response.text)
+                print(json_data["results"])
+                results.append(json_data["results"])
+            else: break
+        flat_results = [item for sublist in results for item in sublist]
+        return JsonResponse(flat_results, safe=False)
+
+
+class PersonSearch(View):
+
+    def get(self, request, person_id, dpt):
+        print(dpt)
+        results = []
+        load_dotenv()
+        API_KEY = os.environ.get("IMDB_KEY")
+        search_url = "https://api.themoviedb.org/3/person/" + str(person_id) +"/movie_credits?api_key=" + API_KEY
         response = requests.get(search_url)
         if response.status_code == 200:
-            json_data = json.loads(response.text)["cast"]
+            if dpt == "Acting":
+                json_data = json.loads(response.text)["cast"]
+            else: json_data = json.loads(response.text)["crew"]
             results.append(json_data)        
         flat_results = [item for sublist in results for item in sublist]
         return JsonResponse(flat_results, safe=False)

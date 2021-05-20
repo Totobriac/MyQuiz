@@ -9,9 +9,10 @@ router.register(r'tags', views.TagsViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('search_movies/<int:movie_id>', views.MoviesSearch.as_view(), name='movies_search'),
-    path('search_person/<int:person_id>', views.PersonSearch.as_view(), name='movies_search'),
+    path('search_person/<int:person_id>/<str:dpt>', views.PersonSearch.as_view(), name='movies_search'),
     path('autocomplete/', views.EmptyAutocomplete.as_view(), name='autocomplete'),
     path('autocomplete/<str:movie>', views.Autocomplete.as_view(), name='autocomplete'),
+    path('discover', views.Discover.as_view(), name='discover'),
     path('peopleautocomplete/<str:people>', views.PeopleAutocomplete.as_view(), name='people_autocomplete'),
     path('peopleautocomplete/', views.EmptyAutocomplete.as_view(), name='autocomplete'),
     path('search_actors/<str:actors>', views.ActorsSearch.as_view(), name='actors_search'),

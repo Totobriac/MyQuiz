@@ -5,12 +5,29 @@ import { MovieDb } from '../interfaces/movie';
 import { Subscription } from 'rxjs';
 import { ActorDataService } from '../services/actor-data.service';
 import { GetBackgoundColor } from './background-color.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
   selector: 'app-movie-search',
   templateUrl: './movie-search.component.html',
-  styleUrls: ['./movie-search.component.css']
+  styleUrls: ['./movie-search.component.css'],
+  animations: [
+    trigger('largeSmall', [
+      state('large', style({
+        height: '580px'
+      })),
+      state('small', style({
+        height: '355px',
+      })),
+      transition('large => small', [
+        animate('0.5s')
+      ]),
+      transition('small => large', [
+        animate('0.5s')
+      ]),
+    ]),
+  ]
 })
 
 export class MovieSearchComponent implements OnInit {
@@ -26,12 +43,13 @@ export class MovieSearchComponent implements OnInit {
   subscription: Subscription;
   movieList: MovieDb[];
   movie: MovieDb;
-  imageDataHell: any
+  imageDataHell: any;
+  component: number;
 
   ngOnInit(): void {
     this.subscription = this.movieData.currentMovieList.subscribe(movieList => this.movieList = movieList)
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
-
+    this.subscription = this.movieData.currentComponent.subscribe(component => this.component = component)
   }
 
   chooseMovie(movie: MovieDb) {

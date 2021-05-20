@@ -69,8 +69,10 @@ export class NavbarComponent implements OnInit {
               }
             }
             if (this.responseMovies[movie] != null) {
-              this.response.push({"data": "movie", "id": this.responseMovies[movie]["id"], "name": this.responseMovies[movie]["title"], "url": this.responseMovies[movie]["poster_path"],
-                                  "backdrop": this.responseMovies[movie]["backdrop_path"], "plot": this.responseMovies[movie]["overview"], "year": this.responseMovies[movie]["release_date"]})
+              this.response.push({
+                "data": "movie", "id": this.responseMovies[movie]["id"], "name": this.responseMovies[movie]["title"], "url": this.responseMovies[movie]["poster_path"],
+                "backdrop": this.responseMovies[movie]["backdrop_path"], "plot": this.responseMovies[movie]["overview"], "year": this.responseMovies[movie]["release_date"]
+              })
             }
           }
           this.movieData.changeMovieAuto(this.response);
@@ -79,8 +81,8 @@ export class NavbarComponent implements OnInit {
           };
         }
       }
-    );
-    
+      );
+
     this.searchPeopleCtrl.valueChanges
       .pipe(
         debounceTime(500),
@@ -106,22 +108,54 @@ export class NavbarComponent implements OnInit {
           this.errorMsg = "";
           this.responsePeoples = data;
           for (var people of this.responsePeoples) {
-            if (people["known_for_department"] == "Acting" && people["profile_path"] != null) {
-              this.response.push({"data": "people", "id": people["id"], "name": people["name"], "url": people["profile_path"],
-                                  "backdrop": "", "plot": "", "year": ""})
-
-            }            
+            if (people["known_for_department"] == this.selected && people["profile_path"] != null) {
+              this.response.push({
+                "data": this.selected, "id": people["id"], "name": people["name"], "url": people["profile_path"],
+                "backdrop": "", "plot": "", "year": ""
+              })
+            }
           }
           this.movieData.changeMovieAuto(this.response);
           if (this.component != 6) {
             this.movieData.changeComponent(6)
           };
+        }
       }
-      }
-    );  
+      );
   }
 
   select(selected) {
-    this.selected= selected
+    selected == "Discover" ? this.discover() : this.selected = selected
+  }
+
+  discover() {
+    this.searchMovieService.discover()
+    .subscribe(data => {
+      this.responseMovies = data;
+      for (var movie in this.responseMovies) {
+        if (this.responseMovies[movie]["vote_count"] < 150) {
+          this.responseMovies[movie] = null;
+          continue;
+        }
+        if (this.responseMovies[movie] != null) {
+          for (var genre of this.responseMovies[movie]["genre_ids"]) {
+            if ([16, 99, 10402, 10770].includes(genre)) {
+              this.responseMovies[movie] = null;
+              continue;
+            }
+          }
+        }
+        if (this.responseMovies[movie] != null) {
+          this.response.push({
+            "data": "discover", "id": this.responseMovies[movie]["id"], "name": this.responseMovies[movie]["title"], "url": this.responseMovies[movie]["poster_path"],
+            "backdrop": this.responseMovies[movie]["backdrop_path"], "plot": this.responseMovies[movie]["overview"], "year": this.responseMovies[movie]["release_date"]
+          })
+        }
+      }
+      this.movieData.changeMovieAuto(this.response);
+      if (this.component != 6) {
+        this.movieData.changeComponent(6)
+      };
+    })
   }
 }

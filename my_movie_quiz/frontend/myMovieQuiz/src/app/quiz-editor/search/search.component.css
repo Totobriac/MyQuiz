@@ -9,7 +9,7 @@
 
 .main {
   background-color: rgb(4,113,150);
-  height: 450px;
+  height: 526px;
   width: 662px;
   margin-top: auto;
   margin-left: auto;
@@ -52,3 +52,14 @@ img{
   display: flex;
   justify-content: space-between;
 }
+
+button {
+ position: fixed;
+ margin-top: 480px;
+ margin-left: 610px;
+}
+
+button:focus {
+  outline: none;
+}
+

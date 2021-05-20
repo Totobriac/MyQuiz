@@ -1,5 +1,5 @@
-<div class="main">
-  <div class="autoResponse">
+<div class="main" [@openClose]="isOpen ? 'open' : 'closed'">
+  <div class="autoResponse" >
     <div *ngFor="let response of autoResponse; index as i">
       <img *ngIf="response != null" [src]="'https://image.tmdb.org/t/p/w92' + response['url']" alt=""
         (click)="select(response, i)"
@@ -7,8 +7,11 @@
         (mouseleave)="hideInfo()">
     </div>
   </div>
+  <button *ngIf="autoResponse[0]['data'] == 'discover'" mat-mini-fab color="accent" (click)="showFilter()">
+    <mat-icon>filter_list</mat-icon>
+  </button>
 </div>
 
-<div class="toolBox">
+<div class="toolBox" [@showHide]="isOpen ? 'show' : 'hide'">
     {{ selectedMovieTitle}}
 </div>

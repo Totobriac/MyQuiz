@@ -5,8 +5,9 @@
       <mat-form-field appearance="outline">
         <mat-label>Search {{ selected }}</mat-label>
 
-        <input matInput [placeholder]=selected aria-label="State" [matAutocomplete]="auto" [formControl]="selected == 'Movie'? searchMoviesCtrl: searchPeopleCtrl">
-        <mat-autocomplete #auto="matAutocomplete" >
+        <input matInput [placeholder]=selected aria-label="State" [matAutocomplete]="auto"
+               [formControl]="selected == 'Movie'? searchMoviesCtrl: searchPeopleCtrl">
+        <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngIf="isLoading" class="loader">
             <div class="bar"></div>
           </mat-option>
@@ -14,9 +15,10 @@
 
         <mat-select (selectionChange)="select($event.value)">
           <mat-select-trigger></mat-select-trigger>
-             <mat-option value="Movie">Movie</mat-option>
-             <mat-option value="Actor">Actor</mat-option>
-             <mat-option value="Director">Director</mat-option>
+          <mat-option value="Movie">Movie</mat-option>
+          <mat-option value="Acting">Actor</mat-option>
+          <mat-option value="Directing">Director</mat-option>
+          <mat-option value="Discover">Discover</mat-option>
         </mat-select>
 
       </mat-form-field>

@@ -1,23 +1,25 @@
-<div class="container">
+<div class="wrapper">
 
-  <app-navbar class="nav"></app-navbar>
+    <div class="container">
 
-  <app-movie-search class="search"
-                    (trailer)="getMovieTrailer($event)">
-  </app-movie-search>
+      <app-navbar class="nav"></app-navbar>
 
-  <app-question-type class="questionType"></app-question-type>
-  
-  <app-quiz-editor class="editor">                          
-  </app-quiz-editor>
+      <app-movie-search class="search" (trailer)="getMovieTrailer($event)">
+      </app-movie-search>
 
-  <app-quiz-questions class="previews">
-  </app-quiz-questions>
+      <app-question-type class="questionType"></app-question-type>
 
-  <app-tool-box class="tool">
-  </app-tool-box>
+      <app-quiz-editor class="editor">
+      </app-quiz-editor>
 
-  <app-top-display class="top"></app-top-display>
-  
+      <app-quiz-questions class="previews">
+      </app-quiz-questions>
+
+      <app-tool-box class="tool" [@showTools]="component != 0 ? 'show' : 'hide'">
+      </app-tool-box>
+
+      <app-top-display class="top"></app-top-display>
+
+    </div>
+
 </div>
-
