@@ -15,14 +15,20 @@
   margin-left: auto;
   position: relative;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
-img{
+.smImg {
   width: 80px;
   height: auto;
   cursor: pointer;
   margin-right: 12px;
   margin-bottom: 6px;
+}
+
+.lgImg {
+  height: 420px;
+  width: auto;
 }
 
 /* Works on Firefox */
@@ -53,13 +59,56 @@ img{
   justify-content: space-between;
 }
 
-button {
+.filterButton {
  position: fixed;
  margin-top: 480px;
  margin-left: 610px;
+ z-index: 901;
 }
 
-button:focus {
+.filterButton:focus {
   outline: none;
 }
 
+@keyframes tilt {
+  0% { transform: rotate(5deg);}
+  33% { transform: rotate(0deg); }
+  66% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.poster:hover {
+  animation: tilt 200ms;
+}
+
+.poster:hover .icon {
+  display: inline-block;
+}
+
+.largePoster {
+  position: absolute;
+  height: 526px;
+  width: 662px;
+  background-color: rgba(255,255,255,0.7);
+  z-index: 900;
+  top: 226px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  border: none;
+  background: none;
+  outline: none;
+  color: white;
+  position: absolute;
+  top: 90px;
+  left: 1px;
+  z-index: 4;
+  display: none;
+}
+
+.poster {
+  position: relative;
+}

@@ -1,18 +1,18 @@
-<ng-container [ngSwitch]="component">
+<ng-container [ngSwitch]="component" class="tools">
 
-  <app-tool-plot *ngSwitchCase="1">
+  <app-tool-plot *ngSwitchCase="1" @enterTrigger class="tool">
   </app-tool-plot>
 
-  <app-tool-actor *ngSwitchCase="2">                  
+  <app-tool-actor *ngSwitchCase="2" @enterTrigger class="tool">
   </app-tool-actor>
 
-  <app-tool-poster *ngSwitchCase="3">
+  <app-tool-poster *ngSwitchCase="3" @enterTrigger class="tool">
   </app-tool-poster>
 
-  <app-tool-trailer *ngSwitchCase="4">
+  <app-tool-trailer *ngSwitchCase="4" @enterTrigger class="tool">
   </app-tool-trailer>
-  
-  <app-tool-music *ngSwitchCase="5">
+
+  <app-tool-music *ngSwitchCase="5" @enterTrigger class="tool">
   </app-tool-music>
-  
+
 </ng-container>

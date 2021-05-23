@@ -1,9 +1,11 @@
 .tools {
   background-color: red;
-  height: 100%;
+  height: 202px;
+  width: 200px;
   overflow: auto;
   display: flex;
   justify-content: center;
+  position: absolute;
 }
 
 .previewPics {

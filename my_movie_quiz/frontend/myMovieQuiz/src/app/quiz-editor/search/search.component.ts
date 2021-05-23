@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, animateChild, group, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AutoResponse, MovieDb } from 'src/app/interfaces/movie';
@@ -39,6 +39,54 @@ import { SearchService } from './search.service';
         animate('1s 1s')
       ]),
     ]),
+    trigger('cardAnimation', [
+      transition('* => *', [
+        query(':enter', style({ opacity: 0 }), { optional: true }),
+        query(':enter', stagger('200ms', [
+          animate('.5s ease-in', keyframes([
+            style({ opacity: 0, transform: 'translateY(-50%)', offset: 0 }),
+            style({ opacity: .5, transform: 'translateY(-10px) scale(1.1)', offset: 0.3 }),
+            style({ opacity: 1, transform: 'translateY(0)', offset: 1 }),
+          ]))]), { optional: true }),
+
+        // Cards will disappear sequentially with the delay of 300ms
+        // query(':leave', stagger('300ms', [
+        //   animate('500ms ease-out', keyframes([
+        //     style({ opacity: 1, transform: 'scale(1.1)', offset: 0 }),
+        //     style({ opacity: .5, transform: 'scale(.5)', offset: 0.3 }),
+        //     style({ opacity: 0, transform: 'scale(0)', offset: 1 }),
+        //   ]))]), { optional: true })
+      ]),
+    ]),
+
+    trigger('showImg', [
+      transition(':enter', [
+        style({ transform: 'rotateY(179deg)', opacity: '0' }),
+        animate('1000ms 500ms', style({ transform: 'rotateY(0deg) rotateZ(360deg)', opacity: '1' })
+        )]),
+      transition(':leave', [
+        style({ transform: 'rotateY(0)', opacity: '1' }),
+        animate('500ms', style({ transform: 'rotateY(90deg)', opacity: '0' })
+        )]),
+    ]),
+    trigger('showDiv', [
+      transition(':enter', [
+        style({ opacity: '0' }),
+        group([
+          animate('1000ms', style({ opacity: '1' })),
+          query('@showImg', animateChild()),
+        ]),
+      ]),
+      transition(':leave', [
+        style({ opacity: '1' }),
+        group([
+          animate('1000ms', style({ opacity: '0' })),
+          query('@showImg', animateChild()),
+        ]),
+      ]),
+
+    ]),
+
   ]
 })
 export class SearchComponent implements OnInit {
@@ -50,6 +98,8 @@ export class SearchComponent implements OnInit {
   response: AutoResponse[] = [];
   responseMovies: any = [];
   isOpen: boolean = false;
+  enlarge: boolean = false;
+  selected: AutoResponse;
 
   constructor(private movieData: MovieDataService,
     private search: SearchService) { }
@@ -104,15 +154,12 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  showInfo(i: number) {
-    this.selectedMovieTitle = this.autoResponse[i]["name"];
-  }
-
-  hideInfo() {
-    this.selectedMovieTitle = "";
-  }
-
   showFilter() {
     this.isOpen = !this.isOpen;
+  }
+
+  showLarge(i) {
+    this.enlarge = !this.enlarge
+    this.selected = this.autoResponse[i]
   }
 }

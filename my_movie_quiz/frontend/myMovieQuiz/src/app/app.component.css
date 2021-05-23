@@ -1,6 +1,7 @@
 .container {
+  overflow: hidden;
   display: grid;
-  height: 100vh;
+  /* height: 100vh; */
   gap: 24px;
   grid-template-rows: auto auto 1fr auto auto;
   grid-template-areas: 
@@ -8,7 +9,8 @@
    "search"
    "questionType"
    "editor"
-   "previews";
+   "previews"
+   "top";
 }
 
 .nav {
@@ -59,10 +61,10 @@
       " nav nav top top "
       " search questionType top top "
       " search editor editor previews "
-      " tool editor editor previews "
-      " . . . . ";      
+      " tool editor editor previews ";
+      /* " . . . . ";       */
 
-    grid-template-rows: 24px 100px 30px 300px 202px auto;
+    grid-template-rows: 24px 100px 30px 300px 202px;
     grid-template-columns: 200px auto 314px 200px;
   }
   .editor {
@@ -95,6 +97,10 @@
   position: relative;
 }
 
+.mask {
+  z-index:100
+}
+
 .background {
   position: relative;
   z-index: -100;
@@ -106,4 +112,3 @@
   display: flex;
   justify-content: center;
 }
-

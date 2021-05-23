@@ -133,6 +133,7 @@ class TrailerSearch(View):
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
             }
         )
+        print(r)
         response = r.json().get('data').get('result').get('items')
         urls = [r.get('url') for r in response]
         yt_id = urls[0].split('=')[1]

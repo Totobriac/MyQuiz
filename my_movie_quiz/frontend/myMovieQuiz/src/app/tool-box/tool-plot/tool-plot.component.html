@@ -69,10 +69,8 @@
     <div class="fontSize">
 
       <mat-icon class="fontIcon">opacity</mat-icon>
-      <mat-slider min="0" max="1" step="0.02" 
-                  [value]="tools.opacity"
-                  (input)="changeOpacity($event.value)"
-                  thumbLabel=true tickInterval=0.1>
+      <mat-slider min="0" max="1" step="0.02" [value]="tools.opacity" (input)="changeOpacity($event.value)"
+        thumbLabel=true tickInterval=0.1>
       </mat-slider>
 
     </div>

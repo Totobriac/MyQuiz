@@ -21,10 +21,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         height: '355px',
       })),
       transition('large => small', [
-        animate('0.5s')
+        animate('1.5s')
       ]),
       transition('small => large', [
-        animate('0.5s')
+        animate('1.5s')
       ]),
     ]),
   ]

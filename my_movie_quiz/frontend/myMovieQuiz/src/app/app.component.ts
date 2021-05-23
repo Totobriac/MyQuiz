@@ -1,4 +1,4 @@
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { Component, } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MovieDataService } from './services/movie-data.service';
@@ -10,16 +10,18 @@ import { MovieDataService } from './services/movie-data.service';
   animations: [
     trigger('showTools', [
       state('show', style({
-        opacity: '1'
       })),
       state('hide', style({
-        opacity: '0',
+        transform: 'translateY(202px)'
       })),
       transition('show => hide', [
-        animate('0.5s')
+        animate('2s 0.5s')
       ]),
       transition('hide => show', [
-        animate('1s 1s')
+        animate('2s', keyframes([
+          style({ transform : 'translateY(-24px)', offset: 0.7 }),
+          style({ transform : 'translateY(0)', offset: 1 }),
+        ]))
       ]),
     ]),
   ]
@@ -33,7 +35,7 @@ export class AppComponent {
   subscription: Subscription;
   component: number;
 
-  constructor( private movieData: MovieDataService) {}
+  constructor(private movieData: MovieDataService) { }
 
   ngOnInit() {
     this.subscription = this.movieData.currentComponent.subscribe(component => this.component = component)
@@ -42,7 +44,7 @@ export class AppComponent {
   getMovieTrailer(trailer) {
     this.selectedMovieTrailer = trailer
   }
-  
+
   selectedDisplay(display) {
     this.display = display
   }

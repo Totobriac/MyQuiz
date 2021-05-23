@@ -40,9 +40,9 @@ export class ActorQuestionComponent implements OnInit {
     this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.tools = tools)
     this.subscription = this.actorData.currentActor.subscribe(actor => this.actor = actor)
     this.getActorsList()
-    if (this.actor.urls[3].length < 9) {
-      this.getPicturesList()
-    }    
+    // if (this.actor.urls[3].length < 9) {
+    //   this.getPicturesList()
+    // }    
   }
 
   getActorsList() {
