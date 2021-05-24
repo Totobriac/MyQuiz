@@ -14,7 +14,7 @@ import { MovieDataService } from '../services/movie-data.service';
     ]),
     transition(':leave', [
       style({ opacity: '1' }),
-      animate('0.1s linear', style({ opacity: '0' }))
+      animate('1s linear', style({ opacity: '0' }))
     ])]
   )]
 })
