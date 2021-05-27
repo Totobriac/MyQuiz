@@ -1,81 +1,25 @@
-<div class="container">
+<div class="wrapper">
 
-  <app-navbar class="nav" 
-              (movieList)="selectedMovies($event)">  
-  </app-navbar>
+    <div class="container">
 
-  <app-movie-search class="search"
-                    (movie)="selectedMovie($event)" 
-                    (trailer)="getMovieTrailer($event)"
-                    (poster)="getMoviePoster($event)"
-                    (backdrop)="getMovieBackdrop($event)"
-                    [movieList]="movieList">
-  </app-movie-search>
+      <app-navbar class="nav"></app-navbar>
 
-  <app-question-type class="questionType" 
-                    (questionType)="selectQuestion($event)">  
-  </app-question-type>  
-  
-  <app-quiz-editor class="editor"
-                    [quizedMovie]="quizedMovie"
-                    [component]="selectedQuestion"
-                    [trailer]="selectedMovieTrailer"
-                    [backdrop]="selectedMovieBackdrop"
-                    
-                    [changeColor]="changeColor"
+      <app-movie-search class="search" (trailer)="getMovieTrailer($event)">
+      </app-movie-search>
 
-                    [plotFF]="plotFF"
-                    [actFF]="actFF"
+      <app-question-type class="questionType"></app-question-type>
 
-                    [plotFS]="plotFS"                    
+      <app-quiz-editor class="editor">
+      </app-quiz-editor>
 
-                    [plotBack]="plotBack"
-                    [actBack]="actBack"
-                    [posterBack]="posterBack"
+      <app-quiz-questions class="previews">
+      </app-quiz-questions>
 
-                    [plotOpacity]="plotOpacity"
-                    [actorOpacity]="actorOpacity"
+      <app-tool-box class="tool" [@showTools]="component != 0 ? 'show' : 'hide'">
+      </app-tool-box>
 
-                    [plotCorn]="plotCorn"
-                    [actCorn]="actCorn"
+      <app-top-display class="top"></app-top-display>
 
-                    [isBold]="isBold"
+    </div>
 
-                    [plotBorder]="plotBorder"
-                    [actorBorder]="actorBorder"
-                    
-                    [display]="display"
-                    
-                    [posterSrc]="posterSrc"                
-                    >
-  </app-quiz-editor>
-
-  <app-quiz-questions class="previews"
-                      [component]="selectedQuestion"
-                      [backdrop]="selectedMovieBackdrop">  
-  </app-quiz-questions>
-
-  <app-tool-box class="tool"
-                [quizedMovie]="quizedMovie"
-                [component]="selectedQuestion"
-                [poster]="selectedMoviePoster"
-                (fontSize)="selectedFontSize($event)"
-                (changeColor)="changeFontColor($event)"
-                (fontFamily)="changeFontFamily($event)"                
-                (picBack)="changePicBack($event)"
-                (backOpacity)="setBackOpacity($event)"
-                (rounded)="setCornerStyle($event)"
-                (bold)="isTextBold($event)"
-                (border)="whichBorder($event)"
-                (nameDisplay)="selectedDisplay($event)"
-                (posterSrc)="getPosterSrc($event)"
-                >
-  </app-tool-box>
-
-  <app-top-display class="top"
-                   [backdrop]="selectedMovieBackdrop"
-                   [component]="selectedQuestion">
-  </app-top-display>  
-  
 </div>
-

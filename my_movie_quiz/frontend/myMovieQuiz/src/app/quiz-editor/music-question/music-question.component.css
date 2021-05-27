@@ -1,0 +1,212 @@
+.window {
+    text-align: center;
+    background-color: rgb(4, 113, 150);
+    display: flex;
+    justify-content: center;
+  }
+
+.player {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+  
+.question {
+background-size: cover;
+}  
+  
+@media only screen and (min-width: 1020px) {
+  .window  {
+    height: 450px;
+    width: 662px;    
+  }
+
+  .toolBox {
+    margin-top: 24px;
+    width: 662px;
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(4, 113, 150);
+  }
+
+  .switchDiv {
+    background-color: rgb(4, 113, 150);    
+  }
+
+  .switchTemplates {
+    width: 150px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .switch {
+    margin-left: 48px;
+    margin-right: 24px;
+    margin-top: 12px;
+  }
+
+  .albums {
+    display: flex;
+    flex-direction: column;   
+  }
+
+  .albumCover {
+    height: 130px;
+    width: 130px;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .albumCover:hover {
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  .albumsCover {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 300px;
+    min-width: 600px;       
+  }
+
+  .mixer {   
+    min-height: 400px;
+    min-width: 600px;
+  }
+
+  .question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .deezerSearch {
+    background-color: rgb(4, 113, 150);
+    border-radius: 4px;
+    width: 600px;
+    height: 80px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .deezerInput {
+    margin-left: 12px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  input {
+    width: 450px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  img {
+    height: 26px;
+    width: auto;
+    margin-top: 8px;
+  }
+
+  .infoText {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 18px;
+  }
+
+  .infoText text {
+    margin-left: 10px;
+    color: white;
+    text-align: left;
+    font-style: italic;
+    font-family: initial;
+  }
+
+  .info {
+    display: block;
+    font-size: 16px;
+    line-height: 95%;
+    margin-top: 7px;
+  }
+
+  .infoText img {
+    margin-right: 10px;
+  }
+
+  .album {
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+
+  .trackTool {
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .mat-slider-horizontal {
+    min-width: 320px;
+  }
+
+  .sampleFinder {
+    display: flex;
+    align-items: center;
+  }
+
+  .sampleSearch {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    border: none;
+    background: none;
+    outline: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+  }
+
+  .deleteIcon {
+    margin-left: 4px;
+  }
+
+  .sampleDisplay {
+    width: 360px;
+    background-color: white;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    -moz-box-shadow: 0 0 6px white;
+    -webkit-box-shadow: 0 0 6px white;
+    box-shadow: 0 0 6px white;
+  }
+
+  .sampleResult {
+    padding-top: 8px;
+    display: flex;
+    justify-content: center;
+  }
+
+  form {
+    margin-left: 12px;
+  }
+
+  .control {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 16px;
+  }
+
+  .position {
+    background-color: white;
+    border-radius: 2px;
+    min-width: 48px;
+    margin-left: 12px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 4px;
+  }
+}

@@ -1,30 +1,30 @@
 <div class="d-flex qAWindow">
 
-  <div *ngIf="showQuestion === true && quizedMovie != undefined"
+  <div *ngIf="showQuestion === true"
         class="d-flex justify-content-center w-100 question"
-        [ngStyle]="{'backgroundImage': (plotBack) ?  'url(' + plotBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+        [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
     
     <text class="plot my-auto"
-          [style.border-radius]="plotCorn == undefined ? '0px' : plotCorn"
-          [style.border]="getBorder()"
-          [style.font-weight]="getWeight()"
+          [style.border-radius]="tools.corner.value"
+          [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'"
+          [style.font-weight]="tools.weight"
           [contentEditable]="editable"
-          [style.font-size.px]="plotFS != undefined ? plotFS : 32"
-          [style.color]="plotFontColor != undefined ? plotFontColor : 'rgb(0 , 0, 0)' "
-          [style.font-family]="plotFF"
-          [style.background-color]="plotOpacity != undefined ? backTextColor : 'rgba(' + plotBackColor + ', 0.7)'">         
-          {{ quizedMovie.plot }}
-    </text>    
+          [style.font-size.px]="tools.fontSize"
+          [style.color]="'rgb(' + tools.fontColor + ')'"
+          [style.font-family]="tools.fontFamily.value"
+          [style.background-color]= "'rgba(' + tools.backColor + ',' + tools.opacity + ')'">        
+          {{ movie.plot }}
+    </text>
 
   </div>
 
-  <div *ngIf="showQuestion === false && quizedMovie != undefined" class="d-flex justify-content-center w-100">
-    <h1 class="my-auto">{{ quizedMovie.title }}</h1>
+  <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100">
+    <h1 class="my-auto">{{ movie.title }}</h1>
   </div>
 
 </div>
 
-<div *ngIf="changeColor == undefined || changeColor['change'] == false || changeColor['change'] == undefined" class="toolBox">
+<div *ngIf="tools.palette == 'none'" class="toolBox">
 
   <div>
     <button class= "btn btn-info my-2 rounded-0 border-0" 
@@ -45,12 +45,8 @@
 </div>
 
 
-<div *ngIf="changeColor != undefined && changeColor['change'] == true" class="toolBox">
+<div *ngIf="tools.palette != 'none'" class="toolBox">
 
-  <app-palette [changeColor]="changeColor"
-               (fontColor)="onSelectedFontColor($event)"
-               (backTextColor)="onSelectedBackTextColor($event)"
-               (borderColor)="onSelectedBorderColor($event)">
-  </app-palette>
+  <app-palette></app-palette>
 
 </div>

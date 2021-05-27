@@ -1,7 +1,6 @@
 .container {
+  overflow: hidden;
   display: grid;
-  height: 100vh;
-
   gap: 24px;
   grid-template-rows: auto auto 1fr auto auto;
   grid-template-areas: 
@@ -9,7 +8,8 @@
    "search"
    "questionType"
    "editor"
-   "previews";
+   "previews"
+   "top";
 }
 
 .nav {
@@ -56,19 +56,61 @@
 @media (min-width: 1020px) {
   .container {   
     grid-template-areas:
-      " . . . . "
+      /* " . . . . " */
       " nav nav top top "
       " search questionType top top "
       " search editor editor previews "
-      " tool editor editor previews "
-      " . . . . ";      
+      " tool editor editor previews ";
+      /* " . . . . ";       */
 
-    grid-template-rows: 24px 100px 30px 300px 202px auto;
-    grid-template-columns: 200px auto auto 200px;
+    grid-template-rows: 100px 30px 300px 202px;
+    grid-template-columns: 200px auto 314px 200px;
   }
   .editor {
     display: flex;
     align-self: flex-start;
     justify-self: center;
   }    
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(1.5rem, 1fr));
+  grid-auto-rows: 1fr;
+}
+
+.grid::before {
+  content: '';
+  width: 0;
+  padding-bottom: 100%;
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.grid > *:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+
+.wrapper {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.mask {
+  z-index:100
+}
+
+.background {
+  position: relative;
+  z-index: -100;
+}
+
+.interface {
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
 }

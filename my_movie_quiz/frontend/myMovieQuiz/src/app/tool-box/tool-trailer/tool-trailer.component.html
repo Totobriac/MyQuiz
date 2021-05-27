@@ -1,0 +1,35 @@
+<div class="tools">
+
+  <div *ngIf="previewPics[0] != undefined" class="previewDisplay">
+
+    <div class="previewPics">
+      <div>
+        <img [src]="'https://moviepictures.s3.amazonaws.com/' + previewPics[0]['url']" class="previewPic">
+      </div>
+    </div>
+
+    <div class="toolSwitch">
+      <button (click)="savePic()" class="saveIcon">
+        <mat-icon>check_circle_outline</mat-icon>
+      </button>
+      <button (click)="deletePic()" class="deleteIcon">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </div>
+    
+  </div>
+
+  <div *ngIf="previewPics[0] == undefined && scrapPics.length > 0">
+    <div cdkDropList 
+         class="layersStack"
+         cdkDropListLockAxis="y"
+         (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let scrapPic of scrapPics" 
+            cdkDrag
+            cdkDragBoundary=".layersStack">
+        <img [src]="'https://moviepictures.s3.amazonaws.com/' + scrapPic.url" class="scrapPic">
+      </div>
+    </div>
+  </div>
+
+</div>

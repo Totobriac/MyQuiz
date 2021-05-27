@@ -1,0 +1,37 @@
+<div class="tools">
+
+  <div *ngIf="music.currentTrack != undefined" class="trackTools">
+
+    <div class="textBox">
+      <span>{{music.currentTrack == 0 ? music.mainTitle.title : music.samples[music.currentTrack -1].name}}</span>
+    </div>
+
+    <div class="control">
+      <div class="play">
+        <button *ngIf="isPlaying == false" class="icon" (click)=play()>
+          <mat-icon>play_circle_outline</mat-icon>
+        </button>
+        <button *ngIf="isPlaying == true" class="icon" (click)=stop()>
+          <mat-icon>stop</mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="music.currentTrack != 0" class="delete">
+        <button class="icon" (click)=delete()>
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="rate control">
+      <mat-icon class="icon">slow_motion_video</mat-icon>
+      <mat-slider min="0.5" max="4" step="0.1"
+        [value]="music.currentTrack == 0 ? music.mainTitle.rate : music.samples[music.currentTrack - 1].rate"
+        (input)="changeRate($event.value)" thumbLabel=true tickInterval=0.5>
+      </mat-slider>
+    </div>
+
+  </div>
+
+</div>

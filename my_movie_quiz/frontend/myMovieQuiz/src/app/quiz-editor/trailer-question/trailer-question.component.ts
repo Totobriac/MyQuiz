@@ -1,6 +1,11 @@
-import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { TrailerSearchService } from './trailer-search.service'
+import { Subscription } from 'rxjs';
+import { MovieDb } from 'src/app/interfaces/movie';
+import { TrailerTools } from 'src/app/interfaces/trailerTools';
+import { MovieDataService } from 'src/app/services/movie-data.service';
+import { TrailerToolsDataService } from 'src/app/services/trailerTools-data.service';
+import { TrailerQuestionService } from './trailer-question.service';
+
 
 @Component({
   selector: 'app-trailer-question',
@@ -10,64 +15,115 @@ import { TrailerSearchService } from './trailer-search.service'
 
 export class TrailerQuestionComponent implements OnInit {
 
-  @Input() quizedMovie;
-  @Input() videoSource
+  movie: MovieDb;
+  subscription: Subscription;
+  screenshotTaken: boolean = false;
+  previewPicUrl: object[] = [];
+  previewGifUrl: object[] = [];
+  aspectRatio = true;
+  showQuestion: boolean = true;
+  showVideo: boolean = true;
+  gifDuration: number;
 
-  isTrailer = false
-  imageSource: any
-  imgSrc: any
-  gifPictures: any[] = []
+  apiLoaded = false;
+  YT: any;
+  video: any;
+  player: any;
+  reframed: boolean = false;
+  tools: TrailerTools;
+  picPosition="relative";
     
-  constructor(private trailerSearchService: TrailerSearchService) { }
+  constructor( private movieData: MovieDataService,
+               private trailerToolsData: TrailerToolsDataService, 
+               private trailerService: TrailerQuestionService) { }
 
   ngOnInit() {
-  }
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
+    this.subscription = this.trailerToolsData.currentTrailerTools.subscribe(tools => this.tools = tools)
 
-  drawPicture () {
-    var canvas = <HTMLCanvasElement>document.getElementById("canvas");
-    var ctx = canvas.getContext("2d"); 
-    canvas.width = 480;
-    canvas.height = 360;
-    const vid = document.getElementById("trailer") as HTMLVideoElement
-    ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
-    var img = new Image(); 
-    img.setAttribute('crossOrigin', 'anonymous');
-    this.imgSrc = canvas.toDataURL()
-    return this.imgSrc
-  }
-
-  takeScreenshot() {
-    this.drawPicture()
-    this.imageSource= this.imgSrc  
-  }
-
-  getTrailer() {
-    console.log(this.quizedMovie.trailer.id)
-    this.trailerSearchService.getTrailer(this.quizedMovie.trailer.id)
-      .subscribe(r=> { this.videoSource = r})
-  }
-
-  createGif() {
-    var counter = 1
-    setInterval(() => { while (counter < 20) {this.drawPicture()
-                                              this.gifPictures.push(this.imgSrc)
-                                              console.log("done")                                          
-                                              counter ++ }}, 300)
+    if (!this.apiLoaded) {
+      console.log("loaded");
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.body.appendChild(tag);
+      this.apiLoaded = true;
+      window['onYouTubeIframeAPIReady'] = () => this.startVideo();
     }
 
-  playGif() {
-    var currentFrame = 0;
-    // function changePicture() {
-    //   this.imageSource = this.gifPictures[currentFrame];
-    //   console.log(this.gifPictures[5])
-    //   currentFrame++; 
-    //   if(currentFrame >= this.gifPictures.length){
-    //     currentFrame = 0;}
-    // }
-  
-    setInterval(() => {while (currentFrame < 20) {
-                      this.imageSource = this.gifPictures[currentFrame]
-                      currentFrame ++ 
-                      console.log(this.imageSource)}},1000);
-  }    
+    if (this.tools.videoSrcId == null) {
+      this.trailerService.retreiveSrc(this.movie.trailer)
+      .subscribe(r => {console.log(r);
+                      this.trailerToolsData.changeVideoSrcId(r['id'])})
+    }
+  }
+
+  startVideo(){
+    this.reframed = false;
+      this.player = new window['YT'].Player('player', {
+        videoId: this.movie.trailer,
+        playerVars: {
+          'cc_load_policy': 0,
+          'autoplay': 0,
+          'modestbranding': 1,
+          'controls': 2,
+          'disablekb': 1,
+          'rel': 0,
+          'showinfo': 0,
+          'fs': 0,
+          'playsinline': 1,
+        },        
+      });
+  }
+
+  getCurrentTime() {
+    var time = this.player.getCurrentTime()
+    var milSeconds = (time%1).toString().split(".")[1]
+    var timeStamp = new Date(time * 1000).toISOString().substr(11, 8)
+    return (timeStamp + "." + milSeconds)
+  }
+ 
+  takeScreenshot() {
+    var fullTimeStamp = this.getCurrentTime()
+    console.log(this.tools.videoSrcId, fullTimeStamp);
+    this.trailerService.takeScreenShot(this.tools.videoSrcId, fullTimeStamp)
+      .subscribe(r => {
+        console.log(r);
+        this.previewPicUrl.push({ url: r['url'] });
+        this.trailerToolsData.addPreviewPic(this.previewPicUrl);
+      })
+  }
+
+  generateScrapBooks() {
+    this.screenshotTaken = true;
+    this.picPosition = "absolute";
+  }
+
+  takeGif() {
+    if (this.gifDuration) {
+      var fullTimeStamp = this.getCurrentTime();
+      this.trailerService.createGif(this.tools.videoSrcId, fullTimeStamp, this.gifDuration)
+      .subscribe(r => {
+        console.log(r);
+        this.previewPicUrl.push({ url: r['url'] });
+        this.trailerToolsData.addPreviewPic(this.previewPicUrl);        
+      })
+    }
+  }
+
+  ngOnDestroy() {
+    window['YT'] = null;
+    if (this.player) {
+      this.player.destroy();
+    }
+  }
+
+  onSelectedSection(value) {
+    this.showVideo = !this.showVideo
+    this.showQuestion = value
+  }
+
+  duration(time) {
+    this.gifDuration = time;
+  }
+
 }

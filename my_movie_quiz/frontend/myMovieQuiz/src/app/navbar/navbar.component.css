@@ -1,15 +1,72 @@
 input[type=text] {
     padding:7px;
     margin:10px 0;
-    border-radius:20px;
+    border-radius:4px;
     border:0;
     box-shadow:0 0 15px 4px rgba(171, 231, 223, 0.671);
   }
 
 .navbar {
 background-color: rgb(4, 113, 150);
+height: 100px;
 }
 
 input {
   outline: none
+}
+
+@keyframes loader-animation {
+  0% {
+      left: -130%;
+  }
+  49% {
+      left: 130%;
+  }
+  50% {
+      left: 130%;
+  }
+  100% {
+      left: -130%;
+  }
+}
+.loader {
+  height: 5px;
+  width: 100%;
+  overflow: hidden;
+  padding: 0px !important;
+  background-color: rgb(4, 113, 150);
+}
+.loader .bar {
+  position: relative;
+  height: 5px;
+  width: 100%;
+  background-color: rgb(254, 254, 255);
+  animation-name: loader-animation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* input color class */
+::ng-deep input.mat-input-element {
+  color: #fefeff;
+}
+
+/* Change label color on focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #fcfdfd !important;
+}
+
+/* underline border color on focused */
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+  background-color: #f9fafa !important;
+}
+
+.mat-select {
+  display: flex;
+  justify-content: flex-end;
+}
+
+::ng-deep .mat-form-field-infix {
+  display: flex !important;  
 }

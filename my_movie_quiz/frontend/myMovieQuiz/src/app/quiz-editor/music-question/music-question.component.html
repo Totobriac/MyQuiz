@@ -1,0 +1,148 @@
+<div class="window">
+
+  <div *ngIf="showQuestion === true" class="question">
+    <!-- [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }" -->
+
+    <div *ngIf="isPlaying == false && mixing == false" class="albums">
+      <div class="albumsCover">
+        <div *ngFor="let albumCover of albumsCover">
+          <img [src]="albumCover.cover_url" class="albumCover" (click)="getTracks(albumCover.id, albumCover.type)">
+        </div>
+      </div>
+
+      <div class="deezerSearch">
+        <div class="infoText">
+          <div>
+            <text class="info">Not what you are looking for? Find it on Deezer & grab it's url. <br>
+              It can be either an album, a track or a playlist.</text>
+          </div>
+          <div>
+            <a href="https://www.deezer.com" target="_blank">
+              <img src="../../../assets/deezer-logo-small.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="isPlaying === true && mixing == false">
+      <iframe scrolling="yes" frameborder="0" allowTransparency="true" [src]="urlSafe" width="600"
+        height="300" class="player"></iframe>
+    </div>
+
+    <div class="mixer" *ngIf="mixing == true">
+      <app-mixer></app-mixer>
+    </div>
+
+  </div>
+
+  <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100">
+    <h1 class="my-auto">{{ movie.title }}</h1>
+  </div>
+
+</div>
+
+<div class="toolBox">
+
+  <div *ngIf="themes == undefined && mixing == false" class="deezerInput">
+    <form autocomplete="off" #deezerSearch="ngForm" (ngSubmit)=retreiveData(deezerSearch.value.deezerSearch)
+      class="deezerInput">
+      <input type="text" [(ngModel)]="value" name="deezerSearch"
+        placeholder="Ex: https://www.deezer.com/fr/album/365740 ...">
+    </form>
+  </div>
+
+  <div *ngIf="themes != undefined && mixing == false" class="trackTool">
+    <span style="color: white"><mat-icon class="album">album</mat-icon></span>
+    <mat-slider
+      class="my-auto" 
+      [max]= "themes.length"
+      min= 1
+      step= 1
+      thumbLabel= true
+      tickInterval= 1
+      value= 1
+      [vertical]=false
+      (input)="trackChoice($event.value)">
+    </mat-slider>
+
+    <button class= "btn btn-info my-2 rounded-0 border-0" (click)="selectTrack()">Select</button>
+  </div>
+
+  <div *ngIf="mixing == true" class="sampleFinder">
+
+    <div *ngIf="samples == undefined" class="sampleSearch">
+      <form #sampleSearch="ngForm" (ngSubmit)=searchSample(sampleSearch.value)>
+        <mat-form-field>
+          <mat-label>Sample Search</mat-label>
+          <input matInput autocomplete="off" type="text" name="sampleSearch" placeholder="Ex. drums, disco..."
+            (ngModel)="model.sampleSearch">
+        </mat-form-field>
+      </form>
+
+      <div class="control" *ngIf="music.isPaused == false">
+        <button class="icon" (click)=play()>
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+      </div>
+      <div class="control" *ngIf="music.isPaused == true">
+        <button class="icon" (click)=pause()>
+          <mat-icon>pause</mat-icon>
+        </button>
+      </div>
+      <div class="control">
+        <button class="icon" (click)=stop()>
+          <mat-icon>stop</mat-icon>
+        </button>
+      </div>
+
+      <div class="control">
+        <button class="icon" (click)=forward(5)>
+          <mat-icon>forward_5</mat-icon>
+        </button>
+      </div>
+
+      <div class="control">
+        <button class="icon" (click)=forward(10)>
+          <mat-icon>forward_10</mat-icon>
+        </button>
+      </div>
+
+      <div class="position">
+        {{ music.position | number : '1.2-2' }}
+      </div>
+
+      <div class="control">
+        <button class="icon" style="color: red" (click)=record()>
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+    <div *ngIf="samples != undefined" class="sampleResult">
+      <button (click)="changeSample(-1)" class="icon">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <div class="sampleDisplay">{{ samples[sampleIndex]["name"] }}  <b style="color: red">{{ samples[sampleIndex]["duration"] | number : '1.2-2'}} s</b></div>
+
+      <button (click)="changeSample(1)" class="icon">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+
+      <button (click)="addToSamples()" class="icon"><mat-icon>playlist_add</mat-icon></button>
+      <button (click)="deleteSearch()" class="icon"><mat-icon class="deleteIcon">cancel</mat-icon></button>
+    </div>
+
+  </div>
+
+  <div class="switchDiv" [class.switchTemplates]="samples != undefined">
+    <div class="switch">
+      <app-qaswitch (setSection)="onSelectedSection($event)">
+      </app-qaswitch>
+    </div>
+  </div>
+
+</div>

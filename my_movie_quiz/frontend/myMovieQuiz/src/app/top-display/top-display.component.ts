@@ -1,4 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component,  OnInit, Input } from '@angular/core';
+import { MovieDataService } from "../services/movie-data.service";
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-top-display',
@@ -7,12 +10,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TopDisplayComponent implements OnInit {
 
-  @Input() backdrop: string
-  @Input() component: number
+  backdrop: any
+  component: number
+  subscription: Subscription
 
-  constructor() { }
+  constructor(private movieData: MovieDataService) { }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.backdrop = movie.backdrop)
+    this.subscription = this.movieData.currentComponent.subscribe(component => this.component = component)
   }
 }
   

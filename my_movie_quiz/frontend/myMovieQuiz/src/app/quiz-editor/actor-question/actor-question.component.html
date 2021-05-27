@@ -1,26 +1,26 @@
 <div class="d-flex qAWindow">
 
   <div *ngIf="showQuestion === true" class="mainDiv"
-        [ngStyle]="{'backgroundImage': (actBack) ?  'url(' + actBack['lowUrl'] + ')' : 'url(' + backUrl + ')'}">
+  [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
 
-    <div *ngFor="let actor of actorName; index as i" class="actorCard">
+    <div *ngFor="let act of actor.pic; index as i" class="actorCard">
+      
       <div class="card">
         <div class="cardPicture">
-          <img *ngIf="actorPicUrl != undefined"
-               [attr.src]="actorPicUrl[i][photoIndex[i]]"
-               [ngClass]="imgClass[i]  ? 'pixelated' : 'actorPic'"
+          <img [attr.src]="act.url"
+               [ngClass]="actor.pixValue[i] > 0  ? 'pixelated' : 'actorPic'"
                crossorigin="anonymous"
                [id]="i">
         </div>
         <div class="nameContain">
-          <span [style.border-radius]="actCorn == undefined ? '0px' : actCorn"
-                [style.border]="getBorder()"
-                [style.font-weight]="getWeight()"
-                [style.color]="actorFontColor != undefined ? actorFontColor : 'rgb(0 , 0, 0)' "
-                [style.font-family]="actFF"
-                [style.background-color]="actorOpacity != undefined ? backTextColor : 'rgba(' + actorBackColor + ', 0.7)'">
-                {{ displayName[i] }}
+          <span [style.border-radius]="tools.corner.value"
+                [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'"
+                [style.font-weight]="tools.weight"
+                [style.color]="'rgb(' + tools.fontColor + ')'"
+                [style.font-family]="tools.fontFamily.value"
+                [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
+                {{ actorName[actor.display][i] }}
         </span>          
         </div>
       </div>
@@ -33,29 +33,29 @@
   
 
   <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100" style="background-color: rgba(179, 218, 218, 0.1);" >
-    <h1 class="my-auto">{{ quizedMovie.title }}</h1>    
+    <h1 class="my-auto">{{ movie.title }}</h1>    
   </div>
 
 </div>
 
 
 
-<div *ngIf="changeColor == undefined || changeColor['change'] == false || changeColor['change'] == undefined" class="toolBox">
+<div *ngIf="tools.palette == 'none'" class="toolBox">
 
-  <button mat-mini-fab color="accent" class="mt-1" (click)="nextPicture(-1, selectedActor)">
+  <button mat-mini-fab color="accent" class="mt-1" (click)="nextPicture(-1)">
     <mat-icon>chevron_left</mat-icon>
   </button>
 
   <mat-form-field class="actorChoice">
     <mat-label>Actor</mat-label>
       <mat-select (selectionChange)="selectActor($event.value)">
-        <mat-option *ngFor="let actor of actors, index as index" [value]="index">
-          {{actor.actor}}
+        <mat-option *ngFor="let actor of actorName[1]; index as index" [value]="index">
+          {{ actor }}
         </mat-option>
       </mat-select>
   </mat-form-field>
 
-  <button mat-mini-fab color="accent"  class="mt-1" (click)="nextPicture(1, selectedActor)">
+  <button mat-mini-fab color="accent"  class="mt-1" (click)="nextPicture(1)">
     <mat-icon>chevron_right</mat-icon>
   </button>
 
@@ -79,9 +79,9 @@
     step= 1
     thumbLabel= true
     tickInterval= 1
-    [value]= pixelValue[selectedActor]   
+    [value]= actor.pixValue[selectAct]
     [vertical]=false
-    (input)="pixelize($event.value)">Pixelate
+    (input)="pixelNav($event.value)">
   </mat-slider>
 
 
@@ -93,13 +93,8 @@
 
 </div>
 
+<div *ngIf="tools.palette != 'none'" class="toolBox">
 
-<div *ngIf="changeColor != undefined && changeColor['change'] == true" class="toolBox">
-
-  <app-palette [changeColor]="changeColor"
-              (fontColor)="onSelectedFontColor($event)"
-              (backTextColor)="onSelectedBackTextColor($event)"
-              (borderColor)="onSelectedBorderColor($event)">
-  </app-palette>
+  <app-palette></app-palette>
 
 </div>

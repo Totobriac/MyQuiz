@@ -1,0 +1,25 @@
+<div class="main" [@openClose]="isOpen ? 'open' : 'closed'">
+  <div class="autoResponse" [@cardAnimation]="autoResponse.length">
+    <div *ngFor="let response of autoResponse; index as i" class="poster">
+      <img *ngIf="response != null" [src]="'https://image.tmdb.org/t/p/w92' + response['url']"
+           (click)="select(response, i)" class="smImg">
+      <button class="icon" (click)="showLarge(i)">
+        <mat-icon>fullscreen</mat-icon>
+      </button>
+    </div>
+  </div>
+  <button *ngIf="autoResponse[0]['data'] == 'discover'" 
+          mat-mini-fab color="accent" (click)="showFilter()"
+          class="filterButton">
+    <mat-icon>filter_list</mat-icon>
+  </button>
+</div>
+
+<div class="largePoster" *ngIf="enlarge == true"
+     [@openClose]="isOpen ? 'open' : 'closed'" (click)="showLarge()"
+     @showDiv>
+  <img [src]="'https://image.tmdb.org/t/p/w300' + selected['url']" class="lgImg" @showImg>
+</div>
+
+<div class="toolBox" [@showHide]="isOpen ? 'show' : 'hide'">
+</div>

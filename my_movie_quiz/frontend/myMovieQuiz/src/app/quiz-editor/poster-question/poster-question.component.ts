@@ -1,5 +1,10 @@
-import { Component, Input, Output, OnInit, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
+import { MovieDataService } from "../../services/movie-data.service";
+import { Subscription } from 'rxjs';
+import { MovieDb } from 'src/app/interfaces/movie';
+import { PosterTools } from 'src/app/interfaces/posterTools';
+import { PosterToolsDataService } from 'src/app/services/posterTools-data.service';
 
 @Component({
   selector: 'app-poster-question',
@@ -36,20 +41,23 @@ export class PosterQuestionComponent implements OnInit {
   imageEffectDisplay: string = 'No effect'
   imageEffect: string
 
-  constructor(private sanitizer: DomSanitizer) {}
+  tools: PosterTools
+  movie: MovieDb
+  subscription: Subscription
 
-  @Input() quizedMovie;
-  @Input() posterSrc;
-  @Input() posterBack;
+  constructor(private sanitizer: DomSanitizer,
+              private movieData: MovieDataService,
+              private posterToolsData: PosterToolsDataService) {}
 
-  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg" 
 
   ngOnInit(): void {
-    this.back = 'url(' + this.posterSrc + ')' 
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
+    this.subscription = this.posterToolsData.currentPosterTools.subscribe(tools => this.tools = tools)
+    this.back = 'url(' + this.tools.posterSrc + ')' 
   }
 
   get style() {
-    this.back = 'url(' + this.posterSrc + ')' 
+    this.back = 'url(' + this.tools.posterSrc + ')' 
     return this.sanitizer.bypassSecurityTrustStyle(`--back: ${this.back}`);
   }
 
@@ -66,14 +74,14 @@ export class PosterQuestionComponent implements OnInit {
     this.showQuestion = value
   }
 
-  changeEffect(nOrP: number) {
-    if (this.effectIndex + nOrP == this.imgEffects.length) {
+  changeEffect(next: number) {
+    if (this.effectIndex + next == this.imgEffects.length) {
       this.effectIndex = 0
     }
-    else if (this.effectIndex + nOrP == -1) {
+    else if (this.effectIndex + next == -1) {
       this.effectIndex = this.imgEffects.length - 1
     }
-    else { this.effectIndex = this.effectIndex + nOrP }
+    else { this.effectIndex = this.effectIndex + next }
     this.imageEffectDisplay = this.imgEffects[this.effectIndex]['display']
     this.imageEffect = this.imgEffects[this.effectIndex]['value']
   }

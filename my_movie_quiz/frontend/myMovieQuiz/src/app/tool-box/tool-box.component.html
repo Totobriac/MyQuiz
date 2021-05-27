@@ -1,69 +1,19 @@
-<ng-container [ngSwitch]="component">
-  <app-tool-curtain *ngSwitchCase="0"></app-tool-curtain>
+<ng-container [ngSwitch]="component" class="tools">
 
-  <app-tool-plot (fontSize)="selectedFontSize($event)"
-                  [plotFontSize]="plotFontSize"
-
-                  (changeColor)="changeFontColor($event)"
-
-                  (fontFamily)="changeFontFamily($event)"
-                  [plotFontFamily]="plotFontFamily"
-
-                  (rounded)="setCornerStyle($event)"
-                  [plotCornIndex]="plotCornIndex"
-
-                  (picBack)="changePicBack($event)"
-                  (selectedOption)="selectedOption($event)"
-                  (backListIndex)="selectedListIndex($event)"
-                  [plotThemeOption]= "plotThemeOption"
-                  [plotListIndex]="plotListIndex"
-
-                  (backOpacity)="setBackOpacity($event)"
-                  [plotOpacity]="plotOpacity"
-
-                  (bold)="isTextBold($event)"
-                  (border)="whichBorder($event)"
-                  [plotBorderIndex]="plotBorderIndex"
-
-                  [component]="component"
-                  *ngSwitchCase="1">
+  <app-tool-plot *ngSwitchCase="1" @enterTrigger class="tool">
   </app-tool-plot>
 
-  <app-tool-actor (changeColor)="changeFontColor($event)"
-
-                  (fontFamily)="changeFontFamily($event)"
-                  [actFontFamily]="actFontFamily"
-
-                  (rounded)="setCornerStyle($event)"
-                  [actCornIndex]="actCornIndex"
-
-                  (picBack)="changePicBack($event)"
-                  (selectedOption)="selectedOption($event)"
-                  (backListIndex)="selectedListIndex($event)"
-                  [actorThemeOption]= "actorThemeOption"
-                  [actorListIndex]="actorListIndex"
-
-                  (backOpacity)="setBackOpacity($event)"
-                  [actorOpacity]="actorOpacity"
-
-                  (bold)="isTextBold($event)"
-                  (border)="whichBorder($event)"
-                  [actorBorderIndex]="actorBorderIndex"
-
-                  [component]="component"
-
-                  (nameDisplay)="selectedDisplay($event)"
-                  *ngSwitchCase="2">                  
+  <app-tool-actor *ngSwitchCase="2" @enterTrigger class="tool">
   </app-tool-actor>
 
-  <app-tool-poster  [poster]="poster"
-                    (posterSrc)="getPosterSrc($event)"
-                    (picBack)="changePicBack($event)"
-                    (backListIndex)="selectedListIndex($event)"
-                    [posterListIndex]="posterListIndex"
-                    [component]="component"
-                    *ngSwitchCase="3">
-                    
+  <app-tool-poster *ngSwitchCase="3" @enterTrigger class="tool">
   </app-tool-poster>
-  
+
+  <app-tool-trailer *ngSwitchCase="4" @enterTrigger class="tool">
+  </app-tool-trailer>
+
+  <app-tool-music *ngSwitchCase="5" @enterTrigger class="tool">
+  </app-tool-music>
+
 </ng-container>
+

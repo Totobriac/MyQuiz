@@ -1,7 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SearchActor } from './actor-question.service';
 import { PixelActor } from './actor-pixel.service';
-import { ɵangular_material_src_cdk_bidi_bidi_a } from '@angular/cdk/bidi';
+import { MovieDataService } from "../../services/movie-data.service";
+import { Subscription } from 'rxjs';
+import { MovieDb } from 'src/app/interfaces/movie';
+import { ActorTools} from 'src/app/interfaces/actorTools';
+import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
+import { Actor} from 'src/app/interfaces/actor';
+import { ActorDataService } from 'src/app/services/actor-data.service';
 
 @Component({
   selector: 'app-actor-question',
@@ -11,218 +17,104 @@ import { ɵangular_material_src_cdk_bidi_bidi_a } from '@angular/cdk/bidi';
 
 export class ActorQuestionComponent implements OnInit {
 
-  @Input() quizedMovie;
-  @Input() actorPicUrl: any;
-  @Input() oldId: any;
-  @Input() changeColor: object;
-  @Input() actFF: string;
-  @Input() actBack: string;
-  @Input() actorOpacity: number;
-  @Input() actCorn: string;
-  @Input() isBold: boolean;
-  @Input() actorBorder: string;
-  @Input() actorBackColor: any;
-  @Input() actorFontColor: any;
-  @Input() actorBorderColor: any;
-  @Input() display: any;
-  @Input() imgClassSaved: boolean[]
-  @Input() pixelValueSaved: number[]
-  @Input() src: any[]
-  @Input() photoIndexSaved: number[]
-
-  @Output() setActorBackColor = new EventEmitter
-  @Output() setActorFontColor = new EventEmitter
-  @Output() setActorBorderColor = new EventEmitter
-  @Output() savePicUrl = new EventEmitter
-  @Output() saveId = new EventEmitter
-  @Output() saveImgClass = new EventEmitter
-  @Output() savePixelValue = new EventEmitter
-  @Output() saveSrc = new EventEmitter
-  @Output() savePhotoIndex = new EventEmitter
-
-  actors: any = [];
-  actorName: any = ["", "", "", ""];
-  actorCharacter: any = ["", "", "", ""];
-  imgClass: boolean[];
-  pixelValue: number[];
-  photoIndex: number[];
-  selectedActor: number;
+  actorName: any = [["", "", "", ""], [], []]
   showQuestion: boolean = true;
-  pixHeight: any;
-  pixWidth: any;
-  fontColor: any;
-  backTextColor: any;
-  color: any;
-  displayName: string[]
-  backUrl: any = "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg";
+  movie: MovieDb;
+  tools: ActorTools;
+  actor: Actor;
+  pics: object[] = []
+  pixUrls: object[] = []
+  pixValue: number[] = []
+  urls: any
+  selectAct: number;
+  subscription: Subscription;
 
   constructor(private searchActor: SearchActor,
-    private pixelActor: PixelActor) { }
+              private pixelActor: PixelActor,
+              private movieData: MovieDataService,
+              private actorToolsData: ActorToolsDataService,
+              private actorData: ActorDataService) { }
 
   ngOnInit() {
-    this.retreiveActors()
-  }
-
-  ngOnChanges(changes) {
-    this.actorBackColor == undefined ? this.actorBackColor = "255, 255, 255" : this.actorBackColor = this.actorBackColor
-    this.backTextColor = "rgba(" + this.actorBackColor + "," + this.actorOpacity + ")"
-    this.selectDisplay()
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
+    this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.tools = tools)
+    this.subscription = this.actorData.currentActor.subscribe(actor => this.actor = actor)
+    this.getActorsList()
+    // if (this.actor.urls[3].length < 9) {
+    //   this.getPicturesList()
+    // }    
   }
 
   getActorsList() {
-    this.actors = this.quizedMovie.cast.slice(0, 4)
-    for (let i = 0; i < this.actors.length; i++) {
-      this.actorName[i] = this.actors[i].actor
-      this.actorCharacter[i] = this.actors[i].character
-    }
+    var actors = this.movie.cast
+    actors.forEach((actor) => {
+      this.actorName[1].push(actor.name)
+      this.actorName[2].push(actor.character)
+    });
   }
 
   getPicturesList() {
-    this.searchActor.searchActor(this.actorName.join('$'))
-      .subscribe(r => { this.actorPicUrl = r })
-  }
-
-  selectActor(index) {
-    this.selectedActor = index
-  }
-
-  nextPicture(nOrP: number, selectedActor: number) {
-    var oldPic
-    var wasPixelated = false
-    if (this.src != undefined && this.src[selectedActor] != undefined) {
-      oldPic = this.src[selectedActor][0]
-      wasPixelated = true
-      this.src[selectedActor] = void (0)
+    for (var act of this.movie.cast) {
+      const pic: object = {'index': 0 ,'url': "https://www.themoviedb.org/t/p/w185" + act.profile_path } 
+      this.pics.push(pic)
     }
-    this.pixelValue[this.selectedActor] = 0
-    if (this.photoIndex[selectedActor] + nOrP == this.actorPicUrl[selectedActor].length) {
-      this.photoIndex[selectedActor] = 0
-      if (wasPixelated == true) {
-        this.actorPicUrl[this.selectedActor][this.actorPicUrl[selectedActor].length] = oldPic
-        this.imgClass[this.selectedActor] = false
-      }
-    } else if (this.photoIndex[selectedActor] + nOrP == -1) {
-      this.photoIndex[selectedActor] = this.actorPicUrl[selectedActor].length - 1
-      if (wasPixelated == true) {
-        this.actorPicUrl[this.selectedActor][0] = oldPic
-        this.imgClass[this.selectedActor] = false
-      }
-    } else {
-      this.photoIndex[selectedActor] = this.photoIndex[selectedActor] + nOrP
-      if (wasPixelated == true) {
-        this.actorPicUrl[this.selectedActor][this.photoIndex[this.selectedActor] + (nOrP * -1)] = oldPic
-        this.imgClass[this.selectedActor] = false
-      }
-    }
-  }
-
-  submitForm(form: any) {
-    this.searchActor.searchActor(this.actors[this.selectedActor].actor + " " + form.actorSearch + " actor")
-      .subscribe((r: any) => { this.actorPicUrl[this.selectedActor] = r[0] })
+    this.actorData.changePic(this.pics)
+    this.searchActor.searchActor(this.actorName[1].join('$'))
+      .subscribe(r => {
+        for (var i in r) {
+          r[i].unshift(this.pics[i])
+        }
+        this.actorData.changeUrls(r);
+        this.urls = r
+        console.log(this.actor.urls);      
+      })
   }
 
   onSelectedSection(value) {
     this.showQuestion = value
   }
 
-  pixelize(value) {
-    if (this.src == undefined) {
-      this.src = [undefined, undefined, undefined, undefined]
-      this.src[this.selectedActor] = this.pixelActor.pixelate(this.selectedActor)
-    } else if (value == 1 && this.src[this.selectedActor] == undefined) {
-      this.src[this.selectedActor] = this.pixelActor.pixelate(this.selectedActor)
-    } else if (value > 1 && this.src[this.selectedActor] != undefined) {
-      this.src[this.selectedActor] = this.src[this.selectedActor]
+  selectActor(index) {
+    this.selectAct = index
+  }
+
+  nextPicture(next: number) {
+    this.pixUrls[this.selectAct] = void(0)
+    this.actorData.changePixUrls(this.pixUrls)
+    this.pixValue[this.selectAct] = 0
+    this.actorData.changePicValue(this.pixValue)
+    var index = this.actor.pic[this.selectAct].index + next
+    console.log(index);
+    if (index == this.actor.urls[this.selectAct].length) {
+      index = 0
+    } else if (index == -1) {
+      index = this.actor.urls[this.selectAct].length - 1
     }
-    this.pixelValue[this.selectedActor] = value
-    this.actorPicUrl[this.selectedActor][this.photoIndex[this.selectedActor]] = this.src[this.selectedActor][value]
-    this.pixelValue[this.selectedActor] == 0 ? this.imgClass[this.selectedActor] = false : this.imgClass[this.selectedActor] = true
+    this.pics[this.selectAct] = this.actor.urls[this.selectAct][index]
+    this.actorData.changePic(this.pics)
   }
 
-  onSelectedFontColor(color) {
-    this.actorFontColor = color
-    this.fontColor = "rgb(" + this.actorFontColor + ")"
-    this.setActorFontColor.emit(this.fontColor)
+  submitForm(form: any) {
+    this.searchActor.searchActor(this.actorName[1][this.selectAct] + " " + form.actorSearch )
+      .subscribe((r: any) => { this.urls[this.selectAct] = [];
+                               this.actorData.changeUrls(this.urls)
+                               for (let i of r[0]) {
+                                 this.urls[this.selectAct].push(i)
+                               }
+                               console.log(this.urls[this.selectAct]);
+                               this.actorData.changeUrls(this.urls)
+                               this.pics[this.selectAct] = this.actor.urls[this.selectAct][0]
+                               this.actorData.changePic(this.pics)})
   }
 
-  onSelectedBackTextColor(color) {
-    this.actorBackColor = color
-    this.setActorBackColor.emit(color)
-    this.backTextColor = "rgba(" + color + ", 0.7)"
-  }
-
-  onSelectedBorderColor(color) {
-    this.actorBorderColor = color
-    this.setActorBorderColor.emit(color)
-  }
-
-  getWeight() {
-    if (this.isBold == undefined) {
-      return ("normal")
-    }
-    else if (this.isBold['question'] == 2 && this.isBold['value'] == true) {
-      return ("bold")
-    }
-    else if (this.isBold['question'] == 2 && this.isBold['value'] == false) {
-      return ("normal")
-    }
-  }
-
-  getBorder() {
-    var border: string
-    this.actorBorder == undefined ? border = 'none' : border = this.actorBorder
-    this.actorBorderColor == undefined ? border = border : border = border + ' rgb(' + this.actorBorderColor + ')'
-    return border
-  }
-
-  selectDisplay() {
-    if (this.display === undefined || this.display === "Name") {
-      this.displayName = this.actorName
-    } else if (this.display === "Character") {
-      this.displayName = this.actorCharacter
-    } else { this.displayName = ["", "", "", ""] }
-  }
-
-  ngOnDestroy() {
-    this.savePicUrl.emit(this.actorPicUrl)
-    this.saveId.emit(this.quizedMovie['id'])
-    this.saveImgClass.emit(this.imgClass)
-    this.savePixelValue.emit(this.pixelValue)
-    this.saveSrc.emit(this.src)
-    this.savePhotoIndex.emit(this.photoIndex)
-  }
-
-  retreiveActors() {
-    if (this.oldId == undefined) {
-      this.getActorsList()
-      this.getPicturesList()
-      this.photoIndex = [0, 0, 0, 0]
-      this.pixelValue = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-    } else if (this.oldId != this.quizedMovie['id']) {
-      this.actorPicUrl = void (0)
-      this.getActorsList()
-      this.getPicturesList()
-      this.photoIndex = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-      this.src = [undefined, undefined, undefined, undefined]
-      this.pixelValue = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-    } else if (this.actorPicUrl == undefined) {
-      this.getActorsList()
-      this.getPicturesList()
-      this.photoIndex = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-      this.src = [undefined, undefined, undefined, undefined]
-      this.pixelValue = [0, 0, 0, 0]
-      this.imgClass = [false, false, false, false]
-    } else {
-      this.getActorsList()
-      this.actorPicUrl = this.actorPicUrl
-      this.photoIndex = this.photoIndexSaved
-      this.pixelValue = this.pixelValueSaved
-      this.imgClass = this.imgClassSaved
-    }
-    this.changeColor ? this.changeColor['change'] = false : null
+  pixelNav(value) {
+    if (this.pixUrls[this.selectAct] == undefined) {
+      this.pixUrls[this.selectAct] = this.pixelActor.pixelate(this.selectAct, this.actor.pic[this.selectAct])
+      this.actorData.changePixUrls(this.pixUrls)}
+    
+    this.pics[this.selectAct]  = {index: this.actor.pixUrls[this.selectAct][value].picIndex , url: this.actor.pixUrls[this.selectAct][value].src} 
+    this.actorData.changePic(this.pics)
+    this.pixValue[this.selectAct] = value
+    this.actorData.changePicValue(this.pixValue)
   }
 }

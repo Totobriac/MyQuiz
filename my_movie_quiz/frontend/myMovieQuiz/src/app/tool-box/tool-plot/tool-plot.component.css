@@ -1,22 +1,25 @@
-.tools {
-  background-color: red;
-  height: 100%;  
+.main {
+  background-color: rgb(238, 238, 230);
+  height: 202px;
+  width: 200px;
+  position: absolute;
+  overflow: hidden;
+  border: 2px solid cadetblue;
+  display: flex;
+  justify-content: center;
 }
 
 .fontSize {
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
 }
 
-.fontIcon {
-  margin-top: 5px;
-}
-
-.fontColorIcon {
+.icon {
   border: none;
   background: none;
-  outline: none
+  outline: none;
+  color: cadetblue;
 }
 
 .fontColor {
@@ -41,21 +44,10 @@
   justify-content: center;
 }
 
-.toolSwitch {
-  color: white;
+.tools {
+  height: 170px;
   display: flex;
-  justify-content: center;
-  background-color: rgb(4, 113, 150);
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.fontsTools {
-  height: 170px;
-}
-
-.backgroundTools {
-  height: 170px;
+  flex-direction: column;
 }
 
 .backgroundThemeSelector {
@@ -71,8 +63,48 @@
   color: white;
 }
 
-.back {
-  margin-top: 6px;
+.icons {
   display: flex;
   justify-content: space-evenly;
+}
+
+.mat-slider.mat-slider-horizontal {
+  height: 40px;
+}
+
+.btn {
+  width: 180px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: cadetblue;
+  border: none;
+  outline: none;
+  color: rgb(238, 238, 230);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.back {
+  position: absolute;
+  top: 30%;
+  transition: transform 1s;
+}
+
+.font {
+  position: absolute;
+  top: 50%;
+  background-color: rgb(238, 238, 230);
+  z-index: 2;
+  transition: transform 1s;
+}
+
+
+@keyframes back {
+  50%  {transform: translateY(60px);}
+  100% {transform: translateY(-50px);}
+}
+
+@keyframes font {
+  50%  {transform: translateY(60px);}
+  100% {transform: translateY(-55px);}
 }

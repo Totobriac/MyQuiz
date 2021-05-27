@@ -17,7 +17,7 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",            
+            "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
               "src/favicon.ico",
@@ -25,9 +25,12 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ngx-draggable-resize/css/resizable.min.css"
             ],
-            "scripts": [ "./node_modules/hls.js/dist/hls.min.js"]
+            "scripts": [
+              "./node_modules/hls.js/dist/hls.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -66,7 +69,7 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "myMovieQuiz:build:production"             
+              "browserTarget": "myMovieQuiz:build:production"
             }
           }
         },
@@ -122,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "myMovieQuiz"
+  "defaultProject": "myMovieQuiz",
+  "cli": {
+    "analytics": "fd191ded-e9be-45c8-89bf-18b76c3559ea"
+  }
 }

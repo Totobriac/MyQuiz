@@ -1,85 +1,28 @@
 <div>
 
-  <div>
+  <ng-container [ngSwitch]="component">
 
-    <ng-container [ngSwitch]="component">
-      <app-curtain *ngSwitchCase="0" [backdrop]="backdrop"></app-curtain>
-      <app-plot-question [quizedMovie]="quizedMovie" 
-                         [plotFS]="plotFS"
-                         [changeColor]="changeColor"
-                         [plotFF]="plotFF"
-                         [plotBack]="plotBack"
-                         [plotOpacity]="plotOpacity"
-                         [plotCorn]="plotCorn"
-                         [isBold]="isBold"
+    <app-curtain *ngSwitchCase="0">
+    </app-curtain>
 
-                         [plotBorder]="plotBorder"
+    <app-plot-question *ngSwitchCase="1">
+    </app-plot-question>
 
-                         (setPlotBackColor)="setPlotBackColor($event)"
-                         [plotBackColor]="plotBackColor"
+    <app-actor-question *ngSwitchCase="2">
+    </app-actor-question>
 
-                         (setPlotFontColor)="setPlotFontColor($event)"
-                         [plotFontColor]="plotFontColor"
+    <app-poster-question *ngSwitchCase="3">
+    </app-poster-question>
 
-                         (setPlotBorderColor)="setPlotBorderColor($event)"
-                         [plotBorderColor]="plotBorderColor"
+    <app-trailer-question *ngSwitchCase="4">
+    </app-trailer-question>
 
-                         *ngSwitchCase="1">
-      </app-plot-question>
+    <app-music-question *ngSwitchCase="5">
+    </app-music-question>
 
+    <app-search *ngSwitchCase="6">
+    </app-search>
 
-      <app-actor-question [quizedMovie]="quizedMovie"
-                          [changeColor]="changeColor"
-                          [actFF]="actFF"
-                          [actBack]="actBack"
-                          [actorOpacity]="actorOpacity"
-                          [actCorn]="actCorn"
-                          [isBold]="isBold"
-                          
-                          [actorBorder]="actorBorder"
-
-                          (setActorBackColor)="setActorBackColor($event)"
-                          [actorBackColor]="actorBackColor"
-
-                          (setActorFontColor)="setActorFontColor($event)"
-                          [actorFontColor]="actorFontColor"
-
-                          (setActorBorderColor)="setActorBorderColor($event)"
-                          [actorBorderColor]="actorBorderColor"
-
-                          [display]="display"
-
-                          (savePicUrl)="savePicUrl($event)"
-                          [actorPicUrl]="actorPicUrl"
-
-                          (saveId)="saveId($event)"
-                          [oldId]="oldId"
-
-                          (saveImgClass)="saveImgClass($event)"
-                          [imgClassSaved]="imgClassSaved"
-
-                          (savePixelValue)="savePixelValue($event)"
-                          [pixelValueSaved]="pixelValueSaved"
-
-                          (saveSrc)="saveSrc($event)"
-                          [src]="src"
-
-                          (savePhotoIndex)="savePhotoIndex($event)"
-                          [photoIndexSaved]="photoIndexSaved"
-
-                          *ngSwitchCase="2">
-      </app-actor-question>
-
-      <app-poster-question [quizedMovie]="quizedMovie"
-                           [posterSrc]="posterSrc"
-                           [posterBack]="posterBack"
-                           *ngSwitchCase="3">
-      </app-poster-question>
-
-
-      <app-trailer-question [quizedMovie]="quizedMovie" [videoSource]="trailer" *ngSwitchCase="4"></app-trailer-question>
-    </ng-container>
-    
-  </div>
+  </ng-container>
 
 </div>

@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter,} from '@angular/core';
 import { ImageCroppedEvent,} from 'ngx-image-cropper';
 import { ToolsService } from '../tools.service';
+import { MovieDataService } from "../../services/movie-data.service";
+import { Subscription } from 'rxjs';
+import { PosterToolsDataService } from 'src/app/services/posterTools-data.service';
+import { PosterTools } from 'src/app/interfaces/posterTools';
 
 @Component({
   selector: 'app-tool-poster',
@@ -9,36 +13,48 @@ import { ToolsService } from '../tools.service';
 })
 export class ToolPosterComponent implements OnInit {
 
-  @Input() poster: string;
-  @Input() component: number;
-  @Input() posterListIndex: any;
-  @Input() posterThemeOption: number;
-
-
-  @Output() posterSrc = new EventEmitter();
-  @Output() picBack = new EventEmitter();
-  @Output() selectedOption = new EventEmitter();
-  @Output() backListIndex = new EventEmitter();
-
-  croppedImage: any = '';
+  
   urlToCrop: string;
   cropping: boolean = true;
   selectedTools: string = "Background"
-  backgrounds: any; 
+  tools: PosterTools
+  poster: any
+  subscription: Subscription
 
-  constructor (private toolsService : ToolsService) {}
+  constructor (private toolsService : ToolsService,
+               private movieData: MovieDataService,
+               private posterToolsData: PosterToolsDataService) {}
 
   ngOnInit(): void {
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.poster = movie.poster)
+    this.subscription = this.posterToolsData.currentPosterTools.subscribe(tools => this.tools = tools)
     this.urlToCrop = "https://image.tmdb.org/t/p/w500" + this.poster
   }
 
   imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64;
-    this.posterSrc.emit(this.croppedImage) 
+    var croppedImage = event.base64;
+    this.posterToolsData.changePosterSrc(croppedImage) 
   }
 
   imageLoaded() {    
     console.log('Image loaded');
+  }
+
+  selectTheme(theme: number) {
+    this.toolsService.theme(theme)
+    .subscribe((backgrounds) => {var back = backgrounds 
+                                this.posterToolsData.changeTheme(back);
+                                this.posterToolsData.changeBackground(back[0])})    
+  }
+
+  changeBackground(next: number) {
+    var index = this.tools.background.id + next
+    if (index == this.tools.backgrounds.length) {
+      index = 0
+    } else if (index == -1) {
+      index = this.tools.backgrounds.length - 1
+    }
+    this.posterToolsData.changeBackground(this.tools.backgrounds[index])
   }
 
   onChange() {    
@@ -46,18 +62,15 @@ export class ToolPosterComponent implements OnInit {
     this.selectedTools == "Crop" ? this.selectedTools = "Background" : this.selectedTools = "Crop"
   }
 
-  selectTheme(theme: number) {    
-    this.toolsService.theme(theme)
-    .subscribe((r) => {this.backgrounds = r
-                      this.picBack.emit({question: this.component, value: this.backgrounds[0]})
-                      this.selectedOption.emit({question: this.component, value: theme})
-                      this.toolsService.setBackgrounds(this.component, this.backgrounds)})    
+  changeBorder() {
+    this.posterToolsData.changePalette("none")
+    var border = this.toolsService.border(this.tools.border.index)
+    this.posterToolsData.changeBorder(border)
   }
 
-  changeBackground(nOrP) {
-    var backPic = this.toolsService.background(nOrP, this.component,  this.posterListIndex ? this.posterListIndex['index'] : 0)
-    console.log(this.posterListIndex);
-    this.picBack.emit({question: this.component, value: backPic['backgrounds']})
-    this.backListIndex.emit({question: this.component, index: backPic['index']})
+  changeColor(tool: string) {
+    this.posterToolsData.changePalette(tool)
   }
+
+
 }

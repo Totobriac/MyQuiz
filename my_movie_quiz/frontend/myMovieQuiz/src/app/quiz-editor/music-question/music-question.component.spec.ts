@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToolCurtainComponent } from './tool-curtain.component';
+import { MusicQuestionComponent } from './music-question.component';
 
-describe('ToolCurtainComponent', () => {
-  let component: ToolCurtainComponent;
-  let fixture: ComponentFixture<ToolCurtainComponent>;
+describe('MusicQuestionComponent', () => {
+  let component: MusicQuestionComponent;
+  let fixture: ComponentFixture<MusicQuestionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ToolCurtainComponent ]
+      declarations: [ MusicQuestionComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToolCurtainComponent);
+    fixture = TestBed.createComponent(MusicQuestionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

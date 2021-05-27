@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { PlotTools} from 'src/app/interfaces/plotTools';
+import { ActorTools} from 'src/app/interfaces/actorTools';
+import { PlotToolsDataService } from 'src/app/services/plotTools-data.service';
+import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
+import { PosterToolsDataService } from 'src/app/services/posterTools-data.service';
 
 @Component({
   selector: 'app-palette',
@@ -7,29 +13,43 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PaletteComponent implements OnInit {
 
-  constructor() { }
+
+  colors: string[] = [ "0, 0, 0", "192, 192, 192", "255, 0, 0",
+                      "255, 255, 0", "0, 128, 0", "0, 255, 255",
+                      "128, 0, 128", "255, 0, 255", "0, 128, 128",
+                      "255, 255, 255"]
+
+  subscription: Subscription
+  plotTools: PlotTools
+  actorTools: ActorTools
+  posterTools: any;
+
+  constructor(private plotToolsData: PlotToolsDataService,
+              private actorToolsData: ActorToolsDataService,
+              private posterToolsData: PosterToolsDataService) { }
 
   ngOnInit(): void {
+    this.subscription = this.plotToolsData.currentPlotTools.subscribe(tools => this.plotTools = tools)
+    this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.actorTools = tools)
+    this.subscription = this.posterToolsData.currentPosterTools.subscribe(tools => this.posterTools = tools)
+
   }
 
-  @Input() changeColor: object;
-  @Output() fontColor = new EventEmitter()
-  @Output() backTextColor = new EventEmitter()
-  @Output() borderColor = new EventEmitter()
-
-  colors = [ "0, 0, 0", "192, 192, 192", "255, 0, 0",
-              "255, 255, 0", "0, 128, 0", "0, 255, 255",
-              "128, 0, 128", "255, 0, 255", "0, 128, 128",
-              "255, 255, 255"]
-
-  
-  newFontColor(color) {
-    if (this.changeColor['colorTool'] == 'font') {
-      this.fontColor.emit(color)
-    } else if (this.changeColor['colorTool'] == 'back') {
-      this.backTextColor.emit(color)
-    } else if (this.changeColor['colorTool'] == 'border') {
-      this.borderColor.emit(color)
+  newColor(color) {
+    if (this.plotTools.palette == "plotFont") {
+      this.plotToolsData.changeFontColor(color)
+    } else if (this.plotTools.palette == "plotBack") {
+      this.plotToolsData.changeBackColor(color)
+    } else if (this.plotTools.palette == "plotBorder") {
+      this.plotToolsData.changeBorderColor(color)
+    } else if (this.actorTools.palette == "actorFont") {
+      this.actorToolsData.changeFontColor(color)
+    } else if (this.actorTools.palette == "actorBack") {
+      this.actorToolsData.changeBackColor(color)
+    } else if (this.actorTools.palette == "actorBorder") {
+      this.actorToolsData.changeBorderColor(color)
+    } else if (this.posterTools.palette == "posterBorder") {
+      this.posterToolsData.changeBorderColor(color)
     }
-    }
+  }
 }

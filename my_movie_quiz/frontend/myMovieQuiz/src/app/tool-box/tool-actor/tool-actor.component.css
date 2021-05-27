@@ -1,6 +1,8 @@
 .tools {
     background-color: red;
-    height: 100%;  
+    height: 202px;
+    width: 200px;
+    position: absolute;
 }
 
 .fontSize {
@@ -11,12 +13,14 @@
 
 .fontIcon {
   margin-top: 5px;
+  color: white;
 }
 
 .fontColorIcon {
   border: none;
   background: none;
   outline: none;
+  color: white;
 }
 
 .fontColor {

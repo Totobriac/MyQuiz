@@ -1,0 +1,114 @@
+.autoResponse {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  position:absolute;
+  margin-top: 24px;
+  margin-left: 11px;    
+}
+
+.main {
+  background-color: rgb(4,113,150);
+  height: 526px;
+  width: 662px;
+  margin-top: auto;
+  margin-left: auto;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.smImg {
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+  margin-right: 12px;
+  margin-bottom: 6px;
+}
+
+.lgImg {
+  height: 420px;
+  width: auto;
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color:  red rgb(4, 113, 150);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(4, 113, 150);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: red;  
+}
+
+.toolBox {
+  margin-top: 24px;
+  width: 662px;
+  height: 52px;
+  background-color: rgb(4, 113, 150);
+  display: flex;
+  justify-content: space-between;
+}
+
+.filterButton {
+ position: fixed;
+ margin-top: 480px;
+ margin-left: 610px;
+ z-index: 901;
+}
+
+.filterButton:focus {
+  outline: none;
+}
+
+@keyframes tilt {
+  0% { transform: rotate(5deg);}
+  33% { transform: rotate(0deg); }
+  66% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.poster:hover {
+  animation: tilt 200ms;
+}
+
+.poster:hover .icon {
+  display: inline-block;
+}
+
+.largePoster {
+  position: absolute;
+  height: 526px;
+  width: 662px;
+  background-color: rgba(255,255,255,0.7);
+  z-index: 900;
+  top: 296px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  border: none;
+  background: none;
+  outline: none;
+  color: white;
+  position: absolute;
+  top: 90px;
+  left: 1px;
+  z-index: 4;
+  display: none;
+}
+
+.poster {
+  position: relative;
+}

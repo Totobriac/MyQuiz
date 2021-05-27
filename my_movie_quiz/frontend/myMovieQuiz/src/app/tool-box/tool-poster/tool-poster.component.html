@@ -1,3 +1,5 @@
+<div class="main">
+
 <div class="tools">
 
   <div class="cropTools">
@@ -28,9 +30,9 @@
   
         <div class="input-group input-group-sm">
           <select class="custom-select" (change)="selectTheme($event.target.value)">
-            <option [selected]="posterThemeOption == undefined">Backgrounds</option>
-            <option value=5 [selected]="posterThemeOption == 5">Scary</option>
-            <option value=6 [selected]="posterThemeOption == 6">Abstract</option>
+            <option >Backgrounds</option>
+            <option value=5 >Scary</option>
+            <option value=6 >Abstract</option>
           </select>
         </div>
   
@@ -40,17 +42,17 @@
   
       </div>
 
-      <!-- <div class="borderTools">
+      <div class="borderTools">
 
         <button (click)="changeBorder()" class="fontColorIcon">
           <mat-icon>border_outer</mat-icon>
         </button>
   
-        <button (click)="changeTheColor('border')" class="fontColorIcon">
+        <button (click)="changeColor('posterBorder')" class="fontColorIcon">
           <mat-icon>border_color</mat-icon>
         </button>
   
-      </div> -->
+      </div>
       
     </div>
 
@@ -61,5 +63,7 @@
       <span>{{ selectedTools}}</span>
     </mat-slide-toggle>
   </div>
+
+</div>
 
 </div>
