@@ -25,7 +25,6 @@ import { MovieDataService } from './services/movie-data.service';
       ]),
     ]),
   ]
-
 })
 export class AppComponent {
 

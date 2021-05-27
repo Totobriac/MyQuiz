@@ -77,11 +77,11 @@ export class MovieSearchComponent implements OnInit {
     this.movieData.changeComponent(0)
     this.movieData.changeMovieDb(movie)
     this.pixelate(movie)
-    this.searchMovie.getTrailer(movie.title, movie.year)
-      .subscribe((r: any) => {
-        this.movieData.changeMovieTrailer(r.trailer_id)
-        console.log(this.movie);
-      })
+    // this.searchMovie.getTrailer(movie.title, movie.year)
+    //   .subscribe((r: any) => {
+    //     this.movieData.changeMovieTrailer(r.trailer_id)
+    //     console.log(this.movie);
+    //   })
   }
 
   
