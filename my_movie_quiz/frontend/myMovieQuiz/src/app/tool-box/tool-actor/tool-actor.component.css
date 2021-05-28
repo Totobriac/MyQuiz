@@ -1,29 +1,10 @@
-.tools {
-    background-color: red;
-    height: 202px;
-    width: 200px;
-    position: absolute;
-}
-
 .fontSize {
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
 }
 
-.fontIcon {
-  margin-top: 5px;
-  color: white;
-}
-
-.fontColorIcon {
-  border: none;
-  background: none;
-  outline: none;
-  color: white;
-}
-
-.fontColor {
+.icons {
   display: flex;
   justify-content: space-evenly;
 }
@@ -40,26 +21,12 @@
 }
 
 .fontFamily {
+  display: flex;
+  justify-content: center;
+}
+
+.fontPadding {
   padding-top: 12px;
-  display: flex;
-  justify-content: center;
-}
-
-.toolSwitch {
-  color: white;
-  display: flex;
-  justify-content: center;
-  background-color: rgb(4, 113, 150);
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.fontsTools {
-  height: 170px;
-}
-
-.backgroundTools {
-  height: 170px;
 }
 
 .backgroundThemeSelector {
@@ -69,18 +36,40 @@
   margin-left: 5px;
 }
 
-.textBackCheck {
-  margin-top: 6px;
-  margin-left: 23px;
-  color: white;
+.back {
+  position: absolute;
+  top: 30%;
+  transition: transform 1s;
 }
 
-.back {
-  margin-top: 6px;
-  display: flex;
-  justify-content: space-evenly;
+.font {
+  position: absolute;
+  top: 50%;
+  background-color: rgb(238, 238, 230);
+  z-index: 2;
+  transition: transform 1s;
 }
 
 .display {
   width: 100px;  
+}
+
+.tools {
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes back {
+  50%  {transform: translateY(60px);}
+  100% {transform: translateY(-50px);}
+}
+
+@keyframes font {
+  50%  {transform: translateY(60px);}
+  100% {transform: translateY(-55px);}
+}
+
+.mat-slider.mat-slider-horizontal {
+  height: 40px;
 }

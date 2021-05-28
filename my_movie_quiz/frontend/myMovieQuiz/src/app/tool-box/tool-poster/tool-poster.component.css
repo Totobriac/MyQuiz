@@ -1,58 +1,13 @@
-.main {
-  height: 202px;
-  width: 200px;
-  position: absolute;
-}
-
-.tools {
-  position: relative;
-  background-color: red;
-  height: 202px;
-}
-
 .cropTools {
   height: 170px;
   display: flex;
   justify-content: center;
 }
 
-.back {
-  position: absolute;
-  height: 170px;
-}
-
 image-cropper {  
-  --cropper-outline-color: rgba(255,0,0,0.5);
   margin-top: auto;
   margin-bottom: auto;
   width: 180px;  
-}
-
-.toolSwitch {
-  color: white;
-  display: flex;
-  justify-content: center;
-  background-color: rgb(4, 113, 150);
-  margin-left: 8px;
-  margin-right: 8px;
-  position: absolute;
-  bottom: 8px;
-  width: 184px;
-  z-index: 1000;
-}
-
-.backgroundThemeSelector {
-  display: flex;
-  width: 190px;
-  padding-top: 12px;
-  margin-left: 5px;
-}
-
-.fontColorIcon {
-  border: none;
-  background: none;
-  outline: none;
-  color: white;
 }
 
 .borderTools {
@@ -60,4 +15,17 @@ image-cropper {
   justify-content: center;
 }
 
+.back {
+  position: absolute;
+  top: 40%;
+  transition: transform 1s;
+}
 
+@keyframes back {
+  50%  {transform: translateY(80px);}
+  100% {transform: translateY(-70px);}
+}
+
+.up-down {
+  animation: back 2s both;
+}

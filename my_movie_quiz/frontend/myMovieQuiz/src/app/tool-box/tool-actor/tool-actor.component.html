@@ -1,58 +1,60 @@
-<div class="tools">
+<div class="tool_main">
 
-  <div *ngIf="showFonts" class="fontsTools">
+  <div class="font tool_tools"
+    [ngStyle]="fontFirst == true? {'animation': 'font 2s both'} : {'transform': 'translateY(' + yFont+ 'px)'}"
+    (click)="showFont()">
 
+    <button class="tool_btn">
+      <span>Fonts</span>
+    </button>
 
-    <div class="fontFamily">
+    <div [hidden]="isHidden">
 
-      <button (click)="changeFontFamily(-1)" class="fontColorIcon">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
+      <div class="fontFamily fontPadding">
+        <button (click)="changeFontFamily(-1)" class="tool_icon">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div class="family">{{ tools.fontFamily.display }}</div>
+        <button (click)="changeFontFamily(1)" class="tool_icon">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
 
-      <div class="family">{{ tools.fontFamily.display }}</div>
+      <div class="icons">
+        <button (click)="changeColor('actorFont')" class="tool_icon">
+          <mat-icon>format_color_text</mat-icon>
+        </button>
+        <button (click)="isBold()" class="tool_icon">
+          <mat-icon>format_bold</mat-icon>
+        </button>
+      </div>
 
-      <button (click)="changeFontFamily(1)" class="fontColorIcon">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-
-    </div>
-
-    <div class="fontColor">
-
-      <button (click)="changeColor('actorFont')" class="fontColorIcon">
-        <mat-icon>format_color_text</mat-icon>
-      </button>
-
-      <button (click)="isBold()" class="fontColorIcon">
-        <mat-icon>format_bold</mat-icon>
-      </button>    
-
-    </div>
-
-    <div class="fontFamily">
-
-      <div class="input-group input-group-sm display">
-        <select class="custom-select" (change)="selectDisplay($event.target.value)">
-          <option value = 1>Name</option>
-          <option value = 2>Character</option>
-          <option value = 0>None</option>
-        </select>
+      <div class="fontFamily">
+        <div class="input-group input-group-sm display">
+          <select class="custom-select" (change)="selectDisplay($event.target.value)">
+            <option value=1>Name</option>
+            <option value=2>Character</option>
+            <option value=0>None</option>
+          </select>
+        </div>
       </div>
 
     </div>
-
   </div>
 
 
-  <div *ngIf="!showFonts" class="backgroundTools">
+  <div class="back tools" (click)="showBack()"
+    [ngStyle]="fontFirst == true? {'animation': 'back 2s both'} : {'transform': 'translateY(' + yBack + 'px)'}">
 
+
+    <button class="tool_btn">
+      <span>Background</span>
+    </button>
 
     <div class="backgroundThemeSelector">
-
-      <button (click)="changeBackground(-1)" class="fontColorIcon">
+      <button (click)="changeBackground(-1)" class="tool_icon">
         <mat-icon>chevron_left</mat-icon>
       </button>
-
       <div class="input-group input-group-sm">
         <select class="custom-select" (change)="selectTheme($event.target.value)">
           <option>Backgrounds</option>
@@ -60,59 +62,35 @@
           <option value=6>Abstract</option>
         </select>
       </div>
-
-      <button (click)="changeBackground(1)" class="fontColorIcon">
+      <button (click)="changeBackground(1)" class="tool_icon">
         <mat-icon>chevron_right</mat-icon>
       </button>
-
     </div>
 
 
     <div class="fontSize">
-
-      <mat-icon class="fontIcon">opacity</mat-icon>
-      <mat-slider min="0" max="1" step="0.02" 
-                  [value]="tools.opacity"
-                  (input)="changeOpacity($event.value)"
-                  thumbLabel=true tickInterval=0.1>
+      <mat-icon class="tool_icon">opacity</mat-icon>
+      <mat-slider min="0" max="1" step="0.02" [value]="tools.opacity" (input)="changeOpacity($event.value)"
+        thumbLabel=true tickInterval=0.1>
       </mat-slider>
-
     </div>
 
 
-    <div class="back">
-
-      <button (click)="changeColor('actorBack')" class="fontColorIcon">
+    <div class="icons">
+      <button (click)="changeColor('actorBack')" class="tool_icon">
         <mat-icon> format_color_fill</mat-icon>
       </button>
-
-      <button (click)="onChangeCorner()" class="fontColorIcon">
+      <button (click)="onChangeCorner()" class="tool_icon">
         <mat-icon>rounded_corner</mat-icon>
       </button>
-
-    </div>
-
-    <div class="back">
-
-      <button (click)="changeBorder()" class="fontColorIcon">
+      <button (click)="changeBorder()" class="tool_icon">
         <mat-icon>border_outer</mat-icon>
       </button>
-
-      <button (click)="changeColor('actorBorder')" class="fontColorIcon">
+      <button (click)="changeColor('actorBorder')" class="tool_icon">
         <mat-icon>border_color</mat-icon>
       </button>
-
     </div>
 
-  </div>
-
-
-
-
-  <div class="toolSwitch">
-    <mat-slide-toggle (change)="onChange()">
-      <span>{{ selectedTools }}</span>
-    </mat-slide-toggle>
   </div>
 
 </div>

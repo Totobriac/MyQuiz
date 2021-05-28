@@ -1,47 +1,51 @@
 <div *ngIf="showQuestion === true" class="posterDiv"
   [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
-    <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation" [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'"
-    >
-      <div class="poster" [style]="style" [ngClass]="imageEffect">
-        <img [attr.src]="tools.posterSrc">
-      </div>
+  <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation"
+    [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'">
+    <div class="poster" [style]="style" [ngClass]="imageEffect">
+      <img [attr.src]="tools.posterSrc">
     </div>
+  </div>
 
 </div>
 
-  
+
 <div *ngIf="showQuestion === false" class="posterDiv"
   [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
   <h1 class="my-auto">{{ movie.title }}</h1>
 </div>
 
 
-<div *ngIf="tools.palette == 'none'" class="toolBox">  
+<div *ngIf="tools.palette == 'none'" class="toolBox">
 
-  <div class="d-flex flex-row tools">
+  <div class="tools">
 
-    <div class="d-flex flex-row">
-      <mat-icon class="fontColorIcon">blur_on</mat-icon>
+    <div class="icons">
+      <mat-icon class="icon">blur_on</mat-icon>
       <mat-slider min="0" max="15" step="1" value="0" (input)="onBlurChange($event)"></mat-slider>
-    </div> 
+    </div>
 
-    <div class="d-flex flex-row">
-      
-      <button (click)="changeEffect(-1)" class="fontColorIcon">
+    <div class="icons">
+      <button (click)="changeEffect(-1)" class="icon">
         <mat-icon>chevron_left</mat-icon>
       </button>
-
       <div class="family">{{ imageEffectDisplay }}</div>
-
-      <button (click)="changeEffect(1)" class="fontColorIcon">
+      <button (click)="changeEffect(1)" class="icon">
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>
-    
-    <button (click)="onRotationChange()" class="fontColorIcon">
-      <mat-icon>rotate_right</mat-icon>
-    </button>
+
+    <div class="icons">
+
+      <button (click)="onRotationChange()" class="icon">
+        <mat-icon>rotate_right</mat-icon>
+      </button>
+      <button (click)="onRotationChange()" class="icon">
+        <mat-icon>crop</mat-icon>
+      </button>
+
+    </div>
 
   </div>
 
@@ -50,7 +54,6 @@
       <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
     </div>
   </div>
-
 </div>
 
 <div *ngIf="tools.palette != 'none'" class="toolBox">

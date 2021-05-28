@@ -13,10 +13,12 @@ import { ToolsService } from '../tools.service';
 })
 export class ToolActorComponent implements OnInit {
 
-  selectedTools: string = "Background"
-  showFonts: boolean = false;
   tools: ActorTools
   subscription: Subscription
+  yFont: number = 0
+  yBack: number = 0
+  fontFirst: boolean = false;
+  isHidden: boolean = true;
 
 
   constructor (private toolsService : ToolsService,
@@ -78,14 +80,26 @@ export class ToolActorComponent implements OnInit {
     this.actorToolsData.changePalette(tool)  
   }
 
-  onChange() {
-    this.actorToolsData.changePalette("none")
-    this.showFonts = !this.showFonts   
-    this.selectedTools == "Fonts" ? this.selectedTools = "Background" : this.selectedTools = "Fonts"
+  showBack() {
+    setTimeout(() => { this.isHidden = false}, 1000);
+    this.fontFirst = false
+    this.yBack = -50
+    this.yFont = 60
+  }
+
+  showFont() {
+    if (this.yBack == 0) {
+      this.fontFirst = true;
+      setTimeout(() => { this.isHidden = false}, 600);
+    }
+    else {
+      this.yBack = -50
+      this.yFont = -55
+    }
   }
 
   selectDisplay(display: number) {
     this.actorData.changeDisplayValue(display)
-  }    
- }
+  }
+}
   

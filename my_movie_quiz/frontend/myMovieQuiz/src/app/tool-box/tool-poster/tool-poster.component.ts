@@ -9,7 +9,7 @@ import { PosterTools } from 'src/app/interfaces/posterTools';
 @Component({
   selector: 'app-tool-poster',
   templateUrl: './tool-poster.component.html',
-  styleUrls: ['./tool-poster.component.css']
+  styleUrls: ['./tool-poster.component.css',]           
 })
 export class ToolPosterComponent implements OnInit {
 
@@ -20,6 +20,7 @@ export class ToolPosterComponent implements OnInit {
   tools: PosterTools
   poster: any
   subscription: Subscription
+  isHidden: boolean = true
 
   constructor (private toolsService : ToolsService,
                private movieData: MovieDataService,
@@ -57,11 +58,6 @@ export class ToolPosterComponent implements OnInit {
     this.posterToolsData.changeBackground(this.tools.backgrounds[index])
   }
 
-  onChange() {    
-    this.cropping = !this.cropping
-    this.selectedTools == "Crop" ? this.selectedTools = "Background" : this.selectedTools = "Crop"
-  }
-
   changeBorder() {
     this.posterToolsData.changePalette("none")
     var border = this.toolsService.border(this.tools.border.index)
@@ -72,5 +68,9 @@ export class ToolPosterComponent implements OnInit {
     this.posterToolsData.changePalette(tool)
   }
 
+  showBack() {
+    setTimeout(() => { this.isHidden = false}, 3000);
+    this.isHidden = false;
+  }
 
 }

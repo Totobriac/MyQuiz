@@ -1,4 +1,4 @@
-.fontColorIcon {
+.icon {
   color: white;
   border: none;
   background: none;
@@ -22,11 +22,13 @@
 
   .tools {
     margin-left: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
   }
 
   .switch {
     margin-right: 24px;
-    margin-top: 12px;
   }
 
   .posterDiv {
@@ -54,7 +56,6 @@
   }
 
   .family {
-    margin-top: 14px;
     width: 120px;
     background-color: white;
     height: 24px;
@@ -63,5 +64,14 @@
     -moz-box-shadow: 0 0 6px white;
     -webkit-box-shadow: 0 0 6px white;
     box-shadow: 0 0 6px white;
+  }
+
+  .icons {
+    display: flex;
+    align-items: center;
+  }
+
+  .crop {
+    margin-top: 4px;
   }
 }

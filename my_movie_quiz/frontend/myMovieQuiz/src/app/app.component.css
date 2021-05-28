@@ -97,20 +97,17 @@
   height: 100%;
   display: flex;
   align-items: center;
+  background-color: rgb(238, 238, 230);
 }
 
-.mask {
-  z-index:100
-}
-
-.background {
-  position: relative;
-  z-index: -100;
-}
-
-.interface {
-  position: absolute;
-  top: 0;
-  display: flex;
-  justify-content: center;
+.btn {
+  width: 180px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: cadetblue;
+  border: none;
+  outline: none;
+  color: rgb(238, 238, 230);
+  margin-left: auto;
+  margin-right: auto;
 }

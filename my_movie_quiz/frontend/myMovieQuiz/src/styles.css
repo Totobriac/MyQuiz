@@ -1,7 +1,46 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-/* body {
-    background: #edc0bf;
-    background: linear-gradient(135deg, rgb(0,0,0), rgb(104,82,87), rgb(79,85,110), rgb(243,214,208));
-} */
+.tool_btn {
+  width: 180px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: cadetblue;
+  border: none;
+  outline: none;
+  color: rgb(238, 238, 230);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tool_icon {
+  border: none;
+  background: none;
+  outline: none;
+  color: cadetblue;
+}
+
+.tool_main {
+  background-color: rgb(238, 238, 230);
+  height: 202px;
+  width: 200px;
+  position: absolute;
+  overflow: hidden;
+  border: 2px solid cadetblue;
+  display: flex;
+  justify-content: center;
+}
+
+.tool_back-selector {
+  display: flex;
+  width: 190px;
+  padding-top: 12px;
+  margin-left: 5px;
+}
+
+
+.tool_tools {
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+}
