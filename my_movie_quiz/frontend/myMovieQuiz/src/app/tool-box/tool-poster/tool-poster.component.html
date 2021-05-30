@@ -1,6 +1,6 @@
 <div class="tool_main">
 
-  <div class="tool_tools back" [ngClass]="{'up-down': isHidden == false}">
+  <div class="tool_tools back-tool" [ngClass]="{'up-down': startAnm == true}">
     <button class="tool_btn" (click)="showBack()">
       <span>Background</span>
     </button>
@@ -22,7 +22,7 @@
         </button>
       </div>
 
-      <div class="borderTools">
+      <div class="border-tools">
         <button (click)="changeBorder()" class="tool_icon">
           <mat-icon>border_outer</mat-icon>
         </button>
@@ -32,14 +32,13 @@
       </div>
     </div>
   </div>
+
 </div>
 
 
-<!-- <div [style.z-index]="cropping ? '100' : '-100'">
-
+<div>
   <image-cropper [imageURL]="urlToCrop" [maintainAspectRatio]="false" [resizeToWidth]="300" [resizeToHeight]="450"
     [onlyScaleDown]="true" [alignImage]="'center'" format="png" (imageLoaded)="imageLoaded()"
-    (imageCropped)="imageCropped($event)">
+    (imageCropped)="imageCropped($event)" [ngStyle]="getStyle()" class="crop-div">
   </image-cropper>
-
-</div> -->
+</div>

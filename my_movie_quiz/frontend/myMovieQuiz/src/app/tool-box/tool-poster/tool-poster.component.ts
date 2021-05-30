@@ -15,12 +15,11 @@ export class ToolPosterComponent implements OnInit {
 
   
   urlToCrop: string;
-  cropping: boolean = true;
-  selectedTools: string = "Background"
   tools: PosterTools
   poster: any
   subscription: Subscription
   isHidden: boolean = true
+  startAnm: boolean = false
 
   constructor (private toolsService : ToolsService,
                private movieData: MovieDataService,
@@ -69,8 +68,13 @@ export class ToolPosterComponent implements OnInit {
   }
 
   showBack() {
-    setTimeout(() => { this.isHidden = false}, 3000);
-    this.isHidden = false;
+    setTimeout(() => { this.isHidden = false}, 1000);
+    this.startAnm = true;
   }
 
+  getStyle(): object {
+    var style
+    this.tools.crop == true ? style={'top': '-191px'} : style={'top': '31px'}
+    return style
+  }
 }

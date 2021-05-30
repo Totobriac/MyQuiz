@@ -39,5 +39,4 @@ export class MovieDataService {
   changeMovieAuto(list: AutoResponse[]) {
     this.autocomplete.next(list)
   }
-  
 }

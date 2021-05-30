@@ -1,14 +1,4 @@
-.tools {
-  background-color: red;
-  height: 202px;
-  width: 200px;
-  overflow: auto;
-  display: flex;
-  justify-content: center;
-  position: absolute;
-}
-
-.previewPics {
+.preview {
   height: auto;
   width: 184px;
   margin-left: auto;
@@ -16,41 +6,22 @@
   position: relative;
 }
 
-.previewPic {
-  height: auto;
+.preview-pic {
+  height: 120px;
   width: 184px;
-  border: 1px solid black;
+  border: 1px solid cadetblue;
 }
 
-.toolSwitch {
+.tool-icons {
   display: flex;
   justify-content: space-evenly;
-  background-color: rgb(4, 113, 150);
-  margin-left: 8px;
-  margin-right: 8px;
-  margin-top: 12px;
-  padding-top: 4px;
-  width: 184px;
+  margin-top: 6px;
 }
 
-.previewDisplay {
+.preview-display {
   margin-top: auto;
   margin-bottom: auto;
   align-self: center;
-}
-
-.deleteIcon {
-  border: none;
-  background: none;
-  outline: none;
-  color: white;
-}
-
-.saveIcon {
-  border: none;
-  background: none;
-  outline: none;
-  color: white;
 }
 
 .scrapPic {

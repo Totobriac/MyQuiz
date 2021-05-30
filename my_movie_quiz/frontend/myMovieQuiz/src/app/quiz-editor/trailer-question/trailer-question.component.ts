@@ -35,7 +35,7 @@ export class TrailerQuestionComponent implements OnInit {
     
   constructor( private movieData: MovieDataService,
                private trailerToolsData: TrailerToolsDataService, 
-               private trailerService: TrailerQuestionService) { }
+               private trailerService: TrailerQuestionService,) { }
 
   ngOnInit() {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)

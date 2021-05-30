@@ -1,24 +1,21 @@
-.cropTools {
-  height: 170px;
-  display: flex;
-  justify-content: center;
-}
-
-image-cropper {  
+image-cropper {
+  top: 11px;
+  left: 10px; 
   margin-top: auto;
   margin-bottom: auto;
-  width: 180px;  
+  height: 180px;
+  width: 180px;
 }
 
-.borderTools {
+.border-tools {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  margin-top: 8px;
 }
 
-.back {
+.back-tool {
   position: absolute;
-  top: 40%;
-  transition: transform 1s;
+  top: 80px;
 }
 
 @keyframes back {
@@ -28,4 +25,12 @@ image-cropper {
 
 .up-down {
   animation: back 2s both;
+}
+
+.crop-div {
+  transition: all 2s;
+}
+
+.tool_main {
+  position: relative !important;
 }

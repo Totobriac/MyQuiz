@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MovieDataService } from '../services/movie-data.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class QuestionTypeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  questionEditor(page) {
-    this.data.changeComponent(page)   
+  question(choice: number) {
+    this.data.changeComponent(choice)
   }
 }

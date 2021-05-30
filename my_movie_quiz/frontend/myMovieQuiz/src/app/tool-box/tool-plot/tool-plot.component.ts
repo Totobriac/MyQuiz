@@ -22,70 +22,71 @@ export class ToolPlotComponent implements OnInit {
   isHidden: boolean = true;
 
   constructor (private toolsService : ToolsService,
-               private plotToolsData : PlotToolsDataService) {}
+               private plotTools : PlotToolsDataService) {}
 
   ngOnInit(): void {
-    this.subscription = this.plotToolsData.currentPlotTools.subscribe(tools => this.tools = tools)
+    this.subscription = this.plotTools.currentPlotTools.subscribe(tools => this.tools = tools)
+    console.log(this.tools.card);
   } 
 
   changeFontSize(selectedSize) {
-    this.plotToolsData.changePalette("none")
-    this.plotToolsData.changeFontSize(selectedSize)
+    this.plotTools.changePalette("none")
+    this.plotTools.changeFontSize(selectedSize)
   }
 
   changeOpacity(opacity) {
-    this.plotToolsData.changePalette("none")
-    this.plotToolsData.changeOpacity(opacity)
+    this.plotTools.changePalette("none")
+    this.plotTools.changeOpacity(opacity)
   }  
 
   onChangeCorner() {
-    this.plotToolsData.changePalette("none")
+    this.plotTools.changePalette("none")
     var corner = this.toolsService.corner(this.tools.corner.index)
-    this.plotToolsData.changeCorner(corner)
+    this.plotTools.changeCorner(corner)
   }
 
   changeBorder() {
-    this.plotToolsData.changePalette("none")
+    this.plotTools.changePalette("none")
     var border = this.toolsService.border(this.tools.border.index)
-    this.plotToolsData.changeBorder(border)
+    this.plotTools.changeBorder(border)
   } 
 
   changeFontFamily(next: number) {
-    this.plotToolsData.changePalette("none")
+    this.plotTools.changePalette("none")
     var family = this.toolsService.family(this.tools.fontFamily.index, next)
-    this.plotToolsData.changeFontFamily(family)
+    this.plotTools.changeFontFamily(family)
   }
 
   isBold() {
-    this.plotToolsData.changePalette("none")
-    this.tools.weight == "normal" ? this.plotToolsData.changeWeight("bold") : this.plotToolsData.changeWeight("normal")
+    this.plotTools.changePalette("none")
+    this.tools.weight == "normal" ? this.plotTools.changeWeight("bold") : this.plotTools.changeWeight("normal")
   }
 
   selectTheme(theme: number) {
-    this.plotToolsData.changePalette("none")   
+    this.plotTools.changePalette("none")   
     this.toolsService.theme(theme)
     .subscribe((backgrounds) => {var back = backgrounds 
-                                this.plotToolsData.changeTheme(back);
-                                this.plotToolsData.changeBackground(back[0])})    
+                                this.plotTools.changeTheme(back);
+                                this.plotTools.changeBackground(back[0])})    
   }
 
   changeBackground(next: number) {
-    this.plotToolsData.changePalette("none")
+    this.plotTools.changePalette("none")
     var index = this.tools.background.id + next
     if (index == this.tools.backgrounds.length) {
       index = 0
     } else if (index == -1) {
       index = this.tools.backgrounds.length - 1
     }
-    this.plotToolsData.changeBackground(this.tools.backgrounds[index])
+    this.plotTools.changeBackground(this.tools.backgrounds[index])
   }
 
   changeColor(tool: string) {
-    this.plotToolsData.changePalette(tool)  
+    this.plotTools.changePalette(tool)  
   }
 
   onChange() {
-    this.plotToolsData.changePalette("none")
+    this.plotTools.changePalette("none")
   }
 
   showBack() {

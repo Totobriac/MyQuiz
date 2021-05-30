@@ -23,4 +23,5 @@ export interface PlotTools {
     borderColor: any;
     palette: string;
     colorArea: string;
+    card: string;
   }

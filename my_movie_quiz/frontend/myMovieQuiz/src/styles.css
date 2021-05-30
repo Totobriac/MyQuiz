@@ -1,6 +1,25 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+.question_main {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 450px;
+  width: 662px;
+}
+
+.question_toolbar {
+  margin-top: 24px;
+  width: 662px;
+  height: 52px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(4, 113, 150);
+  align-items: center;
+}
+
 .tool_btn {
   width: 180px;
   height: 30px;
@@ -37,7 +56,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding-top: 12px;
   margin-left: 5px;
 }
-
 
 .tool_tools {
   height: 170px;

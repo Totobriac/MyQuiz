@@ -1,5 +1,5 @@
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { trigger, style, transition, animate } from '@angular/animations';
+import { Component,  OnInit,} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MovieDataService } from '../services/movie-data.service';
 
@@ -21,8 +21,6 @@ import { MovieDataService } from '../services/movie-data.service';
 
 export class ToolBoxComponent implements OnInit {
 
-  @Output() nameDisplay = new EventEmitter()
-
   component: number
   subscription: Subscription
 
@@ -31,5 +29,4 @@ export class ToolBoxComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.data.currentComponent.subscribe(component => this.component = component)
   }
-
 }

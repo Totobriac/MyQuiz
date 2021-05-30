@@ -65,6 +65,7 @@ export class MovieSearchComponent implements OnInit {
   movie: MovieDb;
   imageDataHell: any;
   component: number;
+  noTools: boolean;
 
   ngOnInit(): void {
     this.subscription = this.movieData.currentMovieList.subscribe(movieList => this.movieList = movieList)

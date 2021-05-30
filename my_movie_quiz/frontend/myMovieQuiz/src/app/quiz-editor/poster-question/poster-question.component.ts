@@ -86,4 +86,9 @@ export class PosterQuestionComponent implements OnInit {
     this.imageEffect = this.imgEffects[this.effectIndex]['value']
   }
 
+  crop() {
+    this.posterToolsData.changeCrop(!this.tools.crop)
+    console.log(this.tools.crop);
+  }
+
 }

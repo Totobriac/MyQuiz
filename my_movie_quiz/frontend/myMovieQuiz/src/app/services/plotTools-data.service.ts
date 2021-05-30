@@ -40,7 +40,8 @@ export class PlotToolsDataService {
     fontColor: "0 , 0, 0",
     borderColor: "0, 0, 0",
     palette: "none",
-    colorArea: "font"
+    colorArea: "font",
+    card: "question",
   })
 
   currentPlotTools = this.plotTools.asObservable();
@@ -93,4 +94,7 @@ export class PlotToolsDataService {
     this.plotTools.next(Object.assign(this.plotTools.value, {borderColor: color}))
   }
 
+  changeCard(card: string) {
+    this.plotTools.next(Object.assign(this.plotTools.value, {card: card}))
+  }
 }

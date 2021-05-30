@@ -27,6 +27,7 @@ export class PosterToolsDataService {
     },
     borderColor: "0, 0, 0",
     palette: "none",
+    crop: false,
   })
 
   currentPosterTools = this.posterTools.asObservable();
@@ -53,6 +54,10 @@ export class PosterToolsDataService {
 
   changePalette(tool: string) {
     this.posterTools.next(Object.assign(this.posterTools.value, {palette: tool}))
+  }
+
+  changeCrop(crop: boolean) {
+    this.posterTools.next(Object.assign(this.posterTools.value, {crop: crop}))
   }
 
 }

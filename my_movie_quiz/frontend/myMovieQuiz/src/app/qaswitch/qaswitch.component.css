@@ -1,3 +1,35 @@
 span {
   color: white
 }
+
+button {
+  width: 80px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  color: rgb(238, 238, 230);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.question-color {
+  background-color: rgb(95, 158, 160);
+}
+
+.answer-color {
+  background-color: rgb(215, 190, 130);
+}
+
+@keyframes tilt {
+  0% { transform: rotate(9deg);}
+  20% { transform: rotate(0deg);}
+  40% { transform: rotate(-9deg);}
+  60% { transform: rotate(0deg);}
+  80% { transform: rotate(9deg);}
+  100% { transform: rotate(0deg);}
+}
+
+button:active {
+  animation: tilt 100ms;
+}

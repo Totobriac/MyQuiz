@@ -1,25 +1,25 @@
-<div class="tools">
+<div class="tool_main">
 
-  <div *ngIf="previewPics[0] != undefined" class="previewDisplay">
+  <div *ngIf="scrapPics.length == 0" class="preview-display">
 
-    <div class="previewPics">
-      <div>
-        <img [src]="'https://moviepictures.s3.amazonaws.com/' + previewPics[0]['url']" class="previewPic">
+    <div class="preview">
+      <div *ngIf="previewPics != undefined || previewPics[0] != undefined">
+        <img [src]="'https://moviepictures.s3.amazonaws.com/' + previewPics[0]['url']" class="preview-pic">
       </div>
     </div>
 
-    <div class="toolSwitch">
-      <button (click)="savePic()" class="saveIcon">
+    <div class="tool-icons">
+      <button (click)="savePic()" class="tool_icon">
         <mat-icon>check_circle_outline</mat-icon>
       </button>
-      <button (click)="deletePic()" class="deleteIcon">
+      <button (click)="deletePic()" class="tool_icon">
         <mat-icon>delete_outline</mat-icon>
       </button>
     </div>
     
   </div>
 
-  <div *ngIf="previewPics[0] == undefined && scrapPics.length > 0">
+  <!-- <div *ngIf="previewPics[0] == undefined && scrapPics.length > 0">
     <div cdkDropList 
          class="layersStack"
          cdkDropListLockAxis="y"
@@ -30,6 +30,6 @@
         <img [src]="'https://moviepictures.s3.amazonaws.com/' + scrapPic.url" class="scrapPic">
       </div>
     </div>
-  </div>
+  </div> -->
 
 </div>

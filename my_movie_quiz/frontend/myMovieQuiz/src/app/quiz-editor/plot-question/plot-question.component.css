@@ -1,9 +1,8 @@
-.qAWindow {
-  text-align: center;
-}
-
-.question {
+.card {
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .handdraw {
@@ -13,42 +12,19 @@
   border-bottom-left-radius:15px 255px; 
 }
 
-@media only screen and (min-width: 1020px) {
-  .qAWindow  {
-    height: 450px;
-    width: 662px;    
-  }
+.toolbar-button {
+  display: flex;
+  justify-content: space-around;
+  width: 400px; 
+}
 
-  .toolBox {
-    margin-top: 24px;
-    width: 662px;
-    height: 52px;
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(4, 113, 150);
-    align-items: center;
-  }
+.plot {
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: 20px;
+  margin-left: 20px;  
+}
 
-  .switchDiv {
-    background-color: rgb(4, 113, 150);    
-  }
-  
-  .btn {
-    margin-left: 24px;
-    margin-right: 24px;
-  }
-
-  .switch {
-    margin-left: 48px;
-    margin-right: 24px;
-    margin-top: 12px;
-  }
-
-  .plot {
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-right: 20px;
-    margin-left: 20px;  
-  }
-
+.switch {
+  margin-right: 24px;
 }

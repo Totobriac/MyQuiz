@@ -13,4 +13,5 @@ export interface PosterTools {
   };
   borderColor: any;
   palette: string;
+  crop: boolean;
 }
