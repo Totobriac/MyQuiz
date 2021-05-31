@@ -12,7 +12,7 @@ export class QASwitchComponent implements OnInit {
 
   @Output() setSection = new EventEmitter()
   showQuestion: boolean = true;
-  selectedPage: string = "Answer";
+  selectedPage: string = "answer";
   subscription: Subscription;
   component: number
 
@@ -27,11 +27,9 @@ export class QASwitchComponent implements OnInit {
   toggle() {    
     this.showQuestion = !this.showQuestion
     this.setSection.emit(this.showQuestion)   
-    if (this.selectedPage == "answer") {
-      this.selectedPage = "question"
-    } else { this.selectedPage = "answer"}
+    this.selectedPage == "answer" ? this.selectedPage = "question" : this.selectedPage = "answer"
     if (this.component == 1) {
-      this.plotTools.changeCard(this.selectedPage)
+      this.selectedPage == "answer" ? this.plotTools.changeCard("question") : this.plotTools.changeCard("answer")
     }
   }
 

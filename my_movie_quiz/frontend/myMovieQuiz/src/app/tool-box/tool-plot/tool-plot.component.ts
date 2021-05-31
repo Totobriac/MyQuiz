@@ -22,21 +22,24 @@ export class ToolPlotComponent implements OnInit {
   fontFirst: boolean = false;
   isHidden: boolean = true;
   toolColor: any;
+  card: any;
 
-  constructor (private toolsService : ToolsService,
-               private plotTools : PlotToolsDataService,
-               private sanitizer: DomSanitizer) {}
+  constructor(private toolsService: ToolsService,
+    private plotTools: PlotToolsDataService,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.subscription = this.plotTools.currentPlotTools.subscribe(tools => this.tools = tools);
+    this.plotTools.changeCard("question");   
   }
-
+  
   get style() {
-    this.tools.card == "question" ? this.toolColor = 	'rgb(95,158,160)' : this.toolColor = 	'rgb(215, 190, 130);'
+    this.tools.card == "question" ? this.toolColor = 'rgb(95,158,160)' : this.toolColor = 'rgb(215, 190, 130);'
     return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
   }
 
   changeFontSize(selectedSize) {
+    console.log(this.tools.card);
     this.plotTools.changePalette("none");
     this.plotTools.changeFontSize(selectedSize);
   }
@@ -44,7 +47,7 @@ export class ToolPlotComponent implements OnInit {
   changeOpacity(opacity) {
     this.plotTools.changePalette("none");
     this.plotTools.changeOpacity(opacity);
-  }  
+  }
 
   onChangeCorner() {
     this.plotTools.changePalette("none");
@@ -56,7 +59,7 @@ export class ToolPlotComponent implements OnInit {
     this.plotTools.changePalette("none");
     var border = this.toolsService.border(this.tools.border.index);
     this.plotTools.changeBorder(border);
-  } 
+  }
 
   changeFontFamily(next: number) {
     this.plotTools.changePalette("none");
@@ -72,9 +75,11 @@ export class ToolPlotComponent implements OnInit {
   selectTheme(theme: number) {
     this.plotTools.changePalette("none");
     this.toolsService.theme(theme)
-    .subscribe((backgrounds) => {var back = backgrounds 
-                                this.plotTools.changeTheme(back);
-                                this.plotTools.changeBackground(back[0])})    
+      .subscribe((backgrounds) => {
+        var back = backgrounds
+        this.plotTools.changeTheme(back);
+        this.plotTools.changeBackground(back[0])
+      })
   }
 
   changeBackground(next: number) {
@@ -97,7 +102,7 @@ export class ToolPlotComponent implements OnInit {
   }
 
   showBack() {
-    setTimeout(() => { this.isHidden = false}, 1000);
+    setTimeout(() => { this.isHidden = false }, 1000);
     this.fontFirst = false
     this.yBack = -50
     this.yFont = 60
@@ -106,17 +111,11 @@ export class ToolPlotComponent implements OnInit {
   showFont() {
     if (this.yBack == 0) {
       this.fontFirst = true;
-      setTimeout(() => { this.isHidden = false}, 600);
+      setTimeout(() => { this.isHidden = false }, 600);
     }
     else {
       this.yBack = -50
       this.yFont = -55
     }
-  }
-
-  animate() {
-    var anim
-    this.tools.card == "question" ? anim = "tilt" : anim = "tilting"
-    return anim
   }
 }

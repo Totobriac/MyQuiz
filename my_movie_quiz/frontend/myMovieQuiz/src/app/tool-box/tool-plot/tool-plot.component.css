@@ -58,10 +58,6 @@
   animation: tilt 100ms;
 }
 
-.tilt {
-  animation: tilt 100ms;
-}
-
 @keyframes tilt {
   0% { transform: rotate(4deg);}
   20% { transform: rotate(0deg);}
