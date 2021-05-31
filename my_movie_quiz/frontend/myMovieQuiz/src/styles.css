@@ -1,6 +1,11 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+  height: 100%;
+}
 
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
 
 .question_main {
   display: flex;
@@ -24,7 +29,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 180px;
   height: 30px;
   border-radius: 10px;
-  background-color: cadetblue;
+  background-color: var(--toolcolor);
   border: none;
   outline: none;
   color: rgb(238, 238, 230);
@@ -36,7 +41,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border: none;
   background: none;
   outline: none;
-  color: cadetblue;
+  color: var(--toolcolor);
 }
 
 .tool_main {
@@ -45,9 +50,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 200px;
   position: absolute;
   overflow: hidden;
-  border: 2px solid cadetblue;
+  border: 2px solid var(--toolcolor);
   display: flex;
   justify-content: center;
+}
+
+
+@keyframes tilt {
+  0% { transform: rotate(4deg);}
+  20% { transform: rotate(0deg);}
+  40% { transform: rotate(-4deg);}
+  60% { transform: rotate(0deg);}
+  80% { transform: rotate(4deg);}
+  100% { transform: rotate(0deg);}
 }
 
 .tool_back-selector {

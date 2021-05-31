@@ -1,5 +1,6 @@
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component, OnInit, } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { PlotTools } from 'src/app/interfaces/plotTools';
 import { PlotToolsDataService } from 'src/app/services/plotTools-data.service';
@@ -14,56 +15,62 @@ import { ToolsService } from '../tools.service';
 
 export class ToolPlotComponent implements OnInit {
 
-  tools: PlotTools
-  subscription: Subscription
-  yFont: number = 0
-  yBack: number = 0
+  tools: PlotTools;
+  subscription: Subscription;
+  yFont: number = 0;
+  yBack: number = 0;
   fontFirst: boolean = false;
   isHidden: boolean = true;
+  toolColor: any;
 
   constructor (private toolsService : ToolsService,
-               private plotTools : PlotToolsDataService) {}
+               private plotTools : PlotToolsDataService,
+               private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.subscription = this.plotTools.currentPlotTools.subscribe(tools => this.tools = tools)
-    console.log(this.tools.card);
-  } 
+    this.subscription = this.plotTools.currentPlotTools.subscribe(tools => this.tools = tools);
+  }
+
+  get style() {
+    this.tools.card == "question" ? this.toolColor = 	'rgb(95,158,160)' : this.toolColor = 	'rgb(215, 190, 130);'
+    return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
+  }
 
   changeFontSize(selectedSize) {
-    this.plotTools.changePalette("none")
-    this.plotTools.changeFontSize(selectedSize)
+    this.plotTools.changePalette("none");
+    this.plotTools.changeFontSize(selectedSize);
   }
 
   changeOpacity(opacity) {
-    this.plotTools.changePalette("none")
-    this.plotTools.changeOpacity(opacity)
+    this.plotTools.changePalette("none");
+    this.plotTools.changeOpacity(opacity);
   }  
 
   onChangeCorner() {
-    this.plotTools.changePalette("none")
-    var corner = this.toolsService.corner(this.tools.corner.index)
-    this.plotTools.changeCorner(corner)
+    this.plotTools.changePalette("none");
+    var corner = this.toolsService.corner(this.tools.corner.index);
+    this.plotTools.changeCorner(corner);
   }
 
   changeBorder() {
-    this.plotTools.changePalette("none")
-    var border = this.toolsService.border(this.tools.border.index)
-    this.plotTools.changeBorder(border)
+    this.plotTools.changePalette("none");
+    var border = this.toolsService.border(this.tools.border.index);
+    this.plotTools.changeBorder(border);
   } 
 
   changeFontFamily(next: number) {
-    this.plotTools.changePalette("none")
-    var family = this.toolsService.family(this.tools.fontFamily.index, next)
-    this.plotTools.changeFontFamily(family)
+    this.plotTools.changePalette("none");
+    var family = this.toolsService.family(this.tools.fontFamily.index, next);
+    this.plotTools.changeFontFamily(family);
   }
 
   isBold() {
-    this.plotTools.changePalette("none")
-    this.tools.weight == "normal" ? this.plotTools.changeWeight("bold") : this.plotTools.changeWeight("normal")
+    this.plotTools.changePalette("none");
+    this.tools.weight == "normal" ? this.plotTools.changeWeight("bold") : this.plotTools.changeWeight("normal");
   }
 
   selectTheme(theme: number) {
-    this.plotTools.changePalette("none")   
+    this.plotTools.changePalette("none");
     this.toolsService.theme(theme)
     .subscribe((backgrounds) => {var back = backgrounds 
                                 this.plotTools.changeTheme(back);
@@ -71,8 +78,8 @@ export class ToolPlotComponent implements OnInit {
   }
 
   changeBackground(next: number) {
-    this.plotTools.changePalette("none")
-    var index = this.tools.background.id + next
+    this.plotTools.changePalette("none");
+    var index = this.tools.background.id + next;
     if (index == this.tools.backgrounds.length) {
       index = 0
     } else if (index == -1) {
@@ -82,11 +89,11 @@ export class ToolPlotComponent implements OnInit {
   }
 
   changeColor(tool: string) {
-    this.plotTools.changePalette(tool)  
+    this.plotTools.changePalette(tool);
   }
 
   onChange() {
-    this.plotTools.changePalette("none")
+    this.plotTools.changePalette("none");
   }
 
   showBack() {
@@ -107,4 +114,9 @@ export class ToolPlotComponent implements OnInit {
     }
   }
 
+  animate() {
+    var anim
+    this.tools.card == "question" ? anim = "tilt" : anim = "tilting"
+    return anim
+  }
 }

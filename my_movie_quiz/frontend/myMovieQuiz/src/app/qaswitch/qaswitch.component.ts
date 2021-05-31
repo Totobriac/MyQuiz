@@ -27,9 +27,9 @@ export class QASwitchComponent implements OnInit {
   toggle() {    
     this.showQuestion = !this.showQuestion
     this.setSection.emit(this.showQuestion)   
-    if (this.selectedPage == "Answer") {
-      this.selectedPage = "Question"
-    } else { this.selectedPage = "Answer"}
+    if (this.selectedPage == "answer") {
+      this.selectedPage = "question"
+    } else { this.selectedPage = "answer"}
     if (this.component == 1) {
       this.plotTools.changeCard(this.selectedPage)
     }
@@ -37,7 +37,7 @@ export class QASwitchComponent implements OnInit {
 
   getBackColor() {
     var cl
-    this.selectedPage == "Answer"? cl='answer-color' : cl='question-color'
+    this.selectedPage == "answer"? cl='answer-color' : cl='question-color'
     return cl
   }
 }

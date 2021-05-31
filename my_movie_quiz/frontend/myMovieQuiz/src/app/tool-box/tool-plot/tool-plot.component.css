@@ -1,16 +1,10 @@
-.fontSize {
+.font-size {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.fontColor {
-  display: flex;
-  justify-content: space-evenly;
-}
-
 .family {
-  margin-top: 14px;
   width: 100px;
   background-color: white;
   height: 24px;
@@ -21,16 +15,10 @@
   box-shadow: 0 0 6px white;
 }
 
-.fontFamily {
+.font-family {
   padding-top: 12px;
   display: flex;
   justify-content: center;
-}
-
-.textBackCheck {
-  margin-top: 6px;
-  margin-left: 23px;
-  color: white;
 }
 
 .icons {
@@ -64,4 +52,21 @@
 @keyframes font {
   50%  {transform: translateY(60px);}
   100% {transform: translateY(-55px);}
+}
+
+.tilting {
+  animation: tilt 100ms;
+}
+
+.tilt {
+  animation: tilt 100ms;
+}
+
+@keyframes tilt {
+  0% { transform: rotate(4deg);}
+  20% { transform: rotate(0deg);}
+  40% { transform: rotate(-4deg);}
+  60% { transform: rotate(0deg);}
+  80% { transform: rotate(4deg);}
+  100% { transform: rotate(0deg);}
 }
