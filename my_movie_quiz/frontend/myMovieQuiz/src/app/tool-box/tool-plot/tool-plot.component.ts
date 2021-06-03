@@ -11,6 +11,19 @@ import { ToolsService } from '../tools.service';
   selector: 'app-tool-plot',
   templateUrl: './tool-plot.component.html',
   styleUrls: ['./tool-plot.component.css'],
+  animations: [
+    trigger('cardChange', [
+      transition((fromState: string, toState: string) => toState != fromState, [
+        animate(100, style({ transform: 'rotate(1deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(-1deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(1deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' }))
+      ])
+    ])
+  ]
+
 })
 
 export class ToolPlotComponent implements OnInit {
@@ -22,7 +35,6 @@ export class ToolPlotComponent implements OnInit {
   fontFirst: boolean = false;
   isHidden: boolean = true;
   toolColor: any;
-  card: any;
 
   constructor(private toolsService: ToolsService,
     private plotTools: PlotToolsDataService,
@@ -34,7 +46,9 @@ export class ToolPlotComponent implements OnInit {
   }
   
   get style() {
-    this.tools.card == "question" ? this.toolColor = 'rgb(95,158,160)' : this.toolColor = 'rgb(215, 190, 130);'
+    this.tools.card == "question"
+      ? this.toolColor = 'rgb(95,158,160)' 
+      : this.toolColor = 'rgb(215, 190, 130);'
     return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
   }
 

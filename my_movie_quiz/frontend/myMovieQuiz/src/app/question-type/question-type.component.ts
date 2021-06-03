@@ -14,6 +14,8 @@ export class QuestionTypeComponent implements OnInit {
   }
 
   question(choice: number) {
-    this.data.changeComponent(choice)
+    this.data.changeShowTool(true);
+    this.data.changeTool(choice);
+    this.data.changeComponent(choice);
   }
 }

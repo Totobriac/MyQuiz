@@ -77,3 +77,12 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.question_palette {
+  margin-top: 24px;
+  width: 662px;
+  height: 52px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(4, 113, 150);
+}

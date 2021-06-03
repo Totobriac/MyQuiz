@@ -21,16 +21,15 @@ export class PlotQuestionComponent implements OnInit {
   subscription: Subscription;
 
   constructor(private movieData: MovieDataService,
-              private plotToolsData: PlotToolsDataService) { }
+              private plotTools: PlotToolsDataService) { }
 
 
   ngOnInit(): void {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
-    this.subscription = this.plotToolsData.currentPlotTools.subscribe(tools => this.tools = tools)
+    this.subscription = this.plotTools.currentPlotTools.subscribe(tools => this.tools = tools)
   }
  
   enableEdition() {
-    console.log(this.tools);  
     this.editable == "false" ?  this.editable = "true" : this.editable = "false"
   }
 
@@ -41,5 +40,4 @@ export class PlotQuestionComponent implements OnInit {
   onSelectedSection(value) {
     this.showQuestion = value
   }
-
 }

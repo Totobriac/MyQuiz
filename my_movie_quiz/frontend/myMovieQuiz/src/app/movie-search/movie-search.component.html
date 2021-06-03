@@ -1,4 +1,4 @@
-<div class="searchBar" [@largeSmall]="component == 0 || component == 6 ? 'large' : 'small'">
+<div class="searchBar" [@largeSmall]="showTools == false ? 'large' : 'small'">
   <div class="movieTile" [@cardAnimation]="movieList.length">
     <div *ngFor="let movieDb of movieList; index as index" class="moviePoster" 
          (click)="chooseMovie(movieDb)">

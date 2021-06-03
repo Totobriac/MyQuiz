@@ -1,25 +1,25 @@
 <div class="wrapper">
 
-    <div class="container">
+  <div class="container">
 
-      <app-navbar class="nav"></app-navbar>
+    <app-navbar class="nav"></app-navbar>
 
-      <app-movie-search class="search" (trailer)="getMovieTrailer($event)">
-      </app-movie-search>
+    <app-movie-search class="search" (trailer)="getMovieTrailer($event)">
+    </app-movie-search>
 
-      <app-question-type class="questionType"></app-question-type>
+    <app-question-type class="questionType"></app-question-type>
 
-      <app-quiz-editor class="editor">
-      </app-quiz-editor>
+    <app-quiz-editor class="editor">
+    </app-quiz-editor>
 
-      <app-quiz-questions class="previews">
-      </app-quiz-questions>
+    <app-quiz-questions class="previews">
+    </app-quiz-questions>    
 
-      <app-tool-box class="tool" [@showTools]="component != 0 ? 'show' : 'hide'">
-      </app-tool-box>
+    <app-tool-box class="tool" [@showTools]="showTool == true ? 'show' : 'hide'">
+    </app-tool-box>
 
-      <app-top-display class="top"></app-top-display>
+    <app-top-display class="top"></app-top-display>
 
-    </div>
+  </div>
 
 </div>

@@ -1,5 +1,4 @@
-<div class="tool_main" [style]="style">
-
+<div class="tool_main" [style]="style" [@cardChange]="tools.card">
   <div class="back tool_tools" (click)="showBack()"
     [ngStyle]="fontFirst == true? {'animation': 'back 2s both'} : {'transform': 'translateY(' + yBack + 'px)'}">
 
@@ -90,5 +89,4 @@
 
 
   </div>
-
 </div>

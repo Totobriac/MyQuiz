@@ -21,12 +21,12 @@ import { MovieDataService } from '../services/movie-data.service';
 
 export class ToolBoxComponent implements OnInit {
 
-  component: number
+  tool: number
   subscription: Subscription
 
   constructor(private data: MovieDataService) { }
 
   ngOnInit(): void {
-    this.subscription = this.data.currentComponent.subscribe(component => this.component = component)
+    this.subscription = this.data.currentTool.subscribe(tool => this.tool = tool)
   }
 }

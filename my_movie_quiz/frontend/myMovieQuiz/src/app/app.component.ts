@@ -10,6 +10,7 @@ import { MovieDataService } from './services/movie-data.service';
   animations: [
     trigger('showTools', [
       state('show', style({
+        transform: 'translateY(0px)'
       })),
       state('hide', style({
         transform: 'translateY(202px)'
@@ -26,6 +27,7 @@ import { MovieDataService } from './services/movie-data.service';
     ]),
   ]
 })
+
 export class AppComponent {
 
   title = 'myMovieQuiz';
@@ -33,11 +35,13 @@ export class AppComponent {
   display: string;
   subscription: Subscription;
   component: number;
+  showTool: boolean;
 
   constructor(private movieData: MovieDataService) { }
 
   ngOnInit() {
-    this.subscription = this.movieData.currentComponent.subscribe(component => this.component = component)
+    this.subscription = this.movieData.currentComponent.subscribe(component => this.component = component);
+    this.subscription = this.movieData.currentShowTool.subscribe(showTool => this.showTool = showTool);
   }
 
   getMovieTrailer(trailer) {

@@ -13,8 +13,21 @@
 
   </div>
 
-  <div *ngIf="showQuestion === false" class="card">
-    <h1>{{ movie.title }}</h1>
+  <div *ngIf="showQuestion === false" class="card"
+    [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
+
+    <div class="answer">
+
+    <text [style.border-radius]="tools.corner.value"
+      [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'" [style.font-weight]="tools.weight"
+      [style.font-size.px]="tools.fontSize" [style.color]="'rgb(' + tools.fontColor + ')'"
+      [style.font-family]="tools.fontFamily.value"
+      [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
+      <span>{{ movie.title }}</span>
+    </text>
+
+    </div>
+
   </div>
 
 </div>
@@ -33,7 +46,7 @@
 
 </div>
 
-<div *ngIf="tools.palette != 'none'" class="toolBox">
+<div *ngIf="tools.palette != 'none'" class="question_palette">
 
   <app-palette></app-palette>
 
