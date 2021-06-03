@@ -12,12 +12,16 @@ export class PlotToolsDataService {
   constructor() { }
 
   private plotTools = new BehaviorSubject<PlotTools>({
-    fontSize: 28,
-    fontFamily: {
+    fontSize: [26, 32],
+    fontFamily: [{
       index: 0,
       value: "'Roboto', sans-serif",
       display: "Regular"
-    },
+    }, {
+      index: 0,
+      value: "'Roboto', sans-serif",
+      display: "Regular"
+    }],
     background: {
       author_name: "none",
       highUrl: "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg",
@@ -26,75 +30,82 @@ export class PlotToolsDataService {
       stock_name: "none"
     },
     backgrounds: [],
-    opacity: 0.7,
-    corner: {
+    opacity: [0.7, 0.7],
+    corner: [{
       value: "0px",
       index: 0
-    },
-    weight: "normal",
-    border: {
+    }, {
+      value: "0px",
+      index: 0
+    }],
+    weight: ["normal", "normal"],
+    border: [{
       index: 0,
       value: "0px",
-    },
-    backColor: "255, 255, 255",
-    fontColor: "0 , 0, 0",
-    borderColor: "0, 0, 0",
-    palette: "none",
+    }, {
+      index: 0,
+      value: "0px",
+    }],
+    backColor: ["255, 255, 255", "255, 255, 255"],
+    fontColor: ["0 , 0, 0", "0 , 0, 0"],
+    borderColor: ["0, 0, 0", "0, 0, 0"],
+    palette: {"tool": "none", "card": "questino"},
     colorArea: "font",
     card: "question",
   })
 
   currentPlotTools = this.plotTools.asObservable();
 
-  changeFontSize(size: number) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {fontSize: size }))
+  changeFontSize(size: number[]) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { fontSize: size }))
   }
 
-  changeOpacity(opacity: number) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {opacity: opacity }))
+  changeOpacity(opacity: number[]) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { opacity: opacity }))
   }
 
-  changeCorner(corner: object) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {corner: corner }))
+  changeCorner(corner: object[]) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { corner: corner }))
   }
 
-  changeBorder(border: object) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {border: border }))
+  changeBorder(border: object[]) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { border: border }))
   }
 
-  changeFontFamily(family: object) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {fontFamily: family }))
+  changeFontFamily(family: object[]) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { fontFamily: family }))
   }
 
   changeTheme(backgrounds: any) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {backgrounds: backgrounds}))
+    this.plotTools.next(Object.assign(this.plotTools.value, { backgrounds: backgrounds }))
   }
 
   changeBackground(background: object) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {background: background}))
+    this.plotTools.next(Object.assign(this.plotTools.value, { background: background }))
   }
 
-  changeWeight(weight: string) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {weight: weight}))
+  changeWeight(weight: string[]) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { weight: weight }))
   }
 
-  changePalette(tool: string) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {palette: tool}))
+  changePalette(tool: string, card: string) {
+    var data = { "tool": tool, "card": card }
+    this.plotTools.next(Object.assign(this.plotTools.value, { palette: data }))
   }
 
-  changeBackColor(color: any) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {backColor: color}))
+  changeBackColor(color: any[]) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { backColor: color }))
   }
 
-  changeFontColor(color: any) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {fontColor: color}))
+  changeFontColor(color: any[]) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { fontColor: color }))
   }
 
-  changeBorderColor(color: any) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {borderColor: color}))
+  changeBorderColor(color: any[]) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { borderColor: color }))
   }
 
   changeCard(card: string) {
-    this.plotTools.next(Object.assign(this.plotTools.value, {card: card}))
+    this.plotTools.next(Object.assign(this.plotTools.value, { card: card }))
   }
 }

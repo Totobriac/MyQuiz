@@ -19,6 +19,7 @@ export class PlotQuestionComponent implements OnInit {
   movie: MovieDb;
   tools: PlotTools;
   subscription: Subscription;
+  posterBack: any;
 
   constructor(private movieData: MovieDataService,
               private plotTools: PlotToolsDataService) { }
@@ -27,6 +28,7 @@ export class PlotQuestionComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
     this.subscription = this.plotTools.currentPlotTools.subscribe(tools => this.tools = tools)
+    this.posterBack = this.movie.backdrop
   }
  
   enableEdition() {
