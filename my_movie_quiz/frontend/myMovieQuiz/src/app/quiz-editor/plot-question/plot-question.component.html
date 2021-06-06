@@ -1,38 +1,25 @@
 <div class="question_main">
 
-  <div *ngIf="showQuestion === true" class="card"
+  <div *ngIf="showQuestion === true" class="question_card"
     [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
-    <text class="plot" [style.border-radius]="tools.corner[0].value"
-      [style.border]="tools.border[0].value + ' rgb(' + tools.borderColor[0] + ')'"
-      [style.font-weight]="tools.weight[0]" [contentEditable]="editable" [style.font-size.px]="tools.fontSize[0]"
-      [style.color]="'rgb(' + tools.fontColor[0] + ')'" [style.font-family]="tools.fontFamily[0].value"
-      [style.background-color]="'rgba(' + tools.backColor[0] + ',' + tools.opacity[0] + ')'">
+    <text class="plot" [style.border-radius]="tools.corner.value"
+      [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'"
+      [style.font-weight]="tools.weight" [contentEditable]="editable" [style.font-size.px]="tools.fontSize"
+      [style.color]="'rgb(' + tools.fontColor + ')'" [style.font-family]="tools.fontFamily.value"
+      [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
       {{ movie.plot }}
     </text>
 
   </div>
 
-  <div *ngIf="showQuestion === false" class="card"
-    [ngStyle]="{'background-image': 'url(' + 'https://image.tmdb.org/t/p/w780' + posterBack + ')' }">
-
-    <div class="answer">
-
-      <text [style.border-radius]="tools.corner[1].value"
-        [style.border]="tools.border[1].value + ' rgb(' + tools.borderColor[1] + ')'"
-        [style.font-weight]="tools.weight[1]" [style.font-size.px]="tools.fontSize[1]"
-        [style.color]="'rgb(' + tools.fontColor[1] + ')'" [style.font-family]="tools.fontFamily[1].value"
-        [style.background-color]="'rgba(' + tools.backColor[1] + ',' + tools.opacity[1] + ')'">
-        <span>{{ movie.title }}</span>
-      </text>
-
-    </div>
-
+  <div *ngIf="showQuestion === false">
+    <app-answer></app-answer>
   </div>
 
 </div>
 
-<div *ngIf="tools.palette.tool == 'none'" class="question_toolbar">
+<div *ngIf="tools.palette == 'none'" class="question_toolbar">
 
   <div class="toolbar-button">
     <button class="btn btn-info" (click)="enableEdition()">Edit
@@ -46,7 +33,7 @@
 
 </div>
 
-<div *ngIf="tools.palette.tool != 'none'" class="question_palette">
+<div *ngIf="tools.palette != 'none'" class="question_palette">
 
   <app-palette></app-palette>
 

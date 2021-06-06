@@ -20,20 +20,10 @@
   box-shadow: 0 0 6px white;
 }
 
-.fontFamily {
+.font-family {
+  padding-top: 12px;
   display: flex;
   justify-content: center;
-}
-
-.fontPadding {
-  padding-top: 12px;
-}
-
-.backgroundThemeSelector {
-  display: flex;
-  width: 190px;
-  padding-top: 12px;
-  margin-left: 5px;
 }
 
 .back {

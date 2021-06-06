@@ -1,4 +1,4 @@
-<div class="tool_main">
+<div class="tool_main" [style]="style" [@cardChange]="tools.card">
 
   <div class="tool_tools back-tool" [ngClass]="{'up-down': startAnm == true}">
     <button class="tool_btn" (click)="showBack()">

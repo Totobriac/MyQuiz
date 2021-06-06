@@ -55,7 +55,6 @@ body {
   justify-content: center;
 }
 
-
 @keyframes tilt {
   0% { transform: rotate(4deg);}
   20% { transform: rotate(0deg);}
@@ -85,4 +84,15 @@ body {
   display: flex;
   justify-content: space-between;
   background-color: rgb(4, 113, 150);
+}
+
+.switch {
+  margin-right: 24px;
+}
+
+.question_card {
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

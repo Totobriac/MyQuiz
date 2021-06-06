@@ -1,4 +1,4 @@
-<div class="tool_main">
+<div class="tool_main" [style]="style" [@cardChange]="tools.card">
 
   <div class="font tool_tools"
     [ngStyle]="fontFirst == true? {'animation': 'font 2s both'} : {'transform': 'translateY(' + yFont+ 'px)'}"
@@ -10,7 +10,7 @@
 
     <div [hidden]="isHidden">
 
-      <div class="fontFamily fontPadding">
+      <div class="font-family">
         <button (click)="changeFontFamily(-1)" class="tool_icon">
           <mat-icon>chevron_left</mat-icon>
         </button>
@@ -18,6 +18,13 @@
         <button (click)="changeFontFamily(1)" class="tool_icon">
           <mat-icon>chevron_right</mat-icon>
         </button>
+      </div>
+
+      <div *ngIf="tools.card == 'answer'" class="font-size">
+        <mat-icon class="tool_icon">format_size</mat-icon>
+        <mat-slider min="34" max="60" step="2" [value]="tools.fontSize" (input)="changeFontSize($event.value)"
+          thumbLabel=true tickInterval=2>
+        </mat-slider>
       </div>
 
       <div class="icons">
@@ -29,7 +36,7 @@
         </button>
       </div>
 
-      <div class="fontFamily">
+      <div *ngIf="tools.card == 'question'" class="font-family">
         <div class="input-group input-group-sm display">
           <select class="custom-select" (change)="selectDisplay($event.target.value)">
             <option value=1>Name</option>
@@ -51,7 +58,7 @@
       <span>Background</span>
     </button>
 
-    <div class="backgroundThemeSelector">
+    <div class="tool_back-selector" *ngIf="tools.card == 'question'">
       <button (click)="changeBackground(-1)" class="tool_icon">
         <mat-icon>chevron_left</mat-icon>
       </button>

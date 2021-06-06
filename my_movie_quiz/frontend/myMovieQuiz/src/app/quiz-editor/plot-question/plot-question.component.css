@@ -1,10 +1,3 @@
-.card {
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
 .handdraw {
   border-top-left-radius: 255px 15px;
   border-top-right-radius: 15px 255px;
@@ -25,19 +18,8 @@
   margin-left: 20px;  
 }
 
-.switch {
-  margin-right: 24px;
-}
-
-.answer {
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-span {
-  margin-left: 8px;
-  margin-right: 8px;
+.question_card {
+  align-items: center;
+  height: 450px;
+  width: 662px;
 }

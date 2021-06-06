@@ -32,13 +32,13 @@ export class ActorQuestionComponent implements OnInit {
   constructor(private searchActor: SearchActor,
               private pixelActor: PixelActor,
               private movieData: MovieDataService,
-              private actorToolsData: ActorToolsDataService,
+              private actorTools: ActorToolsDataService,
               private actorData: ActorDataService) { }
 
   ngOnInit() {
-    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
-    this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.tools = tools)
-    this.subscription = this.actorData.currentActor.subscribe(actor => this.actor = actor)
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie);
+    this.subscription = this.actorTools.currentActorTools.subscribe(tools => this.tools = tools);
+    this.subscription = this.actorData.currentActor.subscribe(actor => this.actor = actor);
     this.getActorsList()
     // if (this.actor.urls[3].length < 9) {
     //   this.getPicturesList()

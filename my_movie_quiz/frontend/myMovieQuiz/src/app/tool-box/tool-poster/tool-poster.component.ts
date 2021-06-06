@@ -5,11 +5,25 @@ import { MovieDataService } from "../../services/movie-data.service";
 import { Subscription } from 'rxjs';
 import { PosterToolsDataService } from 'src/app/services/posterTools-data.service';
 import { PosterTools } from 'src/app/interfaces/posterTools';
+import { DomSanitizer } from '@angular/platform-browser';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-tool-poster',
   templateUrl: './tool-poster.component.html',
-  styleUrls: ['./tool-poster.component.css',]           
+  styleUrls: ['./tool-poster.component.css'],
+  animations: [
+    trigger('cardChange', [
+      transition((fromState: string, toState: string) => toState != fromState, [
+        animate(100, style({ transform: 'rotate(1deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(-1deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(1deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' }))
+      ])
+    ])
+  ]          
 })
 export class ToolPosterComponent implements OnInit {
 
@@ -20,15 +34,24 @@ export class ToolPosterComponent implements OnInit {
   subscription: Subscription
   isHidden: boolean = true
   startAnm: boolean = false
+  toolColor: string;
 
   constructor (private toolsService : ToolsService,
                private movieData: MovieDataService,
-               private posterToolsData: PosterToolsDataService) {}
+               private posterToolsData: PosterToolsDataService,
+               private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.poster = movie.poster)
     this.subscription = this.posterToolsData.currentPosterTools.subscribe(tools => this.tools = tools)
     this.urlToCrop = "https://image.tmdb.org/t/p/w500" + this.poster
+  }
+
+  get style() {
+    this.tools.card == "question"
+      ? this.toolColor = 'rgb(95,158,160)' 
+      : this.toolColor = 'rgb(215, 190, 130);'
+    return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
   }
 
   imageCropped(event: ImageCroppedEvent) {

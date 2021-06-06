@@ -1,27 +1,24 @@
-<div class="d-flex qAWindow">
+<div class="question_main">
 
-  <div *ngIf="showQuestion === true" class="mainDiv"
-  [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
+  <div *ngIf="showQuestion === true" class="question-div"
+    [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
 
-    <div *ngFor="let act of actor.pic; index as i" class="actorCard">
-      
-      <div class="card">
-        <div class="cardPicture">
-          <img [attr.src]="act.url"
-               [ngClass]="actor.pixValue[i] > 0  ? 'pixelated' : 'actorPic'"
-               crossorigin="anonymous"
-               [id]="i">
+    <div *ngFor="let act of actor.pic; index as i" class="single-actor-card">
+
+      <div class="actor-card">
+        <div class="actor-card-picture">
+          <img [attr.src]="act.url" [ngClass]="actor.pixValue[i] > 0  ? 'pixelated' : 'actor-card-picture'"
+            crossorigin="anonymous" [id]="i">
         </div>
         <div class="nameContain">
           <span [style.border-radius]="tools.corner.value"
-                [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'"
-                [style.font-weight]="tools.weight"
-                [style.color]="'rgb(' + tools.fontColor + ')'"
-                [style.font-family]="tools.fontFamily.value"
-                [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
-                {{ actorName[actor.display][i] }}
-        </span>          
+            [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'"
+            [style.font-weight]="tools.weight" [style.color]="'rgb(' + tools.fontColor + ')'"
+            [style.font-family]="tools.fontFamily.value"
+            [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
+            {{ actorName[actor.display][i] }}
+          </span>
         </div>
       </div>
     </div>
@@ -30,58 +27,44 @@
 
   </div>
 
-  
-
-  <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100" style="background-color: rgba(179, 218, 218, 0.1);" >
-    <h1 class="my-auto">{{ movie.title }}</h1>    
+  <div *ngIf="showQuestion === false" class="question_card"
+    [ngStyle]="{'background-image': 'url(' + 'https://image.tmdb.org/t/p/w780' + movie.backdrop + ')' }">
+    <img [src]="'https://image.tmdb.org/t/p/w300' + movie.poster" alt="">
   </div>
-
 </div>
 
 
 
-<div *ngIf="tools.palette == 'none'" class="toolBox">
+<div *ngIf="tools.palette == 'none'" class="question_toolbar">
 
-  <button mat-mini-fab color="accent" class="mt-1" (click)="nextPicture(-1)">
+  <button mat-mini-fab color="accent" class="next-btn" (click)="nextPicture(-1)">
     <mat-icon>chevron_left</mat-icon>
   </button>
 
   <mat-form-field class="actorChoice">
     <mat-label>Actor</mat-label>
-      <mat-select (selectionChange)="selectActor($event.value)">
-        <mat-option *ngFor="let actor of actorName[1]; index as index" [value]="index">
-          {{ actor }}
-        </mat-option>
-      </mat-select>
+    <mat-select (selectionChange)="selectActor($event.value)">
+      <mat-option *ngFor="let actor of actorName[1]; index as index" [value]="index">
+        {{ actor }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
-  <button mat-mini-fab color="accent"  class="mt-1" (click)="nextPicture(1)">
+  <button mat-mini-fab color="accent" class="next-btn" (click)="nextPicture(1)">
     <mat-icon>chevron_right</mat-icon>
   </button>
 
-  <form #searchActor="ngForm"
-        (ngSubmit)= submitForm(searchActor.value)>
+  <form #searchActor="ngForm" (ngSubmit)=submitForm(searchActor.value)>
     <mat-form-field class="actorCustom">
       <mat-label>Custom Search</mat-label>
-      <input matInput autocomplete="off"
-            type="text"
-            name="actorSearch"
-            placeholder="Ex. young, cartoon..." 
-            (ngModel)="model.searchActor">        
+      <input matInput autocomplete="off" type="text" name="actorSearch" placeholder="Ex. young, cartoon..."
+        (ngModel)="model.searchActor">
     </mat-form-field>
   </form>
 
   <span style="color: white" class="my-auto mr-2">Pixelate</span>
-  <mat-slider
-    class="my-auto" 
-    max= 4
-    min= 0
-    step= 1
-    thumbLabel= true
-    tickInterval= 1
-    [value]= actor.pixValue[selectAct]
-    [vertical]=false
-    (input)="pixelNav($event.value)">
+  <mat-slider class="my-auto" max=4 min=0 step=1 thumbLabel=true tickInterval=1 [value]=actor.pixValue[selectAct]
+    [vertical]=false (input)="pixelNav($event.value)">
   </mat-slider>
 
 
@@ -93,7 +76,7 @@
 
 </div>
 
-<div *ngIf="tools.palette != 'none'" class="toolBox">
+<div *ngIf="tools.palette != 'none'" class="question_palette">
 
   <app-palette></app-palette>
 

@@ -23,7 +23,6 @@ import { ToolsService } from '../tools.service';
       ])
     ])
   ]
-
 })
 
 export class ToolPlotComponent implements OnInit {
@@ -53,69 +52,42 @@ export class ToolPlotComponent implements OnInit {
   }
 
   changeFontSize(selectedSize: number) {
-    this.plotTools.changePalette("none", "none")
-    var fontSize = this.tools.fontSize
-    this.tools.card == "question" ? fontSize[0] = selectedSize : fontSize[1] = selectedSize
-    this.plotTools.changeFontSize(fontSize);
+    this.plotTools.changePalette("none")
+    this.plotTools.changeFontSize(selectedSize);
   }
 
   changeOpacity(selectedOpacity: number) {
-    this.plotTools.changePalette("none", "none");
-    var opacity = this.tools.opacity
-    this.tools.card == "question" ? opacity[0] = selectedOpacity : opacity[1] = selectedOpacity
-    this.plotTools.changeOpacity(opacity);
+    this.plotTools.changePalette("none");
+    this.plotTools.changeOpacity(selectedOpacity);
   }
 
   onChangeCorner() {
-    this.plotTools.changePalette("none", "none");
-    var corner = this.tools.corner
-    var corn
-    this.tools.card == "question"
-      ? corn = this.toolsService.corner(this.tools.corner[0].index)
-      : corn = this.toolsService.corner(this.tools.corner[1].index)
-    this.tools.card == "question"
-      ? corner[0] = corn
-      : corner[1] = corn
+    this.plotTools.changePalette("none");
+    var corner = this.toolsService.corner(this.tools.corner.index)
     this.plotTools.changeCorner(corner);
   }
 
   changeBorder() {
-    this.plotTools.changePalette("none", "none");
-    var border = this.tools.border
-    var bord
-    this.tools.card == "question"
-      ? bord = this.toolsService.border(this.tools.border[0].index)
-      : bord = this.toolsService.border(this.tools.border[1].index)
-    this.tools.card == "question"
-      ? border[0] = bord
-      : border[1] = bord
+    this.plotTools.changePalette("none");
+    var border = this.toolsService.border(this.tools.border.index)
     this.plotTools.changeBorder(border);
   }
 
   changeFontFamily(next: number) {
-    this.plotTools.changePalette("none", "none");
-    var family = this.tools.fontFamily
-    var fam
-    this.tools.card == "question"
-      ? fam = this.toolsService.family(this.tools.fontFamily[0].index, next)
-      : fam = this.toolsService.family(this.tools.fontFamily[1].index, next)
-    this.tools.card == "question"
-      ? family[0] = fam
-      : family[1] = fam
-    this.plotTools.changeBorder(family);    
+    this.plotTools.changePalette("none");
+    var family = this.toolsService.family(this.tools.fontFamily.index, next)
+    this.plotTools.changeFontFamily(family);    
   }
 
   isBold() {
-    this.plotTools.changePalette("none", "none");
-    var weight = this.tools.weight
-    this.tools.card == "question"
-      ? weight[0] == "normal" ? weight[0] = "bold" : weight[0] = "normal"
-      : weight[1] == "normal" ? weight[1] = "bold" : weight[1] = "normal"
+    this.plotTools.changePalette("none");
+    var weight
+    this.tools.weight == "normal" ? weight = "bold" : weight = "normal"
     this.plotTools.changeWeight(weight)
   }
 
   selectTheme(theme: number) {
-    this.plotTools.changePalette("none", "none");
+    this.plotTools.changePalette("none");
     this.toolsService.theme(theme)
       .subscribe((backgrounds) => {
         var back = backgrounds
@@ -125,7 +97,7 @@ export class ToolPlotComponent implements OnInit {
   }
 
   changeBackground(next: number) {
-    this.plotTools.changePalette("none", "none");
+    this.plotTools.changePalette("none");
     var index = this.tools.background.id + next;
     if (index == this.tools.backgrounds.length) {
       index = 0
@@ -136,11 +108,11 @@ export class ToolPlotComponent implements OnInit {
   }
 
   changeColor(tool: string) {
-    this.plotTools.changePalette(tool, this.tools.card);
+    this.plotTools.changePalette(tool);
   }
 
   onChange() {
-    this.plotTools.changePalette("none", "none");
+    this.plotTools.changePalette("none");
   }
 
   showBack() {

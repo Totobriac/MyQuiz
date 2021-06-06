@@ -8,11 +8,11 @@
   .colorTile {
     height: 42px;
     width: 42px;
-    border-radius: 50%;    
+    border-radius: 12%;    
     margin-top: 5px;
-    -moz-box-shadow: 0 0 6px white;
-    -webkit-box-shadow: 0 0 6px white;
-    box-shadow: 0 0 6px white;
+    -moz-box-shadow: 0 0 4px white;
+    -webkit-box-shadow: 0 0 4px white;
+    box-shadow: 0 0 4px white;
     cursor: pointer;
   }
 }

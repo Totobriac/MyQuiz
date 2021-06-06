@@ -14,4 +14,5 @@ export interface PosterTools {
   borderColor: any;
   palette: string;
   crop: boolean;
+  card: string;
 }

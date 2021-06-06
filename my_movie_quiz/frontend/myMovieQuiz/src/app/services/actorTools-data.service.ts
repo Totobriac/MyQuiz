@@ -10,11 +10,12 @@ export class ActorToolsDataService {
   constructor() { }
 
   private actorTools = new BehaviorSubject<ActorTools>({
+    fontSize: 34,
     fontFamily: {
       index: 0,
       value: "'Roboto', sans-serif",
       display: "Regular"
-    },
+    }, 
     background: {
       author_name: "none",
       highUrl: "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg",
@@ -32,12 +33,12 @@ export class ActorToolsDataService {
     border: {
       index: 0,
       value: "0px",
-    },
+    }, 
     backColor: "255, 255, 255",
     fontColor: "0 , 0, 0",
     borderColor: "0, 0, 0",
-    palette: "none",
-    colorArea: "font"
+    palette:"none",
+    card: "question",
   })
 
   currentActorTools = this.actorTools.asObservable();
@@ -69,8 +70,8 @@ export class ActorToolsDataService {
   changeWeight(weight: string) {
     this.actorTools.next(Object.assign(this.actorTools.value, { weight: weight }))
   }
-
-  changePalette(tool: string) {
+  
+  changePalette(tool: string,) {
     this.actorTools.next(Object.assign(this.actorTools.value, { palette: tool }))
   }
 
@@ -86,5 +87,11 @@ export class ActorToolsDataService {
     this.actorTools.next(Object.assign(this.actorTools.value, { borderColor: color }))
   }
 
+  changeCard(card: string) {
+    this.actorTools.next(Object.assign(this.actorTools.value, { card: card }))
+  }
 
+  changeFontSize(size: number) {
+    this.actorTools.next(Object.assign(this.actorTools.value, { fontSize: size }))
+  }
 }

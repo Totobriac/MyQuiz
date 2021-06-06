@@ -1,6 +1,13 @@
-.card {
+.actor-card {
   background-color: rgba(255, 255, 255, 0) !important;
   border: 0px;
+}
+
+.answer-div {
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 button:focus {
@@ -17,78 +24,67 @@ button:focus {
   height: 67;
 }
 
-.qAWindow{
-  text-align: center;
-}
-
-.toolBox {
-  background-color: rgb(4, 113, 150)
-}
-
 .actorChoice {
   background-color: rgb(4, 113, 150);
 }
-  
-@media only screen and (min-width: 1020px) {
-  .qAWindow  {
-    height: 450px;
-    width: 662px;    
-  }
 
-  .toolBox {
-    margin-top: 24px;
-    width: 662px;
-    height: 52px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .switch {
-    margin-right: 24px;
-    margin-top: 12px;
-  }
-
-  .actorCard {
-    height: 225px;
-    width: 331px;
-    margin-top: 6px;
-  }
-
-  .mainDiv {
-    display: flex;
-    flex-wrap: wrap;
-    background-size: cover;
-  }
-
-  .actorPic {
-    width: auto;
-    height: 170px;
-    object-fit: contain;
-  }
-
-  .nameContain {
-    margin-top: 12px;
-    font-size: 20px;
-  }
-
-  .pixelated {    
-    width: auto;    
-    height: 170px;
-    object-fit: contain;
-    image-rendering: pixelated
-  }
-
-  .cardPicture {
-    width: auto;
-    height: 170px;
-  }
-
-  .actorChoice {
-    width: 120px;
-  }
-
-  .actorCustom {
-    width: 120px;
-    padding: 0;
-  }
+.single-actor-card {
+  height: 225px;
+  width: 331px;
+  margin-top: 6px;
 }
+
+.question-div {
+  display: flex;
+  flex-wrap: wrap;
+  background-size: cover;
+}
+
+.actor-card-picture {
+  width: auto;
+  height: 170px;
+  object-fit: contain;
+}
+
+.nameContain {
+  margin-top: 12px;
+  font-size: 20px;
+}
+
+.pixelated {    
+  width: auto;    
+  height: 170px;
+  object-fit: contain;
+  image-rendering: pixelated
+}
+
+.actorChoice {
+  width: 120px;
+}
+
+.actorCustom {
+  width: 120px;
+  padding: 0;
+}
+
+.next-btn {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.answer {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+span {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+

@@ -1,23 +1,25 @@
-<div *ngIf="showQuestion === true" class="posterDiv"
-  [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
+<div class="question_main">
 
-  <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation"
-    [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'">
-    <div class="poster" [style]="style" [ngClass]="imageEffect">
-      <img [attr.src]="tools.posterSrc">
+  <div *ngIf="showQuestion === true" class="question_card"
+    [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
+
+    <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation"
+      [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'">
+      <div class="poster" [style]="style" [ngClass]="imageEffect">
+        <img [attr.src]="tools.posterSrc">
+      </div>
     </div>
+
+  </div>
+
+  <div *ngIf="showQuestion === false" class="question_card"
+    [ngStyle]="{'background-image': 'url(' + 'https://image.tmdb.org/t/p/w780' + movie.backdrop + ')' }">
+    <img [src]="'https://image.tmdb.org/t/p/w300' + movie.poster" alt="">
   </div>
 
 </div>
 
-
-<div *ngIf="showQuestion === false" class="posterDiv"
-  [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
-  <h1 class="my-auto">{{ movie.title }}</h1>
-</div>
-
-
-<div *ngIf="tools.palette == 'none'" class="toolBox">
+<div *ngIf="tools.palette == 'none'" class="question_toolbar">
 
   <div class="tools">
 
@@ -54,9 +56,10 @@
       <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
     </div>
   </div>
+
 </div>
 
-<div *ngIf="tools.palette != 'none'" class="toolBox">
+<div *ngIf="tools.palette != 'none'" class="question_palette">
 
   <app-palette></app-palette>
 

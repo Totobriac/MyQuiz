@@ -17,8 +17,7 @@ export class PosterQuestionComponent implements OnInit {
   blurring: any;
   color: any;
   rotation: any;
-  back: any
-
+  back: any;
   showQuestion = true;
   effectIndex: number = 0
   imgEffects = [{display:'No effect', value:''},
@@ -51,9 +50,9 @@ export class PosterQuestionComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
-    this.subscription = this.posterToolsData.currentPosterTools.subscribe(tools => this.tools = tools)
-    this.back = 'url(' + this.tools.posterSrc + ')' 
+    this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie);
+    this.subscription = this.posterToolsData.currentPosterTools.subscribe(tools => this.tools = tools);
+    this.back = 'url(' + this.tools.posterSrc + ')';
   }
 
   get style() {

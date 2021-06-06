@@ -32,29 +32,15 @@ export class PaletteComponent implements OnInit {
     this.subscription = this.plotToolsData.currentPlotTools.subscribe(tools => this.plotTools = tools)
     this.subscription = this.actorToolsData.currentActorTools.subscribe(tools => this.actorTools = tools)
     this.subscription = this.posterToolsData.currentPosterTools.subscribe(tools => this.posterTools = tools)
-
   }
 
   newColor(color) {
-    console.log(this.plotTools.palette);
-    if (this.plotTools.palette.tool == "plotFont") {
-      var colors = this.plotTools.fontColor
-      this.plotTools.palette.card == "question"
-        ? colors[0] = color
-        : colors[1] = color
-      this.plotToolsData.changeFontColor(colors)
-    } else if (this.plotTools.palette.tool == "plotBack") {
-      var colors = this.plotTools.backColor
-      this.plotTools.palette.card == "question"
-        ? colors[0] = color
-        : colors[1] = color
-      this.plotToolsData.changeBackColor(colors)
-    } else if (this.plotTools.palette.tool == "plotBorder") {
-      var colors = this.plotTools.borderColor
-      this.plotTools.palette.card == "question"
-        ? colors[0] = color
-        : colors[1] = color
-      this.plotToolsData.changeBorderColor(colors)
+    if (this.plotTools.palette == "plotFont") {
+      this.plotToolsData.changeFontColor(color)
+    } else if (this.plotTools.palette == "plotBack") {
+      this.plotToolsData.changeBackColor(color)
+    } else if (this.plotTools.palette == "plotBorder") {
+      this.plotToolsData.changeBorderColor(color)
     } else if (this.actorTools.palette == "actorFont") {
       this.actorToolsData.changeFontColor(color)
     } else if (this.actorTools.palette == "actorBack") {
