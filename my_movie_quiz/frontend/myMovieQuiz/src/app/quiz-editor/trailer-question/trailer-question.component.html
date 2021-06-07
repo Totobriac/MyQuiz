@@ -1,33 +1,22 @@
-<div class="question_main"
-     #dragBounds
-     id="container">
+<div class="question_main" #dragBounds id="container">
 
-  <div class="player"
-       [style.z-index]="showVideo ? '100' : '-100'">
+  <div class="player" [style.z-index]="showVideo ? '100' : '-100'">
 
     <div *ngIf="this.screenshotTaken == false">
       <div id="player"></div>
     </div>
 
     <div *ngIf="tools.scrapPic != undefined" class="scrap-pic-disp">
-      <div *ngFor="let scrap of tools.scrapPic"
-            class="scrap-pic"
-            [ngDraggable]= "screenshotTaken"
-            [ngResizable]= "screenshotTaken"
-            [style.position]= "picPosition"
-            [rzAspectRatio]="aspectRatio"
-            [rzHandles]="'e,s,se'"
-            rzContainment="#container"
-            [bounds]="dragBounds"
-            [inBounds]="true"
-            [style.background-image]= "'url('+'https://moviepictures.s3.amazonaws.com/' + scrap.url+')'">
+      <div *ngFor="let scrap of tools.scrapPic" class="scrap-pic" [ngDraggable]="screenshotTaken"
+        [ngResizable]="screenshotTaken" [style.position]="picPosition" [rzAspectRatio]="aspectRatio"
+        [rzHandles]="'e,s,se'" rzContainment="#container" [bounds]="dragBounds" [inBounds]="true"
+        [style.background-image]="'url('+'https://moviepictures.s3.amazonaws.com/' + scrap.url+')'">
       </div>
     </div>
-  </div> 
+  </div>
 
-  <div class="title" 
-       [style.z-index]="showVideo ? '-100' : '100'">
-       <app-answer></app-answer>    
+  <div class="title" [style.z-index]="showVideo ? '-100' : '100'">
+    <app-answer></app-answer>
   </div>
 
 </div>
@@ -37,25 +26,24 @@
 <div class="question_toolbar">
 
   <div class="pic-tool">
-    <button class= "btn btn-sm btn-info my-2" (click)="takeScreenshot()"><mat-icon>photo_camera</mat-icon></button>
-    <button class= "btn btn-sm btn-info my-2" (click)="takeGif()"><mat-icon>gif</mat-icon></button>
+    <button class="toolbar-btn" (click)="takeScreenshot()">
+      <mat-icon class="icon">photo_camera</mat-icon>
+    </button>
+    <button class="toolbar-btn" (click)="takeGif()">
+      <mat-icon class="icon">gif</mat-icon>
+    </button>
 
     <div class="gif-tool">
-      <span style="color: white"><mat-icon class="clock">timer</mat-icon></span>
-      <mat-slider
-        class="my-auto" 
-        max= 5
-        min= 0
-        step= 0.05
-        thumbLabel= true
-        tickInterval= 1
-        value = 0
-        [vertical]=false
+      <span style="color: white">
+        <mat-icon class="clock">timer</mat-icon>
+      </span>
+      <mat-slider class="my-auto" max=5 min=0 step=0.05 thumbLabel=true tickInterval=1 value=0 [vertical]=false
         (input)="duration($event.value)">
       </mat-slider>
-    </div>  
+    </div>
 
-    <button *ngIf="tools.scrapPic.length > 0" class= "btn btn-info my-2" (click)="generateScrapBooks()">Generate ScrapBook</button>
+    <button [ngClass]="tools.scrapPic.length == 0 ? 'disabled' : 'toolbar-btn'" (click)="generateScrapBooks()">Generate
+      ScrapBook</button>
   </div>
 
   <div>
@@ -65,4 +53,3 @@
   </div>
 
 </div>
-

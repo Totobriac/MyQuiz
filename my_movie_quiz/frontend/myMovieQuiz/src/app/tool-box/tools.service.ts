@@ -37,8 +37,6 @@ export class ToolsService {
   }
 
   border(index: number) {
-    console.log(index);
-    console.log(this.borderStyles.length);
     index == this.borderStyles.length - 1 ? index = 0 : index ++
     return(this.borderStyles[index])    
   }

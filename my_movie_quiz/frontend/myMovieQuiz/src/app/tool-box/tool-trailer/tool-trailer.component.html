@@ -1,10 +1,10 @@
-<div class="tool_main">
+<div class="tool_main" [style]="style" [@cardChange]="tools.card">
 
-  <div *ngIf="scrapPics.length == 0" class="preview-display">
+  <div *ngIf="tools.shooting" class="preview-display">
 
     <div class="preview">
-      <div *ngIf="previewPics != undefined || previewPics[0] != undefined">
-        <img [src]="'https://moviepictures.s3.amazonaws.com/' + previewPics[0]['url']" class="preview-pic">
+      <div *ngIf="tools.previewPic != undefined && tools.previewPic[0] != undefined">
+        <img [src]="'https://moviepictures.s3.amazonaws.com/' + tools.previewPic[0]['url']" class="preview-pic">
       </div>
     </div>
 
@@ -19,17 +19,17 @@
     
   </div>
 
-  <!-- <div *ngIf="previewPics[0] == undefined && scrapPics.length > 0">
+  <div *ngIf="!tools.shooting">
     <div cdkDropList 
-         class="layersStack"
+         class="pics-stack"
          cdkDropListLockAxis="y"
          (cdkDropListDropped)="drop($event)">
-      <div *ngFor="let scrapPic of scrapPics" 
+      <div *ngFor="let scrapPic of tools.scrapPic" 
             cdkDrag
             cdkDragBoundary=".layersStack">
         <img [src]="'https://moviepictures.s3.amazonaws.com/' + scrapPic.url" class="scrapPic">
       </div>
     </div>
-  </div> -->
+  </div>
 
 </div>

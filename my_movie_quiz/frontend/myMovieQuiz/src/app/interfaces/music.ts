@@ -20,3 +20,7 @@ export interface Music {
   isPaused: boolean;
   position: number;
 }
+
+export interface MusicCard {
+  card: string;
+}

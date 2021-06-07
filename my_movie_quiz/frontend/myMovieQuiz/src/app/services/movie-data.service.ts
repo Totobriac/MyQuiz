@@ -20,7 +20,6 @@ export class MovieDataService {
   private tool = new BehaviorSubject(0);
   currentTool = this.tool.asObservable();
 
-
   private autocomplete = new BehaviorSubject([] as AutoResponse[]);
   currentMovieAuto = this.autocomplete.asObservable();
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Music,} from '../interfaces/music';
+import { Music, MusicCard,} from '../interfaces/music';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,11 @@ export class MusicDataService {
 
   private music = new BehaviorSubject({} as Music);
   currentMusic = this.music.asObservable();
+
+  private musicCard = new BehaviorSubject<MusicCard>({
+    card: "question"
+  })
+  currentMusicCard = this.musicCard.asObservable();
 
   changeMainTitle(mainTitle: any) {
     this.music.next(Object.assign(this.music.value, {mainTitle: mainTitle}))
@@ -29,5 +34,9 @@ export class MusicDataService {
 
   position(position: number) {
     this.music.next(Object.assign(this.music.value, {position: position}))
+  }
+
+  changeCard(card: string) {
+    this.musicCard.next(Object.assign(this.musicCard.value, { card: card }))
   }
 }

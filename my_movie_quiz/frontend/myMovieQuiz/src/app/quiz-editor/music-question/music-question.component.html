@@ -1,7 +1,6 @@
 <div class="window">
 
   <div *ngIf="showQuestion === true" class="question">
-    <!-- [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }" -->
 
     <div *ngIf="isPlaying == false && mixing == false" class="albums">
       <div class="albumsCover">
@@ -43,7 +42,7 @@
 
 </div>
 
-<div class="toolBox">
+<div class="question_toolbar">
 
   <div *ngIf="themes == undefined && mixing == false" class="deezerInput">
     <form autocomplete="off" #deezerSearch="ngForm" (ngSubmit)=retreiveData(deezerSearch.value.deezerSearch)
@@ -120,8 +119,8 @@
         <mat-icon>chevron_left</mat-icon>
       </button>
 
-      <div class="sampleDisplay">{{ samples[sampleIndex]["name"] }} <b
-          style="color: red">{{ samples[sampleIndex]["duration"] | number : '1.2-2'}} s</b></div>
+      <div class="sampleDisplay">{{ samples[sampleIndex]["name"] }} <b style="color: red">{{
+          samples[sampleIndex]["duration"] | number : '1.2-2'}} s</b></div>
 
       <button (click)="changeSample(1)" class="icon">
         <mat-icon>chevron_right</mat-icon>
@@ -137,11 +136,9 @@
 
   </div>
 
-  <div class="switchDiv" [class.switchTemplates]="samples != undefined">
-    <div class="switch">
-      <app-qaswitch (setSection)="onSelectedSection($event)">
-      </app-qaswitch>
-    </div>
+  <div class="switch">
+    <app-qaswitch (setSection)="onSelectedSection($event)">
+    </app-qaswitch>
   </div>
 
 </div>

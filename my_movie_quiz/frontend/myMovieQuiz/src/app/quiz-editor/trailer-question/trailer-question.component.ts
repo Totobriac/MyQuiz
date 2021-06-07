@@ -96,6 +96,7 @@ export class TrailerQuestionComponent implements OnInit {
   generateScrapBooks() {
     this.screenshotTaken = true;
     this.picPosition = "absolute";
+    this.trailerToolsData.changeShooting(false)
   }
 
   takeGif() {

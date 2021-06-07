@@ -30,7 +30,7 @@
   margin-bottom: 5px;
 }
 
-.layersStack {
+.pics-tack {
   display: flex;
   flex-direction: column;
   cursor: move;

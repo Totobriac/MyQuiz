@@ -15,6 +15,8 @@ export class TrailerToolsDataService {
     videoSrcId: null,
     previewPic:[],
     scrapPic:[],
+    card: "question",
+    shooting: true,
   })
 
   currentTrailerTools = this.trailerTools.asObservable();
@@ -29,5 +31,13 @@ export class TrailerToolsDataService {
 
   addScrapPic(scrapPic: any) {
     this.trailerTools.next(Object.assign(this.trailerTools.value, {scrapPic: scrapPic}))
+  }
+
+  changeCard(card: string) {
+    this.trailerTools.next(Object.assign(this.trailerTools.value, { card: card }))
+  }
+
+  changeShooting(shooting: boolean) {
+    this.trailerTools.next(Object.assign(this.trailerTools.value, { shooting: shooting}))
   }
 }

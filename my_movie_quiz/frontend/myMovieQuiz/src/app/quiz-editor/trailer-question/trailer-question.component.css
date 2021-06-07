@@ -26,8 +26,7 @@
 
 .title {
   position: absolute;
-  margin-top: -442px;
-  margin-bottom: auto;
+  top: 0;
 }
 
 .player {
@@ -41,15 +40,45 @@
 
 .pic-tool {
   margin-left: 24px;
+  width: 500px;
   display: flex;
   justify-content: space-between;
-}
-
-.btn {
-  margin-right: 12px;
+  align-items: center;
+  border: none;
+  background: none;
+  outline: none;
 }
 
 .clock {
   margin-top: 14px;
   margin-bottom: 14px;
+}
+
+.toolbar-btn {
+  height: 30px;
+  border-radius: 5px;
+  background-color: cadetblue;
+  color: white;
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+}
+
+.icon {
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.disabled {
+  pointer-events: none;
+  height: 30px;
+  border-radius: 5px;
+  background-color: rgb(163, 185, 185);
+  color: white;
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
 }
