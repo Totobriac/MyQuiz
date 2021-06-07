@@ -12,9 +12,8 @@
 
   </div>
 
-  <div *ngIf="showQuestion === false" class="question_card"
-    [ngStyle]="{'background-image': 'url(' + 'https://image.tmdb.org/t/p/w780' + movie.backdrop + ')' }">
-    <img [src]="'https://image.tmdb.org/t/p/w300' + movie.poster" alt="">
+  <div *ngIf="showQuestion === false">
+    <app-answer></app-answer>
   </div>
 
 </div>

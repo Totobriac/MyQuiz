@@ -27,8 +27,8 @@
     </div>
 
     <div *ngIf="isPlaying === true && mixing == false">
-      <iframe scrolling="yes" frameborder="0" allowTransparency="true" [src]="urlSafe" width="600"
-        height="300" class="player"></iframe>
+      <iframe scrolling="yes" frameborder="0" allowTransparency="true" [src]="urlSafe" width="600" height="300"
+        class="player"></iframe>
     </div>
 
     <div class="mixer" *ngIf="mixing == true">
@@ -37,8 +37,8 @@
 
   </div>
 
-  <div *ngIf="showQuestion === false" class="d-flex justify-content-center w-100">
-    <h1 class="my-auto">{{ movie.title }}</h1>
+  <div *ngIf="showQuestion === false">
+    <app-answer></app-answer>
   </div>
 
 </div>
@@ -54,20 +54,14 @@
   </div>
 
   <div *ngIf="themes != undefined && mixing == false" class="trackTool">
-    <span style="color: white"><mat-icon class="album">album</mat-icon></span>
-    <mat-slider
-      class="my-auto" 
-      [max]= "themes.length"
-      min= 1
-      step= 1
-      thumbLabel= true
-      tickInterval= 1
-      value= 1
-      [vertical]=false
-      (input)="trackChoice($event.value)">
+    <span style="color: white">
+      <mat-icon class="album">album</mat-icon>
+    </span>
+    <mat-slider class="my-auto" [max]="themes.length" min=1 step=1 thumbLabel=true tickInterval=1 value=1
+      [vertical]=false (input)="trackChoice($event.value)">
     </mat-slider>
 
-    <button class= "btn btn-info my-2 rounded-0 border-0" (click)="selectTrack()">Select</button>
+    <button class="btn btn-info my-2 rounded-0 border-0" (click)="selectTrack()">Select</button>
   </div>
 
   <div *ngIf="mixing == true" class="sampleFinder">
@@ -126,14 +120,19 @@
         <mat-icon>chevron_left</mat-icon>
       </button>
 
-      <div class="sampleDisplay">{{ samples[sampleIndex]["name"] }}  <b style="color: red">{{ samples[sampleIndex]["duration"] | number : '1.2-2'}} s</b></div>
+      <div class="sampleDisplay">{{ samples[sampleIndex]["name"] }} <b
+          style="color: red">{{ samples[sampleIndex]["duration"] | number : '1.2-2'}} s</b></div>
 
       <button (click)="changeSample(1)" class="icon">
         <mat-icon>chevron_right</mat-icon>
       </button>
 
-      <button (click)="addToSamples()" class="icon"><mat-icon>playlist_add</mat-icon></button>
-      <button (click)="deleteSearch()" class="icon"><mat-icon class="deleteIcon">cancel</mat-icon></button>
+      <button (click)="addToSamples()" class="icon">
+        <mat-icon>playlist_add</mat-icon>
+      </button>
+      <button (click)="deleteSearch()" class="icon">
+        <mat-icon class="deleteIcon">cancel</mat-icon>
+      </button>
     </div>
 
   </div>

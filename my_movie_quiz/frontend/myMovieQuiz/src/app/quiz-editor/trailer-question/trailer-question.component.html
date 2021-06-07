@@ -1,4 +1,4 @@
-<div class="qAWindow"
+<div class="question_main"
      #dragBounds
      id="container">
 
@@ -9,9 +9,9 @@
       <div id="player"></div>
     </div>
 
-    <div *ngIf="tools.scrapPic != undefined" class="scrapPicDisp">
+    <div *ngIf="tools.scrapPic != undefined" class="scrap-pic-disp">
       <div *ngFor="let scrap of tools.scrapPic"
-            class="scrapPic"
+            class="scrap-pic"
             [ngDraggable]= "screenshotTaken"
             [ngResizable]= "screenshotTaken"
             [style.position]= "picPosition"
@@ -27,20 +27,20 @@
 
   <div class="title" 
        [style.z-index]="showVideo ? '-100' : '100'">
-    <h1 class="my-auto">{{ movie.title }}</h1>    
+       <app-answer></app-answer>    
   </div>
 
 </div>
 
 
 
-<div class="toolBox">
+<div class="question_toolbar">
 
-  <div class="picTool">
-    <button class= "btn btn-info my-2" (click)="takeScreenshot()"><mat-icon>photo_camera</mat-icon></button>
-    <button class= "btn btn-info my-2" (click)="takeGif()"><mat-icon>gif</mat-icon></button>
+  <div class="pic-tool">
+    <button class= "btn btn-sm btn-info my-2" (click)="takeScreenshot()"><mat-icon>photo_camera</mat-icon></button>
+    <button class= "btn btn-sm btn-info my-2" (click)="takeGif()"><mat-icon>gif</mat-icon></button>
 
-    <div class="gifTool">
+    <div class="gif-tool">
       <span style="color: white"><mat-icon class="clock">timer</mat-icon></span>
       <mat-slider
         class="my-auto" 

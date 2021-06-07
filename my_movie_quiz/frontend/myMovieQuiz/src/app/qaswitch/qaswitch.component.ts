@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActorTools } from '../interfaces/actorTools';
 import { PlotTools } from '../interfaces/plotTools';
+import { PosterTools } from '../interfaces/posterTools';
 import { ActorToolsDataService } from '../services/actorTools-data.service';
 import { MovieDataService } from '../services/movie-data.service';
 import { PlotToolsDataService } from '../services/plotTools-data.service';
@@ -22,7 +23,7 @@ export class QASwitchComponent implements OnInit {
   component: number;
   actorTools: ActorTools;
   plotTools: PlotTools;
-  posterTools: import("/home/pi/Documents/movieQuizz/my_movie_quiz/frontend/myMovieQuiz/src/app/interfaces/posterTools").PosterTools;
+  posterTools: PosterTools;
 
   constructor(
     private movieData: MovieDataService,

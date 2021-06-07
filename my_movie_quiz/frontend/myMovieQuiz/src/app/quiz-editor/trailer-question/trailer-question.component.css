@@ -1,7 +1,9 @@
-.qAWindow {
+.question_main {
   text-align: center;
   background-color: rgb(4, 113, 150);
   position: relative;
+  padding-top: 10px;
+  overflow: hidden;
 }
 
 .ng-resizable-diagonal {
@@ -9,70 +11,45 @@
   border-left: none !important;
 }
 
-@media only screen and (min-width: 1020px) {
-  .qAWindow  {
-    height: 450px;
-    width: 662px;
-    padding-top: 10px;
-    overflow: hidden;
-  }
+.scrap-pic-disp {
+  display: flex;
+  justify-content: space-around;
+  height: 65px;
+}
 
-  .toolBox {
-    margin-top: 24px;
-    width: 662px;
-    height: 52px;
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(4, 113, 150);
-  }
+.scrap-pic {
+  height: 65px;
+  width: 115px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 
-  .scrapPicDisp {
-    display: flex;
-    justify-content: space-around;
-    height: 65px;
-  }
+.title {
+  position: absolute;
+  margin-top: -442px;
+  margin-bottom: auto;
+}
 
-  .scrapPic {
-    height: 65px;
-    width: 115px;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
+.player {
+  position: relative
+}
 
-  .switch {
-    margin-left: 48px;
-    margin-right: 24px;
-    margin-top: 12px;
-  }
+.gif-tool {
+  display: flex;
+  align-items: center;
+}
 
-  .title {
-    position: relative;
-    margin-top: -250px;
-    margin-bottom: auto;
-  }
+.pic-tool {
+  margin-left: 24px;
+  display: flex;
+  justify-content: space-between;
+}
 
-  .player {
-    position: relative
-  }
+.btn {
+  margin-right: 12px;
+}
 
-  .gifTool {
-    display: flex;
-    align-items: center;
-  }
-
-  .picTool {
-    margin-left: 24px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .btn {
-    margin-right: 12px;
-  }
-
-  .clock {
-    margin-top: 14px;
-    margin-bottom: 14px;
-  }
-
+.clock {
+  margin-top: 14px;
+  margin-bottom: 14px;
 }
