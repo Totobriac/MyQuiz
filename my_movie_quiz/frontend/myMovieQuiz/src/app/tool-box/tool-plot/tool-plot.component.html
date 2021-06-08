@@ -1,5 +1,5 @@
-<div class="tool_main" [style]="style" [@cardChange]="tools.card">
-  
+<div class="tool_main" [style]="style" [@cardChange]="tools.card" *ngIf="tools.card =='question'">
+
   <div class="back tool_tools" (click)="showBack()"
     [ngStyle]="fontFirst == true? {'animation': 'back 2s both'} : {'transform': 'translateY(' + yBack + 'px)'}">
 
@@ -7,7 +7,7 @@
       <span>Background</span>
     </button>
 
-    <div class="tool_back-selector" *ngIf="tools.card == 'question'">
+    <div class="tool_back-selector">
       <button (click)="changeBackground(-1)" class="tool_icon">
         <mat-icon>chevron_left</mat-icon>
       </button>
@@ -22,7 +22,6 @@
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>
-
 
     <div class="font-size">
       <mat-icon class="tool_icon">opacity</mat-icon>
@@ -87,7 +86,9 @@
       </div>
 
     </div>
-
-
   </div>
+</div>
+
+<div class="tool_main" [style]="style" [@cardChange]="tools.card" *ngIf="tools.card =='answer'">
+  <app-tool-answer class="answer"></app-tool-answer>
 </div>

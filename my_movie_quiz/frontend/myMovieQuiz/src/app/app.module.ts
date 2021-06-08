@@ -45,6 +45,7 @@ import { MixerComponent } from './quiz-editor/mixer/mixer.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SearchComponent } from './quiz-editor/search/search.component';
 import { AnswerComponent } from './quiz-editor/answer/answer.component';
+import { ToolAnswerComponent } from './tool-box/tool-answer/tool-answer.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { AnswerComponent } from './quiz-editor/answer/answer.component';
     MixerComponent,
     SearchComponent,
     AnswerComponent,
+    ToolAnswerComponent,
   ],
   imports: [
     BrowserModule,

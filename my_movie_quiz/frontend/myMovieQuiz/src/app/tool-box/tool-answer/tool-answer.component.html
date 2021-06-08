@@ -1,0 +1,23 @@
+<div class="tool_tools back-tool" [ngClass]="{'up-down': startAnm == true}">
+  <button class="tool_btn" (click)="showBack()">
+    <span>Background</span>
+  </button>
+
+  <div [hidden]="isHidden">
+    <div class="back-selector">
+      <button (click)="changeBackground(-1)" class="tool_icon">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <div class="input-group input-group-sm">
+        <select class="custom-select" (change)="selectTheme($event.target.value)">
+          <option>Backgrounds</option>
+          <option value=5>Scary</option>
+          <option value=6>Abstract</option>
+        </select>
+      </div>
+      <button (click)="changeBackground(1)" class="tool_icon">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+<div>

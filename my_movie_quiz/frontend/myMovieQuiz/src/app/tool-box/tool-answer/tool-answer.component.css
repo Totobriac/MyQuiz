@@ -1,0 +1,24 @@
+.border-tools {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 8px;
+}
+
+.back-tool {
+  position: absolute;
+  top: 80px;
+}
+
+.back-selector {
+  display: flex;
+  padding-top: 12px;
+}
+
+@keyframes back {
+  50%  {transform: translateY(80px);}
+  100% {transform: translateY(-70px);}
+}
+
+.up-down {
+  animation: back 2s both;
+}

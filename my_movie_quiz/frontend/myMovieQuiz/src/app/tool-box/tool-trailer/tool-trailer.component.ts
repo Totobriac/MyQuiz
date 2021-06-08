@@ -59,9 +59,11 @@ export class ToolTrailerComponent implements OnInit {
     this.trailerToolsData.addPreviewPic(previewPics)
   }
 
-  // drop(event: CdkDragDrop<string[]>) {
-  //   let oldtarget = this.scrapPics[event.previousIndex];
-  //   this.scrapPics[event.previousIndex] = this.scrapPics[event.currentIndex];
-  //   this.scrapPics[event.currentIndex] = oldtarget;
-  // }
+  drop(event: CdkDragDrop<string[]>) {
+    console.log(event)
+    var scrapPics: object[] = this.tools.scrapPic
+    let oldtarget = scrapPics[event.previousIndex];
+    scrapPics[event.previousIndex] = scrapPics[event.currentIndex];
+    scrapPics[event.currentIndex] = oldtarget;
+  }
 }
