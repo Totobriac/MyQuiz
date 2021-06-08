@@ -1,4 +1,4 @@
-<div class="tool_main" [style]="style" [@cardChange]="tools.card">
+<div class="tool_main" [style]="style" [@cardChange]="tools.card" *ngIf="tools.card =='question'">
 
   <div *ngIf="tools.shooting" class="preview-display">
 
@@ -26,10 +26,14 @@
          (cdkDropListDropped)="drop($event)">
       <div *ngFor="let scrapPic of tools.scrapPic" 
             cdkDrag
-            cdkDragBoundary=".layersStack">
+            cdkDragBoundary=".pics-stack">
         <img [src]="'https://moviepictures.s3.amazonaws.com/' + scrapPic.url" class="scrapPic">
       </div>
     </div>
   </div>
 
+</div>
+
+<div class="tool_main" [style]="style" [@cardChange]="tools.card" *ngIf="tools.card =='answer'">
+  <app-tool-answer class="answer"></app-tool-answer>
 </div>

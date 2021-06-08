@@ -63,3 +63,8 @@
 .mat-slider.mat-slider-horizontal {
   height: 40px;
 }
+
+.answer {
+  position: absolute;
+  left: 8px;
+}

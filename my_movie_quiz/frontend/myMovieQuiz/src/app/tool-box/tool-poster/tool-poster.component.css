@@ -34,3 +34,8 @@ image-cropper {
 .tool_main {
   position: relative !important;
 }
+
+.answer {
+  position: absolute;
+  left: 8px;
+}

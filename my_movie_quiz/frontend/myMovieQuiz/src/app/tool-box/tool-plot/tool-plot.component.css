@@ -54,19 +54,6 @@
   100% {transform: translateY(-55px);}
 }
 
-.tilting {
-  animation: tilt 100ms;
-}
-
-@keyframes tilt {
-  0% { transform: rotate(4deg);}
-  20% { transform: rotate(0deg);}
-  40% { transform: rotate(-4deg);}
-  60% { transform: rotate(0deg);}
-  80% { transform: rotate(4deg);}
-  100% { transform: rotate(0deg);}
-}
-
 .answer {
   position: absolute;
   left: 8px;

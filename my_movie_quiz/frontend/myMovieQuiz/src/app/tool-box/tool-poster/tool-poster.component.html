@@ -1,4 +1,4 @@
-<div class="tool_main" [style]="style" [@cardChange]="tools.card">
+<div class="tool_main" [style]="style" [@cardChange]="tools.card" *ngIf="tools.card =='question'">
 
   <div class="tool_tools back-tool" [ngClass]="{'up-down': startAnm == true}">
     <button class="tool_btn" (click)="showBack()">
@@ -35,10 +35,13 @@
 
 </div>
 
-
-<div>
+<div *ngIf="tools.card =='question'">
   <image-cropper [imageURL]="urlToCrop" [maintainAspectRatio]="false" [resizeToWidth]="300" [resizeToHeight]="450"
     [onlyScaleDown]="true" [alignImage]="'center'" format="png" (imageLoaded)="imageLoaded()"
     (imageCropped)="imageCropped($event)" [ngStyle]="getStyle()" class="crop-div">
   </image-cropper>
+</div>
+
+<div class="tool_main" [style]="style" [@cardChange]="tools.card" *ngIf="tools.card =='answer'">
+  <app-tool-answer class="answer"></app-tool-answer>
 </div>

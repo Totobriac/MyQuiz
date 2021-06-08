@@ -30,9 +30,14 @@
   margin-bottom: 5px;
 }
 
-.pics-tack {
+.pics-stack {
   display: flex;
   flex-direction: column;
   cursor: move;
   padding-top: 5px;
+}
+
+.answer {
+  position: absolute;
+  left: 8px;
 }
