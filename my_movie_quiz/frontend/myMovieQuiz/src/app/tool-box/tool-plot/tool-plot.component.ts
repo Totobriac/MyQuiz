@@ -41,7 +41,6 @@ export class ToolPlotComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscription = this.plotTools.currentPlotTools.subscribe(tools => this.tools = tools);
-    this.plotTools.changeCard("question");   
   }
   
   get style() {

@@ -44,7 +44,27 @@ export class QASwitchComponent implements OnInit {
     this.subscription = this.posterToolService.currentPosterTools.subscribe(posterTools => this.posterTools = posterTools)
     this.subscription = this.trailerToolService.currentTrailerTools.subscribe(trailerTools => this.trailerTools = trailerTools)
     this.subscription = this.musicService.currentMusicCard.subscribe(musicCard => this.musicCard = musicCard)
-    this.selectedPage = "answer"
+    if (this.component == 1) {
+      this.plotTools.card == "answer"
+        ? this.selectedPage = "question"
+        : this.selectedPage = "answer"
+    } else if (this.component == 2) {
+      this.actorTools.card == "answer"
+        ? this.selectedPage = "question"
+        : this.selectedPage = "answer"
+    } else if (this.component == 3) {
+      this.posterTools.card == "answer"
+        ? this.selectedPage = "question"
+        : this.selectedPage = "answer"
+    } else if (this.component == 4) {
+      this.trailerTools.card == "answer"
+        ? this.selectedPage = "question"
+        : this.selectedPage = "answer"
+    } else if (this.component == 5) {
+      this.musicCard.card == "answer"
+        ? this.selectedPage = "question"
+        : this.selectedPage = "answer"
+    }
   }
 
   toggle() {
