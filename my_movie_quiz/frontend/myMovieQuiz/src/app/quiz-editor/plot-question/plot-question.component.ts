@@ -13,7 +13,6 @@ import { PlotToolsDataService } from 'src/app/services/plotTools-data.service';
 
 export class PlotQuestionComponent implements OnInit {
   
-  showQuestion = true;
   editable = "false";
   movie: MovieDb;
   tools: PlotTools;
@@ -34,9 +33,5 @@ export class PlotQuestionComponent implements OnInit {
 
   shuffle() {
     this.movie.plot = this.movie.plot.split(' ').sort(() => Math.floor(Math.random() * Math.floor(3)) - 1).join(' ').replace(".","") + "."
-  }
-
-  onSelectedSection(value) {
-    this.showQuestion = value
   }
 }

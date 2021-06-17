@@ -17,7 +17,6 @@ import { MusicPlayerService } from './music-player.service';
 })
 export class MusicQuestionComponent implements OnInit {
 
-  showQuestion: boolean = true;
   isPlaying: boolean = false;
   mixing: boolean = false;
   movie: MovieDb;
@@ -32,10 +31,10 @@ export class MusicQuestionComponent implements OnInit {
   samples: any;
   sampleIndex: number = 0;
   sound: any;  
-  samplesList: object[] = []
-  playing: boolean = false
-  canPause: boolean = false
-
+  samplesList: object[] = [];
+  playing: boolean = false;
+  canPause: boolean = false;
+  card: string;
 
   constructor(private movieData: MovieDataService,
               private musicService: MusicQuestionService,
@@ -46,11 +45,8 @@ export class MusicQuestionComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
     this.subscription = this.musicDataService.currentMusic.subscribe(music => this.music = music)
+    this.subscription = this.musicDataService.currentMusicCard.subscribe(card => this.card = card.card)
     this.findAlbums(this.movie.title, this.movie.year, this.movie.music_composer)
-  }
-
-  onSelectedSection(value) {
-    this.showQuestion = value
   }
 
   findAlbums(movieTitle, year, composer) {

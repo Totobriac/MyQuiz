@@ -1,6 +1,6 @@
 <div class="question_main">
 
-  <div *ngIf="showQuestion === true" class="question_card"
+  <div *ngIf="tools.card === 'question'" class="question_card"
     [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
     <text class="plot" [style.border-radius]="tools.corner.value"
@@ -13,7 +13,7 @@
 
   </div>
 
-  <div *ngIf="showQuestion === false">
+  <div *ngIf="tools.card === 'answer'">
     <app-answer></app-answer>
   </div>
 
@@ -27,8 +27,8 @@
     <button class="btn btn-info" (click)="shuffle()">Shuffle
     </button>
   </div>
-
-  <app-qaswitch (setSection)="onSelectedSection($event)" class="switch">
+  
+  <app-qaswitch class="switch">
   </app-qaswitch>
 
 </div>

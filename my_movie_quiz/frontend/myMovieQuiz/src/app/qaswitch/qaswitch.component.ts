@@ -19,8 +19,6 @@ import { TrailerToolsDataService } from '../services/trailerTools-data.service';
 })
 export class QASwitchComponent implements OnInit {
 
-  @Output() setSection = new EventEmitter();
-  showQuestion: boolean;
   selectedPage: string;
   subscription: Subscription;
   component: number;
@@ -46,48 +44,10 @@ export class QASwitchComponent implements OnInit {
     this.subscription = this.posterToolService.currentPosterTools.subscribe(posterTools => this.posterTools = posterTools)
     this.subscription = this.trailerToolService.currentTrailerTools.subscribe(trailerTools => this.trailerTools = trailerTools)
     this.subscription = this.musicService.currentMusicCard.subscribe(musicCard => this.musicCard = musicCard)
-  
-    if (this.component == 1) {
-      this.plotTools.card == "question"
-        ? this.selectedPage = "answer"
-        : this.selectedPage = "question";
-      this.plotTools.card == "question"
-        ? this.showQuestion = true
-        : this.showQuestion = false;
-    } else if (this.component == 2) {
-      this.actorTools.card == "question"
-        ? this.selectedPage = "answer"
-        : this.selectedPage = "question";
-      this.actorTools.card == "question"
-        ? this.showQuestion = true
-        : this.showQuestion = false;
-    } else if (this.component == 3) {
-      this.posterTools.card == "question"
-        ? this.selectedPage = "answer"
-        : this.selectedPage = "question";
-      this.posterTools.card == "question"
-        ? this.showQuestion = true
-        : this.showQuestion = false;
-    } else if (this.component == 4) {
-      this.trailerTools.card == "question"
-        ? this.selectedPage = "answer"
-        : this.selectedPage = "question";
-      this.trailerTools.card == "question"
-        ? this.showQuestion = true
-        : this.showQuestion = false;
-    } else if (this.component == 5) {
-      this.musicCard.card == "question"
-        ? this.selectedPage = "answer"
-        : this.selectedPage = "question";
-      this.musicCard.card == "question"
-        ? this.showQuestion = true
-        : this.showQuestion = false;
-    }
+    this.selectedPage = "answer"
   }
 
   toggle() {
-    this.showQuestion = !this.showQuestion
-    this.setSection.emit(this.showQuestion)
     if (this.component == 1) {
       this.plotTools.card == "answer"
         ? this.plotToolService.changeCard("question")
@@ -109,7 +69,7 @@ export class QASwitchComponent implements OnInit {
       this.posterTools.card == "answer"
         ? this.selectedPage = "question"
         : this.selectedPage = "answer"
-    }  else if (this.component == 4) {
+    } else if (this.component == 4) {
       this.trailerTools.card == "answer"
         ? this.trailerToolService.changeCard("question")
         : this.trailerToolService.changeCard("answer")

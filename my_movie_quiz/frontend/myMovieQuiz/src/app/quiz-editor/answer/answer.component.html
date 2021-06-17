@@ -1,4 +1,4 @@
 <div class="answer-card"
-  [ngStyle]="{'background-image': 'url(' + 'https://image.tmdb.org/t/p/w780' + movie.backdrop + ')' }">
+  [ngStyle]="{'background-image': 'url(' + getBackImg() + ')' }">
   <img [src]="'https://image.tmdb.org/t/p/w300' + movie.poster" alt="">
 </div>

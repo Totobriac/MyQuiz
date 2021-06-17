@@ -1,6 +1,6 @@
 <div class="window">
 
-  <div *ngIf="showQuestion === true" class="question">
+  <div *ngIf="card === 'question'" class="question">
 
     <div *ngIf="isPlaying == false && mixing == false" class="albums">
       <div class="albumsCover">
@@ -36,7 +36,7 @@
 
   </div>
 
-  <div *ngIf="showQuestion === false">
+  <div *ngIf="card === 'answer'">
     <app-answer></app-answer>
   </div>
 
@@ -137,8 +137,7 @@
   </div>
 
   <div class="switch">
-    <app-qaswitch (setSection)="onSelectedSection($event)">
-    </app-qaswitch>
+    <app-qaswitch></app-qaswitch>
   </div>
 
 </div>

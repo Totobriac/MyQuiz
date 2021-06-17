@@ -1,6 +1,6 @@
 <div class="question_main">
 
-  <div *ngIf="showQuestion === true" class="question_card"
+  <div *ngIf="tools.card === 'question'" class="question_card"
     [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
     <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation"
@@ -12,7 +12,7 @@
 
   </div>
 
-  <div *ngIf="showQuestion === false">
+  <div *ngIf="tools.card === 'answer'">
     <app-answer></app-answer>
   </div>
 
@@ -52,7 +52,7 @@
 
   <div>
     <div class="switch">
-      <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
+      <app-qaswitch></app-qaswitch>
     </div>
   </div>
 

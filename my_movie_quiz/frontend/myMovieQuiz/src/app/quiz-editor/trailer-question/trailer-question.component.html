@@ -1,6 +1,6 @@
 <div class="question_main" #dragBounds id="container">
 
-  <div class="player" [style.z-index]="showVideo ? '100' : '-100'">
+  <div class="player" [style.z-index]="showVid ? '100' : '-100'">
 
     <div *ngIf="this.screenshotTaken == false">
       <div id="player"></div>
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="title" [style.z-index]="showVideo ? '-100' : '100'">
+  <div class="title" [style.z-index]="showVid ? '-100' : '100'">
     <app-answer></app-answer>
   </div>
 
@@ -48,7 +48,7 @@
 
   <div>
     <div class="switch">
-      <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
+      <app-qaswitch (click)="showVideo()"></app-qaswitch>
     </div>
   </div>
 

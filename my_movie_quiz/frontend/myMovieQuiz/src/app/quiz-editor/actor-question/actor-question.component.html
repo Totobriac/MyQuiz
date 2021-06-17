@@ -1,6 +1,6 @@
 <div class="question_main">
 
-  <div *ngIf="showQuestion === true" class="question-div"
+  <div *ngIf="tools.card === 'question'" class="question-div"
     [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
 
@@ -27,7 +27,7 @@
 
   </div>
 
-  <div *ngIf="showQuestion === false">
+  <div *ngIf="tools.card === 'answer'">
     <app-answer></app-answer>
   </div>
 </div>

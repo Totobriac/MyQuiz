@@ -18,7 +18,6 @@ import { ActorDataService } from 'src/app/services/actor-data.service';
 export class ActorQuestionComponent implements OnInit {
 
   actorName: any = [["", "", "", ""], [], []]
-  showQuestion: boolean = true;
   movie: MovieDb;
   tools: ActorTools;
   actor: Actor;
@@ -68,10 +67,6 @@ export class ActorQuestionComponent implements OnInit {
         this.urls = r
         console.log(this.actor.urls);      
       })
-  }
-
-  onSelectedSection(value) {
-    this.showQuestion = value
   }
 
   selectActor(index) {

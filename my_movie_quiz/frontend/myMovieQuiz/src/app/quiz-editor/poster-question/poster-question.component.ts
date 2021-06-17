@@ -18,7 +18,6 @@ export class PosterQuestionComponent implements OnInit {
   color: any;
   rotation: any;
   back: any;
-  showQuestion = true;
   effectIndex: number = 0
   imgEffects = [{display:'No effect', value:''},
                 {display:'Pencil', value:'pencil-effect'},
@@ -67,10 +66,6 @@ export class PosterQuestionComponent implements OnInit {
 
   onRotationChange() {
     this.rotation === "rotate(180deg)"? this.rotation = "rotate(0deg)" : this.rotation = "rotate(180deg)"    
-  }
-
-  onSelectedSection(value) {
-    this.showQuestion = value
   }
 
   changeEffect(next: number) {

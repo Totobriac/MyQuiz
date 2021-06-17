@@ -22,7 +22,7 @@ export class TrailerQuestionComponent implements OnInit {
   previewGifUrl: object[] = [];
   aspectRatio = true;
   showQuestion: boolean = true;
-  showVideo: boolean = true;
+  showVid: boolean = true;
   gifDuration: number;
 
   apiLoaded = false;
@@ -118,9 +118,8 @@ export class TrailerQuestionComponent implements OnInit {
     }
   }
 
-  onSelectedSection(value) {
-    this.showVideo = !this.showVideo
-    this.showQuestion = value
+  showVideo() {
+    this.showVid = !this.showVid
   }
 
   duration(time) {
