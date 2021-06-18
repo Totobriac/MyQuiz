@@ -4,6 +4,8 @@ import { Music } from 'src/app/interfaces/music';
 import { MusicDataService } from 'src/app/services/music-data.service';
 import { Howl } from 'howler'
 import { MusicPlayerService } from 'src/app/quiz-editor/music-question/music-player.service';
+import { MovieDataService } from 'src/app/services/movie-data.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tool-music',
@@ -12,21 +14,35 @@ import { MusicPlayerService } from 'src/app/quiz-editor/music-question/music-pla
 })
 export class ToolMusicComponent implements OnInit {
 
-  music: Music
-  subscription: Subscription
-  sound: any
-  rate: number
-  isPlaying: boolean = false
-    
-  
+  music: Music;
+  subscription: Subscription;
+  sound: any;
+  rate: number;
+  isPlaying: boolean = false;
+  showTool: boolean;
+  toolColor: any;
+  card: string;
+
   constructor(private musicDataService: MusicDataService,
-                      private musicPlayer: MusicPlayerService,) { }
+              private musicPlayer: MusicPlayerService,
+              private movieData: MovieDataService,
+              private sanitizer: DomSanitizer) { }
+
 
   ngOnInit(): void {
     this.subscription = this.musicDataService.currentMusic.subscribe(music => this.music = music)
+    this.subscription = this.movieData.currentShowTool.subscribe(showTool => this.showTool = showTool)
+    this.subscription = this.musicDataService.currentMusicCard.subscribe(card => this.card = card.card)
   }
 
-  play() {    
+  get style() {
+    this.card == "question"
+      ? this.toolColor = 'rgb(95,158,160)'
+      : this.toolColor = 'rgb(215, 190, 130);'
+    return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
+  }
+
+  play() {
     var index = this.music.currentTrack
     if (index == 0) {
       this.sound = new Howl({
@@ -57,7 +73,7 @@ export class ToolMusicComponent implements OnInit {
     var samples = this.music.samples;
     samples.splice(index, 1)
     this.musicDataService.changeSamples(samples)
-  }  
+  }
 
   changeRate(rate) {
     if (this.music.currentTrack == undefined) this.music.currentTrack = 0
@@ -72,9 +88,9 @@ export class ToolMusicComponent implements OnInit {
     else {
       this.sound.rate(rate)
       var samples = this.music.samples;
-      samples[this.music.currentTrack-1].rate = rate;
+      samples[this.music.currentTrack - 1].rate = rate;
       this.musicDataService.changeSamples(samples)
       this.musicPlayer.setRate(this.music.currentTrack, rate)
     }
   }
-} 
+}

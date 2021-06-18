@@ -86,6 +86,7 @@ export class MusicQuestionComponent implements OnInit {
     this.musicDataService.changeCurrent(0);
     this.musicDataService.position(0);
     this.mixing = true;
+    this.movieData.changeShowTool(true);
   }
 
   searchSample(sample) {
@@ -160,5 +161,9 @@ export class MusicQuestionComponent implements OnInit {
   record() {
     this.musicService.record(this.music)
     .subscribe(r => console.log(r))
+  }
+
+  showAnswer() {
+    this.movieData.changeShowTool(true)
   }
 }

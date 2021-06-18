@@ -1,6 +1,6 @@
 <div class="tool_main" [style]="style" [@cardChange]="tools.card" *ngIf="tools.card =='question'">
 
-  <div *ngIf="tools.shooting" class="preview-display">
+  <div *ngIf="tools.shooting && showTool == true" class="preview-display">
 
     <div class="preview">
       <div *ngIf="tools.previewPic != undefined && tools.previewPic[0] != undefined">

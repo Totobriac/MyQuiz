@@ -5,6 +5,7 @@ import { TrailerToolsDataService } from 'src/app/services/trailerTools-data.serv
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DomSanitizer } from '@angular/platform-browser';
 import { trigger, transition, animate, style } from '@angular/animations';
+import { MovieDataService } from 'src/app/services/movie-data.service';
 
 
 @Component({
@@ -29,12 +30,15 @@ export class ToolTrailerComponent implements OnInit {
   tools: TrailerTools;
   subscription: Subscription;
   toolColor: any;
+  showTool: boolean;
 
-  constructor(private trailerToolsData: TrailerToolsDataService,
+  constructor(private movieData: MovieDataService,
+              private trailerToolsData: TrailerToolsDataService,
               private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    this.subscription = this.trailerToolsData.currentTrailerTools.subscribe(tools => this.tools = tools)    
+    this.subscription = this.trailerToolsData.currentTrailerTools.subscribe(tools => this.tools = tools)
+    this.subscription = this.movieData.currentShowTool.subscribe(showTool => this.showTool = showTool)
   }
 
   get style() {

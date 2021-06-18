@@ -21,8 +21,6 @@ export class TrailerQuestionComponent implements OnInit {
   previewPicUrl: object[] = [];
   previewGifUrl: object[] = [];
   aspectRatio = true;
-  showQuestion: boolean = true;
-  showVid: boolean = true;
   gifDuration: number;
 
   apiLoaded = false;
@@ -90,6 +88,7 @@ export class TrailerQuestionComponent implements OnInit {
         console.log(r);
         this.previewPicUrl.push({ url: r['url'] });
         this.trailerToolsData.addPreviewPic(this.previewPicUrl);
+        this.movieData.changeShowTool(true);
       })
   }
 
@@ -106,7 +105,8 @@ export class TrailerQuestionComponent implements OnInit {
       .subscribe(r => {
         console.log(r);
         this.previewPicUrl.push({ url: r['url'] });
-        this.trailerToolsData.addPreviewPic(this.previewPicUrl);        
+        this.trailerToolsData.addPreviewPic(this.previewPicUrl);
+        this.movieData.changeShowTool(true);
       })
     }
   }
@@ -116,10 +116,6 @@ export class TrailerQuestionComponent implements OnInit {
     if (this.player) {
       this.player.destroy();
     }
-  }
-
-  showVideo() {
-    this.showVid = !this.showVid
   }
 
   duration(time) {

@@ -14,7 +14,12 @@ export class QuestionTypeComponent implements OnInit {
   }
 
   question(choice: number) {
-    this.data.changeShowTool(true);
+    if (choice == 4 || choice == 5) {
+      this.data.changeShowTool(false);
+    }
+    else {
+      this.data.changeShowTool(true);
+    }
     this.data.changeTool(choice);
     this.data.changeComponent(choice);
   }
