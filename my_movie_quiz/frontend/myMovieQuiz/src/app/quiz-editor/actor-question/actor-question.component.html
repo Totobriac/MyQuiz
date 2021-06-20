@@ -13,9 +13,8 @@
         </div>
         <div class="nameContain">
           <span [style.border-radius]="tools.corner.value"
-            [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'"
-            [style.font-weight]="tools.weight" [style.color]="'rgb(' + tools.fontColor + ')'"
-            [style.font-family]="tools.fontFamily.value"
+            [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'" [style.font-weight]="tools.weight"
+            [style.color]="'rgb(' + tools.fontColor + ')'" [style.font-family]="tools.fontFamily.value"
             [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
             {{ actorName[actor.display][i] }}
           </span>
@@ -36,11 +35,11 @@
 
 <div *ngIf="tools.palette == 'none'" class="question_toolbar">
 
-  <button mat-mini-fab color="accent" class="next-btn" (click)="nextPicture(-1)">
+  <button mat-mini-fab color="accent" class="next-btn first-btn" (click)="nextPicture(-1)">
     <mat-icon>chevron_left</mat-icon>
   </button>
 
-  <mat-form-field class="actorChoice">
+  <mat-form-field class="actor-choice">
     <mat-label>Actor</mat-label>
     <mat-select (selectionChange)="selectActor($event.value)">
       <mat-option *ngFor="let actor of actorName[1]; index as index" [value]="index">
@@ -54,18 +53,19 @@
   </button>
 
   <form #searchActor="ngForm" (ngSubmit)=submitForm(searchActor.value)>
-    <mat-form-field class="actorCustom">
+    <mat-form-field class="actor-custom">
       <mat-label>Custom Search</mat-label>
       <input matInput autocomplete="off" type="text" name="actorSearch" placeholder="Ex. young, cartoon..."
         (ngModel)="model.searchActor">
     </mat-form-field>
   </form>
 
-  <span style="color: white" class="my-auto mr-2">Pixelate</span>
-  <mat-slider class="my-auto" max=4 min=0 step=1 thumbLabel=true tickInterval=1 [value]=actor.pixValue[selectAct]
-    [vertical]=false (input)="pixelNav($event.value)">
-  </mat-slider>
-
+  <div class="pixel">
+    <mat-icon class="icon">grain</mat-icon>
+    <mat-slider max=4 min=0 step=1 thumbLabel=true tickInterval=1 [value]=actor.pixValue[selectAct] [vertical]=false
+      (input)="pixelNav($event.value)">
+    </mat-slider>
+  </div>
 
   <div>
     <div class="switch">

@@ -58,11 +58,11 @@ button:focus {
   image-rendering: pixelated
 }
 
-.actorChoice {
+.actor-choice {
   width: 120px;
 }
 
-.actorCustom {
+.actor-custom {
   width: 120px;
   padding: 0;
 }
@@ -83,8 +83,18 @@ button:focus {
   margin-bottom: auto;
 }
 
-span {
-  margin-left: 8px;
-  margin-right: 8px;
+.icon {
+  color: white;
+  border: none;
+  background: none;
+  outline: none; 
 }
 
+.pixel {
+  display: flex;
+  align-items: center;
+}
+
+.first-btn {
+  margin-left: 24px;
+}
