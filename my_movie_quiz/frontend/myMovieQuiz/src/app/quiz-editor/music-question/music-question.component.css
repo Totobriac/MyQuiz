@@ -41,7 +41,7 @@ background-size: cover;
     flex-direction: row;
     flex-wrap: wrap;
     min-height: 300px;
-    min-width: 600px;       
+    max-width: 600px;       
   }
 
   .mixer {   
