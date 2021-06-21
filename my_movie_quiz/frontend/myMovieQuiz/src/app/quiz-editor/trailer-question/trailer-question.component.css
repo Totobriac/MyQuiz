@@ -33,11 +33,6 @@
   position: relative
 }
 
-.gif-tool {
-  display: flex;
-  align-items: center;
-}
-
 .pic-tool {
   margin-left: 24px;
   width: 500px;

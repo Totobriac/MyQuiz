@@ -22,27 +22,27 @@
 
   <div class="tools">
 
-    <div class="icons">
+    <div class="toolbar-btn" *ngIf="tools.card === 'question'" [@flyingTool]>
       <mat-icon class="icon">blur_on</mat-icon>
       <mat-slider min="0" max="15" step="1" value="0" (input)="onBlurChange($event)"></mat-slider>
     </div>
 
     <div class="icons">
-      <button (click)="changeEffect(-1)" class="icon">
+      <button mat-mini-fab color="accent" (click)="changeEffect(-1)" class="next-btn" *ngIf="tools.card === 'question'" [@flyingTool]>
         <mat-icon>chevron_left</mat-icon>
       </button>
-      <div class="family">{{ imageEffectDisplay }}</div>
-      <button (click)="changeEffect(1)" class="icon">
+      <div class="family" *ngIf="tools.card === 'question'" [@flyingTool]>{{ imageEffectDisplay }}</div>
+      <button mat-mini-fab color="accent" (click)="changeEffect(1)" class="next-btn" *ngIf="tools.card === 'question'" [@flyingTool]>
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>
 
-    <div class="icons">
+    <div class="icons" *ngIf="tools.card === 'question'" [@flyingTool]>
 
-      <button (click)="onRotationChange()" class="icon">
+      <button (click)="onRotationChange()" class="toolbar-btn">
         <mat-icon>rotate_right</mat-icon>
       </button>
-      <button (click)="crop()" class="icon">
+      <button (click)="crop()" class="toolbar-btn">
         <mat-icon>crop</mat-icon>
       </button>
 

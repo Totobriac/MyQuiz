@@ -87,9 +87,7 @@ import { SearchService } from './search.service';
           query('@showImg', animateChild()),
         ]),
       ]),
-
     ]),
-
   ]
 })
 export class SearchComponent implements OnInit {

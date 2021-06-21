@@ -13,20 +13,20 @@ import { trigger, transition, query, style, stagger, animate, keyframes } from '
   animations: [
     trigger('flyingTool', [
       transition(':enter', [
-        animate('1s', keyframes([
+        animate('1s ease-out', keyframes([
           style({ transform: 'translateX(-100%)', opacity: '0', offset: 0}),
           style({ transform: 'translateX(10%)', opacity: '1', offset: 0.8}),
           style({ transform: 'translateX(0%)', opacity: '1', offset: 1.0})
         ]))
       ]),
       transition(':leave', [        
-        animate('800ms', keyframes([
+        animate('600ms ease-in', keyframes([
           style({ transform: 'translateX(-10%)', opacity: '1', offset: 0.3}),
           style({ transform: 'translateX(100%)', opacity: '0', offset: 1.0})
         ]))
       ])
     ]
-    )]
+  )]
 })
 
 export class PlotQuestionComponent implements OnInit {

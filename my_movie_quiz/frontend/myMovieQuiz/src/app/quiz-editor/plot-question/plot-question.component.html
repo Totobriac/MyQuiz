@@ -22,10 +22,10 @@
 <div *ngIf="tools.palette == 'none'" class="question_toolbar">
 
   <div class="toolbar-button">
-    <button class="btn btn-info" (click)="enableEdition()" *ngIf="tools.card === 'question'"
+    <button class="toolbar-btn" (click)="enableEdition()" *ngIf="tools.card === 'question'"
       [@flyingTool]>Edit
     </button>
-    <button class="btn btn-info" (click)="shuffle()" *ngIf="tools.card === 'question'"
+    <button class="toolbar-btn" (click)="shuffle()" *ngIf="tools.card === 'question'"
       [@flyingTool]>Shuffle
     </button>
   </div>

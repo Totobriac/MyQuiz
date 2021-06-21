@@ -8,11 +8,29 @@ import { ActorTools} from 'src/app/interfaces/actorTools';
 import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
 import { Actor} from 'src/app/interfaces/actor';
 import { ActorDataService } from 'src/app/services/actor-data.service';
+import { trigger, transition, animate, keyframes, style } from '@angular/animations';
 
 @Component({
   selector: 'app-actor-question',
   templateUrl: './actor-question.component.html',
-  styleUrls: ['./actor-question.component.css']
+  styleUrls: ['./actor-question.component.css'],
+  animations: [
+    trigger('flyingTool', [
+      transition(':enter', [
+        animate('1s ease-out', keyframes([
+          style({ transform: 'translateX(-100%)', opacity: '0', offset: 0}),
+          style({ transform: 'translateX(10%)', opacity: '1', offset: 0.8}),
+          style({ transform: 'translateX(0%)', opacity: '1', offset: 1.0})
+        ]))
+      ]),
+      transition(':leave', [        
+        animate('600ms ease-in', keyframes([
+          style({ transform: 'translateX(-10%)', opacity: '1', offset: 0.3}),
+          style({ transform: 'translateX(100%)', opacity: '0', offset: 1.0})
+        ]))
+      ])
+    ]),
+  ]
 })
 
 export class ActorQuestionComponent implements OnInit {

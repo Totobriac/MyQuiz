@@ -1,3 +1,4 @@
+import { trigger, transition, animate, keyframes, style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MovieDb } from 'src/app/interfaces/movie';
@@ -10,7 +11,24 @@ import { TrailerQuestionService } from './trailer-question.service';
 @Component({
   selector: 'app-trailer-question',
   templateUrl: './trailer-question.component.html',
-  styleUrls: ['./trailer-question.component.css']
+  styleUrls: ['./trailer-question.component.css'],
+  animations: [
+    trigger('flyingTool', [
+      transition(':enter', [
+        animate('1s ease-out', keyframes([
+          style({ transform: 'translateX(-100%)', opacity: '0', offset: 0 }),
+          style({ transform: 'translateX(10%)', opacity: '1', offset: 0.8 }),
+          style({ transform: 'translateX(0%)', opacity: '1', offset: 1.0 })
+        ]))
+      ]),
+      transition(':leave', [
+        animate('600ms ease-in', keyframes([
+          style({ transform: 'translateX(-10%)', opacity: '1', offset: 0.3 }),
+          style({ transform: 'translateX(100%)', opacity: '0', offset: 1.0 })
+        ]))
+      ])
+    ]),
+  ]
 })
 
 export class TrailerQuestionComponent implements OnInit {

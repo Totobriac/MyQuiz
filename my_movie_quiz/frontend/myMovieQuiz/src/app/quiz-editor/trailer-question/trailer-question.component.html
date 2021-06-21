@@ -26,23 +26,24 @@
 <div class="question_toolbar">
 
   <div class="pic-tool">
-    <button class="toolbar-btn" (click)="takeScreenshot()">
+    <button class="toolbar-btn" (click)="takeScreenshot()" *ngIf="tools.card === 'question'" [@flyingTool]>
       <mat-icon class="icon">photo_camera</mat-icon>
     </button>
-    <button class="toolbar-btn" (click)="takeGif()">
+    <button class="toolbar-btn" (click)="takeGif()" *ngIf="tools.card === 'question'" [@flyingTool]>
       <mat-icon class="icon">gif</mat-icon>
     </button>
 
-    <div class="gif-tool">
+    <div class="toolbar-btn" *ngIf="tools.card === 'question'" [@flyingTool]>
       <span style="color: white">
         <mat-icon class="clock">timer</mat-icon>
       </span>
-      <mat-slider class="my-auto" max=5 min=0 step=0.05 thumbLabel=true tickInterval=1 value=0 [vertical]=false
+      <mat-slider max=5 min=0 step=0.05 thumbLabel=true tickInterval=1 value=0 [vertical]=false
         (input)="duration($event.value)">
       </mat-slider>
     </div>
 
-    <button [ngClass]="tools.scrapPic.length == 0 ? 'disabled' : 'toolbar-btn'" (click)="generateScrapBooks()">Generate
+    <button [ngClass]="tools.scrapPic.length == 0 ? 'disabled' : 'toolbar-btn'" (click)="generateScrapBooks()"
+      *ngIf="tools.card === 'question'" [@flyingTool]>Generate
       ScrapBook</button>
   </div>
 

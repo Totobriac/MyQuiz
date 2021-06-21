@@ -5,9 +5,28 @@
   outline: none; 
 }
 
-.mat-slider{
-  margin-top: auto;
-  margin-bottom: auto;
+.toolbar-btn {
+  height: 30px;
+  border-radius: 5px;
+  background-color: cadetblue;
+  color: white;
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+}
+
+.next-btn {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  margin-left: 12px;
+  margin-right: 12px;
 }
 
 @media only screen and (min-width: 1020px) {
@@ -25,6 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    width: 100%;
   }
 
   .switch {
@@ -48,7 +68,7 @@
   }
 
   .family {
-    width: 120px;
+    width: 150px;
     background-color: white;
     height: 24px;
     display: flex;
