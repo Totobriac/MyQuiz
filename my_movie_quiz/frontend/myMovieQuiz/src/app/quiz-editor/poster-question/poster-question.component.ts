@@ -28,6 +28,17 @@ import { trigger, transition, animate, keyframes, style } from '@angular/animati
         ]))
       ])
     ]),
+    trigger('cardChange', [
+      transition((fromState: string, toState: string) => toState != fromState, [
+        animate(100, style({ transform: 'rotate(0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(-0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' }))
+      ])
+    ])
+
   ]
 })
 export class PosterQuestionComponent implements OnInit {
@@ -60,6 +71,7 @@ export class PosterQuestionComponent implements OnInit {
   tools: PosterTools
   movie: MovieDb
   subscription: Subscription
+  toolColor: string;
 
   constructor(private sanitizer: DomSanitizer,
     private movieData: MovieDataService,
@@ -73,6 +85,9 @@ export class PosterQuestionComponent implements OnInit {
   }
 
   get style() {
+    this.tools.card == "question"
+      ? this.toolColor = 'rgb(95,158,160)' 
+      : this.toolColor = 'rgb(215, 190, 130);'
     this.back = 'url(' + this.tools.posterSrc + ')'
     return this.sanitizer.bypassSecurityTrustStyle(`--back: ${this.back}`);
   }
@@ -102,5 +117,4 @@ export class PosterQuestionComponent implements OnInit {
     this.posterToolsData.changeCrop(!this.tools.crop)
     console.log(this.tools.crop);
   }
-
 }

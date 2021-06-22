@@ -1,4 +1,4 @@
-<div class="question_main" #dragBounds id="container">
+<div class="question_main" #dragBounds id="container" [@cardChange]="tools.card" [style]="style">
 
   <div class="player" [style.z-index]="tools.card === 'question' ? '100' : '-100'">
 

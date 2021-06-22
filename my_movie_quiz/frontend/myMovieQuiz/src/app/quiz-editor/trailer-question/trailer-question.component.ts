@@ -1,5 +1,6 @@
 import { trigger, transition, animate, keyframes, style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { MovieDb } from 'src/app/interfaces/movie';
 import { TrailerTools } from 'src/app/interfaces/trailerTools';
@@ -28,6 +29,17 @@ import { TrailerQuestionService } from './trailer-question.service';
         ]))
       ])
     ]),
+    trigger('cardChange', [
+      transition((fromState: string, toState: string) => toState != fromState, [
+        animate(100, style({ transform: 'rotate(0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(-0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' }))
+      ])
+    ])
+
   ]
 })
 
@@ -38,20 +50,21 @@ export class TrailerQuestionComponent implements OnInit {
   screenshotTaken: boolean = false;
   previewPicUrl: object[] = [];
   previewGifUrl: object[] = [];
-  aspectRatio = true;
   gifDuration: number;
 
-  apiLoaded = false;
+  apiLoaded: boolean = false;
   YT: any;
   video: any;
   player: any;
   reframed: boolean = false;
   tools: TrailerTools;
-  picPosition="relative";
+  picPosition: string = "relative";
+  toolColor: string;
     
   constructor( private movieData: MovieDataService,
                private trailerToolsData: TrailerToolsDataService, 
-               private trailerService: TrailerQuestionService,) { }
+               private trailerService: TrailerQuestionService,
+               private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
@@ -140,4 +153,10 @@ export class TrailerQuestionComponent implements OnInit {
     this.gifDuration = time;
   }
 
+  get style() {
+    this.tools.card == "question"
+      ? this.toolColor = 'rgb(95,158,160)' 
+      : this.toolColor = 'rgb(215, 190, 130);'
+    return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
+  }
 }

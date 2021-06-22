@@ -1,4 +1,4 @@
-<div class="question_main">
+<div class="question_main" [@cardChange]="tools.card" [style]="style">
 
   <div *ngIf="tools.card === 'question'" class="question_card"
     [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">

@@ -29,61 +29,66 @@ button {
   margin-right: 12px;
 }
 
-@media only screen and (min-width: 1020px) {
-  .toolBox {
-    margin-top: 24px;
-    width: 662px;
-    height: 52px;
-    background-color: rgb(4, 113, 150);
-    display: flex;
-    justify-content: space-between;
-  }
+.question_card {
+  align-items: center;
+}
 
-  .tools {
-    margin-left: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-  }
+.toolBox {
+  margin-top: 24px;
+  width: 662px;
+  height: 52px;
+  background-color: rgb(4, 113, 150);
+  display: flex;
+  justify-content: space-between;
+}
 
-  .switch {
-    margin-right: 24px;
-  }
+.tools {
+  margin-left: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
 
-  .poster {
-    max-height: 450px;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
+.switch {
+  margin-right: 24px;
+}
 
-  .blur {
-    height: 450px;
-    display: flex;
-  }
+.poster {
+  margin-top: auto;
+  margin-bottom: auto;
+}
 
-  .fontColorIcon {
-    margin-top: 14px;
-    margin-bottom: 14px;
-  }
+.blur {
+  height: 450px;
+  display: flex;
+}
 
-  .family {
-    width: 150px;
-    background-color: white;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    -moz-box-shadow: 0 0 6px white;
-    -webkit-box-shadow: 0 0 6px white;
-    box-shadow: 0 0 6px white;
-  }
+.fontColorIcon {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
 
-  .icons {
-    display: flex;
-    align-items: center;
-  }
+.family {
+  width: 150px;
+  background-color: white;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  -moz-box-shadow: 0 0 6px white;
+  -webkit-box-shadow: 0 0 6px white;
+  box-shadow: 0 0 6px white;
+}
 
-  .crop {
-    margin-top: 4px;
-  }
+.icons {
+  display: flex;
+  align-items: center;
+}
+
+.crop {
+  margin-top: 4px;
+}
+
+img {
+  max-height: 420px;
 }

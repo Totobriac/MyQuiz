@@ -1,4 +1,4 @@
-<div class="tool_main" [style]="style" *ngIf="card =='question'">
+<div class="tool_main" [style]="style" [@cardChange]="card" *ngIf="card =='question'">
 
   <div *ngIf="music.currentTrack != undefined" class="track-tools">
 
@@ -33,9 +33,8 @@
     </div>
 
   </div>
-
 </div>
 
-<div class="tool_main" [style]="style" *ngIf="card =='answer'">
+<div class="tool_main" [style]="style" *ngIf="card =='answer'" [@cardChange]="card">
   <app-tool-answer class="answer"></app-tool-answer>
 </div>

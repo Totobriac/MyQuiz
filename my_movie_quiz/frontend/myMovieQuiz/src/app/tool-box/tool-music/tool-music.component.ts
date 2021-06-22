@@ -6,11 +6,25 @@ import { Howl } from 'howler'
 import { MusicPlayerService } from 'src/app/quiz-editor/music-question/music-player.service';
 import { MovieDataService } from 'src/app/services/movie-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-tool-music',
   templateUrl: './tool-music.component.html',
-  styleUrls: ['./tool-music.component.css']
+  styleUrls: ['./tool-music.component.css'],
+  animations: [
+    trigger('cardChange', [
+      transition((fromState: string, toState: string) => toState != fromState, [
+        animate(100, style({ transform: 'rotate(1deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(-1deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(1deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' }))
+      ])
+    ])
+  ]
+
 })
 export class ToolMusicComponent implements OnInit {
 

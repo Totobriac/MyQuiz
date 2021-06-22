@@ -9,6 +9,7 @@ import { ActorToolsDataService } from 'src/app/services/actorTools-data.service'
 import { Actor} from 'src/app/interfaces/actor';
 import { ActorDataService } from 'src/app/services/actor-data.service';
 import { trigger, transition, animate, keyframes, style } from '@angular/animations';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-actor-question',
@@ -30,6 +31,16 @@ import { trigger, transition, animate, keyframes, style } from '@angular/animati
         ]))
       ])
     ]),
+    trigger('cardChange', [
+      transition((fromState: string, toState: string) => toState != fromState, [
+        animate(100, style({ transform: 'rotate(0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(-0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' }))
+      ])
+    ])
   ]
 })
 
@@ -45,12 +56,14 @@ export class ActorQuestionComponent implements OnInit {
   urls: any
   selectAct: number;
   subscription: Subscription;
+  toolColor: string;
 
   constructor(private searchActor: SearchActor,
               private pixelActor: PixelActor,
               private movieData: MovieDataService,
               private actorTools: ActorToolsDataService,
-              private actorData: ActorDataService) { }
+              private actorData: ActorDataService,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie);
@@ -130,4 +143,12 @@ export class ActorQuestionComponent implements OnInit {
     this.pixValue[this.selectAct] = value
     this.actorData.changePicValue(this.pixValue)
   }
+
+  get style() {
+    this.tools.card == "question"
+      ? this.toolColor = 'rgb(95,158,160)' 
+      : this.toolColor = 'rgb(215, 190, 130);'
+    return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
+  }
+
 }

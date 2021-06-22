@@ -1,16 +1,16 @@
-<div class="question_main">
+<div class="question_main" [@cardChange]="tools.card" [style.border]="tools.card == 'question'? '2px solid rgb(95,158,160)' : '2px solid rgb(215, 190, 130)'">
 
   <div *ngIf="tools.card === 'question'" class="question_card"
     [ngStyle]="{'background-image': 'url(' + tools.background.lowUrl + ')' }">
 
-    <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation"
-      [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'">
-      <div class="poster" [style]="style" [ngClass]="imageEffect">
+    <div class="blur" [ngStyle]="{'filter': blurring }" [style.transform]="rotation">
+      <div class="poster" [style]="style" [ngClass]="imageEffect"
+        [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'">
         <img [attr.src]="tools.posterSrc">
       </div>
     </div>
 
-  </div>
+  </div>  
 
   <div *ngIf="tools.card === 'answer'">
     <app-answer></app-answer>
