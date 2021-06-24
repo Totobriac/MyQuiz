@@ -24,6 +24,7 @@ body {
   justify-content: space-between;
   background-color: rgb(4, 113, 150);
   align-items: center;
+  overflow: hidden;
 }
 
 .tool_btn {

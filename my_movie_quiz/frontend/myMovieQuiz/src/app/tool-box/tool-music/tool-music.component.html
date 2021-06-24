@@ -3,7 +3,7 @@
   <div *ngIf="music.currentTrack != undefined" class="track-tools">
 
     <div class="textBox">
-      <span>{{music.currentTrack == 0 ? music.mainTitle.title : music.samples[music.currentTrack -1].name}}</span>
+      <!-- <span>{{music.currentTrack == 0 ? music.mainTitle.title : music.samples[music.currentTrack -1].name}}</span> -->
     </div>
 
     <div class="control">
@@ -24,7 +24,7 @@
 
     </div>
 
-    <div class="rate control">
+    <div *ngIf="music.currentTrack != 0" class="rate control">
       <mat-icon class="tool_icon">slow_motion_video</mat-icon>
       <mat-slider min="0.5" max="4" step="0.1"
         [value]="music.currentTrack == 0 ? music.mainTitle.rate : music.samples[music.currentTrack - 1].rate"

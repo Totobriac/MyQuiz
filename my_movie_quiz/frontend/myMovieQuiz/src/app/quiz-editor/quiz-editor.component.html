@@ -1,28 +1,26 @@
-<div>
+<div [ngSwitch]="component">
 
-  <ng-container [ngSwitch]="component">
+  <div class="home" *ngSwitchCase="7"></div>
 
-    <app-curtain *ngSwitchCase="0">
-    </app-curtain>
+  <app-curtain *ngSwitchCase="0">
+  </app-curtain>
 
-    <app-plot-question *ngSwitchCase="1">
-    </app-plot-question>
+  <app-plot-question *ngSwitchCase="1" @enterTrigger>
+  </app-plot-question>
 
-    <app-actor-question *ngSwitchCase="2">
-    </app-actor-question>
+  <app-actor-question *ngSwitchCase="2" @enterTrigger>
+  </app-actor-question>
 
-    <app-poster-question *ngSwitchCase="3">
-    </app-poster-question>
+  <app-poster-question *ngSwitchCase="3" @enterTrigger>
+  </app-poster-question>
 
-    <app-trailer-question *ngSwitchCase="4">
-    </app-trailer-question>
+  <app-trailer-question *ngSwitchCase="4" @enterTrigger>
+  </app-trailer-question>
 
-    <app-music-question *ngSwitchCase="5">
-    </app-music-question>
+  <app-music-question *ngSwitchCase="5" @enterTrigger>
+  </app-music-question>
 
-    <app-search *ngSwitchCase="6">
-    </app-search>
-
-  </ng-container>
+  <app-search *ngSwitchCase="6">
+  </app-search>
 
 </div>

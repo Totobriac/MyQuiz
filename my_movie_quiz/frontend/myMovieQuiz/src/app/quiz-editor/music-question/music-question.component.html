@@ -1,4 +1,4 @@
-<div class="window">
+<div class="question_main" [@cardChange]="card" [style]="style">
 
   <div *ngIf="card === 'question'" class="question">
 
@@ -44,100 +44,103 @@
 
 <div class="question_toolbar">
 
-  <div *ngIf="themes == undefined && mixing == false" class="deezerInput">
-    <form autocomplete="off" #deezerSearch="ngForm" (ngSubmit)=retreiveData(deezerSearch.value.deezerSearch)
-      class="deezerInput">
-      <input type="text" [(ngModel)]="value" name="deezerSearch"
-        placeholder="Ex: https://www.deezer.com/fr/album/365740 ...">
-    </form>
-  </div>
+  <div class="inner-bar">
 
-  <div *ngIf="themes != undefined && mixing == false" class="trackTool">
-    <span style="color: white">
-      <mat-icon class="album">album</mat-icon>
-    </span>
-    <mat-slider class="my-auto" [max]="themes.length" min=1 step=1 thumbLabel=true tickInterval=1 value=1
-      [vertical]=false (input)="trackChoice($event.value)">
-    </mat-slider>
-
-    <button class="btn btn-info my-2 rounded-0 border-0" (click)="selectTrack()">Select</button>
-  </div>
-
-  <div *ngIf="mixing == true" class="sampleFinder">
-
-    <div *ngIf="samples == undefined" class="sampleSearch">
-      <form #sampleSearch="ngForm" (ngSubmit)=searchSample(sampleSearch.value)>
-        <mat-form-field>
-          <mat-label>Sample Search</mat-label>
-          <input matInput autocomplete="off" type="text" name="sampleSearch" placeholder="Ex. drums, disco..."
-            (ngModel)="model.sampleSearch">
-        </mat-form-field>
+    <div *ngIf="themes == undefined && mixing == false && card == 'question'" class="deezer-input" [@flyingTool]>
+      <form autocomplete="off" #deezerSearch="ngForm" (ngSubmit)=retreiveData(deezerSearch.value.deezerSearch)
+        class="deezerInput">
+        <input type="text" [(ngModel)]="value" name="deezerSearch"
+          placeholder="Ex: https://www.deezer.com/fr/album/365740 ...">
       </form>
+    </div>
 
-      <div class="control" *ngIf="music.isPaused == false">
-        <button class="icon" (click)=play()>
-          <mat-icon>play_arrow</mat-icon>
-        </button>
-      </div>
-      <div class="control" *ngIf="music.isPaused == true">
-        <button class="icon" (click)=pause()>
-          <mat-icon>pause</mat-icon>
-        </button>
-      </div>
-      <div class="control">
-        <button class="icon" (click)=stop()>
-          <mat-icon>stop</mat-icon>
-        </button>
+    <div *ngIf="themes != undefined && mixing == false" class="trackTool" [@flyingTool]>
+      <span style="color: white">
+        <mat-icon class="album">album</mat-icon>
+      </span>
+      <mat-slider class="my-auto" [max]="themes.length" min=1 step=1 thumbLabel=true tickInterval=1 value=1
+        [vertical]=false (input)="trackChoice($event.value)">
+      </mat-slider>
+
+      <button class="btn btn-info my-2 rounded-0 border-0" (click)="selectTrack()" [@flyingTool]>Select</button>
+    </div>
+
+    <div *ngIf="mixing == true" class="sampleFinder">
+
+      <div *ngIf="samples == undefined" class="sampleSearch">
+        <form #sampleSearch="ngForm" (ngSubmit)=searchSample(sampleSearch.value) [@flyingTool]
+          *ngIf="card === 'question'">
+          <mat-form-field>
+            <mat-label>Sample Search</mat-label>
+            <input matInput autocomplete="off" type="text" name="sampleSearch" placeholder="Ex. drums, disco..."
+              (ngModel)="model.sampleSearch">
+          </mat-form-field>
+        </form>
+
+        <div class="control" *ngIf="music.isPaused == false && card === 'question'" [@flyingTool]>
+          <button class="icon" (click)=play()>
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+        </div>
+        <div class="control" *ngIf="music.isPaused == true && card === 'question'" [@flyingTool]>
+          <button class="icon" (click)=pause()>
+            <mat-icon>pause</mat-icon>
+          </button>
+        </div>
+        <div class="control" [@flyingTool] *ngIf="card === 'question'">
+          <button class="icon" (click)=stop()>
+            <mat-icon>stop</mat-icon>
+          </button>
+        </div>
+
+        <div class="control" [@flyingTool] *ngIf="card === 'question'">
+          <button class="icon" (click)=forward(5)>
+            <mat-icon>forward_5</mat-icon>
+          </button>
+        </div>
+
+        <div class="control" [@flyingTool] *ngIf="card === 'question'">
+          <button class="icon" (click)=forward(10)>
+            <mat-icon>forward_10</mat-icon>
+          </button>
+        </div>
+
+        <div class="position" [@flyingTool] *ngIf="card === 'question'">
+          {{ music.position | number : '1.2-2' }}
+        </div>
+
+        <div class="control" [@flyingTool] *ngIf="card === 'question'">
+          <button class="icon" style="color: red" (click)=record()>
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+
       </div>
 
-      <div class="control">
-        <button class="icon" (click)=forward(5)>
-          <mat-icon>forward_5</mat-icon>
+      <div *ngIf="samples != undefined" class="sampleResult">
+        <button (click)="changeSample(-1)" class="icon">
+          <mat-icon>chevron_left</mat-icon>
         </button>
-      </div>
 
-      <div class="control">
-        <button class="icon" (click)=forward(10)>
-          <mat-icon>forward_10</mat-icon>
+        <div class="sampleDisplay" [@flyingTool]>{{ samples[sampleIndex]["name"] }} <b style="color: red">{{
+            samples[sampleIndex]["duration"] | number : '1.2-2'}} s</b></div>
+
+        <button (click)="changeSample(1)" class="icon" [@flyingTool]>
+          <mat-icon>chevron_right</mat-icon>
         </button>
-      </div>
 
-      <div class="position">
-        {{ music.position | number : '1.2-2' }}
-      </div>
-
-      <div class="control">
-        <button class="icon" style="color: red" (click)=record()>
-          <mat-icon>save</mat-icon>
+        <button (click)="addToSamples()" class="icon" [@flyingTool]>
+          <mat-icon>playlist_add</mat-icon>
+        </button>
+        <button (click)="deleteSearch()" class="icon" [@flyingTool]>
+          <mat-icon class="deleteIcon">cancel</mat-icon>
         </button>
       </div>
 
     </div>
-
-    <div *ngIf="samples != undefined" class="sampleResult">
-      <button (click)="changeSample(-1)" class="icon">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
-
-      <div class="sampleDisplay">{{ samples[sampleIndex]["name"] }} <b style="color: red">{{
-          samples[sampleIndex]["duration"] | number : '1.2-2'}} s</b></div>
-
-      <button (click)="changeSample(1)" class="icon">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-
-      <button (click)="addToSamples()" class="icon">
-        <mat-icon>playlist_add</mat-icon>
-      </button>
-      <button (click)="deleteSearch()" class="icon">
-        <mat-icon class="deleteIcon">cancel</mat-icon>
-      </button>
-    </div>
-
   </div>
 
   <div class="switch">
-    <app-qaswitch (click)="showAnswer()"></app-qaswitch>
+    <app-qaswitch></app-qaswitch>
   </div>
-
 </div>

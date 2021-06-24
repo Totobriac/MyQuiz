@@ -8,12 +8,41 @@ import { MusicDataService } from 'src/app/services/music-data.service';
 import { Music } from 'src/app/interfaces/music';
 import { Howl } from 'howler'
 import { MusicPlayerService } from './music-player.service';
+import { trigger, transition, animate, keyframes, style } from '@angular/animations';
 
 
 @Component({
   selector: 'app-music-question',
   templateUrl: './music-question.component.html',
-  styleUrls: ['./music-question.component.css']
+  styleUrls: ['./music-question.component.css'],
+  animations: [
+    trigger('flyingTool', [
+      transition(':enter', [
+        animate('1s 1s ease-out', keyframes([
+          style({ transform: 'translateX(-100%)', opacity: '0', offset: 0 }),
+          style({ transform: 'translateX(10%)', opacity: '1', offset: 0.8 }),
+          style({ transform: 'translateX(0%)', opacity: '1', offset: 1.0 })
+        ]))
+      ]),
+      transition(':leave', [
+        animate('600ms ease-in', keyframes([
+          style({ transform: 'translateX(-10%)', opacity: '1', offset: 0.3 }),
+          style({ transform: 'translateX(100%)', opacity: '0', offset: 1.0 })
+        ]))
+      ])
+    ]),
+    trigger('cardChange', [
+      transition((fromState: string, toState: string) => toState != fromState, [
+        animate(100, style({ transform: 'rotate(0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(-0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' })),
+        animate(100, style({ transform: 'rotate(0.2deg)' })),
+        animate(100, style({ transform: 'rotate(0deg)' }))
+      ])
+    ])
+  ]
+
 })
 export class MusicQuestionComponent implements OnInit {
 
@@ -35,6 +64,7 @@ export class MusicQuestionComponent implements OnInit {
   playing: boolean = false;
   canPause: boolean = false;
   card: string;
+  toolColor: string;
 
   constructor(private movieData: MovieDataService,
               private musicService: MusicQuestionService,
@@ -47,6 +77,13 @@ export class MusicQuestionComponent implements OnInit {
     this.subscription = this.musicDataService.currentMusic.subscribe(music => this.music = music)
     this.subscription = this.musicDataService.currentMusicCard.subscribe(card => this.card = card.card)
     this.findAlbums(this.movie.title, this.movie.year, this.movie.music_composer)
+  }
+
+  get style() {
+    this.card == "question"
+      ? this.toolColor = 'rgb(95,158,160)' 
+      : this.toolColor = 'rgb(215, 190, 130);'
+    return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
   }
 
   findAlbums(movieTitle, year, composer) {

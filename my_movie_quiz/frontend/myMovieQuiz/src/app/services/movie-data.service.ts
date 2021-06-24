@@ -14,7 +14,7 @@ export class MovieDataService {
   private movieList = new BehaviorSubject([] as MovieDb[]);
   currentMovieList = this.movieList.asObservable();
 
-  private component = new BehaviorSubject(0);
+  private component = new BehaviorSubject(7);
   currentComponent = this.component.asObservable();
 
   private tool = new BehaviorSubject(0);

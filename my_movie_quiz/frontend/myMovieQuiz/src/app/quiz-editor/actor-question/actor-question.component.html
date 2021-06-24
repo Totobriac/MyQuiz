@@ -35,41 +35,42 @@
 
   <div class="actor-tools">
 
-  <button mat-mini-fab color="accent" class="next-btn first-btn" (click)="nextPicture(-1)"
-    *ngIf="tools.card === 'question'" [@flyingTool]>
-    <mat-icon>chevron_left</mat-icon>
-  </button>
+    <button mat-mini-fab color="accent" class="next-btn first-btn" (click)="nextPicture(-1)"
+      *ngIf="tools.card === 'question'" [@flyingTool]>
+      <mat-icon>chevron_left</mat-icon>
+    </button>
 
-  <mat-form-field class="actor-choice" *ngIf="tools.card === 'question'" [@flyingTool]>
-    <mat-label>Actor</mat-label>
-    <mat-select (selectionChange)="selectActor($event.value)">
-      <mat-option *ngFor="let actor of actorName[1]; index as index" [value]="index">
-        {{ actor }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <button mat-mini-fab color="accent" class="next-btn" (click)="nextPicture(1)" *ngIf="tools.card === 'question'"
-    [@flyingTool]>
-    <mat-icon>chevron_right</mat-icon>
-  </button>
-
-  <form #searchActor="ngForm" (ngSubmit)=submitForm(searchActor.value) *ngIf="tools.card === 'question'" [@flyingTool]>
-    <mat-form-field class="actor-custom">
-      <mat-label>Custom Search</mat-label>
-      <input matInput autocomplete="off" type="text" name="actorSearch" placeholder="Ex. young, cartoon..."
-        (ngModel)="model.searchActor">
+    <mat-form-field class="actor-choice" *ngIf="tools.card === 'question'" [@flyingTool]>
+      <mat-label>Actor</mat-label>
+      <mat-select (selectionChange)="selectActor($event.value)">
+        <mat-option *ngFor="let actor of actorName[1]; index as index" [value]="index">
+          {{ actor }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-  </form>
 
-  <div class="toolbar-btn" *ngIf="tools.card === 'question'" [@flyingTool]>
-    <mat-icon class="icon">grain</mat-icon>
-    <mat-slider max=4 min=0 step=1 thumbLabel=true tickInterval=1 [value]=actor.pixValue[selectAct] [vertical]=false
-      (input)="pixelNav($event.value)">
-    </mat-slider>
+    <button mat-mini-fab color="accent" class="next-btn" (click)="nextPicture(1)" *ngIf="tools.card === 'question'"
+      [@flyingTool]>
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <form #searchActor="ngForm" (ngSubmit)=submitForm(searchActor.value) *ngIf="tools.card === 'question'"
+      [@flyingTool]>
+      <mat-form-field class="actor-custom">
+        <mat-label>Custom Search</mat-label>
+        <input matInput autocomplete="off" type="text" name="actorSearch" placeholder="Ex. young, cartoon..."
+          (ngModel)="model.searchActor">
+      </mat-form-field>
+    </form>
+
+    <div class="toolbar-btn" *ngIf="tools.card === 'question'" [@flyingTool]>
+      <mat-icon class="icon">grain</mat-icon>
+      <mat-slider max=4 min=0 step=1 thumbLabel=true tickInterval=1 [value]=actor.pixValue[selectAct] [vertical]=false
+        (input)="pixelNav($event.value)">
+      </mat-slider>
+    </div>
+
   </div>
-
-</div>
 
   <div>
     <div class="switch">

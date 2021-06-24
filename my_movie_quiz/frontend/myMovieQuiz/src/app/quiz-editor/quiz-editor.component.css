@@ -1,0 +1,11 @@
+.home {
+    background-color: cadetblue;
+    border: 2px solid rgb(4,113,150);
+    height: 526px;
+    width: 662px;
+    margin-top: auto;
+    margin-left: auto;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
