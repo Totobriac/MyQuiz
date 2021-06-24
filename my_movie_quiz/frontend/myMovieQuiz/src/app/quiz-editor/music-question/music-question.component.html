@@ -9,7 +9,7 @@
         </div>
       </div>
 
-      <div class="deezerSearch">
+      <div class="deezer-search">
         <div class="infoText">
           <div>
             <text class="info">Not what you are looking for? Find it on Deezer & grab it's url. <br>
@@ -54,20 +54,19 @@
       </form>
     </div>
 
-    <div *ngIf="themes != undefined && mixing == false" class="trackTool" [@flyingTool]>
-      <span style="color: white">
-        <mat-icon class="album">album</mat-icon>
-      </span>
-      <mat-slider class="my-auto" [max]="themes.length" min=1 step=1 thumbLabel=true tickInterval=1 value=1
-        [vertical]=false (input)="trackChoice($event.value)">
-      </mat-slider>
-
-      <button class="btn btn-info my-2 rounded-0 border-0" (click)="selectTrack()" [@flyingTool]>Select</button>
+    <div *ngIf="themes != undefined && mixing == false" class="track-tool" [@flyingTool]>
+        <span style="color: white">
+          <mat-icon class="album">album</mat-icon>
+        </span>
+        <mat-slider class="my-auto" [max]="themes.length" min=1 step=1 thumbLabel=true tickInterval=1 value=1
+          [vertical]=false (input)="trackChoice($event.value)">
+        </mat-slider>
+      <button class="toolbar-btn" (click)="selectTrack()" [@flyingTool]>Select</button>
     </div>
 
-    <div *ngIf="mixing == true" class="sampleFinder">
+    <div *ngIf="mixing == true" class="sample-finder">
 
-      <div *ngIf="samples == undefined" class="sampleSearch">
+      <div *ngIf="samples == undefined" class="sample-search">
         <form #sampleSearch="ngForm" (ngSubmit)=searchSample(sampleSearch.value) [@flyingTool]
           *ngIf="card === 'question'">
           <mat-form-field>
@@ -77,29 +76,29 @@
           </mat-form-field>
         </form>
 
-        <div class="control" *ngIf="music.isPaused == false && card === 'question'" [@flyingTool]>
+        <div class="toolbar-btn" *ngIf="music.isPaused == false && card === 'question'" [@flyingTool]>
           <button class="icon" (click)=play()>
             <mat-icon>play_arrow</mat-icon>
           </button>
         </div>
-        <div class="control" *ngIf="music.isPaused == true && card === 'question'" [@flyingTool]>
+        <div class="toolbar-btn" *ngIf="music.isPaused == true && card === 'question'" [@flyingTool]>
           <button class="icon" (click)=pause()>
             <mat-icon>pause</mat-icon>
           </button>
         </div>
-        <div class="control" [@flyingTool] *ngIf="card === 'question'">
+        <div class="toolbar-btn" [@flyingTool] *ngIf="card === 'question'">
           <button class="icon" (click)=stop()>
             <mat-icon>stop</mat-icon>
           </button>
         </div>
 
-        <div class="control" [@flyingTool] *ngIf="card === 'question'">
+        <div class="toolbar-btn" [@flyingTool] *ngIf="card === 'question'">
           <button class="icon" (click)=forward(5)>
             <mat-icon>forward_5</mat-icon>
           </button>
         </div>
 
-        <div class="control" [@flyingTool] *ngIf="card === 'question'">
+        <div class="toolbar-btn" [@flyingTool] *ngIf="card === 'question'">
           <button class="icon" (click)=forward(10)>
             <mat-icon>forward_10</mat-icon>
           </button>
@@ -109,7 +108,7 @@
           {{ music.position | number : '1.2-2' }}
         </div>
 
-        <div class="control" [@flyingTool] *ngIf="card === 'question'">
+        <div class="toolbar-btn" [@flyingTool] *ngIf="card === 'question'">
           <button class="icon" style="color: red" (click)=record()>
             <mat-icon>save</mat-icon>
           </button>
@@ -117,24 +116,30 @@
 
       </div>
 
-      <div *ngIf="samples != undefined" class="sampleResult">
-        <button (click)="changeSample(-1)" class="icon">
+      <div *ngIf="samples != undefined" class="sample-result">
+
+        <button mat-mini-fab color="accent" (click)="changeSample(-1)" class="next-btn">
           <mat-icon>chevron_left</mat-icon>
         </button>
 
-        <div class="sampleDisplay" [@flyingTool]>{{ samples[sampleIndex]["name"] }} <b style="color: red">{{
+        <div class="sample-display" [@flyingTool]>{{ samples[sampleIndex]["name"] }} <b style="color: red">{{
             samples[sampleIndex]["duration"] | number : '1.2-2'}} s</b></div>
 
-        <button (click)="changeSample(1)" class="icon" [@flyingTool]>
+        <button mat-mini-fab color="accent" (click)="changeSample(1)" class="next-btn" [@flyingTool]>
           <mat-icon>chevron_right</mat-icon>
         </button>
 
-        <button (click)="addToSamples()" class="icon" [@flyingTool]>
-          <mat-icon>playlist_add</mat-icon>
-        </button>
-        <button (click)="deleteSearch()" class="icon" [@flyingTool]>
-          <mat-icon class="deleteIcon">cancel</mat-icon>
-        </button>
+        <div class="toolbar-btn">
+          <button (click)="addToSamples()" class="icon" [@flyingTool]>
+            <mat-icon>playlist_add</mat-icon>
+          </button>
+        </div>
+
+        <div class="toolbar-btn">
+          <button (click)="deleteSearch()" class="icon" [@flyingTool]>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
       </div>
 
     </div>
