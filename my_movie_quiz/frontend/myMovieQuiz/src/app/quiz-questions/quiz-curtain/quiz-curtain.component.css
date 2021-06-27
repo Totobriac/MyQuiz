@@ -1,12 +1,8 @@
-.curtain {  
-  height: 526px;
-  width: 201px
-}
-
 .side {
   width: 201px; 
   height: 526px;
   overflow: hidden;
+  border-radius: 5px;
 }
 
 .side img {

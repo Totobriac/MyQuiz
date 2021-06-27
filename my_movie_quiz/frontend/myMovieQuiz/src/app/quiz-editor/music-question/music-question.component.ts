@@ -169,7 +169,7 @@ export class MusicQuestionComponent implements OnInit {
                           duration: this.samples[this.sampleIndex]["duration"],
                           url: this.samples[this.sampleIndex]["previews"]["preview-hq-mp3"],
                           start: 0,
-                          volume: 0.6,
+                          volume: 0.8,
                           rate: 1,
                           position: 0,
                           mute:false})

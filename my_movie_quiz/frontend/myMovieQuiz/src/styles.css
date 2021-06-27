@@ -14,6 +14,7 @@ body {
   height: 450px;
   width: 662px;
   border: 2px solid var(--toolcolor);
+  border-radius: 5px;
 }
 
 .question_toolbar {
@@ -25,6 +26,7 @@ body {
   background-color: rgb(4, 113, 150);
   align-items: center;
   overflow: hidden;
+  border-radius: 5px;
 }
 
 .tool_btn {
@@ -53,6 +55,7 @@ body {
   position: absolute;
   overflow: hidden;
   border: 2px solid var(--toolcolor);
+  border-radius: 5px;
   display: flex;
   justify-content: center;
 }

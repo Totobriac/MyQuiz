@@ -2,6 +2,7 @@
   width: 662px; 
   height: 450px;
   overflow: hidden;
+  border-radius: 5px;
 }
 
 #top img {
@@ -14,6 +15,7 @@
   height: 52px;
   margin-top: 24px;
   overflow: hidden;
+  border-radius: 5px;
 }
 
 #bottom img {

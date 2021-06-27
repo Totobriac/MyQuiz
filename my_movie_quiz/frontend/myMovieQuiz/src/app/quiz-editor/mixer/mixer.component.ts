@@ -1,3 +1,4 @@
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Music } from 'src/app/interfaces/music';
@@ -9,7 +10,43 @@ import { MusicPlayerService } from '../music-question/music-player.service';
 @Component({
   selector: 'app-mixer',
   templateUrl: './mixer.component.html',
-  styleUrls: ['./mixer.component.css']
+  styleUrls: ['./mixer.component.css'],
+  animations: [
+    trigger('slide', [
+      state('left', style({
+        transform: 'translate(calc(-600px + 100%))',
+      })),
+      state('right', style({
+      })),
+      transition('left => right', [
+        animate('1s ease-out')
+      ]),
+      transition('right => left', [
+        animate('1s ease-out')
+      ]),
+    ]),
+    trigger('raising', [
+      transition(':enter', [
+        animate(
+          '1s ease-out',
+          keyframes([
+            style({ height: '0px', offset: 0 }),
+            style({ height: '70px', offset: 0.8 }),
+            style({ height: '56px', offset: 1.0 })
+          ])
+        )
+      ]),
+      transition(':leave', [
+        animate(
+          '600ms ease-in',
+          keyframes([
+            style({ height: '0px', offset: 1.0 })
+          ])
+        )
+      ])
+    ])
+
+  ]
 })
 export class MixerComponent implements OnInit {
 
@@ -20,57 +57,52 @@ export class MixerComponent implements OnInit {
   size: any
   onEdge: boolean[] = [false, false, false, false, false]
 
-  constructor( private musicDataService: MusicDataService,
-               private musicPlayerService: MusicPlayerService ) {}
+  constructor(private musicDataService: MusicDataService,
+    private musicPlayerService: MusicPlayerService) { }
 
   ngOnInit(): void {
     this.subscription = this.musicDataService.currentMusic.subscribe(music => this.music = music)
   }
 
   getWidth(i) {
-    return (this.music.samples[i-1].duration * 20)
+    return (this.music.samples[i - 1].duration * 20)
   }
 
   getProgress(i) {
     if (i == 0) {
       return (this.music.position * 20)
     }
-    else { return (this.music.position * 20 - this.music.samples[i-1].start * 20) }
+    else { return (this.music.position * 20 - this.music.samples[i - 1].start * 20) }
   }
 
   getBorder(i) {
     if (this.music.samples != undefined && this.music.samples[i - 1] != undefined) {
-      return (this.music.samples[i - 1].start * 20) }
+      return (this.music.samples[i - 1].start * 20)
+    }
   }
 
   getHeight(i) {
     var height
-    i == 0 ? height = (this.music.mainTitle.volume * 70) : height = (this.music.samples[i-1].volume * 70)
+    i == 0 ? height = (this.music.mainTitle.volume * 70) : height = (this.music.samples[i - 1].volume * 70)
     return height
   }
 
-  getTop(i) {
-    var top
-    i == 0 ? top = (70 - this.music.mainTitle.volume * 70) : top = (70 - this.music.samples[i-1].volume * 70)
-    return top
-  }
-
   getMaxWidth(i) {
-    return (this.music.samples[i-1].duration * 20)
+    return (this.music.samples[i - 1].duration * 20)
   }
 
-  onMoveEnd(event, i) {    
+  onMoveEnd(event, i) {
     var musicSamples = this.music.samples;
-    musicSamples[i-1].start = event.x/20;
-    event.x + musicSamples[i-1].duration * 20  > 540 ? this.onEdge[i] = true : this.onEdge[i] = false;
+    musicSamples[i - 1].start = event.x / 20;
+    event.x + musicSamples[i - 1].duration * 20 > 540 ? this.onEdge[i] = true : this.onEdge[i] = false;
     this.musicDataService.changeSamples(musicSamples);
   }
 
   onResizeWidth(event, i) {
     var musicSamples = this.music.samples;
-    musicSamples[i-1].duration = event.size.width/20;
+    musicSamples[i - 1].duration = event.size.width / 20;
     console.log(event);
-    musicSamples[i-1].start * 20 + event.size.width  > 540 ? this.onEdge[i] = true : this.onEdge[i] = false;
+    musicSamples[i - 1].start * 20 + event.size.width > 540 ? this.onEdge[i] = true : this.onEdge[i] = false;
     this.musicDataService.changeSamples(musicSamples);
   }
 
@@ -93,6 +125,10 @@ export class MixerComponent implements OnInit {
   }
 
   onStart(index) {
+    this.musicDataService.changeCurrent(index)
+  }
+
+  onSelect(index) {
     this.musicDataService.changeCurrent(index)
   }
 

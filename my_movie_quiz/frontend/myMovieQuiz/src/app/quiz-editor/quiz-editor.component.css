@@ -1,6 +1,7 @@
 .home {
     background-color: cadetblue;
     border: 2px solid rgb(4,113,150);
+    border-radius: 5px;
     height: 526px;
     width: 662px;
     margin-top: auto;

@@ -1,6 +1,6 @@
 .searchBar {
   background-color: rgb(4, 113, 150);
-  /* height: 580px; */
+  border-radius: 5px;  
   overflow-y: auto;
 }
 

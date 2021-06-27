@@ -12,24 +12,17 @@
   background-color: cadetblue;
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px 5px 0 0;
 }
 
 .title {
   position: absolute;
   right: 0;
   z-index: 100;
-  margin-right: 8px;
   width: fit-content;
 }
 
-.titleLeft {
-  position: absolute;
-  right: 0;
-  z-index: 100;
-  padding-left: 8px;
-  width: fit-content;
-  transform: translate(calc(-600px + 100%));
-  transition: 1s;
+.left-text{
   text-align: left;
 }
  
@@ -40,39 +33,36 @@
   position: relative;
 }
 
-[id="0"] .musicVolume {
-  background-color: rgb(90, 156, 28);
+[id="0"] .music-volume {
+  background-color: #4D91A9;
 }
 
-[id="1"] .musicVolume {
-  background-color: chocolate;
+[id="1"] .music-volume {
+  background-color: #5681AB;
 }
 
-[id="2"] .musicVolume {
-  background-color: rgb(78, 30, 210);
+[id="2"] .music-volume {
+  background-color: #706EA1;
 }
 
-[id="3"] .musicVolume {
-  background-color: rgb(184, 51, 106);
+[id="3"] .music-volume {
+  background-color: #885887;
 }
 
-[id="4"] .musicVolume {
-  background-color: rgb(137, 149, 150);
+[id="4"] .music-volume {
+  background-color: #934561;
 }
 
-.musicVolume {
+.music-volume {
   width: 100%;
   position: absolute;
   bottom: 0px !important;
 }
 
-.progressBar {
+.progress-bar {
   height: 4px;
   max-width: 600px;
-}
-
-.progressBar {
-  background-color: red;
+  background-color: rgb(215, 190, 130);
 }
 
 .icon {
@@ -82,6 +72,6 @@
   color: white;
 }
 
-.button {
-  padding-right: 0;
+.title-name {
+  color: white;
 }

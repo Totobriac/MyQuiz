@@ -11,13 +11,13 @@ export class MusicPlayerService {
 
   mainSound: any;
   sample: any[] = [];
-  mainPause: number
+  mainPause: number;
   sampPause: number[] = []; 
   paused: boolean = false;
   startTimeOut: any[] = [];
   stopTimeOut: any[] = [];
   position: number = 0;
-  wasPlaying: boolean[] = []
+  wasPlaying: boolean[] = [];
   
 
   constructor(private musicDataService: MusicDataService) { }

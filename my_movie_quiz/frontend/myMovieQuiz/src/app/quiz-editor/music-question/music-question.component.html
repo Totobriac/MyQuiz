@@ -55,12 +55,12 @@
     </div>
 
     <div *ngIf="themes != undefined && mixing == false" class="track-tool" [@flyingTool]>
-        <span style="color: white">
-          <mat-icon class="album">album</mat-icon>
-        </span>
-        <mat-slider class="my-auto" [max]="themes.length" min=1 step=1 thumbLabel=true tickInterval=1 value=1
-          [vertical]=false (input)="trackChoice($event.value)">
-        </mat-slider>
+      <span style="color: white">
+        <mat-icon class="album">album</mat-icon>
+      </span>
+      <mat-slider class="my-auto" [max]="themes.length" min=1 step=1 thumbLabel=true tickInterval=1 value=1
+        [vertical]=false (input)="trackChoice($event.value)">
+      </mat-slider>
       <button class="toolbar-btn" (click)="selectTrack()" [@flyingTool]>Select</button>
     </div>
 
@@ -76,16 +76,19 @@
           </mat-form-field>
         </form>
 
-        <div class="toolbar-btn" *ngIf="music.isPaused == false && card === 'question'" [@flyingTool]>
-          <button class="icon" (click)=play()>
-            <mat-icon>play_arrow</mat-icon>
-          </button>
+        <div *ngIf="card == 'question'" [@flyingTool]>
+          <div class="toolbar-btn" *ngIf="music.isPaused == false">
+            <button class="icon" (click)=play()>
+              <mat-icon>play_arrow</mat-icon>
+            </button>
+          </div>
+          <div class="toolbar-btn" *ngIf="music.isPaused == true">
+            <button class="icon" (click)=pause()>
+              <mat-icon>pause</mat-icon>
+            </button>
+          </div>
         </div>
-        <div class="toolbar-btn" *ngIf="music.isPaused == true && card === 'question'" [@flyingTool]>
-          <button class="icon" (click)=pause()>
-            <mat-icon>pause</mat-icon>
-          </button>
-        </div>
+
         <div class="toolbar-btn" [@flyingTool] *ngIf="card === 'question'">
           <button class="icon" (click)=stop()>
             <mat-icon>stop</mat-icon>
