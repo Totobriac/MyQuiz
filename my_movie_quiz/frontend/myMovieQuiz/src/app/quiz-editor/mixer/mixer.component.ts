@@ -30,9 +30,9 @@ import { MusicPlayerService } from '../music-question/music-player.service';
         animate(
           '1s ease-out',
           keyframes([
-            style({ height: '0px', offset: 0 }),
-            style({ height: '70px', offset: 0.8 }),
-            style({ height: '56px', offset: 1.0 })
+            style({ top: '70px', offset: 0 }),
+            style({ top: '0px', offset: 0.8 }),
+            style({ top: '14px', offset: 1.0 })
           ])
         )
       ]),
@@ -85,6 +85,12 @@ export class MixerComponent implements OnInit {
     var height
     i == 0 ? height = (this.music.mainTitle.volume * 70) : height = (this.music.samples[i - 1].volume * 70)
     return height
+  }
+
+  getTop(i) {
+    var top
+    i == 0 ? top = (70 - this.music.mainTitle.volume * 70) : top = (70 - this.music.samples[i-1].volume * 70)
+    return top
   }
 
   getMaxWidth(i) {

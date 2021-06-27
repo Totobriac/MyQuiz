@@ -32,6 +32,10 @@ export class MusicDataService {
     this.music.next(Object.assign(this.music.value, {isPaused: isPaused}))
   }
 
+  isThinking(isThinking: boolean) {
+    this.music.next(Object.assign(this.music.value, {thinking: isThinking}))
+  }
+
   position(position: number) {
     this.music.next(Object.assign(this.music.value, {position: position}))
   }

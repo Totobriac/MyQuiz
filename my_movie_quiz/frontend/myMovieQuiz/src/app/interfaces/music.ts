@@ -19,6 +19,7 @@ export interface Music {
   currentTrack: number;
   isPaused: boolean;
   position: number;
+  thinking: boolean;
 }
 
 export interface MusicCard {

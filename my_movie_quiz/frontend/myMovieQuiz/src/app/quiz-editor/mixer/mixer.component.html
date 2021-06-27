@@ -40,7 +40,7 @@
         </div>
         <div *ngIf="i == 0" class="music-volume" ngResizable rzHandles="n" rzContainment=".track"
           (rzStart)="onResizeStart(i)" (rzStop)="onResizeHeight($event, i)" 
-          [style.height.px]="getHeight(i)" [@raising]>
+          [style.height.px]="getHeight(i)" [@raising] [style.top.px]="getTop(i)">
         </div>
         <div class="musicTrack" [style.width.px]="getWidth(i)"
           *ngIf="i > 0 && music.samples != undefined && music.samples[i-1] != undefined" [ngDraggable]="draggable"
@@ -48,7 +48,7 @@
           ngResizable rzHandles="e" rzContainment="#myBounds" (rzStart)="onResizeStart(i)"
           (rzStop)="onResizeWidth($event, i)">
           <div class="music-volume" ngResizable rzHandles="n" rzContainment=".musicTrack" (rzStart)="onResizeStart(i)"
-            (rzStop)="onResizeHeight($event, i)" [style.height.px]="getHeight(i)" [@raising]>
+            (rzStop)="onResizeHeight($event, i)" [style.height.px]="getHeight(i)" [@raising] [style.top.px]="getTop(i)">
           </div>
         </div>
       </div>

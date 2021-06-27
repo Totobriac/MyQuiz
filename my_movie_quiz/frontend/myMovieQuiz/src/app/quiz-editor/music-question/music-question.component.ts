@@ -120,6 +120,7 @@ export class MusicQuestionComponent implements OnInit {
     var mainTitle = { 'title': this.themes[this.track]['title'], 'url': this.themes[this.track]['preview'], 'volume': 0.8, 'rate': 1, 'mute': false};
     this.musicDataService.changeMainTitle(mainTitle);
     this.musicDataService.isPaused(false);
+    this.musicDataService.isThinking(false);
     this.musicDataService.changeCurrent(0);
     this.musicDataService.position(0);
     this.mixing = true;
@@ -196,8 +197,10 @@ export class MusicQuestionComponent implements OnInit {
   }
 
   record() {
+    this.musicDataService.isThinking(true)
     this.musicService.record(this.music)
-    .subscribe(r => console.log(r))
+    .subscribe(r => {console.log(r),
+                     this.musicDataService.isThinking(false)})
   }
 
   showAnswer() {
