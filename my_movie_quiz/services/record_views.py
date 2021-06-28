@@ -101,7 +101,7 @@ class Record(View):
                                 aws_secret_access_key = AWS_ACCESS_KEY)
         file_id = id_generator()        
         file_path = "music/" + "best_mix_ever_{}.mp3".format(file_id)
-        f = open('/home/pi/Documents/movieQuizz/my_movie_quiz/best_hit_ever.mp3', 'rb')
+        f = open('/home/totobriac/quiz/MyQuiz/my_movie_quiz/best_hit_ever.mp3', 'rb')
         client.put_object(Body= f, Bucket="moviepictures", Key= file_path, ContentType='audio/mpeg')
         os.unlink("best_hit_ever.mp3")
         return JsonResponse({'url': file_path})

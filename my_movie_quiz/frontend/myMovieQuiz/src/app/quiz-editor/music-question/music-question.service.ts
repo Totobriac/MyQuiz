@@ -52,8 +52,8 @@ export class MusicQuestionService {
         rate.push(sample.rate);
         volume.push(sample.volume);
       }
-      var data = {'url': url, 'start': start, 'duration': duration, 'rate': rate, 'volume': volume}
-      return this.http.get("http://127.0.0.1:8000/api/record?json=" + encodeURIComponent(JSON.stringify(data)))
     }
+    var data = {'url': url, 'start': start, 'duration': duration, 'rate': rate, 'volume': volume}
+    return this.http.get("http://127.0.0.1:8000/api/record?json=" + encodeURIComponent(JSON.stringify(data)))    
   }
 }

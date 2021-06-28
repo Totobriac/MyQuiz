@@ -25,7 +25,7 @@
 
     </div>
 
-    <div *ngIf="isPlaying === true && mixing == false">
+    <div *ngIf="isPlaying === true && mixing == false && music.thinking == false">
       <iframe scrolling="yes" frameborder="0" allowTransparency="true" [src]="urlSafe" width="600" height="300"
         class="player"></iframe>
     </div>
@@ -44,7 +44,7 @@
 
 <div class="question_toolbar">
 
-  <div class="inner-bar">
+  <div class="inner-bar" *ngIf="music.thinking == false">
 
     <div *ngIf="themes == undefined && mixing == false && card == 'question'" class="deezer-input" [@flyingTool]>
       <form autocomplete="off" #deezerSearch="ngForm" (ngSubmit)=retreiveData(deezerSearch.value.deezerSearch)
@@ -144,16 +144,17 @@
           </button>
         </div>
       </div>
-
-      <div *ngIf="card.thinking == true" class="spinner">
-        toto
-      </div>
-
-
     </div>
+  </div>
+
+  <div *ngIf="music.thinking == true" class="loader" [@flyingTool]>
+    <button class="icon">
+      <mat-icon>play_arrow</mat-icon>
+    </button>
   </div>
 
   <div class="switch">
     <app-qaswitch></app-qaswitch>
   </div>
+
 </div>

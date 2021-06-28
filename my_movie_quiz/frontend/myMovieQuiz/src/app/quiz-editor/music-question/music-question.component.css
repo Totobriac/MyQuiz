@@ -218,3 +218,24 @@ form {
   align-items: center;
 }
 
+.loader {
+  height: 34px;
+  width: 500px;
+  border: 2px solid cadetblue;
+  margin-left: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.loader button {
+  width: 36px;
+  background-color: rgb(215, 190, 130);
+  border-radius: 5px;
+  animation: scrolling 5s infinite;
+}
+
+@keyframes scrolling {
+  0%   {transform: translateX(0)}
+  50%  {transform: translateX(460px)}
+  100% {transform: translateX(0)}
+}

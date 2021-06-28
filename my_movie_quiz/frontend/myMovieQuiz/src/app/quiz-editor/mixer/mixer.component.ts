@@ -89,7 +89,7 @@ export class MixerComponent implements OnInit {
 
   getTop(i) {
     var top
-    i == 0 ? top = (70 - this.music.mainTitle.volume * 70) : top = (70 - this.music.samples[i-1].volume * 70)
+    i == 0 ? top = (70 - this.music.mainTitle.volume * 70) : top = (70 - this.music.samples[i - 1].volume * 70)
     return top
   }
 

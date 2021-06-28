@@ -64,6 +64,8 @@
   height: 4px;
   max-width: 600px;
   background-color: rgb(215, 190, 130);
+  position: absolute;
+  top: 66px;
 }
 
 .icon {

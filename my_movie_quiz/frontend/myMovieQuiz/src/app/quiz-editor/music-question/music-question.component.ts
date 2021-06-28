@@ -77,6 +77,7 @@ export class MusicQuestionComponent implements OnInit {
     this.subscription = this.musicDataService.currentMusic.subscribe(music => this.music = music)
     this.subscription = this.musicDataService.currentMusicCard.subscribe(card => this.card = card.card)
     this.findAlbums(this.movie.title, this.movie.year, this.movie.music_composer)
+    this.musicDataService.isThinking(false)
   }
 
   get style() {
@@ -197,6 +198,7 @@ export class MusicQuestionComponent implements OnInit {
   }
 
   record() {
+    this.mixing = false;
     this.musicDataService.isThinking(true)
     this.musicService.record(this.music)
     .subscribe(r => {console.log(r),
