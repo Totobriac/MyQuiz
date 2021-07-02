@@ -220,22 +220,33 @@ form {
 
 .loader {
   height: 34px;
-  width: 500px;
-  border: 2px solid cadetblue;
+  width: 430px;
+  /* border: 2px solid cadetblue; */
   margin-left: 24px;
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 
 .loader button {
   width: 36px;
   background-color: rgb(215, 190, 130);
   border-radius: 5px;
-  animation: scrolling 5s infinite;
 }
 
-@keyframes scrolling {
-  0%   {transform: translateX(0)}
-  50%  {transform: translateX(460px)}
-  100% {transform: translateX(0)}
+.tune {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 500px;
+}
+
+.your-mix {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.tune button {
+  height: 30px;
 }

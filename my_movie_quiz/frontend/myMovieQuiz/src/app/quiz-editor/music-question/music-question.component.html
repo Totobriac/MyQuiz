@@ -147,10 +147,18 @@
     </div>
   </div>
 
-  <div *ngIf="music.thinking == true" class="loader" [@flyingTool]>
-    <button class="icon">
-      <mat-icon>play_arrow</mat-icon>
-    </button>
+  <div *ngIf="music.thinking == true" class="loader" [@flyingTool] [@vanish]="show ? false : true">
+    <div class="tune" [@slidingTool]="isThinking" (@slidingTool.done)="checkIfDone()">
+      <button class="icon">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <div class="toolbar-btn your-mix" *ngIf="show == true">
+        Your fantastic Tube
+      </div>
+      <button class="icon" *ngIf="show == true">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
   </div>
 
   <div class="switch">

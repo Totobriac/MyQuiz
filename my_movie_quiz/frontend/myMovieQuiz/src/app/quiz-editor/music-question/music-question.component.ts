@@ -9,6 +9,7 @@ import { Music } from 'src/app/interfaces/music';
 import { Howl } from 'howler'
 import { MusicPlayerService } from './music-player.service';
 import { trigger, transition, animate, keyframes, style } from '@angular/animations';
+import { slidingTool, vanish } from '../../animations'
 
 
 @Component({
@@ -40,13 +41,18 @@ import { trigger, transition, animate, keyframes, style } from '@angular/animati
         animate(100, style({ transform: 'rotate(0.2deg)' })),
         animate(100, style({ transform: 'rotate(0deg)' }))
       ])
-    ])
+    ]),
+    slidingTool, vanish
   ]
 
 })
 export class MusicQuestionComponent implements OnInit {
 
   isPlaying: boolean = false;
+  isSliding: boolean = false;
+  isThinking: boolean;
+  isDone: boolean = false;
+  show: boolean = false;
   mixing: boolean = false;
   movie: MovieDb;
   subscription: Subscription;
@@ -59,7 +65,7 @@ export class MusicQuestionComponent implements OnInit {
   music: Music;
   samples: any;
   sampleIndex: number = 0;
-  sound: any;  
+  sound: any;
   samplesList: object[] = [];
   playing: boolean = false;
   canPause: boolean = false;
@@ -67,10 +73,10 @@ export class MusicQuestionComponent implements OnInit {
   toolColor: string;
 
   constructor(private movieData: MovieDataService,
-              private musicService: MusicQuestionService,
-              public sanitizer: DomSanitizer,
-              private musicDataService: MusicDataService,
-              private musicPlayer: MusicPlayerService,) { }
+    private musicService: MusicQuestionService,
+    public sanitizer: DomSanitizer,
+    private musicDataService: MusicDataService,
+    private musicPlayer: MusicPlayerService,) { }
 
   ngOnInit(): void {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie)
@@ -82,7 +88,7 @@ export class MusicQuestionComponent implements OnInit {
 
   get style() {
     this.card == "question"
-      ? this.toolColor = 'rgb(95,158,160)' 
+      ? this.toolColor = 'rgb(95,158,160)'
       : this.toolColor = 'rgb(215, 190, 130);'
     return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
   }
@@ -94,7 +100,7 @@ export class MusicQuestionComponent implements OnInit {
 
   retreiveData(url) {
     var splitUrl = url.split("/")
-    this.getTracks(splitUrl[splitUrl.length -1], splitUrl[splitUrl.length -2] )
+    this.getTracks(splitUrl[splitUrl.length - 1], splitUrl[splitUrl.length - 2])
   }
 
   getTracks(musicId, type) {
@@ -117,8 +123,8 @@ export class MusicQuestionComponent implements OnInit {
   }
 
   selectTrack() {
-    if (this.track == undefined)  this.track = 0  
-    var mainTitle = { 'title': this.themes[this.track]['title'], 'url': this.themes[this.track]['preview'], 'volume': 0.8, 'rate': 1, 'mute': false};
+    if (this.track == undefined) this.track = 0
+    var mainTitle = { 'title': this.themes[this.track]['title'], 'url': this.themes[this.track]['preview'], 'volume': 0.8, 'rate': 1, 'mute': false };
     this.musicDataService.changeMainTitle(mainTitle);
     this.musicDataService.isPaused(false);
     this.musicDataService.isThinking(false);
@@ -131,13 +137,15 @@ export class MusicQuestionComponent implements OnInit {
   searchSample(sample) {
     console.log(this.music);
     this.musicService.getSample(sample['sampleSearch'])
-      .subscribe(r => {this.samples = r['results'];
-                       this.sound = new Howl({
-                         src: [this.samples[0]["previews"]["preview-lq-mp3"]],
-                         html5: true,
-                         loop: true,
-                         })
-                       this.sound.play()})
+      .subscribe(r => {
+        this.samples = r['results'];
+        this.sound = new Howl({
+          src: [this.samples[0]["previews"]["preview-lq-mp3"]],
+          html5: true,
+          loop: true,
+        })
+        this.sound.play()
+      })
   }
 
   changeSample(next: number) {
@@ -166,15 +174,17 @@ export class MusicQuestionComponent implements OnInit {
   }
 
   addToSamples() {
-    this.samplesList.push({name: this.samples[this.sampleIndex]["name"],
-                          themeDuration: this.samples[this.sampleIndex]["duration"],
-                          duration: this.samples[this.sampleIndex]["duration"],
-                          url: this.samples[this.sampleIndex]["previews"]["preview-hq-mp3"],
-                          start: 0,
-                          volume: 0.8,
-                          rate: 1,
-                          position: 0,
-                          mute:false})
+    this.samplesList.push({
+      name: this.samples[this.sampleIndex]["name"],
+      themeDuration: this.samples[this.sampleIndex]["duration"],
+      duration: this.samples[this.sampleIndex]["duration"],
+      url: this.samples[this.sampleIndex]["previews"]["preview-hq-mp3"],
+      start: 0,
+      volume: 0.8,
+      rate: 1,
+      position: 0,
+      mute: false
+    })
     this.musicDataService.changeSamples(this.samplesList)
   }
 
@@ -198,11 +208,30 @@ export class MusicQuestionComponent implements OnInit {
   }
 
   record() {
+    this.isThinking = true;
     this.mixing = false;
     this.musicDataService.isThinking(true)
+    this.isSliding = true;
     this.musicService.record(this.music)
-    .subscribe(r => {console.log(r),
-                     this.musicDataService.isThinking(false)})
+      .subscribe(r => {
+        console.log(r)
+        this.isSliding = false
+      })
+  }
+
+  checkIfDone() {
+    if (this.isSliding == true) {
+      this.isThinking = !this.isThinking;
+    }
+    else {
+      if (this.isDone == false) {
+        this.isThinking = !this.isThinking;
+        this.isDone = true;
+        setTimeout(() => {
+          this.show = true;
+        }, 1000);
+      }
+    }
   }
 
   showAnswer() {
