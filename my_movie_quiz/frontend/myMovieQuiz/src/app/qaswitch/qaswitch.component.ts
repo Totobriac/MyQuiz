@@ -13,7 +13,7 @@ import { TrailerToolsDataService } from '../services/trailerTools-data.service';
 
 
 @Component({
-  selector: 'app-qaswitch',
+  selector: 'app-switch',
   templateUrl: './qaswitch.component.html',
   styleUrls: ['./qaswitch.component.css']
 })

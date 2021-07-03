@@ -22,7 +22,7 @@
 
   <div class="tools">
 
-    <div class="toolbar-btn" *ngIf="tools.card === 'question'" [@flyingTool]>
+    <div class="toolbar_btn" *ngIf="tools.card === 'question'" [@flyingTool]>
       <mat-icon class="icon">blur_on</mat-icon>
       <mat-slider min="0" max="15" step="1" value="0" (input)="onBlurChange($event)"></mat-slider>
     </div>
@@ -39,10 +39,10 @@
 
     <div class="icons" *ngIf="tools.card === 'question'" [@flyingTool]>
 
-      <button (click)="onRotationChange()" class="toolbar-btn">
+      <button (click)="onRotationChange()" class="toolbar_btn">
         <mat-icon>rotate_right</mat-icon>
       </button>
-      <button (click)="crop()" class="toolbar-btn">
+      <button (click)="crop()" class="toolbar_btn">
         <mat-icon>crop</mat-icon>
       </button>
 
@@ -52,7 +52,7 @@
 
   <div>
     <div class="switch">
-      <app-qaswitch></app-qaswitch>
+      <app-switch></app-switch>
     </div>
   </div>
 

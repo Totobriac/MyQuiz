@@ -2,6 +2,7 @@ import { trigger, transition, animate, keyframes, style } from '@angular/animati
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { cardChange, flyingTool } from 'src/app/animations';
 import { MovieDb } from 'src/app/interfaces/movie';
 import { TrailerTools } from 'src/app/interfaces/trailerTools';
 import { MovieDataService } from 'src/app/services/movie-data.service';
@@ -13,34 +14,7 @@ import { TrailerQuestionService } from './trailer-question.service';
   selector: 'app-trailer-question',
   templateUrl: './trailer-question.component.html',
   styleUrls: ['./trailer-question.component.css'],
-  animations: [
-    trigger('flyingTool', [
-      transition(':enter', [
-        animate('1s ease-out', keyframes([
-          style({ transform: 'translateX(-100%)', opacity: '0', offset: 0 }),
-          style({ transform: 'translateX(10%)', opacity: '1', offset: 0.8 }),
-          style({ transform: 'translateX(0%)', opacity: '1', offset: 1.0 })
-        ]))
-      ]),
-      transition(':leave', [
-        animate('600ms ease-in', keyframes([
-          style({ transform: 'translateX(-10%)', opacity: '1', offset: 0.3 }),
-          style({ transform: 'translateX(100%)', opacity: '0', offset: 1.0 })
-        ]))
-      ])
-    ]),
-    trigger('cardChange', [
-      transition((fromState: string, toState: string) => toState != fromState, [
-        animate(100, style({ transform: 'rotate(0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(-0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' }))
-      ])
-    ])
-
-  ]
+  animations: [ flyingTool, cardChange ]
 })
 
 export class TrailerQuestionComponent implements OnInit {

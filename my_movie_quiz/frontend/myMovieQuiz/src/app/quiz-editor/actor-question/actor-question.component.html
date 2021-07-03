@@ -40,30 +40,33 @@
       <mat-icon>chevron_left</mat-icon>
     </button>
 
-    <mat-form-field class="actor-choice" *ngIf="tools.card === 'question'" [@flyingTool]>
-      <mat-label>Actor</mat-label>
-      <mat-select (selectionChange)="selectActor($event.value)">
-        <mat-option *ngFor="let actor of actorName[1]; index as index" [value]="index">
-          {{ actor }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div *ngIf="tools.card === 'question'" [@flyingTool]>
+      <mat-form-field class="actor-choice">
+        <mat-label>Actor</mat-label>
+        <mat-select (selectionChange)="selectActor($event.value)">
+          <mat-option *ngFor="let actor of actorName[1]; index as index" [value]="index">
+            {{ actor }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <button mat-mini-fab color="accent" class="next-btn" (click)="nextPicture(1)" *ngIf="tools.card === 'question'"
       [@flyingTool]>
       <mat-icon>chevron_right</mat-icon>
     </button>
 
-    <form #searchActor="ngForm" (ngSubmit)=submitForm(searchActor.value) *ngIf="tools.card === 'question'"
-      [@flyingTool]>
-      <mat-form-field class="actor-custom">
-        <mat-label>Custom Search</mat-label>
-        <input matInput autocomplete="off" type="text" name="actorSearch" placeholder="Ex. young, cartoon..."
-          (ngModel)="model.searchActor">
-      </mat-form-field>
-    </form>
+    <div [@flyingTool] *ngIf="tools.card === 'question'">
+      <form #searchActor="ngForm" (ngSubmit)=submitForm(searchActor.value)>
+        <mat-form-field class="actor-custom">
+          <mat-label>Custom Search</mat-label>
+          <input matInput autocomplete="off" type="text" name="actorSearch" placeholder="Ex. young, cartoon..."
+            (ngModel)="model.searchActor">
+        </mat-form-field>
+      </form>
+    </div>
 
-    <div class="toolbar-btn" *ngIf="tools.card === 'question'" [@flyingTool]>
+    <div class="toolbar_btn" *ngIf="tools.card === 'question'" [@flyingTool]>
       <mat-icon class="icon">grain</mat-icon>
       <mat-slider max=4 min=0 step=1 thumbLabel=true tickInterval=1 [value]=actor.pixValue[selectAct] [vertical]=false
         (input)="pixelNav($event.value)">
@@ -74,7 +77,7 @@
 
   <div>
     <div class="switch">
-      <app-qaswitch (setSection)="onSelectedSection($event)"></app-qaswitch>
+      <app-switch (setSection)="onSelectedSection($event)"></app-switch>
     </div>
   </div>
 

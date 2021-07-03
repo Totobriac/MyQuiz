@@ -29,6 +29,17 @@ body {
   border-radius: 5px;
 }
 
+.toolbar_btn {
+  height: 30px;
+  border-radius: 5px;
+  background-color: cadetblue;
+  color: white;
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+}
+
 .tool_btn {
   width: 180px;
   height: 30px;

@@ -1,7 +1,7 @@
-import { trigger, transition, animate, style } from '@angular/animations';
 import { Component, OnInit, } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { toolChange } from 'src/app/animations';
 import { ActorTools } from 'src/app/interfaces/actorTools';
 import { ActorDataService } from 'src/app/services/actor-data.service';
 import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
@@ -12,18 +12,7 @@ import { ToolsService } from '../tools.service';
   selector: 'app-tool-actor',
   templateUrl: './tool-actor.component.html',
   styleUrls: ['./tool-actor.component.css'],
-  animations: [
-    trigger('cardChange', [
-      transition((fromState: string, toState: string) => toState != fromState, [
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(-1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' }))
-      ])
-    ])
-  ]
+  animations: [ toolChange ]
 })
 export class ToolActorComponent implements OnInit {
 

@@ -6,26 +6,15 @@ import { Howl } from 'howler'
 import { MusicPlayerService } from 'src/app/quiz-editor/music-question/music-player.service';
 import { MovieDataService } from 'src/app/services/movie-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { toolChange } from 'src/app/animations';
 
 @Component({
   selector: 'app-tool-music',
   templateUrl: './tool-music.component.html',
   styleUrls: ['./tool-music.component.css'],
-  animations: [
-    trigger('cardChange', [
-      transition((fromState: string, toState: string) => toState != fromState, [
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(-1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' }))
-      ])
-    ])
-  ]
-
+  animations: [ toolChange ]
 })
+
 export class ToolMusicComponent implements OnInit {
 
   music: Music;
@@ -36,6 +25,11 @@ export class ToolMusicComponent implements OnInit {
   showTool: boolean;
   toolColor: any;
   card: string;
+
+  yFont: number = 0
+  yBack: number = 0
+  fontFirst: boolean = false;
+  isHidden: boolean = true;
 
   constructor(private musicDataService: MusicDataService,
               private musicPlayer: MusicPlayerService,
@@ -106,5 +100,23 @@ export class ToolMusicComponent implements OnInit {
       this.musicDataService.changeSamples(samples)
       this.musicPlayer.setRate(this.music.currentTrack, rate)
     }
+  }
+
+  showFont() {
+    if (this.yBack == 0) {
+      this.fontFirst = true;
+      setTimeout(() => { this.isHidden = false }, 600);
+    }
+    else {
+      this.yBack = -50
+      this.yFont = -55
+    }
+  }
+
+  showBack() {
+    setTimeout(() => { this.isHidden = false }, 1000);
+    this.fontFirst = false
+    this.yBack = -50
+    this.yFont = 60
   }
 }

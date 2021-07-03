@@ -1,40 +1,79 @@
-<div class="tool_main" [style]="style" [@cardChange]="card" *ngIf="card =='question'">
+<div class="tool_main" [style]="style" [@toolChange]="card" *ngIf="card =='question'">
 
   <div *ngIf="music.currentTrack != undefined" class="track-tools">
 
-    <div class="textBox">
-      <!-- <span>{{music.currentTrack == 0 ? music.mainTitle.title : music.samples[music.currentTrack -1].name}}</span> -->
+    <div class="font tool_tools"
+      [ngStyle]="fontFirst == true? {'animation': 'font 2s both'} : {'transform': 'translateY(' + yFont+ 'px)'}"
+      (click)="showFont()">
+
+      <button class="tool_btn">
+        <span>Background</span>
+      </button>
+
+      <div [hidden]="isHidden">
+
+        <div class="tool_back-selector" *ngIf="card == 'question'">
+          <button (click)="changeBackground(-1)" class="tool_icon">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <div class="input-group input-group-sm">
+            <select class="custom-select" (change)="selectTheme($event.target.value)">
+              <option>Backgrounds</option>
+              <option value=5>Scary</option>
+              <option value=6>Abstract</option>
+            </select>
+          </div>
+          <button (click)="changeBackground(1)" class="tool_icon">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>       
+
+      </div>
     </div>
 
-    <div class="control">
-      <div class="play">
-        <button *ngIf="isPlaying == false" class="tool_icon" (click)=play()>
-          <mat-icon>play_circle_outline</mat-icon>
-        </button>
-        <button *ngIf="isPlaying == true" class="tool_icon" (click)=stop()>
-          <mat-icon>stop</mat-icon>
-        </button>
+
+    <div class="back tool_tools" (click)="showBack()"
+      [ngStyle]="fontFirst == true? {'animation': 'back 2s both'} : {'transform': 'translateY(' + yBack + 'px)'}">
+
+      <button class="tool_btn track-btn">
+        <span>Track</span>
+      </button>
+
+      <div class="track-title">
+        <span>{{music.currentTrack == 0 ? music.mainTitle.title : music.samples[music.currentTrack -1].name}}</span>
       </div>
 
-      <div *ngIf="music.currentTrack != 0" class="delete">
-        <button class="tool_icon" (click)=delete()>
-          <mat-icon>delete_outline</mat-icon>
-        </button>
+      <div class="control">
+        <div class="play">
+          <button *ngIf="isPlaying == false" class="tool_icon" (click)=play()>
+            <mat-icon>play_circle_outline</mat-icon>
+          </button>
+          <button *ngIf="isPlaying == true" class="tool_icon" (click)=stop()>
+            <mat-icon>stop</mat-icon>
+          </button>
+        </div>
+
+        <div *ngIf="music.currentTrack != 0" class="delete">
+          <button class="tool_icon" (click)=delete()>
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </div>
+
       </div>
 
-    </div>
-
-    <div *ngIf="music.currentTrack != 0" class="rate control">
-      <mat-icon class="tool_icon">slow_motion_video</mat-icon>
-      <mat-slider min="0.5" max="4" step="0.1"
-        [value]="music.currentTrack == 0 ? music.mainTitle.rate : music.samples[music.currentTrack - 1].rate"
-        (input)="changeRate($event.value)" thumbLabel=true tickInterval=0.5>
-      </mat-slider>
+      <div *ngIf="music.currentTrack != 0" class="rate control">
+        <mat-icon class="tool_icon">slow_motion_video</mat-icon>
+        <mat-slider min="0.5" max="4" step="0.1"
+          [value]="music.currentTrack == 0 ? music.mainTitle.rate : music.samples[music.currentTrack - 1].rate"
+          (input)="changeRate($event.value)" thumbLabel=true tickInterval=0.5>
+        </mat-slider>
+      </div>
+     
     </div>
 
   </div>
 </div>
 
-<div class="tool_main" [style]="style" *ngIf="card =='answer'" [@cardChange]="card">
+<div class="tool_main" [style]="style" *ngIf="card =='answer'" [@toolChange]="card">
   <app-tool-answer class="answer"></app-tool-answer>
 </div>

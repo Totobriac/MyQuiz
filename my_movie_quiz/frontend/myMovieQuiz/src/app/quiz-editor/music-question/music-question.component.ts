@@ -8,42 +8,14 @@ import { MusicDataService } from 'src/app/services/music-data.service';
 import { Music } from 'src/app/interfaces/music';
 import { Howl } from 'howler'
 import { MusicPlayerService } from './music-player.service';
-import { trigger, transition, animate, keyframes, style } from '@angular/animations';
-import { slidingTool, vanish } from '../../animations'
+import { flyingTool, cardChange, slidingTool, vanish } from '../../animations'
 
 
 @Component({
   selector: 'app-music-question',
   templateUrl: './music-question.component.html',
   styleUrls: ['./music-question.component.css'],
-  animations: [
-    trigger('flyingTool', [
-      transition(':enter', [
-        animate('1s ease-out', keyframes([
-          style({ transform: 'translateX(-100%)', opacity: '0', offset: 0 }),
-          style({ transform: 'translateX(10%)', opacity: '1', offset: 0.8 }),
-          style({ transform: 'translateX(0%)', opacity: '1', offset: 1.0 })
-        ]))
-      ]),
-      transition(':leave', [
-        animate('600ms ease-in', keyframes([
-          style({ transform: 'translateX(-10%)', opacity: '1', offset: 0.3 }),
-          style({ transform: 'translateX(100%)', opacity: '0', offset: 1.0 })
-        ]))
-      ])
-    ]),
-    trigger('cardChange', [
-      transition((fromState: string, toState: string) => toState != fromState, [
-        animate(100, style({ transform: 'rotate(0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(-0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' }))
-      ])
-    ]),
-    slidingTool, vanish
-  ]
+  animations: [ flyingTool, cardChange, slidingTool, vanish ]
 
 })
 export class MusicQuestionComponent implements OnInit {
@@ -54,6 +26,7 @@ export class MusicQuestionComponent implements OnInit {
   isDone: boolean = false;
   show: boolean = false;
   mixing: boolean = false;
+  mixUrl: any;
   movie: MovieDb;
   subscription: Subscription;
   albumsCover: any;
@@ -193,6 +166,10 @@ export class MusicQuestionComponent implements OnInit {
     this.musicPlayer.play(this.music)
   }
 
+  playMix() {
+    this.musicPlayer.playMix(this.mixUrl)
+  }
+
   pause() {
     this.musicDataService.isPaused(false)
     this.musicPlayer.pause()
@@ -208,17 +185,19 @@ export class MusicQuestionComponent implements OnInit {
   }
 
   record() {
+    this.show = false;
     this.isThinking = true;
     this.mixing = false;
     this.musicDataService.isThinking(true)
     this.isSliding = true;
+    this.isDone = false;
     this.musicService.record(this.music)
-      .subscribe(r => {
-        console.log(r)
-        this.isSliding = false
+      .subscribe(r => {        
+        this.isSliding = false;
+        this.mixUrl = "https://moviepictures.s3.eu-west-3.amazonaws.com/" + r['url'];
       })
   }
-
+  
   checkIfDone() {
     if (this.isSliding == true) {
       this.isThinking = !this.isThinking;
@@ -228,10 +207,20 @@ export class MusicQuestionComponent implements OnInit {
         this.isThinking = !this.isThinking;
         this.isDone = true;
         setTimeout(() => {
+          console.log('wtf')
           this.show = true;
         }, 1000);
       }
     }
+  }
+
+  resetMix() {
+    this.isThinking = false;
+    this.isSliding = false;
+    this.mixing = true;
+    this.musicDataService.isThinking(false);
+    this.isDone = false;
+    this.musicPlayer.stopMix();
   }
 
   showAnswer() {

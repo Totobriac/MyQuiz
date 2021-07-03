@@ -4,40 +4,14 @@ import { Subscription } from 'rxjs';
 import { MovieDb } from 'src/app/interfaces/movie';
 import { PlotTools } from 'src/app/interfaces/plotTools';
 import { PlotToolsDataService } from 'src/app/services/plotTools-data.service';
-import { trigger, transition, query, style, stagger, animate, keyframes } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
+import { cardChange, flyingTool } from 'src/app/animations';
 
 @Component({
   selector: 'app-plot-question',
   templateUrl: './plot-question.component.html',
   styleUrls: ['./plot-question.component.css'],
-  animations: [
-    trigger('flyingTool', [
-      transition(':enter', [
-        animate('1s ease-out', keyframes([
-          style({ transform: 'translateX(-100%)', opacity: '0', offset: 0 }),
-          style({ transform: 'translateX(10%)', opacity: '1', offset: 0.8 }),
-          style({ transform: 'translateX(0%)', opacity: '1', offset: 1.0 })
-        ]))
-      ]),
-      transition(':leave', [
-        animate('600ms ease-in', keyframes([
-          style({ transform: 'translateX(-10%)', opacity: '1', offset: 0.3 }),
-          style({ transform: 'translateX(100%)', opacity: '0', offset: 1.0 })
-        ]))
-      ])
-    ]),
-    trigger('cardChange', [
-      transition((fromState: string, toState: string) => toState != fromState, [
-        animate(100, style({ transform: 'rotate(0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(-0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' }))
-      ])
-    ])
-  ]
+  animations: [ flyingTool, cardChange ]
 })
 
 export class PlotQuestionComponent implements OnInit {

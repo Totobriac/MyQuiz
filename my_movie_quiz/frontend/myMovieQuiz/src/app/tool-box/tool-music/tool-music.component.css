@@ -1,4 +1,4 @@
-.textBox {
+.track-title {
   width: 180px;
   height: 30px;
   border-radius: 2px;
@@ -6,9 +6,10 @@
   line-height: 30px;
   position: relative;
   background-color: white;
+  border: 1px solid cadetblue;
 }
 
-.textBox span {
+.track-title span {
   position: absolute;
   white-space: nowrap;
   transform: translateX(0);
@@ -16,7 +17,7 @@
   margin-left: 8px;
 }
 
-.textBox:hover span {
+.track-title:hover span {
   transform: translateX(calc(180px - 100%));
 }
 
@@ -32,9 +33,39 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 12px;
+  height: 24px;
 }
 
 .answer {
   position: absolute;
   left: 8px;
+}
+
+.back {
+  position: absolute;
+  top: 30%;
+  transition: transform 1s;
+}
+
+.font {
+  position: absolute;
+  top: 50%;
+  background-color: rgb(238, 238, 230);
+  z-index: 2;
+  transition: transform 1s;
+}
+
+@keyframes back {
+  50%  {transform: translateY(60px);}
+  100% {transform: translateY(-50px);}
+}
+
+@keyframes font {
+  50%  {transform: translateY(60px);}
+  100% {transform: translateY(-55px);}
+}
+
+.track-btn {
+  margin-bottom: 12px;
 }

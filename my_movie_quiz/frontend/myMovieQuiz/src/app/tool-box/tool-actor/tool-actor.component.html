@@ -1,4 +1,4 @@
-<div class="tool_main" [style]="style" [@cardChange]="tools.card" *ngIf="tools.card =='question'">
+<div class="tool_main" [style]="style" [@toolChange]="tools.card" *ngIf="tools.card =='question'">
 
   <div class="font tool_tools"
     [ngStyle]="fontFirst == true? {'animation': 'font 2s both'} : {'transform': 'translateY(' + yFont+ 'px)'}"
@@ -102,6 +102,6 @@
 
 </div>
 
-<div class="tool_main" [style]="style" [@cardChange]="tools.card" *ngIf="tools.card =='answer'">
+<div class="tool_main" [style]="style" [@toolChange]="tools.card" *ngIf="tools.card =='answer'">
   <app-tool-answer class="answer"></app-tool-answer>
 </div>

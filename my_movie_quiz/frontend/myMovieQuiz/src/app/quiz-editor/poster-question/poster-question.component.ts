@@ -5,41 +5,14 @@ import { Subscription } from 'rxjs';
 import { MovieDb } from 'src/app/interfaces/movie';
 import { PosterTools } from 'src/app/interfaces/posterTools';
 import { PosterToolsDataService } from 'src/app/services/posterTools-data.service';
-import { trigger, transition, animate, keyframes, style } from '@angular/animations';
+import { cardChange, flyingTool } from 'src/app/animations';
 
 @Component({
   selector: 'app-poster-question',
   templateUrl: './poster-question.component.html',
   styleUrls: ['./poster-question.component.css',
     './image-effects.css'],
-  animations: [
-    trigger('flyingTool', [
-      transition(':enter', [
-        animate('1s ease-out', keyframes([
-          style({ transform: 'translateX(-100%)', opacity: '0', offset: 0 }),
-          style({ transform: 'translateX(10%)', opacity: '1', offset: 0.8 }),
-          style({ transform: 'translateX(0%)', opacity: '1', offset: 1.0 })
-        ]))
-      ]),
-      transition(':leave', [
-        animate('600ms ease-in', keyframes([
-          style({ transform: 'translateX(-10%)', opacity: '1', offset: 0.3 }),
-          style({ transform: 'translateX(100%)', opacity: '0', offset: 1.0 })
-        ]))
-      ])
-    ]),
-    trigger('cardChange', [
-      transition((fromState: string, toState: string) => toState != fromState, [
-        animate(100, style({ transform: 'rotate(0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(-0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(0.2deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' }))
-      ])
-    ])
-
-  ]
+  animations: [ flyingTool, cardChange ]
 })
 export class PosterQuestionComponent implements OnInit {
 

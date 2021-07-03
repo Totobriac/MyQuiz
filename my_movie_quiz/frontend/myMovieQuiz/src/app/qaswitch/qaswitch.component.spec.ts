@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QASwitchComponent } from './qaswitch.component';
+import { QASwitchComponent } from './switch.component';
 
 describe('QASwitchComponent', () => {
   let component: QASwitchComponent;

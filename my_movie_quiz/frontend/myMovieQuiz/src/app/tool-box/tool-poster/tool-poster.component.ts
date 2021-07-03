@@ -6,24 +6,13 @@ import { Subscription } from 'rxjs';
 import { PosterToolsDataService } from 'src/app/services/posterTools-data.service';
 import { PosterTools } from 'src/app/interfaces/posterTools';
 import { DomSanitizer } from '@angular/platform-browser';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { toolChange } from 'src/app/animations';
 
 @Component({
   selector: 'app-tool-poster',
   templateUrl: './tool-poster.component.html',
   styleUrls: ['./tool-poster.component.css'],
-  animations: [
-    trigger('cardChange', [
-      transition((fromState: string, toState: string) => toState != fromState, [
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(-1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' }))
-      ])
-    ])
-  ]          
+  animations: [ toolChange ]          
 })
 export class ToolPosterComponent implements OnInit {
 

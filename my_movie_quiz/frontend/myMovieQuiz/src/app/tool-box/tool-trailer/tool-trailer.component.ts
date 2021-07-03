@@ -4,26 +4,15 @@ import { TrailerTools } from 'src/app/interfaces/trailerTools';
 import { TrailerToolsDataService } from 'src/app/services/trailerTools-data.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DomSanitizer } from '@angular/platform-browser';
-import { trigger, transition, animate, style } from '@angular/animations';
 import { MovieDataService } from 'src/app/services/movie-data.service';
+import { toolChange } from 'src/app/animations';
 
 
 @Component({
   selector: 'app-tool-trailer',
   templateUrl: './tool-trailer.component.html',
   styleUrls: ['./tool-trailer.component.css'],
-  animations: [
-    trigger('cardChange', [
-      transition((fromState: string, toState: string) => toState != fromState, [
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(-1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' }))
-      ])
-    ])
-  ]         
+  animations: [ toolChange ]         
 })
 export class ToolTrailerComponent implements OnInit {
 

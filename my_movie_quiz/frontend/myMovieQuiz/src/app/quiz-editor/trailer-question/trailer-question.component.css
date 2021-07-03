@@ -49,17 +49,6 @@
   margin-bottom: 14px;
 }
 
-.toolbar-btn {
-  height: 30px;
-  border-radius: 5px;
-  background-color: cadetblue;
-  color: white;
-  display: flex;
-  align-items: center;
-  border: none;
-  outline: none;
-}
-
 .icon {
   border: none;
   background: none;

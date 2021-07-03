@@ -56,7 +56,7 @@ background-size: cover;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.deezer-input {
+.deezer-form {
   margin-left: 12px;
   margin-top: auto;
   margin-bottom: auto;
@@ -67,6 +67,11 @@ background-size: cover;
 input {
   width: 450px;
   border-radius: 5px;
+}
+
+.deezer-input {
+  border: 1px solid cadetblue;
+  height: 30px;
 }
 
 input:focus {
@@ -171,17 +176,6 @@ form {
   margin-left: 12px;
 }
 
-.toolbar-btn {
-  height: 30px;
-  border-radius: 5px;
-  background-color: cadetblue;
-  color: white;
-  display: flex;
-  align-items: center;
-  border: none;
-  outline: none;
-}
-
 .position {
   background-color: white;
   border-radius: 5px;
@@ -199,7 +193,7 @@ form {
   position: relative;
 }
 
-.toolbar-btn {
+.toolbar_btn {
   height: 30px;
   border-radius: 5px;
   background-color: cadetblue;
@@ -221,7 +215,6 @@ form {
 .loader {
   height: 34px;
   width: 430px;
-  /* border: 2px solid cadetblue; */
   margin-left: 24px;
   display: flex;
   align-items: center;

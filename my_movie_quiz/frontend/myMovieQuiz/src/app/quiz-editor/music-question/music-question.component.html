@@ -46,10 +46,9 @@
 
   <div class="inner-bar" *ngIf="music.thinking == false">
 
-    <div *ngIf="themes == undefined && mixing == false && card == 'question'" class="deezer-input" [@flyingTool]>
-      <form autocomplete="off" #deezerSearch="ngForm" (ngSubmit)=retreiveData(deezerSearch.value.deezerSearch)
-        class="deezerInput">
-        <input type="text" [(ngModel)]="value" name="deezerSearch"
+    <div *ngIf="themes == undefined && mixing == false && card == 'question'" class="deezer-form" [@flyingTool]>
+      <form autocomplete="off" #deezerSearch="ngForm" (ngSubmit)=retreiveData(deezerSearch.value.deezerSearch)>
+        <input type="text" [(ngModel)]="value" name="deezerSearch" class="deezer-input"
           placeholder="Ex: https://www.deezer.com/fr/album/365740 ...">
       </form>
     </div>
@@ -61,7 +60,7 @@
       <mat-slider class="my-auto" [max]="themes.length" min=1 step=1 thumbLabel=true tickInterval=1 value=1
         [vertical]=false (input)="trackChoice($event.value)">
       </mat-slider>
-      <button class="toolbar-btn" (click)="selectTrack()" [@flyingTool]>Select</button>
+      <button class="toolbar_btn" (click)="selectTrack()" [@flyingTool]>Select</button>
     </div>
 
     <div *ngIf="mixing == true" class="sample-finder">
@@ -77,31 +76,31 @@
         </form>
 
         <div *ngIf="card == 'question'" [@flyingTool]>
-          <div class="toolbar-btn" *ngIf="music.isPaused == false">
+          <div class="toolbar_btn" *ngIf="music.isPaused == false">
             <button class="icon" (click)=play()>
               <mat-icon>play_arrow</mat-icon>
             </button>
           </div>
-          <div class="toolbar-btn" *ngIf="music.isPaused == true">
+          <div class="toolbar_btn" *ngIf="music.isPaused == true">
             <button class="icon" (click)=pause()>
               <mat-icon>pause</mat-icon>
             </button>
           </div>
         </div>
 
-        <div class="toolbar-btn" [@flyingTool] *ngIf="card === 'question'">
+        <div class="toolbar_btn" [@flyingTool] *ngIf="card === 'question'">
           <button class="icon" (click)=stop()>
             <mat-icon>stop</mat-icon>
           </button>
         </div>
 
-        <div class="toolbar-btn" [@flyingTool] *ngIf="card === 'question'">
+        <div class="toolbar_btn" [@flyingTool] *ngIf="card === 'question'">
           <button class="icon" (click)=forward(5)>
             <mat-icon>forward_5</mat-icon>
           </button>
         </div>
 
-        <div class="toolbar-btn" [@flyingTool] *ngIf="card === 'question'">
+        <div class="toolbar_btn" [@flyingTool] *ngIf="card === 'question'">
           <button class="icon" (click)=forward(10)>
             <mat-icon>forward_10</mat-icon>
           </button>
@@ -111,7 +110,7 @@
           {{ music.position | number : '1.2-2' }}
         </div>
 
-        <div class="toolbar-btn" [@flyingTool] *ngIf="card === 'question'">
+        <div class="toolbar_btn" [@flyingTool] *ngIf="card === 'question'">
           <button class="icon" style="color: red" (click)=record()>
             <mat-icon>save</mat-icon>
           </button>
@@ -132,13 +131,13 @@
           <mat-icon>chevron_right</mat-icon>
         </button>
 
-        <div class="toolbar-btn">
+        <div class="toolbar_btn">
           <button (click)="addToSamples()" class="icon" [@flyingTool]>
             <mat-icon>playlist_add</mat-icon>
           </button>
         </div>
 
-        <div class="toolbar-btn">
+        <div class="toolbar_btn">
           <button (click)="deleteSearch()" class="icon" [@flyingTool]>
             <mat-icon>cancel</mat-icon>
           </button>
@@ -149,20 +148,20 @@
 
   <div *ngIf="music.thinking == true" class="loader" [@flyingTool] [@vanish]="show ? false : true">
     <div class="tune" [@slidingTool]="isThinking" (@slidingTool.done)="checkIfDone()">
-      <button class="icon">
+      <button class="icon" (click)="playMix()">
         <mat-icon>play_arrow</mat-icon>
       </button>
-      <div class="toolbar-btn your-mix" *ngIf="show == true">
+      <div class="toolbar_btn your-mix" *ngIf="show == true">
         Your fantastic Tube
       </div>
-      <button class="icon" *ngIf="show == true">
+      <button class="icon" *ngIf="show == true" (click)="resetMix()">
         <mat-icon>cancel</mat-icon>
       </button>
     </div>
   </div>
 
   <div class="switch">
-    <app-qaswitch></app-qaswitch>
+    <app-switch></app-switch>
   </div>
 
 </div>

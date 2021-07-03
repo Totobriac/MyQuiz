@@ -26,14 +26,14 @@
 <div class="question_toolbar">
 
   <div class="pic-tool">
-    <button class="toolbar-btn" (click)="takeScreenshot()" *ngIf="tools.card === 'question'" [@flyingTool]>
+    <button class="toolbar_btn" (click)="takeScreenshot()" *ngIf="tools.card === 'question'" [@flyingTool]>
       <mat-icon class="icon">photo_camera</mat-icon>
     </button>
-    <button class="toolbar-btn" (click)="takeGif()" *ngIf="tools.card === 'question'" [@flyingTool]>
+    <button class="toolbar_btn" (click)="takeGif()" *ngIf="tools.card === 'question'" [@flyingTool]>
       <mat-icon class="icon">gif</mat-icon>
     </button>
 
-    <div class="toolbar-btn" *ngIf="tools.card === 'question'" [@flyingTool]>
+    <div class="toolbar_btn" *ngIf="tools.card === 'question'" [@flyingTool]>
       <span style="color: white">
         <mat-icon class="clock">timer</mat-icon>
       </span>
@@ -42,14 +42,14 @@
       </mat-slider>
     </div>
 
-    <button [ngClass]="tools.scrapPic.length == 0 ? 'disabled' : 'toolbar-btn'" (click)="generateScrapBooks()"
+    <button [ngClass]="tools.scrapPic.length == 0 ? 'disabled' : 'toolbar_btn'" (click)="generateScrapBooks()"
       *ngIf="tools.card === 'question'" [@flyingTool]>Generate
       ScrapBook</button>
   </div>
 
   <div>
     <div class="switch">
-      <app-qaswitch></app-qaswitch>
+      <app-switch></app-switch>
     </div>
   </div>
 

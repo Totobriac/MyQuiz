@@ -10,15 +10,16 @@ import { MusicDataService } from 'src/app/services/music-data.service';
 export class MusicPlayerService {
 
   mainSound: any;
+  mixSound: any;
   sample: any[] = [];
   mainPause: number;
-  sampPause: number[] = []; 
+  sampPause: number[] = [];
   paused: boolean = false;
   startTimeOut: any[] = [];
   stopTimeOut: any[] = [];
   position: number = 0;
   wasPlaying: boolean[] = [];
-  
+
 
   constructor(private musicDataService: MusicDataService) { }
 
@@ -75,6 +76,15 @@ export class MusicPlayerService {
     }
   }
 
+  playMix(mixUrl: any) {
+    this.mixSound = new Howl({
+      src: [mixUrl],
+      html5: true,
+      volume: 1,      
+    });
+    this.mixSound.play();
+  }
+
   pause() {
     this.paused = true;
     this.mainSound.pause();
@@ -107,26 +117,30 @@ export class MusicPlayerService {
     }
   }
 
+  stopMix() {
+    this.mixSound.stop();
+  }
+
   setMainVolume(volume) {
     this.mainSound.volume(volume);
   }
 
   setSampleVolume(i, volume) {
     if (volume != undefined) {
-      this.sample[i-1].volume(volume)   
+      this.sample[i - 1].volume(volume)
     }
   }
 
   mute(i) {
-    i == 0 ? this.mainSound.mute(true) : this.sample[i-1].mute(true)    
+    i == 0 ? this.mainSound.mute(true) : this.sample[i - 1].mute(true)
   }
 
   unmute(i) {
-    i == 0 ? this.mainSound.mute(false) : this.sample[i-1].mute(false)    
+    i == 0 ? this.mainSound.mute(false) : this.sample[i - 1].mute(false)
   }
 
-  setRate(i, rate) {   
-    i == 0 ? this.mainSound.rate(rate) : this.sample[i-1].rate(rate)    
+  setRate(i, rate) {
+    i == 0 ? this.mainSound.rate(rate) : this.sample[i - 1].rate(rate)
   }
 
   forward(sec: number, music: Music) {
@@ -142,16 +156,16 @@ export class MusicPlayerService {
         this.sample[i].play();
         setTimeout(() => {
           this.sample[i].stop()
-        }, (music.samples[i].duration * 1000 - forSample[i] * 1000 - sec *1000));
+        }, (music.samples[i].duration * 1000 - forSample[i] * 1000 - sec * 1000));
       }
-      else if (forMainSound + sec < music.samples[i].start ) {
+      else if (forMainSound + sec < music.samples[i].start) {
         clearTimeout(this.startTimeOut[i])
         this.startTimeOut[i] = setTimeout(() => {
           this.sample[i].play()
-        }, (music.samples[i].start * 1000 - forMainSound * 1000 - sec *1000));
+        }, (music.samples[i].start * 1000 - forMainSound * 1000 - sec * 1000));
         this.stopTimeOut[i] = setTimeout(() => {
           this.sample[i].stop()
-        }, (music.samples[i].start * 1000 + music.samples[i].duration * 1000 - forMainSound * 1000 - sec *1000));
+        }, (music.samples[i].start * 1000 + music.samples[i].duration * 1000 - forMainSound * 1000 - sec * 1000));
       }
       else {
         var diff = forMainSound + sec - music.samples[i].start
@@ -159,10 +173,10 @@ export class MusicPlayerService {
         this.startTimeOut[i] = setTimeout(() => {
           this.sample[i].seek(diff);
           this.sample[i].play();
-        }, (music.samples[i].start * 1000 - forMainSound * 1000 - sec *1000));
+        }, (music.samples[i].start * 1000 - forMainSound * 1000 - sec * 1000));
         this.stopTimeOut[i] = setTimeout(() => {
           this.sample[i].stop()
-        }, (music.samples[i].start * 1000 + music.samples[i].duration * 1000 - forMainSound * 1000 - sec *1000));
+        }, (music.samples[i].start * 1000 + music.samples[i].duration * 1000 - forMainSound * 1000 - sec * 1000));
       }
     }
   }

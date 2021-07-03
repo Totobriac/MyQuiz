@@ -1,7 +1,7 @@
-import { trigger, transition, style, animate, state } from '@angular/animations';
 import { Component, OnInit, } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { toolChange } from 'src/app/animations';
 import { PlotTools } from 'src/app/interfaces/plotTools';
 import { PlotToolsDataService } from 'src/app/services/plotTools-data.service';
 import { ToolsService } from '../tools.service';
@@ -11,18 +11,7 @@ import { ToolsService } from '../tools.service';
   selector: 'app-tool-plot',
   templateUrl: './tool-plot.component.html',
   styleUrls: ['./tool-plot.component.css'],
-  animations: [
-    trigger('cardChange', [
-      transition((fromState: string, toState: string) => toState != fromState, [
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(-1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' })),
-        animate(100, style({ transform: 'rotate(1deg)' })),
-        animate(100, style({ transform: 'rotate(0deg)' }))
-      ])
-    ])
-  ]
+  animations: [ toolChange ]    
 })
 
 export class ToolPlotComponent implements OnInit {
