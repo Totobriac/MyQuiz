@@ -10,7 +10,7 @@ export class SearchActor {
   constructor(private http: HttpClient) {    
   }
    
-  searchActor(actors) {
-    return this.http.get('http://127.0.0.1:8000/api/search_actors/' + actors)
+  searchActor(actor) {
+    return this.http.get('http://127.0.0.1:8000/api/search_actors/' + actor)
   }
 }

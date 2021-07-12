@@ -15,7 +15,7 @@ urlpatterns = [
     path('discover', views.Discover.as_view(), name='discover'),
     path('peopleautocomplete/<str:people>', views.PeopleAutocomplete.as_view(), name='people_autocomplete'),
     path('peopleautocomplete/', views.EmptyAutocomplete.as_view(), name='autocomplete'),
-    path('search_actors/<str:actors>', views.ActorsSearch.as_view(), name='actors_search'),
+    path('search_actors/<str:actor>', views.ActorsSearch.as_view(), name='actors_search'),
     path('video_src/<str:video>', views.RetreiveSrc.as_view(), name='video_src'),
     path('search_trailer/<str:title>/<str:date>', views.TrailerSearch.as_view(), name='trailer_search'),
     path('scrapbook/<str:video_src_id>/<str:timestamps>', views.CreateScrapBook.as_view()),

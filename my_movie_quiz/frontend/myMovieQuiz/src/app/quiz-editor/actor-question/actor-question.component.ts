@@ -46,7 +46,8 @@ export class ActorQuestionComponent implements OnInit {
     this.getActorsList()
     // if (this.actor.urls[3].length < 9) {
     //   this.getPicturesList()
-    // }    
+    // }
+    this.getPicturesList()   
   }
 
   getActorsList() {
@@ -63,19 +64,21 @@ export class ActorQuestionComponent implements OnInit {
       this.pics.push(pic)
     }
     this.actorData.changePic(this.pics)
-    this.searchActor.searchActor(this.actorName[1].join('$'))
-      .subscribe(r => {
-        for (var i in r) {
-          r[i].unshift(this.pics[i])
-        }
-        this.actorData.changeUrls(r);
-        this.urls = r
-        console.log(this.actor.urls);      
-      })
+    // this.searchActor.searchActor(this.actorName[1].join('$'))
+    //   .subscribe(r => {
+    //     for (var i in r) {
+    //       r[i].unshift(this.pics[i])
+    //     }
+    //     this.actorData.changeUrls(r);
+    //     this.urls = r
+    //     console.log(this.actor.urls);      
+    //   })
   }
 
-  selectActor(index) {
+  selectActor(index) {    
     this.selectAct = index
+    this.searchActor.searchActor(this.actorName[1][index])
+      .subscribe(r => console.log(r))
   }
 
   nextPicture(next: number) {
