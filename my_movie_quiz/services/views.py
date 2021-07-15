@@ -1,20 +1,21 @@
-import requests
-from django.http import HttpResponse
-from django.views import View
-from rest_framework.decorators import api_view
-from django.http import JsonResponse
-import subprocess
-import json
-import boto3
-from .models import Tags, Picture, VideoSource
-from .serializers import PictureSerializer, TagsSerializer, VideoSourceSerializer
-from rest_framework.decorators import api_view
-from rest_framework import generics, viewsets
-import os
-from dotenv import load_dotenv, find_dotenv
-import string
-import random
 import base64
+import json
+import os
+import random
+import string
+import subprocess
+
+import boto3
+import requests
+from django.http import HttpResponse, JsonResponse
+from django.views import View
+from dotenv import find_dotenv, load_dotenv
+from rest_framework import generics, viewsets
+from rest_framework.decorators import api_view
+
+from .models import Picture, Tags, VideoSource
+from .serializers import (PictureSerializer, TagsSerializer,
+                          VideoSourceSerializer)
 
 
 def id_generator(size=4, chars=string.digits):
@@ -206,72 +207,6 @@ class CreateGif(View):
                           Key=file_path, ContentType='image/gif')
 
         return JsonResponse({'url': file_path})
-
-
-class ActorsSearch(View):
-
-    def get(self, request, actor):
-        load_dotenv()
-        SERP_KEY = os.environ.get("SERP_KEY")
-        AWS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-        AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-        s3 = boto3.client('s3',
-                          aws_access_key_id=AWS_KEY_ID,
-                          aws_secret_access_key=AWS_ACCESS_KEY,
-        )
-        print(actor)
-        split_name = actor.split(" ")
-        actor_name = "_".join(split_name)
-        r = requests.get("https://moviepictures.s3.eu-west-3.amazonaws.com/actors/" + actor_name +"/")
-
-        if r.status_code == 200:
-            print ('OK!')
-        else:
-            bucket_name = "moviepictures"
-            folder_name = "actors/"+ actor_name
-            s3.put_object(Bucket=bucket_name, Key=(folder_name+'/'))
-
-            headers = {'X-API-KEY': SERP_KEY}
-
-            payload = {
-                "query": actor + " actor",
-                "gl": "US",
-                "hl": "en_US",
-                "device": "desktop",
-                "duration": "y",
-                "autocorrect": 0,
-                "page": 1,
-                "uule": "string",
-                "pages": 1,
-                "size": "medium",
-                "license": "any",
-                "color": "any",
-                "type": "any"
-            }
-
-            r = requests.post(
-                'https://api.serpsbot.com/v2/google/images', json=payload, headers=headers)
-
-            url_list = []
-            urls = r.json().get("data").get("results")
-            i = 1
-            for url in urls[:3]:
-                print(url)
-                session = boto3.Session(
-                    aws_access_key_id=AWS_KEY_ID,
-                    aws_secret_access_key=AWS_ACCESS_KEY)
-                file_key = "actors/" + actor_name + "/"+ "{}".format(i)
-                s3_object = session.resource('s3').Object(
-                    'moviepictures', file_key)
-
-                with requests.get(url, stream=True) as r:
-                    print(url)
-                    s3_object.put(Body=r.content, ContentType="image/jpeg")                    
-                    url_list.append(
-                        {"index": i, "url": "https://moviepictures.s3.eu-west-3.amazonaws.com/" + file_key})
-                    i += 1
-
-        return JsonResponse(url_list, safe=False)
 
 
 class AlbumSearch(View):

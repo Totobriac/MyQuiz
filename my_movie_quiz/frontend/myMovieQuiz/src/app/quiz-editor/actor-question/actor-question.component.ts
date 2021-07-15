@@ -4,9 +4,9 @@ import { PixelActor } from './actor-pixel.service';
 import { MovieDataService } from "../../services/movie-data.service";
 import { Subscription } from 'rxjs';
 import { MovieDb } from 'src/app/interfaces/movie';
-import { ActorTools} from 'src/app/interfaces/actorTools';
+import { ActorTools } from 'src/app/interfaces/actorTools';
 import { ActorToolsDataService } from 'src/app/services/actorTools-data.service';
-import { Actor} from 'src/app/interfaces/actor';
+import { Actor } from 'src/app/interfaces/actor';
 import { ActorDataService } from 'src/app/services/actor-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { cardChange, flyingTool } from 'src/app/animations';
@@ -15,7 +15,7 @@ import { cardChange, flyingTool } from 'src/app/animations';
   selector: 'app-actor-question',
   templateUrl: './actor-question.component.html',
   styleUrls: ['./actor-question.component.css'],
-  animations: [ flyingTool, cardChange ]
+  animations: [flyingTool, cardChange]
 })
 
 export class ActorQuestionComponent implements OnInit {
@@ -31,23 +31,21 @@ export class ActorQuestionComponent implements OnInit {
   selectAct: number;
   subscription: Subscription;
   toolColor: string;
+  customSearch: string;
 
   constructor(private searchActor: SearchActor,
-              private pixelActor: PixelActor,
-              private movieData: MovieDataService,
-              private actorTools: ActorToolsDataService,
-              private actorData: ActorDataService,
-              private sanitizer: DomSanitizer) { }
+    private pixelActor: PixelActor,
+    private movieData: MovieDataService,
+    private actorTools: ActorToolsDataService,
+    private actorData: ActorDataService,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.subscription = this.movieData.currentMovieDb.subscribe(movie => this.movie = movie);
     this.subscription = this.actorTools.currentActorTools.subscribe(tools => this.tools = tools);
     this.subscription = this.actorData.currentActor.subscribe(actor => this.actor = actor);
     this.getActorsList()
-    // if (this.actor.urls[3].length < 9) {
-    //   this.getPicturesList()
-    // }
-    this.getPicturesList()   
+    this.getPicturesList()
   }
 
   getActorsList() {
@@ -60,34 +58,45 @@ export class ActorQuestionComponent implements OnInit {
 
   getPicturesList() {
     for (var act of this.movie.cast) {
-      const pic: object = {'index': 0 ,'url': "https://www.themoviedb.org/t/p/w185" + act.profile_path } 
+      const pic: object = { 'index': 0, 'url': "https://www.themoviedb.org/t/p/w185" + act.profile_path }
       this.pics.push(pic)
     }
     this.actorData.changePic(this.pics)
-    // this.searchActor.searchActor(this.actorName[1].join('$'))
-    //   .subscribe(r => {
-    //     for (var i in r) {
-    //       r[i].unshift(this.pics[i])
-    //     }
-    //     this.actorData.changeUrls(r);
-    //     this.urls = r
-    //     console.log(this.actor.urls);      
-    //   })
   }
 
-  selectActor(index) {    
+  selectActor(index) {
+    this.customSearch = ""
     this.selectAct = index
-    this.searchActor.searchActor(this.actorName[1][index])
-      .subscribe(r => console.log(r))
+    this.searchActor.searchActor(this.actorName[1][index], this.movie.cast[index].profile_path)
+      .subscribe(r => {
+        console.log(r)
+        this.urls = this.actor.urls
+        this.urls[index] = r
+        this.actorData.changeUrls(this.urls)
+      })
+  }
+
+  addPicture() {
+    var search
+    this.customSearch != ""
+      ? search = this.actorName[1][this.selectAct] + " " + this.customSearch
+      : search = this.actorName[1][this.selectAct]
+
+    this.searchActor.addPicture(search)
+      .subscribe(r => {
+        this.urls = this.actor.urls
+        this.urls[this.selectAct] = this.urls[this.selectAct].concat(r)
+        this.actorData.changeUrls(this.urls)
+      })
   }
 
   nextPicture(next: number) {
-    this.pixUrls[this.selectAct] = void(0)
+    console.log(this.actor.urls)
+    this.pixUrls[this.selectAct] = void (0)
     this.actorData.changePixUrls(this.pixUrls)
     this.pixValue[this.selectAct] = 0
     this.actorData.changePicValue(this.pixValue)
     var index = this.actor.pic[this.selectAct].index + next
-    console.log(index);
     if (index == this.actor.urls[this.selectAct].length) {
       index = 0
     } else if (index == -1) {
@@ -98,24 +107,24 @@ export class ActorQuestionComponent implements OnInit {
   }
 
   submitForm(form: any) {
-    this.searchActor.searchActor(this.actorName[1][this.selectAct] + " " + form.actorSearch )
-      .subscribe((r: any) => { this.urls[this.selectAct] = [];
-                               this.actorData.changeUrls(this.urls)
-                               for (let i of r[0]) {
-                                 this.urls[this.selectAct].push(i)
-                               }
-                               console.log(this.urls[this.selectAct]);
-                               this.actorData.changeUrls(this.urls)
-                               this.pics[this.selectAct] = this.actor.urls[this.selectAct][0]
-                               this.actorData.changePic(this.pics)})
+    this.customSearch = form.actorSearch
+    this.searchActor.searchActor(this.actorName[1][this.selectAct] + " " + form.actorSearch, "/none")
+      .subscribe((r: any) => {
+        this.urls = this.actor.urls
+        this.urls[this.selectAct] = r
+        this.actorData.changeUrls(this.urls)
+        this.pics[this.selectAct] = this.actor.urls[this.selectAct][0]
+        this.actorData.changePic(this.pics)
+      })
   }
 
   pixelNav(value) {
     if (this.pixUrls[this.selectAct] == undefined) {
       this.pixUrls[this.selectAct] = this.pixelActor.pixelate(this.selectAct, this.actor.pic[this.selectAct])
-      this.actorData.changePixUrls(this.pixUrls)}
-    
-    this.pics[this.selectAct]  = {index: this.actor.pixUrls[this.selectAct][value].picIndex , url: this.actor.pixUrls[this.selectAct][value].src} 
+      this.actorData.changePixUrls(this.pixUrls)
+    }
+
+    this.pics[this.selectAct] = { index: this.actor.pixUrls[this.selectAct][value].picIndex, url: this.actor.pixUrls[this.selectAct][value].src }
     this.actorData.changePic(this.pics)
     this.pixValue[this.selectAct] = value
     this.actorData.changePicValue(this.pixValue)
@@ -123,7 +132,7 @@ export class ActorQuestionComponent implements OnInit {
 
   get style() {
     this.tools.card == "question"
-      ? this.toolColor = 'rgb(95,158,160)' 
+      ? this.toolColor = 'rgb(95,158,160)'
       : this.toolColor = 'rgb(215, 190, 130);'
     return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
   }

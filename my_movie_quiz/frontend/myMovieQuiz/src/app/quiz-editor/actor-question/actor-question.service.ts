@@ -2,15 +2,19 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({
-    providedIn:"root"
+  providedIn: "root"
 })
 
 export class SearchActor {
 
-  constructor(private http: HttpClient) {    
+  constructor(private http: HttpClient) {
   }
-   
-  searchActor(actor) {
-    return this.http.get('http://127.0.0.1:8000/api/search_actors/' + actor)
+
+  searchActor(actor, profilePath) {
+    return this.http.get('http://127.0.0.1:8000/api/search_actors/' + actor + profilePath)
+  }
+
+  addPicture(actor) {
+    return this.http.get('http://127.0.0.1:8000/api/add_picture/' + actor)
   }
 }

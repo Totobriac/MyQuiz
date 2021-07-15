@@ -56,6 +56,10 @@
       <mat-icon>chevron_right</mat-icon>
     </button>
 
+    <button class="toolbar_btn" *ngIf="tools.card === 'question'" [@flyingTool] (click)="addPicture()">
+      <mat-icon>add_photo_alternate</mat-icon>
+    </button>
+
     <div [@flyingTool] *ngIf="tools.card === 'question'">
       <form #searchActor="ngForm" (ngSubmit)=submitForm(searchActor.value)>
         <mat-form-field class="actor-custom">
@@ -68,7 +72,7 @@
 
     <div class="toolbar_btn" *ngIf="tools.card === 'question'" [@flyingTool]>
       <mat-icon class="icon">grain</mat-icon>
-      <mat-slider max=4 min=0 step=1 thumbLabel=true tickInterval=1 [value]=actor.pixValue[selectAct] [vertical]=false
+      <mat-slider max=4 min=0 step=1 tickInterval=1 [value]=actor.pixValue[selectAct] [vertical]=false
         (input)="pixelNav($event.value)">
       </mat-slider>
     </div>

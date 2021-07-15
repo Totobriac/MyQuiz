@@ -95,10 +95,6 @@ button:focus {
   align-items: center;
 }
 
-.first-btn {
-  margin-left: 24px;
-}
-
 .actor-tools {
   min-width: 540px;
   display: flex;
