@@ -65,7 +65,7 @@
         <mat-form-field class="actor-custom">
           <mat-label>Custom Search</mat-label>
           <input matInput autocomplete="off" type="text" name="actorSearch" placeholder="Ex. young, cartoon..."
-            (ngModel)="model.searchActor">
+            [(ngModel)]="customSearch">
         </mat-form-field>
       </form>
     </div>

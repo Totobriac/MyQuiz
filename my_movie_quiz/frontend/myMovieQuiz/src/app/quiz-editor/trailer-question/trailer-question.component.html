@@ -8,8 +8,8 @@
 
     <div *ngIf="tools.scrapPic != undefined" class="scrap-pic-disp">
       <div *ngFor="let scrap of tools.scrapPic" class="scrap-pic" [ngDraggable]="screenshotTaken"
-        [ngResizable]="screenshotTaken" [style.position]="picPosition" [rzAspectRatio]="aspectRatio"
-        [rzHandles]="'e,s,se'" rzContainment="#container" [bounds]="dragBounds" [inBounds]="true"
+        [ngResizable]="screenshotTaken" [style.position]="picPosition" [rzAspectRatio]="true" [rzHandles]="'e,se,s'"
+        rzContainment="#container" [bounds]="dragBounds" [inBounds]="true"
         [style.background-image]="'url('+'https://moviepictures.s3.amazonaws.com/' + scrap.url+')'">
       </div>
     </div>

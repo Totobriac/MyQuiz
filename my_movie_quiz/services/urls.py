@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from services import actors_views, record_views, views
+from services import actors_views, record_views, trailer_views, views
 
 router = routers.DefaultRouter()
 router.register(r'picture', views.PictureViewSet)
@@ -25,13 +25,14 @@ urlpatterns = [
          actors_views.ActorsSearch.as_view(), name='actors_search'),
     path('add_picture/<str:actor>',
          actors_views.AddPicture.as_view(), name='actors_search'),
-    path('video_src/<str:video>', views.RetreiveSrc.as_view(), name='video_src'),
+    path('video_src/<str:video>',
+         trailer_views.RetreiveSrc.as_view(), name='video_src'),
     path('search_trailer/<str:title>/<str:date>',
-         views.TrailerSearch.as_view(), name='trailer_search'),
+         trailer_views.TrailerSearch.as_view(), name='trailer_search'),
     path('scrapbook/<str:video_src_id>/<str:timestamps>',
-         views.CreateScrapBook.as_view()),
+         trailer_views.CreateScrapBook.as_view()),
     path('gif/<str:video_src_id>/<str:timestamps>/<str:duration>',
-         views.CreateGif.as_view()),
+         trailer_views.CreateGif.as_view()),
     path('picturetag/<str:tag>/', views.TagPicsListAPIView.as_view()),
     path('album/<str:movie_name>/<str:year>/<str:composer>',
          views.AlbumSearch.as_view(), name='album_search'),

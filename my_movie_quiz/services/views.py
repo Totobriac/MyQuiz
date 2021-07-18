@@ -13,9 +13,8 @@ from dotenv import find_dotenv, load_dotenv
 from rest_framework import generics, viewsets
 from rest_framework.decorators import api_view
 
-from .models import Picture, Tags, VideoSource
-from .serializers import (PictureSerializer, TagsSerializer,
-                          VideoSourceSerializer)
+from .models import Picture, Tags
+from .serializers import PictureSerializer, TagsSerializer
 
 
 def id_generator(size=4, chars=string.digits):
@@ -123,90 +122,90 @@ class PersonSearch(View):
         return JsonResponse(flat_results, safe=False)
 
 
-class TrailerSearch(View):
+# class TrailerSearch(View):
 
-    def get(self, request, *args, **kwargs):
-        title = kwargs.get('title')
-        date = kwargs.get('date').split("-")[0]
-        query = title + " hd trailer " + date
+#     def get(self, request, *args, **kwargs):
+#         title = kwargs.get('title')
+#         date = kwargs.get('date').split("-")[0]
+#         query = title + " hd trailer " + date
 
-        r = requests.get("https://api.qwant.com/api/search/videos",
-                         params={
-                             'count': 1,
-                             'q': query,
-                             't': 'videos',
-                             'source': 'youtube',
-                             'safesearch': 1,
-                             'locale': 'en_US',
-                             'uiv': 4
-                         },
-                         headers={
-                             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
-                         }
-                         )
-        print(r)
-        response = r.json().get('data').get('result').get('items')
-        urls = [r.get('url') for r in response]
-        yt_id = urls[0].split('=')[1]
-        return JsonResponse({'trailer_id': yt_id}, safe=False)
-
-
-class RetreiveSrc(View):
-
-    def get(self, request, video):
-        video_src = getSrc(video)
-        serializer = VideoSourceSerializer(data={'video_src': video_src})
-        if serializer.is_valid():
-            source = serializer.save()
-        return JsonResponse({'id': source.id})
+#         r = requests.get("https://api.qwant.com/api/search/videos",
+#                          params={
+#                              'count': 1,
+#                              'q': query,
+#                              't': 'videos',
+#                              'source': 'youtube',
+#                              'safesearch': 1,
+#                              'locale': 'en_US',
+#                              'uiv': 4
+#                          },
+#                          headers={
+#                              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+#                          }
+#                          )
+#         print(r)
+#         response = r.json().get('data').get('result').get('items')
+#         urls = [r.get('url') for r in response]
+#         yt_id = urls[0].split('=')[1]
+#         return JsonResponse({'trailer_id': yt_id}, safe=False)
 
 
-class CreateScrapBook(View):
+# class RetreiveSrc(View):
 
-    def get(self, request, *args, **kwargs):
-        load_dotenv()
-        AWS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-        AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-        video_src_id = kwargs.get('video_src_id')
-        timestamp = kwargs.get('timestamps')
-        video_src = VideoSource.objects.get(pk=video_src_id)
-        video = subprocess.run(["ffmpeg", "-y", "-ss", timestamp, "-i", video_src.video_src, "-f",
-                               "image2", "-vframes", "1", "-filter:v", "scale='720:-1'", "-"], stdout=subprocess.PIPE)
-
-        client = boto3.client('s3',
-                              aws_access_key_id=AWS_KEY_ID,
-                              aws_secret_access_key=AWS_ACCESS_KEY)
-        file_id = id_generator()
-        file_path = "screenshot/" + \
-            "{}_pic_{}.jpeg".format(file_id, video_src_id)
-        client.put_object(Body=video.stdout, Bucket="moviepictures",
-                          Key=file_path, ContentType='image/JPEG')
-
-        return JsonResponse({'url': file_path})
+#     def get(self, request, video):
+#         video_src = getSrc(video)
+#         serializer = VideoSourceSerializer(data={'video_src': video_src})
+#         if serializer.is_valid():
+#             source = serializer.save()
+#         return JsonResponse({'id': source.id})
 
 
-class CreateGif(View):
+# class CreateScrapBook(View):
 
-    def get(self, request, *args, **kwargs):
-        load_dotenv()
-        AWS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-        AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-        video_src_id = kwargs.get('video_src_id')
-        timestamp = kwargs.get('timestamps')
-        duration = kwargs.get('duration')
-        video_src = VideoSource.objects.get(pk=video_src_id)
-        gif = subprocess.run(["ffmpeg", "-y", "-ss", timestamp, "-t", duration, "-i", video_src.video_src, "-f", "gif", "-filter_complex",
-                             "[0:v] fps=5,scale=480:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse", "-"], stdout=subprocess.PIPE)
+#     def get(self, request, *args, **kwargs):
+#         load_dotenv()
+#         AWS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+#         AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+#         video_src_id = kwargs.get('video_src_id')
+#         timestamp = kwargs.get('timestamps')
+#         video_src = VideoSource.objects.get(pk=video_src_id)
+#         video = subprocess.run(["ffmpeg", "-y", "-ss", timestamp, "-i", video_src.video_src, "-f",
+#                                "image2", "-vframes", "1", "-filter:v", "scale='720:-1'", "-"], stdout=subprocess.PIPE)
 
-        client = boto3.client('s3',
-                              aws_access_key_id=AWS_KEY_ID,
-                              aws_secret_access_key=AWS_ACCESS_KEY)
-        file_id = id_generator()
-        file_path = "gif/" + "{}_pic_{}.gif".format(file_id, video_src_id)
-        client.put_object(Body=gif.stdout, Bucket="moviepictures",
-                          Key=file_path, ContentType='image/gif')
+#         client = boto3.client('s3',
+#                               aws_access_key_id=AWS_KEY_ID,
+#                               aws_secret_access_key=AWS_ACCESS_KEY)
+#         file_id = id_generator()
+#         file_path = "screenshot/" + \
+#             "{}_pic_{}.jpeg".format(file_id, video_src_id)
+#         client.put_object(Body=video.stdout, Bucket="moviepictures",
+#                           Key=file_path, ContentType='image/JPEG')
 
-        return JsonResponse({'url': file_path})
+#         return JsonResponse({'url': file_path})
+
+
+# class CreateGif(View):
+
+#     def get(self, request, *args, **kwargs):
+#         load_dotenv()
+#         AWS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+#         AWS_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+#         video_src_id = kwargs.get('video_src_id')
+#         timestamp = kwargs.get('timestamps')
+#         duration = kwargs.get('duration')
+#         video_src = VideoSource.objects.get(pk=video_src_id)
+#         gif = subprocess.run(["ffmpeg", "-y", "-ss", timestamp, "-t", duration, "-i", video_src.video_src, "-f", "gif", "-filter_complex",
+#                              "[0:v] fps=5,scale=480:-1,split [a][b];[a] palettegen [p];[b][p] paletteuse", "-"], stdout=subprocess.PIPE)
+
+#         client = boto3.client('s3',
+#                               aws_access_key_id=AWS_KEY_ID,
+#                               aws_secret_access_key=AWS_ACCESS_KEY)
+#         file_id = id_generator()
+#         file_path = "gif/" + "{}_pic_{}.gif".format(file_id, video_src_id)
+#         client.put_object(Body=gif.stdout, Bucket="moviepictures",
+#                           Key=file_path, ContentType='image/gif')
+
+#         return JsonResponse({'url': file_path})
 
 
 class AlbumSearch(View):
@@ -290,7 +289,7 @@ class TagPicsListAPIView(generics.ListAPIView):
         return Picture.objects.filter(tag=kwarg_tag)
 
 
-def getSrc(video_id):
-    video_src = subprocess.run(["youtube-dl", "-g", "https://www.youtube.com/watch?v=" +
-                               video_id], encoding='utf-8', stdout=subprocess.PIPE)
-    return(video_src.stdout.splitlines()[0])
+# def getSrc(video_id):
+#     video_src = subprocess.run(["youtube-dl", "-g", "https://www.youtube.com/watch?v=" +
+#                                video_id], encoding='utf-8', stdout=subprocess.PIPE)
+#     return(video_src.stdout.splitlines()[0])

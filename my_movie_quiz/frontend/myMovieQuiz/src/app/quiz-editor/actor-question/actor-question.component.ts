@@ -31,7 +31,7 @@ export class ActorQuestionComponent implements OnInit {
   selectAct: number;
   subscription: Subscription;
   toolColor: string;
-  customSearch: string;
+  customSearch: string = "";
 
   constructor(private searchActor: SearchActor,
     private pixelActor: PixelActor,
@@ -107,8 +107,7 @@ export class ActorQuestionComponent implements OnInit {
   }
 
   submitForm(form: any) {
-    this.customSearch = form.actorSearch
-    this.searchActor.searchActor(this.actorName[1][this.selectAct] + " " + form.actorSearch, "/none")
+    this.searchActor.searchActor(this.actorName[1][this.selectAct] + " " + this.customSearch, "/none")
       .subscribe((r: any) => {
         this.urls = this.actor.urls
         this.urls[this.selectAct] = r

@@ -42,7 +42,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MusicQuestionComponent } from './quiz-editor/music-question/music-question.component';
 import { ToolMusicComponent } from './tool-box/tool-music/tool-music.component';
 import { MixerComponent } from './quiz-editor/mixer/mixer.component';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SearchComponent } from './quiz-editor/search/search.component';
 import { AnswerComponent } from './quiz-editor/answer/answer.component';
 import { ToolAnswerComponent } from './tool-box/tool-answer/tool-answer.component';
@@ -92,7 +92,7 @@ import { ToolAnswerComponent } from './tool-box/tool-answer/tool-answer.componen
     MatInputModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    MatRadioModule,    
+    MatRadioModule,
     ImageCropperModule,
     YouTubePlayerModule,
     AngularDraggableModule,
