@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from services import actors_views, record_views, trailer_views, views
+from services import actors_views, record_views, trailer_views, views, presigned_url
 
 router = routers.DefaultRouter()
 router.register(r'picture', views.PictureViewSet)
@@ -40,4 +40,6 @@ urlpatterns = [
          views.TrackSearch.as_view(), name='track_search'),
     path('sample/<str:query>', views.SampleSearch.as_view(), name='sample_search'),
     path('record', record_views.Record.as_view(), name='record'),
+    path('presigned_url/<str:object_name>',
+         presigned_url.GenerateAwsSignature.as_view(), name='presigned_url'),
 ]

@@ -26,6 +26,7 @@ export interface PlotTools {
   backColor: any;
   fontColor: any;
   borderColor: any;
-  palette: string;  
+  palette: string;
   card: string;
+  editable: boolean;
 }

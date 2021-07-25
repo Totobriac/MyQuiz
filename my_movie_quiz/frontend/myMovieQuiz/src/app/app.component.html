@@ -13,13 +13,55 @@
     </app-quiz-editor>
 
     <app-quiz-questions class="previews">
-    </app-quiz-questions>    
+    </app-quiz-questions>
 
     <app-tool-box class="tool" [@showTools]="showTool == true ? 'show' : 'hide'">
     </app-tool-box>
 
     <app-top-display class="top"></app-top-display>
 
+  </div>
+
+</div>
+
+<div class="answer">
+  <div id="answer" class="answer-card" [ngStyle]="{'background-image': 'url(' + getBackImg() + ')' }">
+    <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster" alt="">
+  </div>
+</div>
+
+<div class="question">
+  <div id="question" class="question-card" *ngIf="component == 1"
+    [ngStyle]="{'background-image': 'url(' + plotTools.background.highUrl + ')' }">
+    <text class="plot" [style.border-radius]="plotTools.corner.value"
+      [style.border]="plotTools.border.value + ' rgb(' + plotTools.borderColor + ')'"
+      [style.font-weight]="plotTools.weight" [contentEditable]="plotTools.editable"
+      [style.font-size.px]="plotTools.fontSize * 1.5" [style.color]="'rgb(' + plotTools.fontColor + ')'"
+      [style.font-family]="plotTools.fontFamily.value"
+      [style.background-color]="'rgba(' + plotTools.backColor + ',' + plotTools.opacity + ')'">
+      {{ movie.plot }}
+    </text>
+  </div>
+
+  <div id="question" class="question-card" *ngIf="component == 2"
+    [ngStyle]="{'background-image': 'url(' + actorTools.background.highUrl + ')' }">
+    <div *ngFor="let act of actor.pic; index as i" class="single-actor-card">
+      <div class="actor-card">
+        <div class="actor-card-picture">
+          <img [attr.src]="act.url" [ngClass]="actor.pixValue[i] > 0  ? 'pixelated' : 'actor-card-picture'"
+            crossorigin="anonymous" [id]="i">
+        </div>
+        <div class="nameContain">
+          <span [style.border-radius]="actorTools.corner.value"
+            [style.border]="actorTools.border.value + ' rgb(' + actorTools.borderColor + ')'"
+            [style.font-weight]="actorTools.weight" [style.color]="'rgb(' + actorTools.fontColor + ')'"
+            [style.font-family]="actorTools.fontFamily.value"
+            [style.background-color]="'rgba(' + actorTools.backColor + ',' + actorTools.opacity + ')'">
+            {{ actor.names[actor.display][i] }}
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>

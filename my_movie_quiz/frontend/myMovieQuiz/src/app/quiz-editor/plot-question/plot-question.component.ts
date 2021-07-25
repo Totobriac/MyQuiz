@@ -11,7 +11,7 @@ import { cardChange, flyingTool } from 'src/app/animations';
   selector: 'app-plot-question',
   templateUrl: './plot-question.component.html',
   styleUrls: ['./plot-question.component.css'],
-  animations: [ flyingTool, cardChange ]
+  animations: [flyingTool, cardChange]
 })
 
 export class PlotQuestionComponent implements OnInit {
@@ -34,7 +34,9 @@ export class PlotQuestionComponent implements OnInit {
   }
 
   enableEdition() {
-    this.editable == "false" ? this.editable = "true" : this.editable = "false"
+    this.tools.editable == false
+      ? this.plotTools.changeEditable(true)
+      : this.plotTools.changeEditable(false)
   }
 
   shuffle() {
@@ -43,7 +45,7 @@ export class PlotQuestionComponent implements OnInit {
 
   get style() {
     this.tools.card == "question"
-      ? this.toolColor = 'rgb(95,158,160)' 
+      ? this.toolColor = 'rgb(95,158,160)'
       : this.toolColor = 'rgb(215, 190, 130);'
     return this.sanitizer.bypassSecurityTrustStyle(`--toolcolor: ${this.toolColor}`);
   }

@@ -5,8 +5,8 @@
 
     <text class="plot" [style.border-radius]="tools.corner.value"
       [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'" [style.font-weight]="tools.weight"
-      [contentEditable]="editable" [style.font-size.px]="tools.fontSize" [style.color]="'rgb(' + tools.fontColor + ')'"
-      [style.font-family]="tools.fontFamily.value"
+      [contentEditable]="tools.editable" [style.font-size.px]="tools.fontSize"
+      [style.color]="'rgb(' + tools.fontColor + ')'" [style.font-family]="tools.fontFamily.value"
       [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
       {{ movie.plot }}
     </text>
@@ -22,11 +22,9 @@
 <div *ngIf="tools.palette == 'none'" class="question_toolbar">
 
   <div class="toolbar-button">
-    <button class="toolbar_btn" (click)="enableEdition()" *ngIf="tools.card === 'question'"
-      [@flyingTool]>Edit
+    <button class="toolbar_btn" (click)="enableEdition()" *ngIf="tools.card === 'question'" [@flyingTool]>Edit
     </button>
-    <button class="toolbar_btn" (click)="shuffle()" *ngIf="tools.card === 'question'"
-      [@flyingTool]>Shuffle
+    <button class="toolbar_btn" (click)="shuffle()" *ngIf="tools.card === 'question'" [@flyingTool]>Shuffle
     </button>
   </div>
 

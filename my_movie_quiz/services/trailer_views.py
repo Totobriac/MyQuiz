@@ -19,7 +19,7 @@ class TrailerSearch(View):
     def get(self, request, *args, **kwargs):
         title = kwargs.get('title')
         date = kwargs.get('date').split("-")[0]
-        query = title + " hd trailer " + date
+        query = title + " hd trailer " + date + ":youtube"
         load_dotenv()
         SERP_KEY = os.environ.get("SERP_KEY")
 
@@ -42,7 +42,7 @@ class TrailerSearch(View):
 
         r = requests.post('https://api.serpsbot.com/v2/google/videos',
                           json=payload, headers=headers)
-        print(r)
+        print(r.json())
         urls = r.json().get("data").get("results")
         yt_id = urls[0].get("url").split('=')[1]
 

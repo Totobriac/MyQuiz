@@ -54,6 +54,7 @@ export class ActorQuestionComponent implements OnInit {
       this.actorName[1].push(actor.name)
       this.actorName[2].push(actor.character)
     });
+    this.actorData.changeNames(this.actorName)
   }
 
   getPicturesList() {

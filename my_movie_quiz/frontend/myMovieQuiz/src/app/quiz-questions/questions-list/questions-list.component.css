@@ -2,4 +2,15 @@
   background-color: rgb(4, 113, 150);
   height: 100%;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.toolbar_btn {
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
 }

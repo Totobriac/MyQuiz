@@ -41,6 +41,7 @@ export class PlotToolsDataService {
     borderColor: "0, 0, 0",
     palette: "none",
     card: "question",
+    editable: false
   })
 
   currentPlotTools = this.plotTools.asObservable();
@@ -95,5 +96,9 @@ export class PlotToolsDataService {
 
   changeCard(card: string) {
     this.plotTools.next(Object.assign(this.plotTools.value, { card: card }))
+  }
+
+  changeEditable(editable: boolean) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { editable: editable }))
   }
 }

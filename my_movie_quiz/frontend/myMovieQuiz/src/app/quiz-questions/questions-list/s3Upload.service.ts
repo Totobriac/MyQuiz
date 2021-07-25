@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -10,10 +10,12 @@ export class s3UploadService {
   constructor(private http: HttpClient) { }
 
   getPresignedUrl(name: any) {
-    return this.http.get('http://127.0.0.1:8000/api/presigned_url/' + name)    
+    return this.http.get('http://127.0.0.1:8000/api/presigned_url/' + name)
   }
 
-  uploadFile(r: any, selectedFile: any) {
-    return this.http.put(r['url'], r['fields'], selectedFile)
+  uploadFile(url: any, file: any) {
+    return this.http.put(url, file, {
+      headers: new HttpHeaders({ 'Content-Type': 'image/jpeg' })
+    })
   }
 }
