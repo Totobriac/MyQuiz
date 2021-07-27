@@ -15,9 +15,7 @@ export class SlidesGenerator {
   async generateAnswer() {
     // const answer = document.querySelector('#answer') as HTMLImageElement;
     const answer = document.querySelector('#question') as HTMLImageElement;
-
     const canvas = await html2canvas(answer, { useCORS: true });
-
     const base64image = await canvas.toDataURL("image/png");
     this.blobImage = await this.dataURIToBlob(base64image);
     return this.blobImage;

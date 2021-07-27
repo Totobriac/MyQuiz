@@ -26,7 +26,7 @@
 
 <div class="answer">
   <div id="answer" class="answer-card" [ngStyle]="{'background-image': 'url(' + getBackImg() + ')' }">
-    <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster" alt="">
+    <img class="response-poster" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster" alt="">
   </div>
 </div>
 
@@ -36,14 +36,14 @@
     <text class="plot" [style.border-radius]="plotTools.corner.value"
       [style.border]="plotTools.border.value + ' rgb(' + plotTools.borderColor + ')'"
       [style.font-weight]="plotTools.weight" [contentEditable]="plotTools.editable"
-      [style.font-size.px]="plotTools.fontSize * 1.5" [style.color]="'rgb(' + plotTools.fontColor + ')'"
+      [style.font-size.px]="plotTools.fontSize * 1.8" [style.color]="'rgb(' + plotTools.fontColor + ')'"
       [style.font-family]="plotTools.fontFamily.value"
       [style.background-color]="'rgba(' + plotTools.backColor + ',' + plotTools.opacity + ')'">
-      {{ movie.plot }}
+      {{ plotTools.plot }}
     </text>
   </div>
 
-  <div id="question" class="question-card" *ngIf="component == 2"
+  <div id="question" class="question-card actor-question" *ngIf="component == 2"
     [ngStyle]="{'background-image': 'url(' + actorTools.background.highUrl + ')' }">
     <div *ngFor="let act of actor.pic; index as i" class="single-actor-card">
       <div class="actor-card">

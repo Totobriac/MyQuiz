@@ -23,7 +23,7 @@ export class ActorDataService {
     [{ picIndex: 0, index: 3, src: "" }]],
     pixValue: [0, 0, 0, 0],
     display: 1,
-    names: [["", "", "", ""], [], []]
+    names: [["", "", "", ""], ["", "", "", ""], ["", "", "", ""]]
   });
 
   currentActor = this.actor.asObservable();

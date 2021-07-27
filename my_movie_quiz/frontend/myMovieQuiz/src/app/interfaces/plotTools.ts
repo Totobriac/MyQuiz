@@ -29,4 +29,5 @@ export interface PlotTools {
   palette: string;
   card: string;
   editable: boolean;
+  plot: string;
 }

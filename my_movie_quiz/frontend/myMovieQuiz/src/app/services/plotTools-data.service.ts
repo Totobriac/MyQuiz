@@ -20,9 +20,11 @@ export class PlotToolsDataService {
     },
     background: {
       author_name: "none",
-      highUrl: "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg",
+      // highUrl: "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines.jpg",
+      highUrl: "https://images.pexels.com/photos/4011762/pexels-photo-4011762.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=853&w=1280",
       id: 1,
-      lowUrl: "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg",
+      // lowUrl: "https://moviepictures.s3.eu-west-3.amazonaws.com/assets/bobines_small.jpg",
+      lowUrl: "https://images.pexels.com/photos/4011762/pexels-photo-4011762.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=426&w=640",
       stock_name: "none"
     },
     backgrounds: [],
@@ -41,7 +43,8 @@ export class PlotToolsDataService {
     borderColor: "0, 0, 0",
     palette: "none",
     card: "question",
-    editable: false
+    editable: false,
+    plot: "empty"
   })
 
   currentPlotTools = this.plotTools.asObservable();
@@ -100,5 +103,9 @@ export class PlotToolsDataService {
 
   changeEditable(editable: boolean) {
     this.plotTools.next(Object.assign(this.plotTools.value, { editable: editable }))
+  }
+
+  changePlot(plot: string) {
+    this.plotTools.next(Object.assign(this.plotTools.value, { plot: plot }))
   }
 }

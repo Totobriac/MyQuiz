@@ -83,4 +83,5 @@ export class AppComponent {
       : backImg = this.answer.background.highUrl
     return (backImg)
   }
+
 }

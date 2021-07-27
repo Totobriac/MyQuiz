@@ -7,8 +7,8 @@
       [style.border]="tools.border.value + ' rgb(' + tools.borderColor + ')'" [style.font-weight]="tools.weight"
       [contentEditable]="tools.editable" [style.font-size.px]="tools.fontSize"
       [style.color]="'rgb(' + tools.fontColor + ')'" [style.font-family]="tools.fontFamily.value"
-      [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'">
-      {{ movie.plot }}
+      [style.background-color]="'rgba(' + tools.backColor + ',' + tools.opacity + ')'" (keyup)="onKey($event)">
+      {{ fetchPlot() }}
     </text>
 
   </div>
